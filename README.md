@@ -5,7 +5,7 @@ A temple run based game made by IMAC
 Here are the bash commands to build the project :
 
 ```bash
-cd ./build
+mkdir build && cd ./build
 cmake ../src
 make
 ```
