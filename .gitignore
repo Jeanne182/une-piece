@@ -33,3 +33,4 @@
 
 # Ignored built files
 build/*
+.vscode
