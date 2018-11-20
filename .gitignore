@@ -34,3 +34,4 @@
 # Ignored built files
 build/*
 src/third-party/assimp-4.1.0/*
+.vscode

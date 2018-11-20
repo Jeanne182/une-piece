@@ -1,5 +1,5 @@
-file(GLOB HEADER_FILES *.hpp)
-file(GLOB SRC_FILES *.cpp)
+file(GLOB_RECURSE HEADER_FILES *.hpp)
+file(GLOB_RECURSE SRC_FILES *.cpp)
 file(GLOB_RECURSE SHADER_FILES *.glsl)
 
 foreach(SRC_FILE ${SRC_FILES})
