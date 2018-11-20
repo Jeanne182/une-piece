@@ -16,8 +16,13 @@ Execute project :
 Exemple: `./UP/UP_SDLtemplate`
 
 ### References :
-**Github link**:
+***Github link***:
 https://github.com/mmmaxou/une-piece
 
-**Trello link**:
+***Trello link***:
 https://trello.com/b/YK74ga5e/une-piece
+
+***Assimp tutorial***:
+https://learnopengl.com/Model-Loading/Assimp
+https://learnopengl.com/Model-Loading/Mesh
+https://learnopengl.com/Model-Loading/Model

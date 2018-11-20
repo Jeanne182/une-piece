@@ -17,7 +17,9 @@ include_directories(${SDL_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLEW_INCLUDE_DIR}
 
 set(ALL_LIBRARIES glimac ${SDL_LIBRARY} ${OPENGL_LIBRARIES} ${GLEW_LIBRARY})
 
+# Adding libraries
 add_subdirectory(glimac)
+add_subdirectory(third-party/assimp-4.1.0)
 
 file(GLOB UP_DIRECTORY "UP*")
 

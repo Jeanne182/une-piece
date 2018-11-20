@@ -2,7 +2,9 @@
 #include <GL/glew.h>
 #include <iostream>
 #include "class/header/ImageLoader.hpp"
-
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 using namespace glimac;
 using namespace UP;
@@ -24,6 +26,9 @@ int main(int argc, char** argv) {
   /*********************************
    * HERE SHOULD COME THE INITIALIZATION CODE
    *********************************/
+  
+  Assimp::Importer importer;
+const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
   
   
 

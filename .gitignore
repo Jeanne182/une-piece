@@ -33,3 +33,4 @@
 
 # Ignored built files
 build/*
+third-party/assimp-4.1.0/*
