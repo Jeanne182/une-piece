@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <vector>
 #include <math.h>
+#include <glimac/common.hpp>
 #include <glimac/Program.hpp>
 #include <glimac/FilePath.hpp>
 #include <glimac/glm.hpp>
