@@ -12,9 +12,9 @@
 #include <glimac/Sphere.hpp>
 #include <glimac/TrackballCamera.hpp>
 #include <class/StaticImageLoader.hpp>
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+//#include <assimp/Importer.hpp>
+//#include <assimp/scene.h>
+//#include <assimp/postprocess.h>
 
 using namespace glimac;
 using namespace UP;
