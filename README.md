@@ -1,7 +1,7 @@
-# Une Piece
+# Une Piece 
 A temple run based game made by IMAC
 
-### Build : 
+### Build :
 Here are the bash commands to build the project :
 
 ```bash
