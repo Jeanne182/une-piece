@@ -1,26 +1,23 @@
-#ifndef ERROR_UP_HPP__
-#define ERROR_UP_HPP__
+#ifndef ERROR_IMAC_HPP__
+#define ERROR_IMAC_HPP__
 
 #include <exception>
 #include <string>
 
-namespace UP
-{
+#define AT __FILE__, __LINE__, __func__
 
-class Error : public std::exception
-{
-public:
-  Error();
-  Error(const int &level, const int &code, const std::string &message);
-  inline int getLevel() const { return _level; };
-  inline int getCode() const { return _code; };
-  const char *what() const noexcept;
-
-private:
-  int _level;
-  int _code;
-  std::string _message;
+class Error : public std::exception {  
+  public:
+    Error();
+    Error(const std::string &message, const char* file, const unsigned int line, const char* function);
+    ~Error();
+    const char* what() const noexcept;    
+  
+  private:
+    const std::string _message;
+    const char* _file;
+    const unsigned int _line;
+    const char* _function;
 };
 
-} // namespace UP
 #endif

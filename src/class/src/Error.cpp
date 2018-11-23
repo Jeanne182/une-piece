@@ -1,18 +1,17 @@
-#include "class/Error.hpp"
+#include "../include/class/Error.hpp"
 
 #include <string>
 #include <iostream>
 
-using namespace UP;
-
 Error::Error()
-  : _level(0), _code(0), _message("")
+  : _message(""), _file(""), _line(0), _function("")
 {};
-Error::Error(const int &level, const int &code, const std::string &message) 
-  : _level(level), _code(code), _message(message)
+Error::Error(const std::string &message, const char* file, const unsigned int line, const char* function)
+  : _message(message), _file(file), _line(line), _function(function)
 {};
+Error::~Error() {};
 const char* Error::what() const noexcept {
-  
-  std::cerr << std::string("Error::At main.cpp:\n  Niveau: "+std::to_string(_level)+"\n  Code: "+std::to_string(_code)+"\n  Message: "+_message).c_str() << std::endl;
-  return "";
+  std::string message = std::string( "Error At: " + std::string(_file) + ":" + std::to_string(_line) + "::" + std::string(_function) +"\n  Message: " + _message );
+  std::cout << message << std::endl;
+  return message.c_str();
 };

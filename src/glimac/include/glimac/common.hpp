@@ -2,6 +2,7 @@
 
 #include <GL/glew.h>
 #include "glm.hpp"
+#include <string>
 
 namespace glimac {
 
@@ -33,6 +34,12 @@ struct Vertex2DUV {
     coord.x = c.x;
     coord.y = c.y;
   };
+};
+
+struct Texture {
+  unsigned int id;
+  std::string type;
+  std::string path;
 };
 
 }

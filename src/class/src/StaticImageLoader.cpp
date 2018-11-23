@@ -12,10 +12,6 @@
 namespace UP
 {
 
-
-
-
-
 glm::mat3 translate(const float tx, const float ty) {
   return glm::mat3(
     glm::vec3(1, 0, 0),
@@ -39,12 +35,6 @@ glm::mat3 rotate(const float a) {
     glm::vec3(0, 0, 1)    
   );
 }
-
-
-
-
-
-
 
 
 /**
@@ -210,7 +200,7 @@ void StaticImageLoader::displayImage(const std::string &imageName)
   _it = _images.find(imageName);
   if (_it == _images.end())
   {
-    throw Error(0, 0, std::string("Error: StaticImageLoader.cpp::displayImage : imageName given not in records"));
+    throw Error(std::string("imageName given not in records"), AT);
   }
 
   _program._Program.use();
@@ -236,7 +226,7 @@ void StaticImageLoader::setScaleVector(const std::string &imageName, const float
 {
   _it = _images.find(imageName);
   if (_it == _images.end())
-    throw Error(0, 0, std::string("Error: StaticImageLoader.cpp::setTranslateMatrix : imageName given not in records"));
+    throw Error(std::string("imageName given not in records"), AT);
   _it->second->_scale = scale;
   computeMatrix(imageName);
 }
@@ -245,7 +235,7 @@ void StaticImageLoader::setTranslateVector(const std::string &imageName, const f
 {
   _it = _images.find(imageName);
   if (_it == _images.end())
-    throw Error(0, 0, std::string("Error: StaticImageLoader.cpp::setTranslateMatrix : imageName given not in records"));
+    throw Error(std::string("imageName given not in records"), AT);
 
   _it->second->_x = x;
   _it->second->_y = y;
