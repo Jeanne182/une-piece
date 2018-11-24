@@ -33,5 +33,5 @@
 
 # Ignored built files
 build/*
-src/libs/assimp-4.1.0
+src/libs/*
 .vscode
