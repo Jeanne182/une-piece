@@ -1,5 +1,5 @@
-#include "class/Model.hpp"
-#include "class/Error.hpp"
+#include <class/Model.hpp>
+#include <class/Error.hpp>
 //#include <glimac/Program.hpp>
 #include <glimac/common.hpp>
 //#include <glimac/Image.hpp>
@@ -7,33 +7,35 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <SOIL.h>
 
 using namespace glimac;
 
 namespace UP
 {
 
-Model::Model(const std::string &path)
+Model::Model(const std::string &path, const std::map<std::string, GLint> &textureLocation)
+    : _texturesLocation(textureLocation)
 {
   loadModel(path);
-}
-void Model::draw() const
-{
-  for (size_t i = 0; i < _meshes.size(); i++)
-    _meshes[i].draw();
 }
 void Model::loadModel(const std::string &path)
 {
   Assimp::Importer importer;
-  const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals);
+  //const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals);
+  const aiScene *scene = importer.ReadFile(path,
+                                           aiProcess_CalcTangentSpace |
+                                               aiProcess_Triangulate |
+                                               aiProcess_JoinIdenticalVertices |
+                                               aiProcess_SortByPType);
 
   if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
-  {
     throw Error(std::string("Error Assimp: ") + importer.GetErrorString(), AT);
-  }
 
   _directory = path.substr(0, path.find_last_of('/'));
   processNode(scene->mRootNode, scene);
+
+  std::cout << "Amount of meshes : " << _meshes.size() << std::endl;
 }
 
 void Model::processNode(const aiNode *node, const aiScene *scene)
@@ -47,10 +49,9 @@ void Model::processNode(const aiNode *node, const aiScene *scene)
 
   // Then procceed all of it's children
   for (size_t i = 0; i < node->mNumChildren; i++)
-  {
     processNode(node->mChildren[i], scene);
-  }
 };
+
 Mesh Model::processMesh(const aiMesh *mesh, const aiScene *scene)
 {
   std::vector<ShapeVertex> vertices;
@@ -97,28 +98,62 @@ Mesh Model::processMesh(const aiMesh *mesh, const aiScene *scene)
   }
 
   // Process Textures
-  /*
   if (mesh->mMaterialIndex >= 0)
   {
     aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
-    std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+    std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "uTexture_diffuse");
     textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-    std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+    std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "uTexture_specular");
     textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
   }
-  */
+
+  return Mesh(vertices, indices, textures, _texturesLocation);
 };
 
-std::vector<Texture> loadMaterialTextures(const aiMaterial *mat, const aiTextureType &type, const std::string &typeName)
+GLint TextureFromFile(const char *path, std::string directory)
 {
-  /*
+  //Generate texture ID and load texture data
+  std::string filename = std::string(path);
+  filename = directory + '/' + filename;
+
+  GLuint textureID;
+  glGenTextures(1, &textureID);
+
+  int width, height;
+  unsigned char *image = SOIL_load_image(filename.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
+  if (!image)
+  {
+    throw Error(std::string("Texture failed to load at path: ") + filename, AT);
+  }
+
+  // Assign texture to ID
+  glBindTexture(GL_TEXTURE_2D, textureID);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+  glGenerateMipmap(GL_TEXTURE_2D);
+
+  // Parameters
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+  // Unbind and quit
+  glBindTexture(GL_TEXTURE_2D, 0);
+  SOIL_free_image_data(image);
+  return textureID;
+}
+
+std::vector<Texture> Model::loadMaterialTextures(const aiMaterial *mat, const aiTextureType &type, const std::string &typeName)
+{
   std::vector<Texture> textures;
-  for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
+  for (size_t i = 0; i < mat->GetTextureCount(type); i++)
   {
     aiString str;
     mat->GetTexture(type, i, &str);
+
+    // check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
     bool skip = false;
-    for (unsigned int j = 0; j < _textures_loaded.size(); j++)
+    for (size_t j = 0; j < _textures_loaded.size(); j++)
     {
       if (std::strcmp(_textures_loaded[j].path.data(), str.C_Str()) == 0)
       {
@@ -138,32 +173,11 @@ std::vector<Texture> loadMaterialTextures(const aiMaterial *mat, const aiTexture
     }
   }
   return textures;
-  */
 }
 
-GLint TextureFromFile(const char *path, std::string directory)
+void Model::draw() const
 {
-  /*
-  //Generate texture ID and load texture data
-  std::string filename = std::string(path);
-  filename = directory + '/' + filename;
-  GLuint textureID;
-  glGenTextures(1, &textureID);
-  int width, height;
-  unsigned char *image = SOIL_load_image(filename.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
-  // Assign texture to ID
-  glBindTexture(GL_TEXTURE_2D, textureID);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-  glGenerateMipmap(GL_TEXTURE_2D);
-
-  // Parameters
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-  glBindTexture(GL_TEXTURE_2D, 0);
-  SOIL_free_image_data(image);
-  return textureID;
-  */
+  for (size_t i = 0; i < _meshes.size(); i++)
+    _meshes[i].draw();
 }
 } // namespace UP

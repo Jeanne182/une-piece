@@ -1,5 +1,5 @@
-#ifndef ERROR_IMAC_HPP__
-#define ERROR_IMAC_HPP__
+#ifndef ERROR_UP_HPP__
+#define ERROR_UP_HPP__
 
 #include <exception>
 #include <string>
