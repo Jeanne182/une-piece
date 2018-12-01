@@ -1,5 +1,5 @@
-#include "class/StaticImageLoader.hpp"
-#include "class/Error.hpp"
+#include <class/StaticImageLoader.hpp>
+#include <class/Error.hpp>
 #include <glimac/Program.hpp>
 #include <glimac/common.hpp>
 #include <glimac/Image.hpp>
@@ -43,8 +43,7 @@ glm::mat3 rotate(const float a) {
    */
 StaticImageLoader::StaticImageLoader()
 {
-  std::cerr << "ERROR at creating StaticImageLoader object: No argument Given" << std::endl;
-  exit(0);
+  throw Error("ERROR at creating StaticImageLoader object: No argument Given", AT);
 }
 
 /**
@@ -76,7 +75,7 @@ StaticImageLoader::StaticImageLoader(const FilePath &appPath)
   glBindVertexArray(0);
 
   // Création du programme
-  _program._Program = loadProgram(
+  _program._Program = glimac::loadProgram(
       appPath.dirPath() + "shaders/tex2D.vs.glsl",
       appPath.dirPath() + "shaders/tex2D.fs.glsl");
   _program._uTexture = glGetUniformLocation(_program._Program.getGLId(), "uTexture");

@@ -20,22 +20,21 @@ include_directories(class/include glimac/include third-party/include)
 
 # Include SOIL
 set(SOIL_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/libs/COMPILED_SOIL)
-link_directories(${SOIL_DIRECTORY}/lib/)
-find_library(SOIL SOIL ${SOIL_DIRECTORY})
+link_directories(${SOIL_DIRECTORY})
 include_directories(${SOIL_DIRECTORY})
+find_library(SOIL SOIL ${SOIL_DIRECTORY})
 
 # Include ASSIMP
-set(ASSIMP_LIBRARY_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/libs/assimp-4.1.0/build/code/)
-set(ASSIMP_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/libs/assimp-4.1.0/include/ ${CMAKE_CURRENT_SOURCE_DIR}/libs/assimp-4.1.0/build/include/)
-include_directories(${ASSIMP_INCLUDE_DIRS})
-link_directories(${ASSIMP_LIBRARY_DIRS})
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libs/assimp-4.1.0)
-
-set(ALL_LIBRARIES glimac class assimp SOIL ${SDL_LIBRARY} ${OPENGL_LIBRARIES} ${GLEW_LIBRARY})
+set(ASSIMP_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/libs/COMPILED_ASSIMP)
+link_directories(${ASSIMP_DIRECTORY})
+include_directories(${ASSIMP_DIRECTORY})
+find_library(assimp assimp ${ASSIMP_DIRECTORY})
 
 # Adding libraries
 add_subdirectory(class)
 add_subdirectory(glimac)
+
+set(ALL_LIBRARIES class glimac assimp SOIL ${SDL_LIBRARY} ${OPENGL_LIBRARIES} ${GLEW_LIBRARY})
 
 file(GLOB UP_DIRECTORY "UP*")
 
