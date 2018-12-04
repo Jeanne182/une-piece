@@ -45,12 +45,6 @@ class StaticImageLoader
 {
 public:
   /// Constructor and destructor
-  
-  /**
-   * @brief Construct a new Image Loader:: Image Loader object
-   * DO NOT USE 
-   */
-  StaticImageLoader();
 
   /**
    * @brief Construct a new Image Loader:: Image Loader object
@@ -91,6 +85,14 @@ public:
   void sendVertexBuffer();
   
 private:
+  
+  /**
+   * @brief Construct a new Image Loader:: Image Loader object
+   * DO NOT USE 
+   */
+  StaticImageLoader();
+    
+    
   /// Methods
   
   /**

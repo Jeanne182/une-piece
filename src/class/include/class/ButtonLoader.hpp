@@ -16,12 +16,6 @@ class ButtonLoader : public StaticImageLoader
 {
 public:
   /// Constructor and destructor
-  
-  /**
-   * @brief Construct a new Button Loader:: Button Loader object
-   * DO NOT USE 
-   */
-  ButtonLoader();
 
   /**
    * @brief Construct a new Button Loader:: Button Loader object
@@ -39,8 +33,15 @@ public:
   /// Methods
   void mouseHover(const SDL_Event &e);
   
-};
   
+private:
+  /**
+   * @brief Construct a new Button Loader:: Button Loader object
+   * DO NOT USE 
+   */
+  ButtonLoader();
+};
+    
 }
 
 #endif 
