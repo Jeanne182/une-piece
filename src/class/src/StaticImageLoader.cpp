@@ -33,11 +33,6 @@ glm::mat3 rotate(const float a) {
     glm::vec3(0, 0, 1)    
   );
 }
-
-StaticImageLoader::StaticImageLoader()
-{
-  throw Error("ERROR at creating StaticImageLoader object: No argument Given", AT);
-}
   
 StaticImageLoader::StaticImageLoader(const FilePath &appPath)
     : _appPath(appPath)

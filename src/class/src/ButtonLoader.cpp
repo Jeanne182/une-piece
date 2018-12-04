@@ -12,11 +12,6 @@
 
 namespace UP
 {
-
-ButtonLoader::ButtonLoader()
-{
-  throw Error("ERROR at creating ButtonLoader object: No argument Given", AT);
-}
   
 ButtonLoader::ButtonLoader(const FilePath &appPath)
   : StaticImageLoader(appPath)

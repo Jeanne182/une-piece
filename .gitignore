@@ -31,6 +31,6 @@
 *.app
 
 # Ignored built files
-build/*
+build/* 
 .vscode
 temp/*
