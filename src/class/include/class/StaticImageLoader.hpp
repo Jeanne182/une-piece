@@ -23,7 +23,7 @@ struct StaticImage
   std::vector<Vertex2DUV> _vertices;
   glm::mat3 _modelMatrix;
   glm::mat3 _computedMatrix;
-  float _x, _y, _scale;  
+  float _x, _y, _scale;
 };
 
 struct StaticImageProgram
@@ -51,7 +51,7 @@ public:
    * 
    * @param appPath 
    */
-  StaticImageLoader(const FilePath &appPath);
+  StaticImageLoader(const FilePath &appPath, const int &width, const int &height);
   
   /**
    * @brief Destroy the Image Loader:: Image Loader object
@@ -69,7 +69,7 @@ public:
    * @param y
    * @param scale
    */
-  void addImage(const std::string &filename, const float x=0.f, const float y=0.f, const float scale=1.0f);
+  void addImage(const std::string &filename, const float &x=0.f, const float &y=0.f, const float &scale=1.0f);
   
   /**
    * @brief Display 1 image
@@ -91,7 +91,6 @@ private:
    * DO NOT USE 
    */
   StaticImageLoader();
-    
     
   /// Methods
   
@@ -120,13 +119,25 @@ private:
   void setTranslateVector(const std::string& imageName, const float x, const float y);
   
   
+protected:  
+  /// Methods
+  /**
+   * @brief Setup the Square, and update the IBO
+   * 
+   * @param filename
+   * @param x
+   * @param y
+   * @param scale
+   */
+  void setupImage(const std::string &filename, const float &x, const float &y, const float &scale, StaticImage* img);
+  
   /// Attributes
-protected:
   FilePath _appPath;
   StaticImageProgram _program;
   std::map<const std::string, StaticImage *> _images;
   std::map<const std::string, StaticImage *>::iterator _it;
   GLuint _vbo, _vao, _ibo;
+  const int _window_width, _window_height;
   
 };
   

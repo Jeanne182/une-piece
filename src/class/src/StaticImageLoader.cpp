@@ -8,6 +8,7 @@
 #include <string>
 #include <iostream>
 #include <exception>
+#include <cassert>
 
 namespace UP
 {
@@ -34,8 +35,8 @@ glm::mat3 rotate(const float a) {
   );
 }
   
-StaticImageLoader::StaticImageLoader(const FilePath &appPath)
-    : _appPath(appPath)
+StaticImageLoader::StaticImageLoader(const FilePath &appPath, const int &width, const int &height)
+    : _appPath(appPath), _window_width(width), _window_height(height)
 {
   // Creation des données
   glGenBuffers(1, &_vbo);
@@ -73,7 +74,7 @@ StaticImageLoader::~StaticImageLoader()
   }
 }
 
-void StaticImageLoader::addImage(const std::string &filename, const float x, const float y, const float scale)
+void StaticImageLoader::addImage(const std::string &filename, const float &x, const float &y, const float &scale)
 {
   StaticImage *img = new StaticImage;
 
@@ -81,12 +82,7 @@ void StaticImageLoader::addImage(const std::string &filename, const float x, con
   img->_filename = filename;
   img->_imgPtr = loadImage(_appPath.dirPath() + "../../src/assets/textures" + (img->_filename + ".png"));
   assert(img->_imgPtr != nullptr);
-
-  // Add the coord
-  img->_x = x;
-  img->_y = y;
-  img->_scale = scale;
-
+  
   // Create and bind the Texture
   img->_texture = new GLuint;
   glGenTextures(1, img->_texture);
@@ -104,6 +100,17 @@ void StaticImageLoader::addImage(const std::string &filename, const float x, con
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   glBindTexture(GL_TEXTURE_2D, 0);
+  
+  // Setup the Square, and update the IBO
+  setupImage(filename, x, y, scale, img);
+}
+  
+void StaticImageLoader::setupImage(const std::string &filename, const float &x, const float &y, const float &scale, StaticImage* img) 
+{
+  // Add the coord
+  img->_x = x;
+  img->_y = y;
+  img->_scale = scale;
 
   // Create the matching square
   img->_vertices.push_back(Vertex2DUV(glm::vec2(1.f, 1.f), glm::vec2(1.0f, 1.f)));
@@ -113,7 +120,6 @@ void StaticImageLoader::addImage(const std::string &filename, const float x, con
 
   // Create the matrix
   float ratio = float(img->_imgPtr->getHeight()) / float(img->_imgPtr->getWidth());
-  //std::cout << "Ratio: " << ratio << std::endl;
   img->_modelMatrix = glm::mat3(glm::scale(glm::mat4(1.0f), glm::vec3(1.0f / ratio, -1.0f, 1.0f)));
 
   // Add the new image
@@ -130,14 +136,14 @@ void StaticImageLoader::addImage(const std::string &filename, const float x, con
                indices,
                GL_STATIC_DRAW);
   glBindVertexArray(_vao);
-  // => On bind l'IBO sur GL_ELEMENT_ARRAY_BUFFER; puisqu'un VAO est actuellement bindé,
-  // cela a pour effet d'enregistrer l'IBO dans le VAO
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ibo);
 
   // Unbind
   glBindVertexArray(0);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
 }
+  
   
 void StaticImageLoader::sendVertexBuffer()
 {
@@ -173,11 +179,9 @@ void StaticImageLoader::displayImage(const std::string &imageName)
   // On charge la bonne texture
   glBindTexture(GL_TEXTURE_2D, *(img->_texture));
   glUniform1i(_program._uTexture, 0);
-  //modelMatrix = rotate(time) * translate(0.5f, 0.5f) * rotate(-time) * scale(0.25f, 0.25f);
   glUniformMatrix3fv(_program._uModelMatrix, 1, GL_FALSE, glm::value_ptr(img->_computedMatrix));
 
-  // => On utilise glDrawElements à la place de glDrawArrays
-  // Cela indique à OpenGL qu'il doit utiliser l'IBO enregistré dans le VAO
+  // DRAWING
   glBindVertexArray(_vao);
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
   glBindVertexArray(0);

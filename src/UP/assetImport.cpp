@@ -74,7 +74,7 @@ main(int argc, char **argv)
     std::cerr << glewGetErrorString(glewInitError) << std::endl;
     return EXIT_FAILURE;
   }
-
+    
   const FilePath applicationPath(argv[0]);
   AssetProgram assetProgram(applicationPath);
   assetProgram._Program.use();

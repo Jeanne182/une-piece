@@ -23,7 +23,9 @@ using namespace UP;
 int main(int argc, char **argv)
 {
   // Initialize SDL and open a window
-  SDLWindowManager windowManager(800, 800, "Une Piece");
+  const int WINDOW_WIDTH = 800;
+  const int WINDOW_HEIGHT = 800;
+  SDLWindowManager windowManager(WINDOW_WIDTH, WINDOW_HEIGHT, "Une Piece");
 
   // Initialize glew for OpenGL3+ support
   GLenum glewInitError = glewInit();
@@ -41,18 +43,12 @@ int main(int argc, char **argv)
   /*********************************
    * HERE SHOULD COME THE INITIALIZATION CODE
    *********************************/
-  ButtonLoader buttons(applicationPath);
+  ButtonLoader buttons(applicationPath, WINDOW_WIDTH, WINDOW_HEIGHT);
   
-  /*
-  Assimp::Importer importer;
-const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
-*/
   // Load the images
   try
   {
-    buttons.addImage(std::string("Title"), -0.8f, 0.8f, 0.4f);
-    buttons.addImage(std::string("Play"), -0.3f, 0.1f, 0.3f);
-    buttons.addImage(std::string("Exit"), -0.3f, -0.3f, 0.3f);
+    buttons.addImage("Title", -1.f, 1.f, 0.4f);
   } 
   catch ( std::exception& e ) 
   {
@@ -91,13 +87,12 @@ const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess
     glClear(GL_COLOR_BUFFER_BIT);
     try 
     {
-      buttons.displayImage(std::string("Exit"));
-      buttons.displayImage(std::string("Play"));
-      buttons.displayImage(std::string("Title"));
+      buttons.displayImage("Title");
     }
     catch ( std::exception& e ) 
     {
       std::cout << e.what() << std::endl;
+      return false;
     }
 
     // Update the display
