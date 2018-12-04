@@ -1,6 +1,8 @@
 #ifndef MODEL_UP_HPP__
 #define MODEL_UP_HPP__
 
+#pragma once
+
 #include <map>
 #include <vector>
 #include <glimac/common.hpp>

@@ -1,6 +1,8 @@
 #ifndef MESH_UP_HPP__
 #define MESH_UP_HPP__
 
+#pragma once
+
 #include <vector>
 #include <map>
 #include <glimac/common.hpp>

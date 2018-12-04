@@ -1,4 +1,6 @@
-#version 330
+#version 300 es
+
+precision highp float;
 
 // Attributs de sommet
 layout(location = 0) in vec3 aVertexPosition; // Position

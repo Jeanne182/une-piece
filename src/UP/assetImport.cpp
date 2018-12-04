@@ -87,7 +87,7 @@ main(int argc, char **argv)
    *********************************/
 
   Model model(applicationPath.dirPath() + "../../src/assets/models/nanosuit/nanosuit.obj", assetProgram.uMapTextures);
-  //Model model(applicationPath.dirPath() + "../../src/assets/models/monkey.obj", assetProgram.uMapTextures);
+  //Model model(applicationPath.dirPath() + "../../src/assets/models/cube.obj", assetProgram.uMapTextures);
 
   glm::mat4 ProjMatrix, MVMatrix, NormalMatrix;
   ProjMatrix = glm::perspective(glm::radians(70.0f), (float)(WINDOW_WIDTH / WINDOW_HEIGTH), 0.1f, 100.f);

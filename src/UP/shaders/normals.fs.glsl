@@ -1,4 +1,6 @@
-#version 330
+#version 300 es
+
+precision highp float;
 
 // Entrées du shader
 in vec3 vPosition_vs; // Position du sommet transformé dans l'espace View

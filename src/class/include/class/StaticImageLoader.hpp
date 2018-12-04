@@ -1,6 +1,8 @@
 #ifndef STATIC_IMAGE_LOADER_UP_HPP__
 #define STATIC_IMAGE_LOADER_UP_HPP__
 
+#pragma once
+
 #include <glimac/Program.hpp>
 #include <glimac/common.hpp>
 #include <glimac/Image.hpp>
@@ -43,27 +45,89 @@ class StaticImageLoader
 {
 public:
   /// Constructor and destructor
+  
+  /**
+   * @brief Construct a new Image Loader:: Image Loader object
+   * DO NOT USE 
+   */
   StaticImageLoader();
+
+  /**
+   * @brief Construct a new Image Loader:: Image Loader object
+   * 
+   * @param appPath 
+   */
   StaticImageLoader(const FilePath &appPath);
+  
+  /**
+   * @brief Destroy the Image Loader:: Image Loader object
+   * 
+   */
   ~StaticImageLoader();
 
   /// Methods
+  
+  /**
+   * @brief Add an image to the Loader
+   * 
+   * @param filename
+   * @param x
+   * @param y
+   * @param scale
+   */
   void addImage(const std::string &filename, const float x=0.f, const float y=0.f, const float scale=1.0f);
-  void sendVertexBuffer();
+  
+  /**
+   * @brief Display 1 image
+   * 
+   * @param imageName
+   */
   void displayImage(const std::string &imageName);
-  void setScaleVector(const std::string& imageName, const float& scale);
-  void setTranslateVector(const std::string& imageName, const float x, const float y);
-  void computeMatrix(const std::string &imageName);
+
+  /**
+   * @brief Send VBO to GPU
+   * 
+   */
+  void sendVertexBuffer();
   
 private:
+  /// Methods
+  
+  /**
+   * @brief Compute the final matrix to be used for the GPU
+   * 
+   * @param imageName
+   */
+  void computeMatrix(const std::string &imageName);
+  
+  /**
+   * @brief Set the Scaling Vector to use far a loaded image
+   *
+   * @param imageName
+   * @param scale
+   */
+  void setScaleVector(const std::string& imageName, const float& scale);
+  
+  /**
+   * @brief Set the Translate Vector to use far a loaded image
+   *
+   * @param imageName
+   * @param x
+   * @param y
+   */
+  void setTranslateVector(const std::string& imageName, const float x, const float y);
+  
+  
+  /// Attributes
+protected:
   FilePath _appPath;
   StaticImageProgram _program;
   std::map<const std::string, StaticImage *> _images;
   std::map<const std::string, StaticImage *>::iterator _it;
-  GLuint _vbo;
-  GLuint _vao;
-  GLuint _ibo;
+  GLuint _vbo, _vao, _ibo;
+  
 };
+  
 } // namespace UP
 
 #endif

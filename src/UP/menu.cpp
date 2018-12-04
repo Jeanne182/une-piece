@@ -12,6 +12,7 @@
 #include <glimac/Sphere.hpp>
 #include <glimac/TrackballCamera.hpp>
 #include <class/StaticImageLoader.hpp>
+#include <class/ButtonLoader.hpp>
 //#include <assimp/Importer.hpp>
 //#include <assimp/scene.h>
 //#include <assimp/postprocess.h>
@@ -40,7 +41,7 @@ int main(int argc, char **argv)
   /*********************************
    * HERE SHOULD COME THE INITIALIZATION CODE
    *********************************/
-  StaticImageLoader staticImages(applicationPath);
+  ButtonLoader buttons(applicationPath);
   
   /*
   Assimp::Importer importer;
@@ -49,15 +50,15 @@ const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess
   // Load the images
   try
   {
-    staticImages.addImage(std::string("Title"), -0.8f, 0.8f, 0.4f);
-    staticImages.addImage(std::string("Play"), -0.3f, 0.1f, 0.3f);
-    staticImages.addImage(std::string("Exit"), -0.3f, -0.3f, 0.3f);
+    buttons.addImage(std::string("Title"), -0.8f, 0.8f, 0.4f);
+    buttons.addImage(std::string("Play"), -0.3f, 0.1f, 0.3f);
+    buttons.addImage(std::string("Exit"), -0.3f, -0.3f, 0.3f);
   } 
   catch ( std::exception& e ) 
   {
     std::cerr << e.what() << std::endl;
   }
-  staticImages.sendVertexBuffer();
+  buttons.sendVertexBuffer();
 
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -73,6 +74,14 @@ const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess
       {
         done = true; // Leave the loop after this iteration
       }
+      switch(e.type) {
+
+        case SDL_MOUSEMOTION: {
+          buttons.mouseHover(e);
+        }
+        break;
+          
+      }
     }
 
     /*********************************
@@ -82,9 +91,9 @@ const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess
     glClear(GL_COLOR_BUFFER_BIT);
     try 
     {
-      staticImages.displayImage(std::string("Exit"));
-      staticImages.displayImage(std::string("Play"));
-      staticImages.displayImage(std::string("Title"));
+      buttons.displayImage(std::string("Exit"));
+      buttons.displayImage(std::string("Play"));
+      buttons.displayImage(std::string("Title"));
     }
     catch ( std::exception& e ) 
     {

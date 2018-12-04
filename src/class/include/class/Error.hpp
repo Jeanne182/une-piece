@@ -1,6 +1,8 @@
 #ifndef ERROR_UP_HPP__
 #define ERROR_UP_HPP__
 
+#pragma once
+
 #include <exception>
 #include <string>
 

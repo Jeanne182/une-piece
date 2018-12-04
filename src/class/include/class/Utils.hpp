@@ -1,6 +1,8 @@
 #ifndef UTILS_UP_HPP__
 #define UTILS_UP_HPP__
 
+#pragma once
+
 #include <GL/glew.h>
 #include <string>
 #include <iostream>

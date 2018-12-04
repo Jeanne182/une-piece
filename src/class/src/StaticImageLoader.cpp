@@ -19,7 +19,6 @@ glm::mat3 translate(const float tx, const float ty) {
     glm::vec3(tx, ty, 1)
   );
 }
-
 glm::mat3 scale(const float sx, const float sy) {
   return glm::mat3(
     glm::vec3(sx, 0, 0),
@@ -27,7 +26,6 @@ glm::mat3 scale(const float sx, const float sy) {
     glm::vec3(0, 0, 1)
   );
 }
-
 glm::mat3 rotate(const float a) {
   return glm::mat3(
     glm::vec3(cos(a), sin(a), 0),
@@ -36,21 +34,11 @@ glm::mat3 rotate(const float a) {
   );
 }
 
-
-/**
-   * @brief Construct a new Image Loader:: Image Loader object
-   * DO NOT USE 
-   */
 StaticImageLoader::StaticImageLoader()
 {
   throw Error("ERROR at creating StaticImageLoader object: No argument Given", AT);
 }
-
-/**
- * @brief Construct a new Image Loader:: Image Loader object
- * 
- * @param appPath 
- */
+  
 StaticImageLoader::StaticImageLoader(const FilePath &appPath)
     : _appPath(appPath)
 {
@@ -82,24 +70,14 @@ StaticImageLoader::StaticImageLoader(const FilePath &appPath)
   _program._uModelMatrix = glGetUniformLocation(_program._Program.getGLId(), "uModelMatrix");
 }
 
-/**
- * @brief Destroy the Image Loader:: Image Loader object
- * 
- */
 StaticImageLoader::~StaticImageLoader()
 {
-
-  /* POUR CHAQUE IMAGE :
-  delete img->_texture;
-  delete img;
-  */
+  for (_it=_images.begin(); _it!=_images.end(); ++_it) {
+    delete _it->second->_texture;
+    delete _it->second;
+  }
 }
 
-/**
- * @brief Ajoute une image au Loader
- * 
- * @param filename 
- */
 void StaticImageLoader::addImage(const std::string &filename, const float x, const float y, const float scale)
 {
   StaticImage *img = new StaticImage;
@@ -165,11 +143,7 @@ void StaticImageLoader::addImage(const std::string &filename, const float x, con
   glBindVertexArray(0);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
-
-/**
- * @brief Envoi le VBO au GPU
- * 
- */
+  
 void StaticImageLoader::sendVertexBuffer()
 {
 
@@ -190,10 +164,6 @@ void StaticImageLoader::sendVertexBuffer()
   glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-/**
- * @brief Affiche 1 Image
- * 
- */
 void StaticImageLoader::displayImage(const std::string &imageName)
 {
   _it = _images.find(imageName);
