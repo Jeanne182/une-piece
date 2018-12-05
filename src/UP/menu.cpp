@@ -49,8 +49,9 @@ int main(int argc, char **argv)
   // Load the images
   try
   {
-    buttons.addImage("Title", -1.f, 0.f, 0.4f);
-    staticImages.addImage("Title", -1.f, 1.f, 0.4f);
+    staticImages.addImage("Title", -0.85f, 0.9f, 0.4f);
+    buttons.addImage("Play", -0.4f, 0.3f, 0.4f);
+    buttons.addImage("Resume", -0.5f, -0.4f, 0.3f);
   } 
   catch ( std::exception& e ) 
   {
@@ -100,8 +101,9 @@ int main(int argc, char **argv)
     glClear(GL_COLOR_BUFFER_BIT);
     try 
     {
-      buttons.displayImage("Title");
       staticImages.displayImage("Title");
+      buttons.displayImage("Play");
+      buttons.displayImage("Resume");
     }
     catch ( std::exception& e ) 
     {

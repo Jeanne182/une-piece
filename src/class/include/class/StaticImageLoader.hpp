@@ -101,7 +101,7 @@ protected:
    * @param y
    * @param scale
    */
-  void setupImage(const std::string &filename, const float &x, const float &y, const float &scale, StaticImage *img);
+  void setupImage(const std::string &filename, StaticImage *img);
 
   /**
    * @brief Compute the final matrix to be used for the GPU

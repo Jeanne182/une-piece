@@ -106,10 +106,10 @@ void StaticImageLoader::addImage(const std::string &filename, const float &x, co
   glBindTexture(GL_TEXTURE_2D, 0);
 
   // Setup the Square, and update the IBO
-  setupImage(filename, x, y, scale, img);
+  setupImage(filename, img);
 }
 
-void StaticImageLoader::setupImage(const std::string &filename, const float &x, const float &y, const float &scale, StaticImage *img)
+void StaticImageLoader::setupImage(const std::string &filename, StaticImage *img)
 {
 
   // Create the matching square

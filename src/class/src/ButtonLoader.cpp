@@ -39,14 +39,17 @@ void ButtonLoader::mouseHover(const SDL_Event &e)
   {
     Button *btn = (Button *)_it->second;
     const int startX = (btn->_x + 1.f) * _window_width / 2;
-    const int startY = (btn->_y + 1.f) * _window_height / 2;
-    const int endX = startX + btn->_imgPtr->getWidth();
-    const int endY = startY + btn->_imgPtr->getHeight();
+    const int startY = (btn->_y - 1.f) * _window_height / -2;
+
+    const int endX = startX + btn->_imgPtr->getWidth() * btn->_scale * 2.6;
+    const int endY = startY + btn->_imgPtr->getHeight()* btn->_scale * 2.6;
 
     btn->_isHovered = e.motion.x >= startX &&
                       e.motion.x <= endX &&
                       e.motion.y >= startY &&
                       e.motion.y <= endY;
+
+    std::cout << startX << " < " << e.motion.x << " < " << endX << " | " << startY << " < " << e.motion.y << " < " << endY << " | " << btn->_scale << std::endl;
   }
 }
 
@@ -195,20 +198,11 @@ void ButtonLoader::displayImage(const std::string &imageName)
 
   // On charge la bonne texture
   if ( btn->_isClicked )
-  {
-    std::cout << "Clicked" << std::endl;
     glBindTexture(GL_TEXTURE_2D, *(btn->_texture_clicked));
-  }
   else if ( btn->_isHovered )
-  {
-    std::cout << "Hovered" << std::endl;
     glBindTexture(GL_TEXTURE_2D, *(btn->_texture_hovered));
-  }
   else
-  {
-    std::cout << "Basic" << std::endl;
     glBindTexture(GL_TEXTURE_2D, *(btn->_texture));
-  }
 
   glUniform1i(_program._uTexture, 0);
   glUniformMatrix3fv(_program._uModelMatrix, 1, GL_FALSE, glm::value_ptr(btn->_computedMatrix));
