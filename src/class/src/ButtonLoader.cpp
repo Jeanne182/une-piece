@@ -24,7 +24,8 @@ ButtonLoader::~ButtonLoader()
   
 
 void ButtonLoader::mouseHover(const SDL_Event &e)
-{  
+{
+  /*
   for(_it=_images.begin(); _it!=_images.end(); _it++) 
   {
     const int startX = (_it->second->_x + 1.f) * _window_width / 2;
@@ -37,18 +38,22 @@ void ButtonLoader::mouseHover(const SDL_Event &e)
         e.motion.y >= startY &&
         e.motion.y <= endY);
   }
+  */
 }
 
 void ButtonLoader::mouseClick() 
 {
+  /*
   for(_it=_images.begin(); _it!=_images.end(); _it++) 
   {
     _it->second->_isClicked = _it->second->_isHovered;
   }  
+  */
 }
   
 void ButtonLoader::addImage(const std::string &filename, const float &x, const float &y, const float &scale)
 {
+  /*
   Button *img = new Button;
 
   // Load Basic Image
@@ -119,11 +124,15 @@ void ButtonLoader::addImage(const std::string &filename, const float &x, const f
   
   // Setup the Square, and update the IBO
   StaticImageLoader::setupImage(filename, x, y, scale, img);  
+
+  */
 }
   
   
-void StaticImageLoader::displayImage(const std::string &imageName)
+void ButtonLoader::displayImage(const std::string &imageName)
 {
+
+  /*
   _it = _images.find(imageName);
   if (_it == _images.end())
   {
@@ -148,6 +157,8 @@ void StaticImageLoader::displayImage(const std::string &imageName)
   glBindVertexArray(0);
 
   glBindTexture(GL_TEXTURE_2D, 0);
+
+  */
 }
   
 } // END namespace UP
