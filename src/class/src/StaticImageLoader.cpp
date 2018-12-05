@@ -36,7 +36,7 @@ glm::mat3 rotate(const float a) {
 }
   
 StaticImageLoader::StaticImageLoader(const FilePath &appPath, const int &width, const int &height)
-    : _appPath(appPath), _window_width(width), _window_height(height)
+    : _appPath(appPath)
 {
   // Creation des données
   glGenBuffers(1, &_vbo);

@@ -85,6 +85,7 @@ private:
    * DO NOT USE 
    */
   ButtonLoader();
+  const int _window_width, _window_height;
 };
     
 }

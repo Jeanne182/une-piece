@@ -51,7 +51,7 @@ public:
    * 
    * @param appPath 
    */
-  StaticImageLoader(const FilePath &appPath, const int &width, const int &height);
+  StaticImageLoader(const FilePath &appPath);
   
   /**
    * @brief Destroy the Image Loader:: Image Loader object
@@ -137,7 +137,6 @@ protected:
   std::map<const std::string, StaticImage *> _images;
   std::map<const std::string, StaticImage *>::iterator _it;
   GLuint _vbo, _vao, _ibo;
-  const int _window_width, _window_height;
   
 };
   

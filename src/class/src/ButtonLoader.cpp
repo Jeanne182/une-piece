@@ -14,7 +14,7 @@ namespace UP
 {
   
 ButtonLoader::ButtonLoader(const FilePath &appPath, const int &width, const int &height)
-  : StaticImageLoader(appPath, width, height)
+  : StaticImageLoader(appPath), _window_width(width), _window_height(height)
 {
 }
 
