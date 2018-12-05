@@ -51,6 +51,12 @@ public:
    *
    */
   void mouseClick();  
+  
+  /**
+   * @brief Disable the state Clicked
+   *
+   */
+  void mouseUnclick();  
     
   /**
    * @brief Add an image to the Loader. REQUIRE 3 images : 

@@ -79,6 +79,16 @@ int main(int argc, char **argv)
           buttons.mouseHover(e);
         }
         break;
+
+        case SDL_MOUSEBUTTONDOWN: {
+          buttons.mouseClick();
+        }
+        break;
+
+        case SDL_MOUSEBUTTONUP: {
+          buttons.mouseUnclick();
+        }
+        break;
           
       }
     }

@@ -47,7 +47,6 @@ void ButtonLoader::mouseHover(const SDL_Event &e)
                       e.motion.x <= endX &&
                       e.motion.y >= startY &&
                       e.motion.y <= endY;
-    std::cout << "Hovered : " << btn->_isHovered << std::endl;
   }
 }
 
@@ -57,6 +56,15 @@ void ButtonLoader::mouseClick()
   {
     Button *btn = (Button *)_it->second;
     btn->_isClicked = btn->_isHovered;
+  }
+}
+
+void ButtonLoader::mouseUnclick()
+{
+  for (_it = _images.begin(); _it != _images.end(); _it++)
+  {
+    Button *btn = (Button *)_it->second;
+    btn->_isClicked = false;
   }
 }
 
@@ -70,6 +78,9 @@ void ButtonLoader::addImage(const std::string &filename, const float &x, const f
   btn->_x = x;
   btn->_y = y;
   btn->_scale = scale;
+  btn->_isClicked = false;
+  btn->_isHovered = false;
+
 
   // Loaded
   btn->_imgPtr = loadImage(_appPath.dirPath() + "../../src/assets/textures" + (btn->_filename + ".png"));
@@ -184,11 +195,20 @@ void ButtonLoader::displayImage(const std::string &imageName)
 
   // On charge la bonne texture
   if ( btn->_isClicked )
-    glBindTexture(GL_TEXTURE_2D, *(btn->_texture));
-  else if ( btn->_isHovered )
-    glBindTexture(GL_TEXTURE_2D, *(btn->_texture_hovered));
-  else
+  {
+    std::cout << "Clicked" << std::endl;
     glBindTexture(GL_TEXTURE_2D, *(btn->_texture_clicked));
+  }
+  else if ( btn->_isHovered )
+  {
+    std::cout << "Hovered" << std::endl;
+    glBindTexture(GL_TEXTURE_2D, *(btn->_texture_hovered));
+  }
+  else
+  {
+    std::cout << "Basic" << std::endl;
+    glBindTexture(GL_TEXTURE_2D, *(btn->_texture));
+  }
 
   glUniform1i(_program._uTexture, 0);
   glUniformMatrix3fv(_program._uModelMatrix, 1, GL_FALSE, glm::value_ptr(btn->_computedMatrix));
