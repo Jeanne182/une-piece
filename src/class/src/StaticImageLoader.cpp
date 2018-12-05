@@ -35,7 +35,7 @@ glm::mat3 rotate(const float a) {
   );
 }
   
-StaticImageLoader::StaticImageLoader(const FilePath &appPath, const int &width, const int &height)
+StaticImageLoader::StaticImageLoader(const FilePath &appPath)
     : _appPath(appPath)
 {
   // Creation des données

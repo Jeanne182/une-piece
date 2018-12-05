@@ -14,7 +14,6 @@ using namespace glimac;
 
 namespace UP
 {
-
 struct StaticImage
 {
   std::string _filename;

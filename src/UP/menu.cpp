@@ -44,17 +44,20 @@ int main(int argc, char **argv)
    * HERE SHOULD COME THE INITIALIZATION CODE
    *********************************/
   ButtonLoader buttons(applicationPath, WINDOW_WIDTH, WINDOW_HEIGHT);
+  StaticImageLoader staticImages(applicationPath);
   
   // Load the images
   try
   {
     buttons.addImage("Title", -1.f, 1.f, 0.4f);
+    staticImages.addImage("Title", -1.f, 1.f, 0.4f);
   } 
   catch ( std::exception& e ) 
   {
     std::cerr << e.what() << std::endl;
   }
   buttons.sendVertexBuffer();
+  staticImages.sendVertexBuffer();
 
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -88,6 +91,7 @@ int main(int argc, char **argv)
     try 
     {
       buttons.displayImage("Title");
+      staticImages.displayImage("Title");
     }
     catch ( std::exception& e ) 
     {
