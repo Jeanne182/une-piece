@@ -13,28 +13,28 @@
 namespace UP
 {
 
-glm::mat3 translate(const float tx, const float ty) {
+glm::mat3 translate(const float tx, const float ty)
+{
   return glm::mat3(
-    glm::vec3(1, 0, 0),
-    glm::vec3(0, 1, 0),
-    glm::vec3(tx, ty, 1)
-  );
+      glm::vec3(1, 0, 0),
+      glm::vec3(0, 1, 0),
+      glm::vec3(tx, ty, 1));
 }
-glm::mat3 scale(const float sx, const float sy) {
+glm::mat3 scale(const float sx, const float sy)
+{
   return glm::mat3(
-    glm::vec3(sx, 0, 0),
-    glm::vec3(0, sy, 0),
-    glm::vec3(0, 0, 1)
-  );
+      glm::vec3(sx, 0, 0),
+      glm::vec3(0, sy, 0),
+      glm::vec3(0, 0, 1));
 }
-glm::mat3 rotate(const float a) {
+glm::mat3 rotate(const float a)
+{
   return glm::mat3(
-    glm::vec3(cos(a), sin(a), 0),
-    glm::vec3(-sin(a), cos(a), 0),
-    glm::vec3(0, 0, 1)    
-  );
+      glm::vec3(cos(a), sin(a), 0),
+      glm::vec3(-sin(a), cos(a), 0),
+      glm::vec3(0, 0, 1));
 }
-  
+
 StaticImageLoader::StaticImageLoader(const FilePath &appPath)
     : _appPath(appPath)
 {
@@ -68,7 +68,8 @@ StaticImageLoader::StaticImageLoader(const FilePath &appPath)
 
 StaticImageLoader::~StaticImageLoader()
 {
-  for (_it=_images.begin(); _it!=_images.end(); ++_it) {
+  for (_it = _images.begin(); _it != _images.end(); ++_it)
+  {
     delete _it->second->_texture;
     delete _it->second;
   }
@@ -85,7 +86,7 @@ void StaticImageLoader::addImage(const std::string &filename, const float &x, co
   img->_x = x;
   img->_y = y;
   img->_scale = scale;
-  
+
   // Create and bind the Texture
   img->_texture = new GLuint;
   glGenTextures(1, img->_texture);
@@ -103,12 +104,12 @@ void StaticImageLoader::addImage(const std::string &filename, const float &x, co
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   glBindTexture(GL_TEXTURE_2D, 0);
-  
+
   // Setup the Square, and update the IBO
   setupImage(filename, x, y, scale, img);
 }
-  
-void StaticImageLoader::setupImage(const std::string &filename, const float &x, const float &y, const float &scale, StaticImage* img) 
+
+void StaticImageLoader::setupImage(const std::string &filename, const float &x, const float &y, const float &scale, StaticImage *img)
 {
 
   // Create the matching square
@@ -130,19 +131,15 @@ void StaticImageLoader::setupImage(const std::string &filename, const float &x, 
   // Update the IBO
   int indices[6] = {3, 1, 2, 0, 1, 2};
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ibo);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-               6 * sizeof(int),
-               indices,
-               GL_STATIC_DRAW);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(int), indices, GL_STATIC_DRAW);
+
   glBindVertexArray(_vao);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ibo);
-
-  // Unbind
   glBindVertexArray(0);
+
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
-  
-  
+
 void StaticImageLoader::sendVertexBuffer()
 {
 
@@ -216,7 +213,5 @@ void StaticImageLoader::computeMatrix(StaticImage *img)
 {
   img->_computedMatrix = translate(img->_x, img->_y) * scale(img->_scale, img->_scale) * img->_modelMatrix;
 }
-
-
 
 } // namespace UP

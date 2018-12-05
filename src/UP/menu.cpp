@@ -49,7 +49,7 @@ int main(int argc, char **argv)
   // Load the images
   try
   {
-    buttons.addImage("Title", -1.f, 1.f, 0.4f);
+    buttons.addImage("Title", -1.f, 0.f, 0.4f);
     staticImages.addImage("Title", -1.f, 1.f, 0.4f);
   } 
   catch ( std::exception& e ) 
@@ -76,7 +76,7 @@ int main(int argc, char **argv)
       switch(e.type) {
 
         case SDL_MOUSEMOTION: {
-          //buttons.mouseHover(e);
+          buttons.mouseHover(e);
         }
         break;
           

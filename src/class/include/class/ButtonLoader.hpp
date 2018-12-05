@@ -11,15 +11,7 @@ using namespace glimac;
 
 namespace UP
 {
-
-enum ButtonState
-{
-  BUTTON_STATE_BASIC,
-  BUTTON_STATE_HOVERED,
-  BUTTON_STATE_CLICKED
-};
-
-  
+ 
 struct Button : public StaticImage
 {
   GLuint* _texture_hovered;
