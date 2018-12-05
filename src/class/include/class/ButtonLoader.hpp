@@ -22,7 +22,8 @@ enum ButtonState
   
 struct Button : public StaticImage
 {
-  GLuint _textures[3];
+  GLuint* _texture_hovered;
+  GLuint* _texture_clicked;
   bool _isHovered;
   bool _isClicked;
 };
@@ -70,7 +71,7 @@ public:
    */
   void addImage(const std::string &filename, const float &x=0.f, const float &y=0.f, const float &scale=1.0f);
   
-  
+  void setupImage(const std::string &filename, const float &x, const float &y, const float &scale, Button *img);
   
   /**
    * @brief Display 1 image

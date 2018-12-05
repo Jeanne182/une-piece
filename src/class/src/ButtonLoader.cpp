@@ -9,19 +9,19 @@
 #include <string>
 #include <iostream>
 #include <exception>
+#include <cassert>
 
 namespace UP
 {
-  
+
 ButtonLoader::ButtonLoader(const FilePath &appPath, const int &width, const int &height)
-  : StaticImageLoader(appPath), _window_width(width), _window_height(height)
+    : StaticImageLoader(appPath), _window_width(width), _window_height(height)
 {
 }
 
 ButtonLoader::~ButtonLoader()
 {
 }
-  
 
 void ButtonLoader::mouseHover(const SDL_Event &e)
 {
@@ -41,7 +41,7 @@ void ButtonLoader::mouseHover(const SDL_Event &e)
   */
 }
 
-void ButtonLoader::mouseClick() 
+void ButtonLoader::mouseClick()
 {
   /*
   for(_it=_images.begin(); _it!=_images.end(); _it++) 
@@ -50,17 +50,26 @@ void ButtonLoader::mouseClick()
   }  
   */
 }
-  
-void ButtonLoader::addImage(const std::string &filename, const float &x, const float &y, const float &scale)
-{
-  /*
-  Button *img = new Button;
 
-  // Load Basic Image
-  img->_texture = nullptr;
-  img->_filename = filename;
-  img->_imgPtr = loadImage(_appPath.dirPath() + "../../src/assets/textures" + (img->_filename + ".png"));
-  
+void ButtonLoader::addImage(const std::string &btn, const float &x, const float &y, const float &scale)
+{
+
+  Button *btn = new Button;
+
+  // Create a Button
+  btn->_filename = filename;
+  btn->_imgPtr = loadImage(_appPath.dirPath() + "../../src/assets/textures" + (btn->_filename + ".png"));
+  assert(btn->_imgPtr != nullptr);
+  btn->_x = x;
+  btn->_y = y;
+  btn->_scale = scale;
+
+  btn->_texture_hovered = new GLuint;
+  btn->_texture_clicked = new GLuint;
+  glGenTextures(1, btn->_texture_hovered);
+  glGenTextures(1, btn->_texture_clicked);
+
+  /*  
   // Load other Images
   std::unique_ptr<Image> hovered, clicked;
   hovered = loadImage(_appPath.dirPath() + "../../src/assets/textures" + (img->_filename + "_hovered.png"));
@@ -121,14 +130,31 @@ void ButtonLoader::addImage(const std::string &filename, const float &x, const f
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   glBindTexture(GL_TEXTURE_2D, 0);
+  */
   
   // Setup the Square, and update the IBO
-  StaticImageLoader::setupImage(filename, x, y, scale, img);  
+  setupImage(filename, x, y, scale, btn);  
 
-  */
 }
-  
-  
+void ButtonLoader::setupImage(const std::string &filename, const float &x, const float &y, const float &scale, Button *btn)
+{
+
+  // Create the matching square
+  btn->_vertices.push_back(Vertex2DUV(glm::vec2(1.f, 1.f), glm::vec2(1.0f, 1.f)));
+  btn->_vertices.push_back(Vertex2DUV(glm::vec2(0.f, 1.f), glm::vec2(0.0f, 1.f)));
+  btn->_vertices.push_back(Vertex2DUV(glm::vec2(1.f, 0.f), glm::vec2(1.0f, 0.f)));
+  btn->_vertices.push_back(Vertex2DUV(glm::vec2(0.f, 0.f), glm::vec2(0.0f, 0.f)));
+
+  // Create the matrix
+  float ratio = float(btn->_imgPtr->getHeight()) / float(btn->_imgPtr->getWidth());
+  btn->_modelMatrix = glm::mat3(glm::scale(glm::mat4(1.0f), glm::vec3(1.0f / ratio, -1.0f, 1.0f)));
+
+
+
+  // Compute the matrix
+  computeMatrix(btn);
+}
+
 void ButtonLoader::displayImage(const std::string &imageName)
 {
 
@@ -160,5 +186,5 @@ void ButtonLoader::displayImage(const std::string &imageName)
 
   */
 }
-  
+
 } // END namespace UP

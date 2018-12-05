@@ -18,7 +18,7 @@ struct StaticImage
 {
   std::string _filename;
   std::unique_ptr<Image> _imgPtr;
-  GLuint* _texture;
+  GLuint *_texture;
   std::vector<Vertex2DUV> _vertices;
   glm::mat3 _modelMatrix;
   glm::mat3 _computedMatrix;
@@ -51,7 +51,7 @@ public:
    * @param appPath 
    */
   StaticImageLoader(const FilePath &appPath);
-  
+
   /**
    * @brief Destroy the Image Loader:: Image Loader object
    * 
@@ -59,7 +59,7 @@ public:
   ~StaticImageLoader();
 
   /// Methods
-  
+
   /**
    * @brief Add an image to the Loader
    * 
@@ -68,8 +68,8 @@ public:
    * @param y
    * @param scale
    */
-  void addImage(const std::string &filename, const float &x=0.f, const float &y=0.f, const float &scale=1.0f);
-  
+  void addImage(const std::string &filename, const float &x = 0.f, const float &y = 0.f, const float &scale = 1.0f);
+
   /**
    * @brief Display 1 image
    * 
@@ -82,43 +82,16 @@ public:
    * 
    */
   void sendVertexBuffer();
-  
+
 private:
-  
   /**
    * @brief Construct a new Image Loader:: Image Loader object
    * DO NOT USE 
    */
   StaticImageLoader();
-    
-  /// Methods
-  
-  /**
-   * @brief Compute the final matrix to be used for the GPU
-   * 
-   * @param imageName
-   */
-  void computeMatrix(const std::string &imageName);
-  
-  /**
-   * @brief Set the Scaling Vector to use far a loaded image
-   *
-   * @param imageName
-   * @param scale
-   */
-  void setScaleVector(const std::string& imageName, const float& scale);
-  
-  /**
-   * @brief Set the Translate Vector to use far a loaded image
-   *
-   * @param imageName
-   * @param x
-   * @param y
-   */
-  void setTranslateVector(const std::string& imageName, const float x, const float y);
-  
-  
-protected:  
+
+
+protected:
   /// Methods
   /**
    * @brief Setup the Square, and update the IBO
@@ -128,17 +101,41 @@ protected:
    * @param y
    * @param scale
    */
-  void setupImage(const std::string &filename, const float &x, const float &y, const float &scale, StaticImage* img);
-  
+  void setupImage(const std::string &filename, const float &x, const float &y, const float &scale, StaticImage *img);
+
+  /**
+   * @brief Compute the final matrix to be used for the GPU
+   * 
+   * @param imageName
+   */
+  void computeMatrix(const std::string &imageName);
+  void computeMatrix(StaticImage *img);
+
+  /**
+   * @brief Set the Scaling Vector to use far a loaded image
+   *
+   * @param imageName
+   * @param scale
+   */
+  void setScaleVector(const std::string &imageName, const float &scale);
+
+  /**
+   * @brief Set the Translate Vector to use far a loaded image
+   *
+   * @param imageName
+   * @param x
+   * @param y
+   */
+  void setTranslateVector(const std::string &imageName, const float x, const float y);
+
   /// Attributes
   FilePath _appPath;
   StaticImageProgram _program;
   std::map<const std::string, StaticImage *> _images;
   std::map<const std::string, StaticImage *>::iterator _it;
   GLuint _vbo, _vao, _ibo;
-  
 };
-  
+
 } // namespace UP
 
 #endif

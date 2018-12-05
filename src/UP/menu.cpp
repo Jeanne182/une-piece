@@ -76,7 +76,7 @@ int main(int argc, char **argv)
       switch(e.type) {
 
         case SDL_MOUSEMOTION: {
-          buttons.mouseHover(e);
+          //buttons.mouseHover(e);
         }
         break;
           

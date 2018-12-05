@@ -82,6 +82,9 @@ void StaticImageLoader::addImage(const std::string &filename, const float &x, co
   img->_filename = filename;
   img->_imgPtr = loadImage(_appPath.dirPath() + "../../src/assets/textures" + (img->_filename + ".png"));
   assert(img->_imgPtr != nullptr);
+  img->_x = x;
+  img->_y = y;
+  img->_scale = scale;
   
   // Create and bind the Texture
   img->_texture = new GLuint;
@@ -107,10 +110,6 @@ void StaticImageLoader::addImage(const std::string &filename, const float &x, co
   
 void StaticImageLoader::setupImage(const std::string &filename, const float &x, const float &y, const float &scale, StaticImage* img) 
 {
-  // Add the coord
-  img->_x = x;
-  img->_y = y;
-  img->_scale = scale;
 
   // Create the matching square
   img->_vertices.push_back(Vertex2DUV(glm::vec2(1.f, 1.f), glm::vec2(1.0f, 1.f)));
@@ -126,7 +125,7 @@ void StaticImageLoader::setupImage(const std::string &filename, const float &x, 
   _images.insert(std::pair<std::string, StaticImage *>(img->_filename, img));
 
   // Compute the matrix
-  computeMatrix(filename);
+  computeMatrix(img);
 
   // Update the IBO
   int indices[6] = {3, 1, 2, 0, 1, 2};
@@ -141,7 +140,6 @@ void StaticImageLoader::setupImage(const std::string &filename, const float &x, 
   // Unbind
   glBindVertexArray(0);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
 }
   
   
@@ -187,7 +185,6 @@ void StaticImageLoader::displayImage(const std::string &imageName)
   glBindVertexArray(0);
 
   glBindTexture(GL_TEXTURE_2D, 0);
-  _it = _images.begin();
 }
 
 void StaticImageLoader::setScaleVector(const std::string &imageName, const float &scale)
@@ -196,7 +193,7 @@ void StaticImageLoader::setScaleVector(const std::string &imageName, const float
   if (_it == _images.end())
     throw Error(std::string("imageName given not in records"), AT);
   _it->second->_scale = scale;
-  computeMatrix(imageName);
+  computeMatrix(_it->second);
 }
 
 void StaticImageLoader::setTranslateVector(const std::string &imageName, const float x, const float y)
@@ -207,12 +204,16 @@ void StaticImageLoader::setTranslateVector(const std::string &imageName, const f
 
   _it->second->_x = x;
   _it->second->_y = y;
-  computeMatrix(imageName);
+  computeMatrix(_it->second);
 }
 
 void StaticImageLoader::computeMatrix(const std::string &imageName)
 {
-  StaticImage *img = _images.find(imageName)->second;
+  computeMatrix(_images.find(imageName)->second);
+}
+
+void StaticImageLoader::computeMatrix(StaticImage *img)
+{
   img->_computedMatrix = translate(img->_x, img->_y) * scale(img->_scale, img->_scale) * img->_modelMatrix;
 }
 
