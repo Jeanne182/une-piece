@@ -6,6 +6,7 @@
 #include <class/StaticImageLoader.hpp>
 #include <glimac/SDLWindowManager.hpp>
 #include <iostream>
+#include <algorithm>
 
 using namespace glimac;
 
@@ -18,6 +19,7 @@ struct Button : public StaticImage
   GLuint* _texture_clicked;
   bool _isHovered;
   bool _isClicked;
+  std::function<void()> _behavior;
 };
   
 class ButtonLoader : public StaticImageLoader
@@ -25,6 +27,11 @@ class ButtonLoader : public StaticImageLoader
 public:
   /// Constructor and destructor
 
+  /**
+   * @brief Construct a new Button Loader:: Button Loader object
+   * DO NOT USE 
+   */
+  ButtonLoader() = delete;
   /**
    * @brief Construct a new Button Loader:: Button Loader object. Require 3 images : <filename>
    * 
@@ -71,6 +78,8 @@ public:
   
   void setupImage(const std::string &filename, const float &x, const float &y, const float &scale, Button *img);
   
+  void setBehavior(const std::string &imageName, std::function<void()> &behavior);
+  
   /**
    * @brief Display 1 image
    * 
@@ -79,11 +88,6 @@ public:
   void displayImage(const std::string &imageName);
   
 private:
-  /**
-   * @brief Construct a new Button Loader:: Button Loader object
-   * DO NOT USE 
-   */
-  ButtonLoader();
   const int _window_width, _window_height;
 };
     

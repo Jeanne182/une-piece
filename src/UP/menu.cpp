@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <vector>
 #include <math.h>
+
 #include <glimac/common.hpp>
 #include <glimac/Program.hpp>
 #include <glimac/FilePath.hpp>
@@ -11,8 +12,8 @@
 #include <glimac/Image.hpp>
 #include <glimac/Sphere.hpp>
 #include <glimac/TrackballCamera.hpp>
-#include <class/StaticImageLoader.hpp>
-#include <class/ButtonLoader.hpp>
+
+#include <class/Game.hpp>
 //#include <assimp/Importer.hpp>
 //#include <assimp/scene.h>
 //#include <assimp/postprocess.h>
@@ -43,23 +44,8 @@ int main(int argc, char **argv)
   /*********************************
    * HERE SHOULD COME THE INITIALIZATION CODE
    *********************************/
-  ButtonLoader buttons(applicationPath, WINDOW_WIDTH, WINDOW_HEIGHT);
-  StaticImageLoader staticImages(applicationPath);
+  Game::Get(applicationPath, WINDOW_WIDTH, WINDOW_HEIGHT);
   
-  // Load the images
-  try
-  {
-    staticImages.addImage("Title", -0.85f, 0.9f, 0.4f);
-    buttons.addImage("Play", -0.4f, 0.3f, 0.4f);
-    buttons.addImage("Resume", -0.5f, -0.4f, 0.3f);
-  } 
-  catch ( std::exception& e ) 
-  {
-    std::cerr << e.what() << std::endl;
-  }
-  buttons.sendVertexBuffer();
-  staticImages.sendVertexBuffer();
-
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   // Application loop:
@@ -99,17 +85,7 @@ int main(int argc, char **argv)
        *********************************/
 
     glClear(GL_COLOR_BUFFER_BIT);
-    try 
-    {
-      staticImages.displayImage("Title");
-      buttons.displayImage("Play");
-      buttons.displayImage("Resume");
-    }
-    catch ( std::exception& e ) 
-    {
-      std::cout << e.what() << std::endl;
-      return false;
-    }
+    Game::Get().draw();
 
     // Update the display
     windowManager.swapBuffers();

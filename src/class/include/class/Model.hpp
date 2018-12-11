@@ -13,7 +13,6 @@
 
 #include <class/Mesh.hpp>
 
-
 using namespace glimac;
 
 namespace UP

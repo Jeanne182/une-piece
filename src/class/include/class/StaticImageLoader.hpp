@@ -47,6 +47,11 @@ public:
 
   /**
    * @brief Construct a new Image Loader:: Image Loader object
+   * DO NOT USE 
+   */
+  StaticImageLoader() = delete;
+  /**
+   * @brief Construct a new Image Loader:: Image Loader object
    * 
    * @param appPath 
    */
@@ -82,14 +87,6 @@ public:
    * 
    */
   void sendVertexBuffer();
-
-private:
-  /**
-   * @brief Construct a new Image Loader:: Image Loader object
-   * DO NOT USE 
-   */
-  StaticImageLoader();
-
 
 protected:
   /// Methods

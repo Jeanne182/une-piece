@@ -186,6 +186,16 @@ void ButtonLoader::setupImage(const std::string &filename, const float &x, const
   // Insert
   _images.insert(std::pair<std::string, StaticImage *>(btn->_filename, btn));
 }
+  
+  
+void ButtonLoader::setBehavior(const std::string &imageName, std::function<void()> &behavior)
+{
+  _it = _images.find(imageName);
+  if (_it == _images.end())
+    throw Error(std::string("imageName given not in records"), AT);
+  Button *btn = (Button *)_it->second;
+  btn->_behavior = behavior;
+}
 
 void ButtonLoader::displayImage(const std::string &imageName)
 {
