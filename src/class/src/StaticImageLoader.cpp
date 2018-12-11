@@ -75,6 +75,15 @@ StaticImageLoader::~StaticImageLoader()
   }
 }
 
+StaticImage* StaticImageLoader::getImage(const std::string &imageName, const char* file, const unsigned int line, const char* function)
+{
+  if (!hasImage(imageName))
+    throw Error(std::string("imageName given " + imageName + ":  not in records"), file, line, function);
+  else
+    return (StaticImage*) _images.find(imageName)->second;
+}
+
+
 void StaticImageLoader::addImage(const std::string &filename, const float &x, const float &y, const float &scale)
 {
   StaticImage *img = new StaticImage;
@@ -162,14 +171,8 @@ void StaticImageLoader::sendVertexBuffer()
 
 void StaticImageLoader::displayImage(const std::string &imageName)
 {
-  _it = _images.find(imageName);
-  if (_it == _images.end())
-  {
-    throw Error(std::string("imageName given " + imageName + ":  not in records"), AT);
-  }
-
   _program._Program.use();
-  StaticImage *img = _it->second;
+  StaticImage *img = getImage(imageName, AT);
 
   // On charge la bonne texture
   glBindTexture(GL_TEXTURE_2D, *(img->_texture));
@@ -186,27 +189,22 @@ void StaticImageLoader::displayImage(const std::string &imageName)
 
 void StaticImageLoader::setScaleVector(const std::string &imageName, const float &scale)
 {
-  _it = _images.find(imageName);
-  if (_it == _images.end())
-    throw Error(std::string("imageName given " + imageName + ":  not in records"), AT);
-  _it->second->_scale = scale;
-  computeMatrix(_it->second);
+  StaticImage *img = getImage(imageName, AT);
+  img->_scale = scale;
+  computeMatrix(img);
 }
 
 void StaticImageLoader::setTranslateVector(const std::string &imageName, const float x, const float y)
 {
-  _it = _images.find(imageName);
-  if (_it == _images.end())
-    throw Error(std::string("imageName given " + imageName + ":  not in records"), AT);
-
-  _it->second->_x = x;
-  _it->second->_y = y;
-  computeMatrix(_it->second);
+  StaticImage *img = getImage(imageName, AT);
+  img->_x = x;
+  img->_y = y;
+  computeMatrix(img);
 }
 
 void StaticImageLoader::computeMatrix(const std::string &imageName)
 {
-  computeMatrix(_images.find(imageName)->second);
+  computeMatrix(getImage(imageName, AT));
 }
 
 void StaticImageLoader::computeMatrix(StaticImage *img)

@@ -40,7 +40,7 @@ public:
    * @brief DO NOT USE 
    */
   ButtonLoader() = delete;
-  
+
   /**
    * @brief Construct a new Button Loader:: Button Loader object. Require 3 images : <filename>
    * 
@@ -56,6 +56,25 @@ public:
   
   /// Methods
   
+  /**
+   * @brief Check if a button is in the records
+   * 
+   * @param buttonName 
+   * @return true 
+   * @return false 
+   */
+  inline
+  bool hasButton(const std::string &buttonName) { return _images.find(buttonName) != _images.end(); };
+
+  /**
+   * @brief Get an Button object
+   * 
+   * @param buttonName 
+   * @return Button* 
+   */
+  Button* getButton(const std::string &buttonName, const char* file, const unsigned int line, const char* function);
+
+
   /**
    * @brief Set the buttons to the state hovered
    *

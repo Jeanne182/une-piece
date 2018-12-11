@@ -75,6 +75,24 @@ public:
   /// Methods
 
   /**
+   * @brief Check if an image is in the records
+   * 
+   * @param imageName 
+   * @return true 
+   * @return false 
+   */
+  inline
+  bool hasImage(const std::string &imageName) { return _images.find(imageName) != _images.end(); };
+
+  /**
+   * @brief Get an Image object
+   * 
+   * @param imageName 
+   * @return StaticImage* 
+   */
+  StaticImage* getImage(const std::string &imageName, const char* file, const unsigned int line, const char* function);
+
+  /**
    * @brief Add an image to the Loader
    * 
    * @param filename

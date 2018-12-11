@@ -24,8 +24,9 @@ namespace UP
  */
 enum LAYOUT
 {
-  DEFAULT,
-  MENU
+  LAYOUT_DEFAULT,
+  LAYOUT_MENU,
+  LAYOUT_SCORES
 };
 /**
  * @brief Single Class
@@ -40,6 +41,12 @@ public:
    * 
    */
   void layoutMenu();
+
+  /**
+   * @brief Use the Layout of the scores
+   * 
+   */
+  void layoutScores();
 
   /**
    * @brief Draw based on the current selected _layout
@@ -87,7 +94,7 @@ private:
 
 
   // ATTRIBUTES
-  int _layout = DEFAULT;
+  int _layout = LAYOUT_DEFAULT;
   ButtonLoader buttons;
   StaticImageLoader staticImages;
 

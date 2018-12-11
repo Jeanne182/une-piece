@@ -11,9 +11,11 @@
 namespace UP
 {
 
+// =============== SELECT THE LAYOUT ===============
 void Game::layoutMenu()
 {
-  _layout = MENU;
+  _layout = LAYOUT_MENU;
+  
   // Load the images
   try
   {
@@ -34,11 +36,18 @@ void Game::layoutMenu()
   buttons.setBehavior("Scores", []{ std::cout<<"LAMBDA of Scores"<<std::endl; });
 }
 
+void Game::layoutScores() 
+{
+  _layout = LAYOUT_SCORES;
+}
+
+
+// =============== GENERIC FACADES FUNCTIONS ===============
 void Game::draw()
 {
   switch (_layout)
   {
-  case MENU:
+  case LAYOUT_MENU:
     drawMenu();
     break;
   default:
@@ -47,6 +56,20 @@ void Game::draw()
   }
 }
 
+void Game::event(const SDL_Event &e)
+{
+  switch (_layout)
+  {
+  case LAYOUT_MENU:
+    eventMenu(e);
+    break;
+  default:
+    throw Error("No layout Defined", AT);
+    break;
+  }
+}
+
+// =============== SPECIFIC FUNCTIONS FOR EACH LAYOUT ===============
 void Game::drawMenu()
 {
   try
@@ -62,18 +85,6 @@ void Game::drawMenu()
   }
 }
 
-void Game::event(const SDL_Event &e)
-{
-  switch (_layout)
-  {
-  case MENU:
-    eventMenu(e);
-    break;
-  default:
-    throw Error("No layout Defined", AT);
-    break;
-  }
-}
 
 void Game::eventMenu(const SDL_Event &e)
 {

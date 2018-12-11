@@ -33,6 +33,16 @@ ButtonLoader::~ButtonLoader()
   }
 }
 
+
+Button* ButtonLoader::getButton(const std::string &buttonName, const char* file, const unsigned int line, const char* function)
+{
+  if (!hasButton(buttonName))
+    throw Error(std::string("buttonName given " + buttonName + ":  not in records"), file, line, function);
+  else
+    return (Button*) _images.find(buttonName)->second;
+}
+
+
 void ButtonLoader::mouseHover(const SDL_Event &e)
 {
   for (_it = _images.begin(); _it != _images.end(); _it++)
