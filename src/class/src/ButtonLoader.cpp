@@ -42,14 +42,14 @@ void ButtonLoader::mouseHover(const SDL_Event &e)
     const int startY = (btn->_y - 1.f) * _window_height / -2;
 
     const int endX = startX + btn->_imgPtr->getWidth() * btn->_scale * 2.6;
-    const int endY = startY + btn->_imgPtr->getHeight()* btn->_scale * 2.6;
+    const int endY = startY + btn->_imgPtr->getHeight() * btn->_scale * 2.6;
 
     btn->_isHovered = e.motion.x >= startX &&
                       e.motion.x <= endX &&
                       e.motion.y >= startY &&
                       e.motion.y <= endY;
 
-    std::cout << startX << " < " << e.motion.x << " < " << endX << " | " << startY << " < " << e.motion.y << " < " << endY << " | " << btn->_scale << std::endl;
+    // std::cout << startX << " < " << e.motion.x << " < " << endX << " | " << startY << " < " << e.motion.y << " < " << endY << " | " << btn->_scale << std::endl;
   }
 }
 
@@ -59,6 +59,8 @@ void ButtonLoader::mouseClick()
   {
     Button *btn = (Button *)_it->second;
     btn->_isClicked = btn->_isHovered;
+    if (btn->_isClicked && btn->_behavior)
+      btn->_behavior();
   }
 }
 
@@ -84,7 +86,6 @@ void ButtonLoader::addImage(const std::string &filename, const float &x, const f
   btn->_isClicked = false;
   btn->_isHovered = false;
 
-
   // Loaded
   btn->_imgPtr = loadImage(_appPath.dirPath() + "../../src/assets/textures" + (btn->_filename + ".png"));
   std::unique_ptr<Image> hovered, clicked;
@@ -94,7 +95,6 @@ void ButtonLoader::addImage(const std::string &filename, const float &x, const f
   assert(hovered != nullptr);
   assert(clicked != nullptr);
 
-
   // Generating
   btn->_texture = new GLuint;
   btn->_texture_hovered = new GLuint;
@@ -102,7 +102,7 @@ void ButtonLoader::addImage(const std::string &filename, const float &x, const f
   glGenTextures(1, btn->_texture);
   glGenTextures(1, btn->_texture_hovered);
   glGenTextures(1, btn->_texture_clicked);
-   
+
   // Setup Basic
   glBindTexture(GL_TEXTURE_2D, *(btn->_texture));
   glTexImage2D(GL_TEXTURE_2D,             // Target
@@ -118,17 +118,17 @@ void ButtonLoader::addImage(const std::string &filename, const float &x, const f
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   glBindTexture(GL_TEXTURE_2D, 0);
-  
+
   // Setup Hovered
   glBindTexture(GL_TEXTURE_2D, *(btn->_texture_hovered));
-  glTexImage2D(GL_TEXTURE_2D,             // Target
-               0,                         // Mipmap level
-               GL_RGBA,                   // Internal Format
+  glTexImage2D(GL_TEXTURE_2D,        // Target
+               0,                    // Mipmap level
+               GL_RGBA,              // Internal Format
                hovered->getWidth(),  // Width
                hovered->getHeight(), // Height
-               0,                         // Border
-               GL_RGBA,                   // Format
-               GL_FLOAT,                  // Type
+               0,                    // Border
+               GL_RGBA,              // Format
+               GL_FLOAT,             // Type
                hovered->getPixels()  // Value
   );
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -137,14 +137,14 @@ void ButtonLoader::addImage(const std::string &filename, const float &x, const f
 
   // Setup Clicked
   glBindTexture(GL_TEXTURE_2D, *(btn->_texture_clicked));
-  glTexImage2D(GL_TEXTURE_2D,             // Target
-               0,                         // Mipmap level
-               GL_RGBA,                   // Internal Format
+  glTexImage2D(GL_TEXTURE_2D,        // Target
+               0,                    // Mipmap level
+               GL_RGBA,              // Internal Format
                clicked->getWidth(),  // Width
                clicked->getHeight(), // Height
-               0,                         // Border
-               GL_RGBA,                   // Format
-               GL_FLOAT,                  // Type
+               0,                    // Border
+               GL_RGBA,              // Format
+               GL_FLOAT,             // Type
                clicked->getPixels()  // Value
   );
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -186,13 +186,12 @@ void ButtonLoader::setupImage(const std::string &filename, const float &x, const
   // Insert
   _images.insert(std::pair<std::string, StaticImage *>(btn->_filename, btn));
 }
-  
-  
-void ButtonLoader::setBehavior(const std::string &imageName, std::function<void()> &behavior)
+
+void ButtonLoader::setBehavior(const std::string &imageName, const std::function<void()> &behavior)
 {
   _it = _images.find(imageName);
   if (_it == _images.end())
-    throw Error(std::string("imageName given not in records"), AT);
+    throw Error(std::string("imageName given " + imageName + ": not in records"), AT);
   Button *btn = (Button *)_it->second;
   btn->_behavior = behavior;
 }
@@ -201,15 +200,15 @@ void ButtonLoader::displayImage(const std::string &imageName)
 {
   _it = _images.find(imageName);
   if (_it == _images.end())
-    throw Error(std::string("imageName given not in records"), AT);
+    throw Error(std::string("imageName given " + imageName + ": not in records"), AT);
 
   Button *btn = (Button *)_it->second;
   _program._Program.use();
 
   // On charge la bonne texture
-  if ( btn->_isClicked )
+  if (btn->_isClicked)
     glBindTexture(GL_TEXTURE_2D, *(btn->_texture_clicked));
-  else if ( btn->_isHovered )
+  else if (btn->_isHovered)
     glBindTexture(GL_TEXTURE_2D, *(btn->_texture_hovered));
   else
     glBindTexture(GL_TEXTURE_2D, *(btn->_texture));
@@ -222,7 +221,6 @@ void ButtonLoader::displayImage(const std::string &imageName)
   glBindVertexArray(0);
 
   glBindTexture(GL_TEXTURE_2D, 0);
-
 }
 
 } // END namespace UP

@@ -165,7 +165,7 @@ void StaticImageLoader::displayImage(const std::string &imageName)
   _it = _images.find(imageName);
   if (_it == _images.end())
   {
-    throw Error(std::string("imageName given not in records"), AT);
+    throw Error(std::string("imageName given " + imageName + ":  not in records"), AT);
   }
 
   _program._Program.use();
@@ -188,7 +188,7 @@ void StaticImageLoader::setScaleVector(const std::string &imageName, const float
 {
   _it = _images.find(imageName);
   if (_it == _images.end())
-    throw Error(std::string("imageName given not in records"), AT);
+    throw Error(std::string("imageName given " + imageName + ":  not in records"), AT);
   _it->second->_scale = scale;
   computeMatrix(_it->second);
 }
@@ -197,7 +197,7 @@ void StaticImageLoader::setTranslateVector(const std::string &imageName, const f
 {
   _it = _images.find(imageName);
   if (_it == _images.end())
-    throw Error(std::string("imageName given not in records"), AT);
+    throw Error(std::string("imageName given " + imageName + ":  not in records"), AT);
 
   _it->second->_x = x;
   _it->second->_y = y;

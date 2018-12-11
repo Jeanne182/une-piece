@@ -14,6 +14,11 @@ using namespace glimac;
 
 namespace UP
 {
+
+/**
+ * @brief Data Structure for an Image
+ * 
+ */
 struct StaticImage
 {
   std::string _filename;
@@ -25,6 +30,10 @@ struct StaticImage
   float _x, _y, _scale;
 };
 
+/**
+ * @brief Data structure for the Shader of a Static Image
+ * 
+ */
 struct StaticImageProgram
 {
   Program _Program;
@@ -34,11 +43,11 @@ struct StaticImageProgram
 
 /**
  * @brief StaticImageLoader class Helper
- * 1: Search for the asset image
- * 2: Create the texture
- * 3: Create the matching size square
- * 4: Apply the correct Image
- * 5: Display the image
+ * @brief 1: Search for the asset image
+ * @brief 2: Create the texture
+ * @brief 3: Create the matching size square
+ * @brief 4: Apply the correct Image
+ * @brief 5: Display the image
  */
 class StaticImageLoader
 {
@@ -47,7 +56,7 @@ public:
 
   /**
    * @brief Construct a new Image Loader:: Image Loader object
-   * DO NOT USE 
+   * @brief DO NOT USE 
    */
   StaticImageLoader() = delete;
   /**

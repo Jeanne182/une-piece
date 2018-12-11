@@ -18,13 +18,17 @@ using namespace glimac;
 namespace UP
 {
 
+/**
+ * @brief Handle a Model from a OBJ file
+ * 
+ */
 class Model
 {
 public:
   // Constructor
   /**
    * @brief Construct a new Model object
-   * Take in parameters the path of the model to load and the glLocation of the textures to use from the shader
+   * @brief Take in parameters the path of the model to load and the glLocation of the textures to use from the shader
    * @param path 
    * @param textureLocation 
    */

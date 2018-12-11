@@ -44,7 +44,8 @@ int main(int argc, char **argv)
   /*********************************
    * HERE SHOULD COME THE INITIALIZATION CODE
    *********************************/
-  Game::Get(applicationPath, WINDOW_WIDTH, WINDOW_HEIGHT);
+  Game& game = Game::Get(applicationPath, WINDOW_WIDTH, WINDOW_HEIGHT);
+  game.layoutMenu();
   
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -60,24 +61,9 @@ int main(int argc, char **argv)
       {
         done = true; // Leave the loop after this iteration
       }
-      switch(e.type) {
 
-        case SDL_MOUSEMOTION: {
-          buttons.mouseHover(e);
-        }
-        break;
+      game.event(e);
 
-        case SDL_MOUSEBUTTONDOWN: {
-          buttons.mouseClick();
-        }
-        break;
-
-        case SDL_MOUSEBUTTONUP: {
-          buttons.mouseUnclick();
-        }
-        break;
-          
-      }
     }
 
     /*********************************
@@ -85,7 +71,7 @@ int main(int argc, char **argv)
        *********************************/
 
     glClear(GL_COLOR_BUFFER_BIT);
-    Game::Get().draw();
+    game.draw();
 
     // Update the display
     windowManager.swapBuffers();

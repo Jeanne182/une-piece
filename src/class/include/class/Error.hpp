@@ -10,9 +10,30 @@
 
 class Error : public std::exception {  
   public:
+    /**
+     * @brief Construct a new Error object
+     * 
+     */
     Error();
+    /**
+     * @brief Construct a new Error object
+     * 
+     * @param message 
+     * @param file 
+     * @param line 
+     * @param function 
+     */
     Error(const std::string &message, const char* file, const unsigned int line, const char* function);
+    /**
+     * @brief Destroy the Error object
+     * 
+     */
     ~Error();
+    /**
+     * @brief Common expressor for the exception
+     * 
+     * @return const char* 
+     */
     const char* what() const noexcept;    
   
   private:

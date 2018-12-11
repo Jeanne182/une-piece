@@ -7,12 +7,13 @@
 #include <glimac/SDLWindowManager.hpp>
 #include <iostream>
 #include <algorithm>
+#include <functional>
 
 using namespace glimac;
 
 namespace UP
 {
- 
+
 struct Button : public StaticImage
 {
   GLuint* _texture_hovered;
@@ -21,7 +22,14 @@ struct Button : public StaticImage
   bool _isClicked;
   std::function<void()> _behavior;
 };
-  
+
+/**
+ * @brief ButtonLoader Object
+ * @brief Create StaticImages for a button
+ * @brief Manage the button State ( hover / clicked )
+ * @brief Manage the button Behavior
+ * 
+ */
 class ButtonLoader : public StaticImageLoader
 {
 public:
@@ -29,9 +37,10 @@ public:
 
   /**
    * @brief Construct a new Button Loader:: Button Loader object
-   * DO NOT USE 
+   * @brief DO NOT USE 
    */
   ButtonLoader() = delete;
+  
   /**
    * @brief Construct a new Button Loader:: Button Loader object. Require 3 images : <filename>
    * 
@@ -76,9 +85,27 @@ public:
    */
   void addImage(const std::string &filename, const float &x=0.f, const float &y=0.f, const float &scale=1.0f);
   
+  /**
+   * @brief Setup things for an image :
+   * @brief - Vertices of the square
+   * @brief - Matrix corresponding of the shape and ratio of the square
+   * @brief - IBO
+   * 
+   * @param filename 
+   * @param x 
+   * @param y 
+   * @param scale 
+   * @param img 
+   */
   void setupImage(const std::string &filename, const float &x, const float &y, const float &scale, Button *img);
   
-  void setBehavior(const std::string &imageName, std::function<void()> &behavior);
+  /**
+   * @brief Set the Behavior object
+   * 
+   * @param imageName 
+   * @param behavior 
+   */
+  void setBehavior(const std::string &imageName, const std::function<void()> &behavior);
   
   /**
    * @brief Display 1 image

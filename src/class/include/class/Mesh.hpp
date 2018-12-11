@@ -12,14 +12,31 @@ using namespace glimac;
 namespace UP
 {
 
+/**
+ * @brief Handlme a Mesh from an OBJ file
+ * 
+ */
 class Mesh
 {
 public:
-  /*  Functions  */
+  // Constructor
+  /**
+   * @brief Construct a new Mesh object
+   * 
+   * @param vertices 
+   * @param indices 
+   * @param textures 
+   * @param texturesLocation 
+   */
   Mesh(std::vector<ShapeVertex> vertices,
        std::vector<unsigned int> indices,
        std::vector<Texture> textures,
        std::map<std::string, GLint> texturesLocation);
+
+  /**
+   * @brief Draw a particular Mesh with it's texture at the given location
+   * 
+   */
   void draw() const;
 
 private:
