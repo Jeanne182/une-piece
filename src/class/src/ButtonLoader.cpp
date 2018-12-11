@@ -36,18 +36,29 @@ ButtonLoader::~ButtonLoader()
 
 Button* ButtonLoader::getButton(const std::string &buttonName, const char* file, const unsigned int line, const char* function)
 {
-  if (!hasButton(buttonName))
+  if (!hasImage(buttonName))
     throw Error(std::string("buttonName given " + buttonName + ":  not in records"), file, line, function);
   else
     return (Button*) _images.find(buttonName)->second;
 }
 
+void ButtonLoader::disable()
+{
+  for (_it = _images.begin(); _it != _images.end(); _it++)
+  {
+    Button *btn = (Button *)_it->second;
+    btn->_isHovered = false;
+    btn->_isClicked = false;
+    btn->_behavior = nullptr;
+  }
+}
 
 void ButtonLoader::mouseHover(const SDL_Event &e)
 {
   for (_it = _images.begin(); _it != _images.end(); _it++)
   {
     Button *btn = (Button *)_it->second;
+    
     const int startX = (btn->_x + 1.f) * _window_width / 2;
     const int startY = (btn->_y - 1.f) * _window_height / -2;
 
@@ -69,8 +80,6 @@ void ButtonLoader::mouseClick()
   {
     Button *btn = (Button *)_it->second;
     btn->_isClicked = btn->_isHovered;
-    if (btn->_isClicked && btn->_behavior)
-      btn->_behavior();
   }
 }
 
@@ -79,13 +88,27 @@ void ButtonLoader::mouseUnclick()
   for (_it = _images.begin(); _it != _images.end(); _it++)
   {
     Button *btn = (Button *)_it->second;
+    if (btn->_isClicked && btn->_isHovered && btn->_behavior)
+      btn->_behavior();
     btn->_isClicked = false;
   }
 }
 
 void ButtonLoader::addImage(const std::string &filename, const float &x, const float &y, const float &scale)
 {
+  // If there is already this image, just move it
+  if (hasImage(filename))
+  {
+    Button *btn = getButton(filename, AT);
+    btn->_x = x;
+    btn->_y = y;
+    btn->_scale = scale;
+    computeMatrix(btn);
+    return;
+  }
 
+
+  // Else create it
   Button *btn = new Button;
 
   // Create a Button
@@ -93,8 +116,6 @@ void ButtonLoader::addImage(const std::string &filename, const float &x, const f
   btn->_x = x;
   btn->_y = y;
   btn->_scale = scale;
-  btn->_isClicked = false;
-  btn->_isHovered = false;
 
   // Loaded
   btn->_imgPtr = loadImage(_appPath.dirPath() + "../../src/assets/textures" + (btn->_filename + ".png"));

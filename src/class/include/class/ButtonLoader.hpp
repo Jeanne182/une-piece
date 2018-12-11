@@ -21,6 +21,10 @@ struct Button : public StaticImage
   bool _isHovered;
   bool _isClicked;
   std::function<void()> _behavior;
+
+  Button()
+  : _isClicked(false), _isHovered(false)
+  {}
 };
 
 /**
@@ -55,16 +59,11 @@ public:
   ~ButtonLoader();
   
   /// Methods
-  
   /**
-   * @brief Check if a button is in the records
+   * @brief Set enabled to False for all the buttons
    * 
-   * @param buttonName 
-   * @return true 
-   * @return false 
    */
-  inline
-  bool hasButton(const std::string &buttonName) { return _images.find(buttonName) != _images.end(); };
+  void disable();
 
   /**
    * @brief Get an Button object
@@ -73,7 +72,6 @@ public:
    * @return Button* 
    */
   Button* getButton(const std::string &buttonName, const char* file, const unsigned int line, const char* function);
-
 
   /**
    * @brief Set the buttons to the state hovered
@@ -134,7 +132,10 @@ public:
   void displayImage(const std::string &imageName);
   
 private:
+  // ATTRIBUTES
   const int _window_width, _window_height;
+
+  // METHODS
 };
     
 }

@@ -90,7 +90,7 @@ public:
    * @param imageName 
    * @return StaticImage* 
    */
-  StaticImage* getImage(const std::string &imageName, const char* file, const unsigned int line, const char* function);
+  StaticImage* getStaticImage(const std::string &imageName, const char* file, const unsigned int line, const char* function);
 
   /**
    * @brief Add an image to the Loader

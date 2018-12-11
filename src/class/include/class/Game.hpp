@@ -26,7 +26,9 @@ enum LAYOUT
 {
   LAYOUT_DEFAULT,
   LAYOUT_MENU,
-  LAYOUT_SCORES
+  LAYOUT_SCORES,
+  LAYOUT_PAUSE,
+  LAYOUT_GAME
 };
 /**
  * @brief Single Class
@@ -36,18 +38,33 @@ enum LAYOUT
 class Game
 {
 public:
+
+  // =============== SELECT THE LAYOUT ===============
   /**
-   * @brief Use the Layout of the menu
+   * @brief Use the Layout of the Menu
    * 
    */
   void layoutMenu();
 
   /**
-   * @brief Use the Layout of the scores
+   * @brief Use the Layout of the Scores
    * 
    */
   void layoutScores();
 
+  /**
+   * @brief Use the Layout of the Pause
+   * 
+   */
+  void layoutPause();
+
+  /**
+   * @brief Use the Layout of the Game
+   * 
+   */
+  void layoutGame();
+
+  // =============== GENERIC FACADES FUNCTIONS ===============
   /**
    * @brief Draw based on the current selected _layout
    * 
@@ -77,8 +94,8 @@ private:
       : buttons(appPath, width, height),
         staticImages(appPath){};
 
-
   // METHODS
+// ============ SPECIFIC FUNCTIONS FOR EACH LAYOUT ============
   /**
    * @brief Draw the Menu
    * 
@@ -86,11 +103,22 @@ private:
   void drawMenu();
 
   /**
-   * @brief React to an event for the menu
+   * @brief Draw the Scores
    * 
-   * @param e 
    */
-  void eventMenu(const SDL_Event &e);
+  void drawScores();
+
+  /**
+   * @brief Draw the Pause
+   * 
+   */
+  void drawPause();
+
+  /**
+   * @brief Draw the Game
+   * 
+   */
+  void drawGame();
 
 
   // ATTRIBUTES
@@ -100,22 +128,8 @@ private:
 
 
   // DELETED
-  /**
-   * @brief DELETED Game Default Constructor
-   * 
-   */
   Game() = delete;
-
-  /**
-   * @brief DELETED Game object Constructor
-   * 
-   */
   Game(Game const &) = delete;
-
-  /**
-   * @brief DELETED operator =
-   * 
-   */
   void operator=(Game const &) = delete;
 
 public:
