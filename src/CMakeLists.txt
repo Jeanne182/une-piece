@@ -34,7 +34,7 @@ find_library(assimp assimp ${ASSIMP_DIRECTORY})
 add_subdirectory(class)
 add_subdirectory(glimac)
 
-set(ALL_LIBRARIES class glimac assimp SOIL ${SDL_LIBRARY} ${OPENGL_LIBRARIES} ${GLEW_LIBRARY})
+set(ALL_LIBRARIES class glimac assimp SOIL ${SDL_LIBRARY} ${GLEW_LIBRARY} ${OPENGL_LIBRARIES})
 
 file(GLOB UP_DIRECTORY "UP*")
 
