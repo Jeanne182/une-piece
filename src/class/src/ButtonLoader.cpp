@@ -22,43 +22,53 @@ ButtonLoader::ButtonLoader(const FilePath &appPath, const int &width, const int 
 
 ButtonLoader::~ButtonLoader()
 {
-  for (_it = _images.begin(); _it != _images.end(); ++_it)
+  std::map<const std::string, StaticImage *>::const_iterator it;
+  for (it = _images.begin(); it != _images.end(); ++it)
   {
-    Button *btn = (Button *)_it->second;
+    Button *btn = (Button *)it->second;
     delete btn->_texture_hovered;
     delete btn->_texture_clicked;
     delete btn->_texture;
     delete btn;
-    _images.erase(_it);
+    _images.erase(it);
   }
 }
 
-
-Button* ButtonLoader::getButton(const std::string &buttonName, const char* file, const unsigned int line, const char* function)
+Button *ButtonLoader::getButton(const std::string &buttonName, const char *file, const unsigned int line, const char *function)
 {
   if (!hasImage(buttonName))
     throw Error(std::string("buttonName given " + buttonName + ":  not in records"), file, line, function);
   else
-    return (Button*) _images.find(buttonName)->second;
+    return (Button *)_images.find(buttonName)->second;
 }
 
-void ButtonLoader::disable()
+Button *ButtonLoader::getButton(const std::string &buttonName, const char *file, const unsigned int line, const char *function) const
 {
-  for (_it = _images.begin(); _it != _images.end(); _it++)
+  if (!hasImage(buttonName))
+    throw Error(std::string("buttonName given " + buttonName + ":  not in records"), file, line, function);
+  else
+    return (Button *)_images.find(buttonName)->second;
+}
+
+void ButtonLoader::disable() const
+{
+  std::map<const std::string, StaticImage *>::const_iterator it;
+  for (it = _images.begin(); it != _images.end(); ++it)
   {
-    Button *btn = (Button *)_it->second;
+    Button *btn = (Button *)it->second;
     btn->_isHovered = false;
     btn->_isClicked = false;
     btn->_behavior = nullptr;
   }
 }
 
-void ButtonLoader::mouseHover(const SDL_Event &e)
+void ButtonLoader::mouseHover(const SDL_Event &e) const
 {
-  for (_it = _images.begin(); _it != _images.end(); _it++)
+  std::map<const std::string, StaticImage *>::const_iterator it;
+  for (it = _images.begin(); it != _images.end(); it++)
   {
-    Button *btn = (Button *)_it->second;
-    
+    Button *btn = (Button *)it->second;
+
     const int startX = (btn->_x + 1.f) * _window_width / 2;
     const int startY = (btn->_y - 1.f) * _window_height / -2;
 
@@ -74,20 +84,22 @@ void ButtonLoader::mouseHover(const SDL_Event &e)
   }
 }
 
-void ButtonLoader::mouseClick()
+void ButtonLoader::mouseClick() const
 {
-  for (_it = _images.begin(); _it != _images.end(); _it++)
+  std::map<const std::string, StaticImage *>::const_iterator it;
+  for (it = _images.begin(); it != _images.end(); it++)
   {
-    Button *btn = (Button *)_it->second;
+    Button *btn = (Button *)it->second;
     btn->_isClicked = btn->_isHovered;
   }
 }
 
-void ButtonLoader::mouseUnclick()
+void ButtonLoader::mouseUnclick() const
 {
-  for (_it = _images.begin(); _it != _images.end(); _it++)
+  std::map<const std::string, StaticImage *>::const_iterator it;
+  for (it = _images.begin(); it != _images.end(); it++)
   {
-    Button *btn = (Button *)_it->second;
+    Button *btn = (Button *)it->second;
     if (btn->_isClicked && btn->_isHovered && btn->_behavior)
       btn->_behavior();
     btn->_isClicked = false;
@@ -106,7 +118,6 @@ void ButtonLoader::addImage(const std::string &filename, const float &x, const f
     computeMatrix(btn);
     return;
   }
-
 
   // Else create it
   Button *btn = new Button;
@@ -218,22 +229,14 @@ void ButtonLoader::setupImage(const std::string &filename, const float &x, const
   _images.insert(std::pair<std::string, StaticImage *>(btn->_filename, btn));
 }
 
-void ButtonLoader::setBehavior(const std::string &imageName, const std::function<void()> &behavior)
+void ButtonLoader::setBehavior(const std::string &imageName, const std::function<void()> &behavior) const
 {
-  _it = _images.find(imageName);
-  if (_it == _images.end())
-    throw Error(std::string("imageName given " + imageName + ": not in records"), AT);
-  Button *btn = (Button *)_it->second;
-  btn->_behavior = behavior;
+  getButton(imageName, AT)->_behavior = behavior;
 }
 
-void ButtonLoader::displayImage(const std::string &imageName)
+void ButtonLoader::displayImage(const std::string &imageName) const
 {
-  _it = _images.find(imageName);
-  if (_it == _images.end())
-    throw Error(std::string("imageName given " + imageName + ": not in records"), AT);
-
-  Button *btn = (Button *)_it->second;
+  Button *btn = getButton(imageName, AT);
   _program._Program.use();
 
   // On charge la bonne texture
