@@ -36,6 +36,10 @@ add_subdirectory(glimac)
 
 set(ALL_LIBRARIES class glimac assimp SOIL ${SDL_LIBRARY} ${GLEW_LIBRARY} ${OPENGL_LIBRARIES})
 
+# Copy save directory
+file(COPY save DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
+
 file(GLOB UP_DIRECTORY "UP*")
 
 foreach(UP ${UP_DIRECTORY})

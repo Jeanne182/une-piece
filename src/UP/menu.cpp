@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <vector>
 #include <math.h>
+#include <ctime>
 
 #include <glimac/common.hpp>
 #include <glimac/Program.hpp>
@@ -14,6 +15,7 @@
 #include <glimac/TrackballCamera.hpp>
 
 #include <class/Game.hpp>
+#include <class/ScoresManager.hpp>
 //#include <assimp/Importer.hpp>
 //#include <assimp/scene.h>
 //#include <assimp/postprocess.h>
@@ -44,8 +46,17 @@ int main(int argc, char **argv)
   /*********************************
    * HERE SHOULD COME THE INITIALIZATION CODE
    *********************************/
+  
+  // GAME MANAGER
   Game& game = Game::Get(applicationPath, WINDOW_WIDTH, WINDOW_HEIGHT);
   game.layoutMenu();
+
+
+  // SCORE MANAGER
+  ScoresManager& scores = ScoresManager::Get(applicationPath);
+  scores.addScore(Score("Paulounet", 66, time(0)));
+  scores.displayAll();
+  scores.store();
   
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -53,7 +64,6 @@ int main(int argc, char **argv)
   bool done = false;
   while (!done)
   {
-    // Event loop:, -1.0f, 0.5f, 0.3f
     SDL_Event e;
     while (windowManager.pollEvent(e))
     {
