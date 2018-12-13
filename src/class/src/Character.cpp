@@ -8,9 +8,7 @@
 namespace UP
 {
 Character::Character()
-    : _position(0.f, 0.f, 0.f),
-      _speed(0.0025f, 0.000025f, 0.0025f),
-      _health(1),
+    : _health(1),
       _sideState(CENTER),
       _verticalState(RUNNING)
 {

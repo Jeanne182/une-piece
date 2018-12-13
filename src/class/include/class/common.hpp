@@ -1,27 +1,13 @@
+#ifndef COMMON_HPP__
+#define COMMON_HPP__
+
 #pragma once
 
 #include <GL/glew.h>
-#include "glm.hpp"
+#include <glimac/glm.hpp>
 #include <string>
 
-namespace glimac {
-
-struct ShapeVertex {
-    glm::vec3 position;
-    glm::vec3 normal;
-    glm::vec2 texCoords;
-    
-    ShapeVertex()
-    {
-    };
-
-    ShapeVertex(const glm::vec3& p, const glm::vec3& n, const glm::vec2& c) {
-      position = p;
-      normal = n;
-      texCoords = c;
-    };
-
-};
+namespace UP {
 
 struct Vertex2DUV {
   
@@ -43,4 +29,14 @@ struct Texture {
   std::string path;
 };
 
+
+enum COORD
+{
+  Y,
+  X,
+  Z
+};
+
 }
+
+#endif
