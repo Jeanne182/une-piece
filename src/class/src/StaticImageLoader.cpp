@@ -68,14 +68,23 @@ StaticImageLoader::StaticImageLoader(const FilePath &appPath)
 
 StaticImageLoader::~StaticImageLoader()
 {
-  for (_it = _images.begin(); _it != _images.end(); ++_it)
+  std::map<const std::string, StaticImage *>::const_iterator it;
+  for (it = _images.begin(); it != _images.end(); ++it)
   {
-    delete _it->second->_texture;
-    delete _it->second;
+    delete it->second->_texture;
+    delete it->second;
   }
 }
 
 StaticImage* StaticImageLoader::getStaticImage(const std::string &imageName, const char* file, const unsigned int line, const char* function)
+{
+  if (!hasImage(imageName))
+    throw Error(std::string("imageName given " + imageName + ":  not in records"), file, line, function);
+  else
+    return (StaticImage*) _images.find(imageName)->second;
+}
+
+StaticImage* StaticImageLoader::getStaticImage(const std::string &imageName, const char* file, const unsigned int line, const char* function) const
 {
   if (!hasImage(imageName))
     throw Error(std::string("imageName given " + imageName + ":  not in records"), file, line, function);
@@ -164,16 +173,17 @@ void StaticImageLoader::setupImage(const std::string &filename, StaticImage *img
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-void StaticImageLoader::sendVertexBuffer()
+void StaticImageLoader::sendVertexBuffer() const
 {
 
   glBindBuffer(GL_ARRAY_BUFFER, _vbo);
 
   // On compte le nombre d'objets
   std::vector<Vertex2DUV> vertices;
-  for (_it = _images.begin(); _it != _images.end(); ++_it)
+  std::map<const std::string, StaticImage *>::const_iterator it;
+  for (it = _images.begin(); it != _images.end(); ++it)
   {
-    vertices.insert(vertices.end(), _it->second->_vertices.begin(), _it->second->_vertices.end());
+    vertices.insert(vertices.end(), it->second->_vertices.begin(), it->second->_vertices.end());
   }
 
   glBufferData(GL_ARRAY_BUFFER,
@@ -184,7 +194,7 @@ void StaticImageLoader::sendVertexBuffer()
   glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void StaticImageLoader::displayImage(const std::string &imageName)
+void StaticImageLoader::displayImage(const std::string &imageName) const
 {
   _program._Program.use();
   StaticImage *img = getStaticImage(imageName, AT);
@@ -202,14 +212,14 @@ void StaticImageLoader::displayImage(const std::string &imageName)
   glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void StaticImageLoader::setScaleVector(const std::string &imageName, const float &scale)
+void StaticImageLoader::setScaleVector(const std::string &imageName, const float &scale) const
 {
   StaticImage *img = getStaticImage(imageName, AT);
   img->_scale = scale;
   computeMatrix(img);
 }
 
-void StaticImageLoader::setTranslateVector(const std::string &imageName, const float x, const float y)
+void StaticImageLoader::setTranslateVector(const std::string &imageName, const float x, const float y) const
 {
   StaticImage *img = getStaticImage(imageName, AT);
   img->_x = x;
@@ -217,12 +227,12 @@ void StaticImageLoader::setTranslateVector(const std::string &imageName, const f
   computeMatrix(img);
 }
 
-void StaticImageLoader::computeMatrix(const std::string &imageName)
+void StaticImageLoader::computeMatrix(const std::string &imageName) const
 {
   computeMatrix(getStaticImage(imageName, AT));
 }
 
-void StaticImageLoader::computeMatrix(StaticImage *img)
+void StaticImageLoader::computeMatrix(StaticImage *img) const
 {
   img->_computedMatrix = translate(img->_x, img->_y) * scale(img->_scale, img->_scale) * img->_modelMatrix;
 }

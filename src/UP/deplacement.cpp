@@ -54,7 +54,8 @@ int main(int argc, char **argv)
 
    Sphere sphere1(1,32,16);
    Program program = loadProgram(applicationPath.dirPath() + "shaders/3D.vs.glsl", applicationPath.dirPath() + "shaders/tex3D.fs.glsl");
-   std::unique_ptr<Image> MoonMap = loadImage("/home/donadio/Bureau/opengl3/TP1/GLImac-Template/assets/textures/MoonMap.jpg");
+   //std::unique_ptr<Image> MoonMap = loadImage("/home/donadio/Bureau/opengl3/TP1/GLImac-Template/assets/textures/MoonMap.jpg");
+   std::unique_ptr<Image> MoonMap = loadImage(applicationPath.dirPath() + "../../src/assets/textures/MoonMap.jpg");
    if(MoonMap == NULL){
      return EXIT_FAILURE;
    }

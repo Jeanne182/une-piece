@@ -63,7 +63,7 @@ public:
    * @brief Set enabled to False for all the buttons
    * 
    */
-  void disable();
+  void disable() const;
 
   /**
    * @brief Get an Button object
@@ -74,22 +74,30 @@ public:
   Button* getButton(const std::string &buttonName, const char* file, const unsigned int line, const char* function);
 
   /**
+   * @brief Get an const Button object
+   * 
+   * @param buttonName 
+   * @return Button* 
+   */
+  Button* getButton(const std::string &buttonName, const char* file, const unsigned int line, const char* function) const;
+
+  /**
    * @brief Set the buttons to the state hovered
    *
    */
-  void mouseHover(const SDL_Event &e);
+  void mouseHover(const SDL_Event &e) const;
   
   /**
    * @brief Set the buttons to the state Clicked
    *
    */
-  void mouseClick();  
+  void mouseClick() const;
   
   /**
    * @brief Disable the state Clicked
    *
    */
-  void mouseUnclick();  
+  void mouseUnclick() const;
     
   /**
    * @brief Add an image to the Loader. REQUIRE 3 images : 
@@ -122,14 +130,14 @@ public:
    * @param imageName 
    * @param behavior 
    */
-  void setBehavior(const std::string &imageName, const std::function<void()> &behavior);
+  void setBehavior(const std::string &imageName, const std::function<void()> &behavior) const;
   
   /**
    * @brief Display 1 image
    * 
    * @param imageName
    */
-  void displayImage(const std::string &imageName);
+  void displayImage(const std::string &imageName) const;
   
 private:
   // ATTRIBUTES
