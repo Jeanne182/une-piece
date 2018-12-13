@@ -1,5 +1,5 @@
-#ifndef MODEL_UP_HPP__
-#define MODEL_UP_HPP__
+#ifndef APP_UP_HPP__
+#define APP_UP_HPP__
 
 #pragma once
 
@@ -32,10 +32,10 @@ enum LAYOUT
 };
 /**
  * @brief Single Class
- * @brief Create the GAME Object that serves as a facade for all the OpenGL stuff
+ * @brief Create the App Object that serves as a facade for all the OpenGL stuff
  * 
  */
-class Game
+class App
 {
 public:
 
@@ -79,18 +79,18 @@ public:
   void event(const SDL_Event &e);
 
 private:
-  static Game instance;
+  static App instance;
 
   // CONSTRUCTOR
   
   /**
-   * @brief Construct a new Game object 
+   * @brief Construct a new App object 
    * 
    * @param appPath 
    * @param width 
    * @param height 
    */
-  Game(const FilePath &appPath, const int &width, const int &height)
+  App(const FilePath &appPath, const int &width, const int &height)
       : buttons(appPath, width, height),
         staticImages(appPath){};
 
@@ -128,9 +128,9 @@ private:
 
 
   // DELETED
-  Game() = delete;
-  Game(Game const &) = delete;
-  void operator=(Game const &) = delete;
+  App() = delete;
+  App(App const &) = delete;
+  void operator=(App const &) = delete;
 
 public:
 
@@ -140,11 +140,11 @@ public:
    * @param appPath 
    * @param width 
    * @param height 
-   * @return Game& 
+   * @return App& 
    */
-  static Game &Get(const FilePath &appPath, const int &width, const int &height)
+  static App &Get(const FilePath &appPath, const int &width, const int &height)
   {
-    static Game instance(appPath, width, height);
+    static App instance(appPath, width, height);
     return instance;
   };
 };

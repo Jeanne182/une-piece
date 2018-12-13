@@ -1,4 +1,4 @@
-#include <class/Game.hpp>
+#include <class/App.hpp>
 #include <class/Error.hpp>
 
 #include <glimac/FilePath.hpp>
@@ -12,7 +12,7 @@ namespace UP
 {
 
 // =============== SELECT THE LAYOUT ===============
-void Game::layoutMenu()
+void App::layoutMenu()
 {
   buttons.disable();
   _layout = LAYOUT_MENU;
@@ -37,7 +37,7 @@ void Game::layoutMenu()
   buttons.setBehavior("Play", [] { std::cout << "LAMBDA of Play" << std::endl; });
   buttons.setBehavior("Scores", [this] { layoutScores(); });
 };
-void Game::layoutScores()
+void App::layoutScores()
 {
   buttons.disable();
   _layout = LAYOUT_SCORES;
@@ -62,7 +62,7 @@ void Game::layoutScores()
   buttons.setBehavior("Scores", [this] { layoutPause(); });
   buttons.setBehavior("Menu", [this] { layoutMenu(); });
 };
-void Game::layoutPause()
+void App::layoutPause()
 {
   buttons.disable();
   _layout = LAYOUT_PAUSE;
@@ -89,7 +89,7 @@ void Game::layoutPause()
   buttons.setBehavior("Scores", [this] { layoutScores(); });
   buttons.setBehavior("Resume", [] { std::cout << "LAMBDA of Resume" << std::endl; });
 };
-void Game::layoutGame()
+void App::layoutGame()
 {
   buttons.disable();
   _layout = LAYOUT_GAME;
@@ -100,7 +100,7 @@ void Game::layoutGame()
 };
 
 // =============== GENERIC FACADES FUNCTIONS ===============
-void Game::draw()
+void App::draw()
 {
   switch (_layout)
   {
@@ -121,7 +121,7 @@ void Game::draw()
     break;
   }
 };
-void Game::event(const SDL_Event &e)
+void App::event(const SDL_Event &e)
 {
   switch (e.type)
   {
@@ -141,7 +141,7 @@ void Game::event(const SDL_Event &e)
 };
 
 // =============== SPECIFIC FUNCTIONS FOR EACH LAYOUT ===============
-void Game::drawMenu()
+void App::drawMenu()
 {
   try
   {
@@ -155,7 +155,7 @@ void Game::drawMenu()
     return;
   }
 };
-void Game::drawScores()
+void App::drawScores()
 {
   try
   {
@@ -168,7 +168,7 @@ void Game::drawScores()
     return;
   }
 };
-void Game::drawPause()
+void App::drawPause()
 {
   try
   {
@@ -183,7 +183,7 @@ void Game::drawPause()
     return;
   }
 };
-void Game::drawGame()
+void App::drawGame()
 {
   try
   {

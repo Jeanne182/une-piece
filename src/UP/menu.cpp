@@ -14,7 +14,7 @@
 #include <glimac/Sphere.hpp>
 #include <glimac/TrackballCamera.hpp>
 
-#include <class/Game.hpp>
+#include <class/App.hpp>
 #include <class/ScoresManager.hpp>
 //#include <assimp/Importer.hpp>
 //#include <assimp/scene.h>
@@ -47,9 +47,9 @@ int main(int argc, char **argv)
    * HERE SHOULD COME THE INITIALIZATION CODE
    *********************************/
   
-  // GAME MANAGER
-  Game& game = Game::Get(applicationPath, WINDOW_WIDTH, WINDOW_HEIGHT);
-  game.layoutMenu();
+  // APP MANAGER
+  App& app = App::Get(applicationPath, WINDOW_WIDTH, WINDOW_HEIGHT);
+  app.layoutMenu();
 
 
   // SCORE MANAGER
@@ -72,7 +72,7 @@ int main(int argc, char **argv)
         done = true; // Leave the loop after this iteration
       }
 
-      game.event(e);
+      app.event(e);
 
     }
 
@@ -81,7 +81,7 @@ int main(int argc, char **argv)
        *********************************/
 
     glClear(GL_COLOR_BUFFER_BIT);
-    game.draw();
+    app.draw();
 
     // Update the display
     windowManager.swapBuffers();
