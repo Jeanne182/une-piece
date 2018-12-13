@@ -14,6 +14,7 @@
 #include <class/StaticImageLoader.hpp>
 #include <class/ButtonLoader.hpp>
 #include <class/Character.hpp>
+#include <class/Bonus.hpp>
 //#include <assimp/Importer.hpp>
 //#include <assimp/scene.h>
 //#include <assimp/postprocess.h>
@@ -45,6 +46,10 @@ int main(int argc, char **argv)
    *********************************/
    Character player;
 
+
+   std::cout << player.getPosition() << std::endl;
+   std::cout << player.getSpeed() << std::endl;
+   std::cout << player.getHealth() << std::endl;
 
 
    Sphere sphere1(1,32,16);
