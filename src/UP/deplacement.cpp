@@ -216,21 +216,13 @@ int main(int argc, char **argv)
        player.move();
       //std::cout << player.getPosition() << std::endl;
 
+/*
+        glUniformMatrix4fv(assetProgram.uMVPMatrix, 1, GL_FALSE, glm::value_ptr(ProjMatrix * MVMatrix));
+        glUniformMatrix4fv(assetProgram.uMVMatrix, 1, GL_FALSE, glm::value_ptr(MVMatrix));
+        glUniformMatrix4fv(assetProgram.uNormalMatrix, 1, GL_FALSE, glm::value_ptr(NormalMatrix));
+*/
 
-          MVMatrix = glm::scale(glm::translate(glm::mat4(), glm::vec3(0, -3, -5)), glm::vec3(0.3));
-          MVMatrix = glm::rotate(MVMatrix,
-                                 windowManager.getTime() / 2,
-                                 glm::vec3(0.f, 1.f, 0.f));
-          MVMatrix = glm::scale(MVMatrix, glm::vec3(1.0f));
-
-              /* 9_ Envoi des matrices au GPU */
-              glUniformMatrix4fv(assetProgram.uMVPMatrix, 1, GL_FALSE, glm::value_ptr(ProjMatrix * MVMatrix));
-          glUniformMatrix4fv(assetProgram.uMVMatrix, 1, GL_FALSE, glm::value_ptr(MVMatrix));
-          glUniformMatrix4fv(assetProgram.uNormalMatrix, 1, GL_FALSE, glm::value_ptr(NormalMatrix));
-
-          assetProgram._Program.use();
-          player._model.draw();
-          player.display();
+        player.display(ProjMatrix, MVMatrix, NormalMatrix, assetProgram);
        //player.verticalMove(1);
        //player.sideMove(1);
 
