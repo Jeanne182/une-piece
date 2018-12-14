@@ -45,7 +45,15 @@ int main(int argc, char **argv)
    * HERE SHOULD COME THE INITIALIZATION CODE
    *********************************/
    Character player;
+   Bonus bonus;
+   Bonus bonus1(glm::vec3(0,0,0), 1);
 
+   player.addBonus(bonus);
+   player.addBonus(bonus1);
+   std::map<unsigned int, time_t>::iterator it;
+    for(it = player.getActiveBonuses().begin(); it != player.getActiveBonuses().end(); it++) {
+      std::cout << "Bonus " << it->first << " activé à " << it->second << std::endl;
+    }
 
    std::cout << player.getPosition() << std::endl;
    std::cout << player.getSpeed() << std::endl;
@@ -119,6 +127,7 @@ int main(int argc, char **argv)
    }
    // Application loop:
    bool done = false;
+   int test = 0;
    while(!done) {
       // Event loop:
       SDL_Event e;
@@ -146,7 +155,7 @@ int main(int argc, char **argv)
 
        //player.staticPosition();
        player.move();
-        std::cout << player.getPosition() << std::endl;
+      //std::cout << player.getPosition() << std::endl;
 
 
        //player.verticalMove(1);
@@ -192,6 +201,7 @@ int main(int argc, char **argv)
          glDrawArrays(GL_TRIANGLES, 0, sphere1.getVertexCount());
 
        glBindTexture(GL_TEXTURE_2D, 0);
+       player.deleteExpiredBonuses();
 
        glBindVertexArray(0);
       // Update the display

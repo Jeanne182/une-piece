@@ -1,8 +1,3 @@
-#include <string>
-#include <vector>
-#include <exception>
-#include <iostream>
-
 #include <class/Character.hpp>
 
 namespace UP
@@ -94,8 +89,7 @@ void Character::move()
     break;
   }
 }
-// 1-epsilon * posOùjesuis
-// SI posOùjesuis < epsilon tp à 0
+
 void Character::sideMove(const int &side)
 {
   switch (side)
@@ -151,6 +145,45 @@ void Character::verticalMove(const int &movement)
       setPosZ(_position[Z] + _speed[Z]);
     }
     break;
+  }
+}
+void Character::addBonus(const Bonus bonus)
+{
+  time_t startingTime = time(NULL);
+  std::map<unsigned int, time_t>::iterator it;
+  it = _activeBonuses.find(bonus.getBonusType());
+  if(it == _activeBonuses.end())
+  {
+    useBonus(bonus.getBonusType(), startingTime);
+  }
+  else
+  {
+    it->second = startingTime;
+  }
+}
+void Character::deleteConsumedBonus(const Bonus bonus)
+{
+  std::map<unsigned int, time_t>::iterator it;
+  for(it = _activeBonuses.begin(); it != _activeBonuses.end(); it++)
+  {
+    if( (it->first) == bonus.getBonusType() )
+    {
+      _activeBonuses.erase(it);
+      break;
+    }
+  }
+}
+
+void Character::deleteExpiredBonuses()
+{
+  time_t currentTime = time(NULL);
+  std::map<unsigned int, time_t>::iterator it;
+  for(it = _activeBonuses.begin(); it != _activeBonuses.end(); it++)
+  {
+    int expirationTime = (it->second) + BONUS_DURATION;
+    if( currentTime == expirationTime ){
+      _activeBonuses.erase(it);
+    }
   }
 }
 } // namespace UP
