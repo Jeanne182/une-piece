@@ -20,6 +20,7 @@
 #include <class/StaticImageLoader.hpp>
 #include <class/Model.hpp>
 #include <class/Utils.hpp>
+#include <class/chrono.hpp>
 
 #include <unistd.h>
 
@@ -86,7 +87,7 @@ main(int argc, char **argv)
    * HERE SHOULD COME THE INITIALIZATION CODE
    *********************************/
 
-  Model model(applicationPath.dirPath() + "../../src/assets/models/nanosuit/nanosuit.obj", assetProgram.uMapTextures);
+  Model model(applicationPath.dirPath() + "../../src/assets/models/bateau.obj", assetProgram.uMapTextures);
   //Model model(applicationPath.dirPath() + "../../src/assets/models/cube.obj", assetProgram.uMapTextures);
 
   glm::mat4 ProjMatrix, MVMatrix, NormalMatrix;
@@ -95,8 +96,10 @@ main(int argc, char **argv)
 
   glEnable(GL_DEPTH_TEST);
   glCheckError();
+  float angle = 0.f;
   // Application loop:
   bool done = false;
+  Chrono chr;
   while (!done)
   {
     // Event loop:
@@ -110,17 +113,18 @@ main(int argc, char **argv)
     /*********************************
        * HERE SHOULD COME THE RENDERING CODE
        *********************************/
-
+    chr.start();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+    
+    angle += 0.05f;
     MVMatrix = glm::scale(glm::translate(glm::mat4(), glm::vec3(0, -3, -5)), glm::vec3(0.3));
     MVMatrix = glm::rotate(MVMatrix,
-                           windowManager.getTime() / 2,
+                           angle,
                            glm::vec3(0.f, 1.f, 0.f));
     MVMatrix = glm::scale(MVMatrix, glm::vec3(1.0f));
 
         /* 9_ Envoi des matrices au GPU */
-        glUniformMatrix4fv(assetProgram.uMVPMatrix, 1, GL_FALSE, glm::value_ptr(ProjMatrix * MVMatrix));
+    glUniformMatrix4fv(assetProgram.uMVPMatrix, 1, GL_FALSE, glm::value_ptr(ProjMatrix * MVMatrix));
     glUniformMatrix4fv(assetProgram.uMVMatrix, 1, GL_FALSE, glm::value_ptr(MVMatrix));
     glUniformMatrix4fv(assetProgram.uNormalMatrix, 1, GL_FALSE, glm::value_ptr(NormalMatrix));
 
@@ -129,8 +133,8 @@ main(int argc, char **argv)
 
     // Update the display
     windowManager.swapBuffers();
-    usleep(100000);
+    chr.stop();
+    std::cout << chr.timeSpan() << std::endl;
   }
-
   return EXIT_SUCCESS;
 }
