@@ -45,6 +45,7 @@ int main(int argc, char **argv)
    * HERE SHOULD COME THE INITIALIZATION CODE
    *********************************/
    Character player;
+   Character player2;
    Bonus bonus;
    Bonus bonus1(glm::vec3(0,0,0), 1);
 
@@ -58,6 +59,9 @@ int main(int argc, char **argv)
    std::cout << player.getPosition() << std::endl;
    std::cout << player.getSpeed() << std::endl;
    std::cout << player.getHealth() << std::endl;
+   std::cout << player2.getPosition() << std::endl;
+   std::cout << player2.getSpeed() << std::endl;
+   std::cout << player2.getHealth() << std::endl;
 
 
    Sphere sphere1(1,32,16);
@@ -154,6 +158,7 @@ int main(int argc, char **argv)
        *********************************/
 
        //player.staticPosition();
+       player.collision(player2);
        player.move();
       //std::cout << player.getPosition() << std::endl;
 

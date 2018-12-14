@@ -2,6 +2,7 @@
 
 namespace UP
 {
+
 Character::Character()
     : _position(0.f, 0.f, 0.f),
       _speed(0.0025f, 0.000025f, 0.0025f),
@@ -147,7 +148,7 @@ void Character::verticalMove(const int &movement)
     break;
   }
 }
-void Character::addBonus(const Bonus bonus)
+void Character::addBonus(const Bonus &bonus)
 {
   time_t startingTime = time(NULL);
   std::map<unsigned int, time_t>::iterator it;
@@ -161,7 +162,7 @@ void Character::addBonus(const Bonus bonus)
     it->second = startingTime;
   }
 }
-void Character::deleteConsumedBonus(const Bonus bonus)
+void Character::deleteConsumedBonus(const Bonus &bonus)
 {
   std::map<unsigned int, time_t>::iterator it;
   for(it = _activeBonuses.begin(); it != _activeBonuses.end(); it++)
@@ -186,4 +187,11 @@ void Character::deleteExpiredBonuses()
     }
   }
 }
+
+bool Character::collision(const Character &p2) const{
+  if(_position == p2._position){
+    printf("collision");
+  }
+}
+
 } // namespace UP

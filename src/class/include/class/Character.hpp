@@ -195,18 +195,19 @@ public:
    *
    * @param bonus
    */
-   void addBonus(const Bonus bonus);
+   void addBonus(const Bonus &bonus);
    /**
     * @brief Delete a consumed Bonus to the player
     *
     * @param bonus
     */
-    void deleteConsumedBonus(const Bonus bonus);
+    void deleteConsumedBonus(const Bonus &bonus);
     /**
      * @brief delete Bonuses of the player that has expired
      *
      */
      void deleteExpiredBonuses();
+     bool collision(const Character &p2) const;
 
 
 private:
