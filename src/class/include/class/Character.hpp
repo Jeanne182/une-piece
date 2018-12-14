@@ -11,7 +11,8 @@
 
 #include <glimac/SDLWindowManager.hpp>
 #include <glimac/common.hpp>
-#include "Bonus.hpp"
+#include <class/Model.hpp>
+#include <class/Bonus.hpp>
 
 using namespace glimac;
 
@@ -27,7 +28,6 @@ enum SIDE
 
 enum VERTICAL
 {
-  SLIDING,
   RUNNING,
   JUMPING
 };
@@ -47,8 +47,9 @@ public:
    * @brief Construct a new Character object
    *
    */
-  Character();
 
+  //Character();
+  Character(const std::string &path, const std::map<std::string, GLint> &textureLocation);
   /**
    * @brief Destroy the Character object
    *
@@ -207,8 +208,11 @@ public:
      *
      */
      void deleteExpiredBonuses();
-     bool collision(const Character &p2) const;
+     bool collision(const Character &p2);
+     void loseHealth(const unsigned int &value);
 
+       // Model data
+       Model _model;
 
 private:
   //  Position Data
@@ -223,6 +227,7 @@ private:
   // State datas
   int _sideState;
   int _verticalState;
+
 
   // Bonus datas
   std::map<unsigned int, time_t> _activeBonuses;

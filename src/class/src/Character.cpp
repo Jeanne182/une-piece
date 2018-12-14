@@ -1,14 +1,28 @@
 #include <class/Character.hpp>
+#include <class/Model.hpp>
+
+using namespace glimac;
 
 namespace UP
 {
-
+/*
 Character::Character()
     : _position(0.f, 0.f, 0.f),
       _speed(0.0025f, 0.000025f, 0.0025f),
       _health(1),
       _sideState(CENTER),
       _verticalState(RUNNING)
+{
+}
+*/
+Character::Character(const std::string &path, const std::map<std::string, GLint> &textureLocation)
+    : _position(0.f, 0.f, 0.f),
+      _speed(0.0025f, 0.000025f, 0.0025f),
+      _health(1),
+      _sideState(CENTER),
+      _verticalState(RUNNING),
+      _model(path, textureLocation)
+      //_model(path.dirPath() + "../../src/assets/models/bateau.obj"), textureLocation)
 {
 }
 
@@ -23,14 +37,10 @@ void Character::keyDownHandler(const int &key)
   {
     _sideState = LEFT;
   }
-  /* up and down player */
+  /* up player */
   if (key == SDLK_UP)
   {
     _verticalState = JUMPING;
-  }
-  if (key == SDLK_DOWN)
-  {
-    _verticalState = SLIDING;
   }
 }
 
@@ -45,12 +55,8 @@ void Character::keyUpHandler(const int &key)
   {
     _sideState = CENTER;
   }
-  /* up and down player */
+  /* up player */
   if (key == SDLK_UP)
-  {
-    _verticalState = RUNNING;
-  }
-  if (key == SDLK_DOWN)
   {
     _verticalState = RUNNING;
   }
@@ -64,31 +70,8 @@ void Character::forwardMove()
 void Character::move()
 {
   forwardMove();
-  switch (_sideState)
-  {
-  case CENTER:
-    sideMove(CENTER);
-    break;
-  case LEFT:
-    sideMove(LEFT);
-    break;
-  case RIGHT:
-    sideMove(RIGHT);
-    break;
-  }
-
-  switch (_verticalState)
-  {
-  case RUNNING:
-    verticalMove(RUNNING);
-    break;
-  case SLIDING:
-    verticalMove(SLIDING);
-    break;
-  case JUMPING:
-    verticalMove(JUMPING);
-    break;
-  }
+  sideMove(_sideState);
+  sideMove(_verticalState);
 }
 
 void Character::sideMove(const int &side)
@@ -130,12 +113,6 @@ void Character::verticalMove(const int &movement)
       setPosZ(_position[Z] + _speed[Z]);
     }
     if (_position[Z] > 0)
-    {
-      setPosZ(_position[Z] - _speed[Z]);
-    }
-    break;
-  case SLIDING:
-    if (_position[Z] > -2)
     {
       setPosZ(_position[Z] - _speed[Z]);
     }
@@ -188,10 +165,14 @@ void Character::deleteExpiredBonuses()
   }
 }
 
-bool Character::collision(const Character &p2) const{
-  if(_position == p2._position){
-    printf("collision");
+bool Character::collision(const Character &p2){
+  if( (int)_position[X] == (int)p2._position[X] && (int)_position[Y] == (int)p2._position[Y] && (int)_position[Z] == (int)p2._position[Z] ){
+    loseHealth(1);
   }
+}
+
+void Character::loseHealth(const unsigned int &value){
+  setHealth(_health - value);
 }
 
 } // namespace UP
