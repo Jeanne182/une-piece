@@ -4,29 +4,70 @@
 #include <cstddef>
 #include <vector>
 #include <math.h>
+#include <string>
 #include <glimac/common.hpp>
 #include <glimac/Program.hpp>
 #include <glimac/FilePath.hpp>
 #include <glimac/glm.hpp>
 #include <glimac/Image.hpp>
-#include <glimac/Sphere.hpp>
+//#include <glimac/Sphere.hpp>
 #include <glimac/TrackballCamera.hpp>
+
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
 #include <class/StaticImageLoader.hpp>
-#include <class/ButtonLoader.hpp>
+#include <class/Utils.hpp>
 #include <class/Character.hpp>
 #include <class/Bonus.hpp>
-//#include <assimp/Importer.hpp>
-//#include <assimp/scene.h>
-//#include <assimp/postprocess.h>
+
+#include <unistd.h>
 
 using namespace glimac;
 using namespace UP;
 
 
+struct AssetProgram
+{
+  Program _Program;
+
+  GLint uMVPMatrix;
+  GLint uMVMatrix;
+  GLint uNormalMatrix;
+  std::map<std::string, GLint> uMapTextures;
+
+  AssetProgram(const FilePath &applicationPath) : _Program(loadProgram(
+                                                      applicationPath.dirPath() + "shaders/3D.vs.glsl",
+                                                      applicationPath.dirPath() + "shaders/normals.fs.glsl"))
+  {
+    uMVPMatrix = glGetUniformLocation(_Program.getGLId(), "uMVPMatrix");
+    uMVMatrix = glGetUniformLocation(_Program.getGLId(), "uMVMatrix");
+    uNormalMatrix = glGetUniformLocation(_Program.getGLId(), "uNormalMatrix");
+
+    // Textures
+    GLint uTexture_diffuse1;
+    GLint uTexture_specular1;
+    uTexture_diffuse1 = glGetUniformLocation(_Program.getGLId(), "uTexture_diffuse1");
+    uTexture_specular1 = glGetUniformLocation(_Program.getGLId(), "uTexture_specular1");
+    uMapTextures.insert(std::pair<std::string, GLint>(std::string("uTexture_diffuse1"), uTexture_diffuse1));
+    uMapTextures.insert(std::pair<std::string, GLint>(std::string("uTexture_specular1"), uTexture_specular1));
+
+    std::map<std::string, GLint>::iterator it;
+    for (it = uMapTextures.begin(); it != uMapTextures.end(); it++)
+    {
+      std::cout << it->first << " : " << it->second << std::endl;
+    }
+  }
+};
+
+
 int main(int argc, char **argv)
 {
   // Initialize SDL and open a window
-  SDLWindowManager windowManager(800, 800, "Une Piece");
+  const int WINDOW_HEIGHT = 800;
+  const int WINDOW_WIDTH = 800;
+  SDLWindowManager windowManager(WINDOW_WIDTH, WINDOW_HEIGHT, "Une Piece");
 
   // Initialize glew for OpenGL3+ support
   GLenum glewInitError = glewInit();
@@ -37,6 +78,8 @@ int main(int argc, char **argv)
   }
 
   const FilePath applicationPath(argv[0]);
+  AssetProgram assetProgram(applicationPath);
+  assetProgram._Program.use();
 
   std::cout << "OpenGL Version : " << glGetString(GL_VERSION) << std::endl;
   std::cout << "GLEW Version : " << glewGetString(GLEW_VERSION) << std::endl;
@@ -44,7 +87,8 @@ int main(int argc, char **argv)
   /*********************************
    * HERE SHOULD COME THE INITIALIZATION CODE
    *********************************/
-   Character player;
+   Character player(applicationPath.dirPath() + "../../src/assets/models/bateau.obj", assetProgram.uMapTextures);
+   Character player2(applicationPath.dirPath() + "../../src/assets/models/bateau.obj", assetProgram.uMapTextures);
    Bonus bonus;
    Bonus bonus1(glm::vec3(0,0,0), 1);
 
@@ -58,8 +102,15 @@ int main(int argc, char **argv)
    std::cout << player.getPosition() << std::endl;
    std::cout << player.getSpeed() << std::endl;
    std::cout << player.getHealth() << std::endl;
+   std::cout << player2.getPosition() << std::endl;
+   std::cout << player2.getSpeed() << std::endl;
+   std::cout << player2.getHealth() << std::endl;
 
+   glm::mat4 ProjMatrix, MVMatrix, NormalMatrix;
+   ProjMatrix = glm::perspective(glm::radians(70.0f), (float)(WINDOW_WIDTH / WINDOW_HEIGHT), 0.1f, 100.f);
+   NormalMatrix = glm::transpose(glm::inverse(MVMatrix));
 
+/*
    Sphere sphere1(1,32,16);
    Program program = loadProgram(applicationPath.dirPath() + "shaders/3D.vs.glsl", applicationPath.dirPath() + "shaders/tex3D.fs.glsl");
    //std::unique_ptr<Image> MoonMap = loadImage("/home/donadio/Bureau/opengl3/TP1/GLImac-Template/assets/textures/MoonMap.jpg");
@@ -125,7 +176,9 @@ int main(int argc, char **argv)
    for(int i =0; i < nbLunes; i++){
      lunes.push_back(glm::sphericalRand(2.f));
    }
+   */
    // Application loop:
+     glEnable(GL_DEPTH_TEST);
    bool done = false;
    int test = 0;
    while(!done) {
@@ -152,17 +205,29 @@ int main(int argc, char **argv)
       /*********************************
        * HERE SHOULD COME THE RENDERING CODE
        *********************************/
+           glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
        //player.staticPosition();
+       player.collision(player2);
+       if(player.getHealth() == 0){
+          std::cout << "You lose" << std::endl;
+       }
+
        player.move();
       //std::cout << player.getPosition() << std::endl;
 
+/*
+        glUniformMatrix4fv(assetProgram.uMVPMatrix, 1, GL_FALSE, glm::value_ptr(ProjMatrix * MVMatrix));
+        glUniformMatrix4fv(assetProgram.uMVMatrix, 1, GL_FALSE, glm::value_ptr(MVMatrix));
+        glUniformMatrix4fv(assetProgram.uNormalMatrix, 1, GL_FALSE, glm::value_ptr(NormalMatrix));
+*/
 
+        player.display(ProjMatrix, MVMatrix, NormalMatrix, assetProgram);
        //player.verticalMove(1);
        //player.sideMove(1);
-       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-       glBindVertexArray(vao);
 
+       //glBindVertexArray(vao);
+/*
        glBindTexture(GL_TEXTURE_2D, MoonMapTex);
          glUniform1i(uTexture, 0);
          MVMatrix = glm::translate(glm::mat4(1), glm::vec3(1, -3, -5) + glm::vec3(player.getPosY(), 0, player.getPosZ())); // Translation
@@ -200,16 +265,16 @@ int main(int argc, char **argv)
          glUniformMatrix4fv(uNormalMatrix, 1, GL_FALSE, glm::value_ptr(NormalMatrix));
          glDrawArrays(GL_TRIANGLES, 0, sphere1.getVertexCount());
 
-       glBindTexture(GL_TEXTURE_2D, 0);
+       glBindTexture(GL_TEXTURE_2D, 0);*/
        player.deleteExpiredBonuses();
 
-       glBindVertexArray(0);
+       //glBindVertexArray(0);
       // Update the display
       windowManager.swapBuffers();
    }
-   glDeleteBuffers(1, &vbo);
-   glDeleteVertexArrays(1, &vao);
-   glDeleteTextures(1, &MoonMapTex);
+   //glDeleteBuffers(1, &vbo);
+   //glDeleteVertexArrays(1, &vao);
+   //glDeleteTextures(1, &MoonMapTex);
 
    return EXIT_SUCCESS;
    }
