@@ -10,9 +10,18 @@ namespace UP
 Character::Character()
     : _health(1),
       _sideState(CENTER),
-      _verticalState(RUNNING)
+      _verticalState(RUNNING){};
+
+Character::Character(const glm::vec3 &pos, const glm::vec3 &speed)
+    : GameObject(pos, speed),
+      _health(1),
+      _sideState(CENTER),
+      _verticalState(RUNNING){};
+
+void Character::display() const
 {
-}
+  // TODO
+};
 
 void Character::keyDownHandler(const int &key)
 {
@@ -66,31 +75,8 @@ void Character::forwardMove()
 void Character::move()
 {
   forwardMove();
-  switch (_sideState)
-  {
-  case CENTER:
-    sideMove(CENTER);
-    break;
-  case LEFT:
-    sideMove(LEFT);
-    break;
-  case RIGHT:
-    sideMove(RIGHT);
-    break;
-  }
-
-  switch (_verticalState)
-  {
-  case RUNNING:
-    verticalMove(RUNNING);
-    break;
-  case SLIDING:
-    verticalMove(SLIDING);
-    break;
-  case JUMPING:
-    verticalMove(JUMPING);
-    break;
-  }
+  sideMove(_sideState);
+  verticalMove(_verticalState);
 }
 // 1-epsilon * posOùjesuis
 // SI posOùjesuis < epsilon tp à 0

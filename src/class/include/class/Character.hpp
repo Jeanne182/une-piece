@@ -33,7 +33,7 @@ enum VERTICAL
 class Character : public GameObject
 {
 public:
-  // ============= CONSTRUCTORS ============= 
+  // ============= CONSTRUCTORS =============
   /**
    * @brief Construct a new Character object
    * 
@@ -41,12 +41,20 @@ public:
   Character();
 
   /**
+   * @brief Construct a new Character object
+   * 
+   * @param pos 
+   * @param speed 
+   */
+  Character(const glm::vec3 &pos, const glm::vec3 &speed);
+
+  /**
    * @brief Destroy the Character object
    * 
    */
-  ~Character() {}
+  ~Character(){};
 
-  // ============= GETTERS =============   
+  // ============= GETTERS =============
   /**
    * @brief Get the Health object
    * 
@@ -54,7 +62,7 @@ public:
    */
   inline unsigned int getHealth() const { return _health; }
 
-  // ============= SETTERS ============= 
+  // ============= SETTERS =============
   /**
    * @brief Set the Health object
    * 
@@ -62,7 +70,7 @@ public:
    */
   inline void setHealth(const unsigned int &health) { _health = health; }
 
-  // ============= MOVEMENT ============= 
+  // ============= MOVEMENT =============
   /**
    * @brief Handle the Key down SDL event
    * 
@@ -83,6 +91,13 @@ public:
    */
   void move();
 
+
+  /**
+   * @brief Display the character
+   * 
+   */
+  void display() const;
+
 private:
   // Health data
   unsigned int _health;
@@ -91,10 +106,7 @@ private:
   int _sideState;
   int _verticalState;
 
-
-
-
-  // ============= MOVEMENT ============= 
+  // ============= MOVEMENT =============
   /**
    * @brief Constantly make the character move forward
    * 

@@ -17,9 +17,9 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include <class/StaticImageLoader.hpp>
 #include <class/Model.hpp>
 #include <class/Utils.hpp>
+#include <class/MapManager.hpp>
 
 #include <unistd.h>
 
@@ -74,7 +74,7 @@ main(int argc, char **argv)
     std::cerr << glewGetErrorString(glewInitError) << std::endl;
     return EXIT_FAILURE;
   }
-    
+
   const FilePath applicationPath(argv[0]);
   AssetProgram assetProgram(applicationPath);
   assetProgram._Program.use();
@@ -87,7 +87,7 @@ main(int argc, char **argv)
    *********************************/
 
   //Model model(applicationPath.dirPath() + "../../src/assets/models/nanosuit/nanosuit.obj", assetProgram.uMapTextures);
-  Model model(applicationPath.dirPath() + "../../src/assets/models/cube.obj", assetProgram.uMapTextures);
+  Model model(applicationPath.dirPath() + "../../src/assets/models/monkey.obj", assetProgram.uMapTextures);
 
   glm::mat4 ProjMatrix, MVMatrix, NormalMatrix;
   ProjMatrix = glm::perspective(glm::radians(70.0f), (float)(WINDOW_WIDTH / WINDOW_HEIGTH), 0.1f, 100.f);
@@ -114,13 +114,11 @@ main(int argc, char **argv)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     MVMatrix = glm::scale(glm::translate(glm::mat4(), glm::vec3(0, -3, -5)), glm::vec3(0.3));
-    MVMatrix = glm::rotate(MVMatrix,
-                           windowManager.getTime() / 2,
-                           glm::vec3(0.f, 1.f, 0.f));
+    MVMatrix = glm::rotate(MVMatrix, windowManager.getTime() / 2, glm::vec3(0.f, 1.f, 0.f));
     MVMatrix = glm::scale(MVMatrix, glm::vec3(1.0f));
 
-        /* 9_ Envoi des matrices au GPU */
-        glUniformMatrix4fv(assetProgram.uMVPMatrix, 1, GL_FALSE, glm::value_ptr(ProjMatrix * MVMatrix));
+    /* 9_ Envoi des matrices au GPU */
+    glUniformMatrix4fv(assetProgram.uMVPMatrix, 1, GL_FALSE, glm::value_ptr(ProjMatrix * MVMatrix));
     glUniformMatrix4fv(assetProgram.uMVMatrix, 1, GL_FALSE, glm::value_ptr(MVMatrix));
     glUniformMatrix4fv(assetProgram.uNormalMatrix, 1, GL_FALSE, glm::value_ptr(NormalMatrix));
 

@@ -45,6 +45,13 @@ public:
    */
   ~GameObject(){};
 
+  // ============= ABSTRACT METHODS =============
+  /**
+   * @brief Must Implement a way to display the object
+   * 
+   */
+  virtual void display() const =0;
+
   // ============= GETTERS =============
   /**
    * @brief Get the Position object
