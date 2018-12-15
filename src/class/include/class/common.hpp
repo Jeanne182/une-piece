@@ -5,17 +5,24 @@
 
 #include <GL/glew.h>
 #include <glimac/glm.hpp>
+#include <glimac/Program.hpp>
+#include <glimac/FilePath.hpp>
 #include <string>
+#include <map>
 
-namespace UP {
+using namespace glimac;
 
-struct Vertex2DUV {
-  
+namespace UP
+{
+
+struct Vertex2DUV
+{
+
   glm::vec2 position;
   glm::vec2 coord;
-    
-  Vertex2DUV(const glm::vec2 &pos,
-                const glm::vec2 &c) {
+
+  Vertex2DUV(const glm::vec2 &pos,const glm::vec2 &c)
+  {
     position.x = pos.x;
     position.y = pos.y;
     coord.x = c.x;
@@ -23,12 +30,12 @@ struct Vertex2DUV {
   };
 };
 
-struct Texture {
+struct Texture
+{
   unsigned int id;
   std::string type;
   std::string path;
 };
-
 
 enum COORD
 {
@@ -37,6 +44,6 @@ enum COORD
   Z
 };
 
-}
+} // namespace UP
 
 #endif

@@ -5,6 +5,8 @@
 #include <vector>
 #include <math.h>
 #include <string>
+#include <unistd.h>
+
 #include <glimac/Program.hpp>
 #include <glimac/FilePath.hpp>
 #include <glimac/glm.hpp>
@@ -12,21 +14,19 @@
 #include <glimac/Sphere.hpp>
 #include <glimac/TrackballCamera.hpp>
 
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
-
 #include <class/StaticImageLoader.hpp>
+#include <class/ScoresManager.hpp>
+#include <class/Program.hpp>
 #include <class/Model.hpp>
 #include <class/Utils.hpp>
 #include <class/common.hpp>
-#include <class/Program.hpp>
 #include <class/chrono.hpp>
 
-#include <unistd.h>
 
 using namespace glimac;
 using namespace UP;
+
+
 
 main(int argc, char **argv)
 {
@@ -43,7 +43,7 @@ main(int argc, char **argv)
     std::cerr << glewGetErrorString(glewInitError) << std::endl;
     return EXIT_FAILURE;
   }
-
+    
   const FilePath applicationPath(argv[0]);
   AssetProgram assetProgram(applicationPath);
   assetProgram._Program.use();
@@ -54,10 +54,18 @@ main(int argc, char **argv)
   /*********************************
    * HERE SHOULD COME THE INITIALIZATION CODE
    *********************************/
+  
+  
+  // ============== MODELS ==============
+  Model bateau(applicationPath.dirPath() + "../../src/assets/models/bateau.obj", assetProgram.uMapTextures);
 
-  Model model(applicationPath.dirPath() + "../../src/assets/models/bateau.obj", assetProgram.uMapTextures);
-  //Model model(applicationPath.dirPath() + "../../src/assets/models/cube.obj", assetProgram.uMapTextures);
-
+  
+  // ============== SCORE MANAGER ==============
+  ScoresManager& scores = ScoresManager::Get(applicationPath);
+  scores.addScore(Score("Paulounet", 66, time(0)));
+  scores.displayAll();
+  scores.store();
+  
   glm::mat4 ProjMatrix, MVMatrix, NormalMatrix;
   ProjMatrix = glm::perspective(glm::radians(70.0f), (float)(WINDOW_WIDTH / WINDOW_HEIGTH), 0.1f, 100.f);
   NormalMatrix = glm::transpose(glm::inverse(MVMatrix));
@@ -65,6 +73,7 @@ main(int argc, char **argv)
   glEnable(GL_DEPTH_TEST);
   glCheckError();
   float angle = 0.f;
+  
   // Application loop:
   bool done = false;
   Chrono chr;
@@ -97,7 +106,7 @@ main(int argc, char **argv)
     glUniformMatrix4fv(assetProgram.uNormalMatrix, 1, GL_FALSE, glm::value_ptr(NormalMatrix));
 
     assetProgram._Program.use();
-    model.draw();
+    //model.draw();
 
     // Update the display
     windowManager.swapBuffers();
