@@ -4,16 +4,21 @@
 #pragma once
 
 #include <GL/glew.h>
+#include <string>
+#include <map>
+
 #include <glimac/glm.hpp>
 #include <glimac/Program.hpp>
 #include <glimac/FilePath.hpp>
-#include <string>
-#include <map>
 
 using namespace glimac;
 
 namespace UP
 {
+
+static const bool USE_CHRONO = false;
+static const int WINDOW_WIDTH = 800;
+static const int WINDOW_HEIGHT = 800;
 
 struct Vertex2DUV
 {
@@ -21,7 +26,7 @@ struct Vertex2DUV
   glm::vec2 position;
   glm::vec2 coord;
 
-  Vertex2DUV(const glm::vec2 &pos,const glm::vec2 &c)
+  Vertex2DUV(const glm::vec2 &pos, const glm::vec2 &c)
   {
     position.x = pos.x;
     position.y = pos.y;

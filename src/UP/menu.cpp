@@ -48,7 +48,7 @@ int main(int argc, char **argv)
    *********************************/
   
   // APP MANAGER
-  App& app = App::Get(applicationPath, WINDOW_WIDTH, WINDOW_HEIGHT);
+  App& app = App::Get(argv, WINDOW_WIDTH, WINDOW_HEIGHT);
   app.layoutMenu();
 
 

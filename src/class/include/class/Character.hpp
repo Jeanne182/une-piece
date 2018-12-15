@@ -41,6 +41,12 @@ class Character : public GameObject
 {
 public:
   // ============= CONSTRUCTORS =============
+
+  /**
+   * @brief DELETED default constructor
+   * 
+   */
+  Character() = delete;
   /**
    * @brief Construct a new Character object
    *
@@ -86,6 +92,13 @@ public:
   inline void useBonus(const unsigned int &bonusType, const time_t &startingTime) { _activeBonuses.insert(std::make_pair(bonusType, startingTime)); }
 
   // ============= KEY HANDLER =============
+
+  /**
+   * @brief React to a SDL_Event based on the current selected _layout
+   * 
+   * @param e 
+   */
+  void event(const SDL_Event &e);
   /**
    * @brief Handle the Key down SDL event
    *
@@ -136,21 +149,15 @@ public:
    * @brief Display the character
    * 
    */
-  void display(const glm::mat4 &ProjMatrix, const glm::mat4 &MVMatrix, const glm::mat4 &NormalMatrix, const AssetProgram &assetProgram) const;
+  void display(const glm::mat4 &ProjMatrix, const AssetProgram &assetProgram) const;
 
 private:
-  //  Position Data
-  glm::vec3 _position;
-
   // Health data
   unsigned int _health;
 
   // State datas
   int _sideState;
   int _verticalState;
-
-  // Model Matrix
-  glm::mat4 _modelMatrix;
 
   // Model data
   Model _model;
@@ -178,6 +185,7 @@ private:
    * @param movement
    */
   void verticalMove(const int &movement);
+
 };
 
 } // namespace UP

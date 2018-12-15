@@ -1,54 +1,85 @@
-#ifndef BONUS_HPP__
-#define BONUS_HPP__
+#ifndef BONUS_UP_HPP__
+#define BONUS_UP_HPP__
 
 #pragma once
 
-#include <glimac/SDLWindowManager.hpp>
 #include <cstdlib>
 #include <string>
 #include <vector>
 #include <map>
+
+#include <glimac/SDLWindowManager.hpp>
 #include <glimac/common.hpp>
 
+#include <class/GameObject.hpp>
 
 namespace UP
 {
-  #define BONUS_DURATION 5
+#define BONUS_DURATION 5
 
-  enum BONUS {
-    INVULNERABILITY,
-    SLOWNESS,
-    REVIVE,
-    MAGNET
-  };
-
-class Bonus
+enum BONUS
 {
-  public:
-    /*  Functions  */
-    Bonus();
-    Bonus(const glm::vec3 position, const unsigned int bonusType);
-    ~Bonus(){}
+  INVULNERABILITY,
+  SLOWNESS,
+  REVIVE,
+  MAGNET
+};
 
-    /*  Getters  */
-    inline glm::vec3 getPosition() const { return _position; }
-    inline unsigned int getBonusType() const { return _bonusType; }
-    inline unsigned int getBonusDirection() const { return _bonusDuration; }
+class Bonus : public GameObject
+{
+public:
+  // ============= CONSTRUCTORS =============
+  /**
+   * @brief Construct a new Bonus object
+   * 
+   */
+  Bonus();
+  /**
+   * @brief Construct a new Bonus object
+   * 
+   * @param position 
+   * @param bonusType 
+   */
+  Bonus(const glm::vec3 position, const unsigned int bonusType);
+  ~Bonus(){};
 
-    /*  Setters  */
-    inline void setPosition(const glm::vec3 &position){ _position = position; }
-    inline void setBonusType(const unsigned int &bonusType){ _bonusType = bonusType; }
+  // ============= METHODS =============
+  /**
+   * @brief Display the Bonus
+   * 
+   */
+  void display() const;
 
-    /*  Bonus Managers */
 
-  private:
-    //  Position Data
-    glm::vec3 _position;
+  // ============= GETTERS =============
+  /**
+   * @brief Get the Bonus Type object
+   * 
+   * @return unsigned int 
+   */
+  inline unsigned int getBonusType() const { return _bonusType; };
+  /**
+   * @brief Get the Bonus Duration object
+   * 
+   * @return unsigned int 
+   */
+  inline unsigned int getBonusDuration() const { return _bonusDuration; };
 
-    // Bonus data
-    unsigned int _bonusType;
-    unsigned int _bonusDuration;
-  };
+  // ============= SETTERS =============
+  /**
+   * @brief Set the Bonus Type object
+   * 
+   * @param bonusType 
+   */
+  inline void setBonusType(const unsigned int &bonusType) { _bonusType = bonusType; };
+
+  /*  Bonus Managers */
+
+private:
+  // ============= ATTRIBUTES =============
+  unsigned int _bonusType;
+  unsigned int _bonusDuration;
+};
 
 } // namespace UP
 

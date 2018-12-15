@@ -237,7 +237,6 @@ void ButtonLoader::setBehavior(const std::string &imageName, const std::function
 void ButtonLoader::displayImage(const std::string &imageName) const
 {
   Button *btn = getButton(imageName, AT);
-  _program._Program.use();
 
   // On charge la bonne texture
   if (btn->_isClicked)

@@ -10,7 +10,6 @@
 #include <glimac/Program.hpp>
 #include <glimac/FilePath.hpp>
 #include <glimac/glm.hpp>
-#include <glimac/Image.hpp>
 #include <glimac/TrackballCamera.hpp>
 
 #include <class/common.hpp>
@@ -51,6 +50,7 @@ int main(int argc, char **argv)
    *********************************/
   Character player(applicationPath.dirPath() + "../../src/assets/models/bateau.obj", assetProgram.uMapTextures);
   Character player2(applicationPath.dirPath() + "../../src/assets/models/bateau.obj", assetProgram.uMapTextures);
+
   Bonus bonus;
   Bonus bonus1(glm::vec3(0, 0, 0), 1);
 
@@ -59,14 +59,14 @@ int main(int argc, char **argv)
   std::map<unsigned int, time_t>::iterator it;
   for (it = player.getActiveBonuses().begin(); it != player.getActiveBonuses().end(); it++)
   {
-    std::cout << "Bonus " << it->first << " activé à " << it->second << std::endl;
+    std::cout << "Bonus " << it->first << " activé à " << it->second << " Seconds" <<  std::endl;
   }
 
-  std::cout << player.getPosition() << std::endl;
-  std::cout << player.getSpeed() << std::endl;
+  std::cout << player.pos() << std::endl;
+  std::cout << player.speed() << std::endl;
   std::cout << player.getHealth() << std::endl;
-  std::cout << player2.getPosition() << std::endl;
-  std::cout << player2.getSpeed() << std::endl;
+  std::cout << player2.pos() << std::endl;
+  std::cout << player2.speed() << std::endl;
   std::cout << player2.getHealth() << std::endl;
 
   glm::mat4 ProjMatrix, MVMatrix, NormalMatrix;
@@ -99,18 +99,6 @@ int main(int argc, char **argv)
         player.keyUpHandler(e.key.keysym.sym);
         break;
       }
-      switch (e.type)
-      {
-      case SDL_KEYDOWN:
-        /* left/right and up/down player */
-        player.keyDownHandler(e.key.keysym.sym);
-        break;
-
-      case SDL_KEYUP:
-        /* left/right and up/down player */
-        player.keyUpHandler(e.key.keysym.sym);
-        break;
-      }
     }
 
     /*********************************
@@ -126,7 +114,7 @@ int main(int argc, char **argv)
     }
 
     player.move();
-    player.display(ProjMatrix, MVMatrix, NormalMatrix, assetProgram);
+    player.display(ProjMatrix, assetProgram);
     player.deleteExpiredBonuses();
 
     // Update the display

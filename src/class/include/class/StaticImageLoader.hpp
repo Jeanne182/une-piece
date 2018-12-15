@@ -3,12 +3,16 @@
 
 #pragma once
 
-#include <glimac/Program.hpp>
-#include <glimac/common.hpp>
-#include <glimac/Image.hpp>
-#include <glimac/FilePath.hpp>
 #include <map>
 #include <string>
+
+#include <glimac/Program.hpp>
+#include <glimac/Image.hpp>
+#include <glimac/FilePath.hpp>
+
+#include <class/Program.hpp>
+#include <class/common.hpp>
+
 
 using namespace glimac;
 
@@ -28,17 +32,6 @@ struct StaticImage
   glm::mat3 _modelMatrix;
   glm::mat3 _computedMatrix;
   float _x, _y, _scale;
-};
-
-/**
- * @brief Data structure for the Shader of a Static Image
- * 
- */
-struct StaticImageProgram
-{
-  Program _Program;
-  GLuint _uTexture;
-  GLuint _uModelMatrix;
 };
 
 /**
@@ -121,6 +114,12 @@ public:
    * 
    */
   void sendVertexBuffer() const;
+
+  /**
+   * @brief Use the StaticImageProgram
+   * 
+   */
+  void useProgram() const;
 
 protected:
   /// Methods

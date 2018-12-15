@@ -3,9 +3,20 @@
 
 #pragma once
 
+#include <map>
+
+#include <glimac/FilePath.hpp>
+#include <glimac/Program.hpp>
+
+using namespace glimac;
+
 namespace UP
 {
-  
+
+/**
+ * @brief Data structure for the Shader an Asset
+ * 
+ */
 struct AssetProgram
 {
   Program _Program;
@@ -15,10 +26,10 @@ struct AssetProgram
   GLint uNormalMatrix;
   std::map<std::string, GLint> uMapTextures;
 
-  AssetProgram(const FilePath &applicationPath) 
-    : _Program(loadProgram( 
-      applicationPath.dirPath() + "shaders/3D.vs.glsl", 
-      applicationPath.dirPath() + "shaders/normals.fs.glsl"))
+  AssetProgram(const FilePath &applicationPath)
+      : _Program(loadProgram(
+            applicationPath.dirPath() + "shaders/3D.vs.glsl",
+            applicationPath.dirPath() + "shaders/normals.fs.glsl"))
   {
     uMVPMatrix = glGetUniformLocation(_Program.getGLId(), "uMVPMatrix");
     uMVMatrix = glGetUniformLocation(_Program.getGLId(), "uMVMatrix");
@@ -31,13 +42,20 @@ struct AssetProgram
     uTexture_specular1 = glGetUniformLocation(_Program.getGLId(), "uTexture_specular1");
     uMapTextures.insert(std::pair<std::string, GLint>(std::string("uTexture_diffuse1"), uTexture_diffuse1));
     uMapTextures.insert(std::pair<std::string, GLint>(std::string("uTexture_specular1"), uTexture_specular1));
-
-    std::map<std::string, GLint>::iterator it;
-    for (it = uMapTextures.begin(); it != uMapTextures.end(); it++)
-      std::cout << it->first << " : " << it->second << std::endl;
   }
 };
 
-}
+/**
+ * @brief Data structure for the Shader of a Static Image
+ * 
+ */
+struct StaticImageProgram
+{
+  Program _Program;
+  GLuint _uTexture;
+  GLuint _uModelMatrix;
+};
+
+} // namespace UP
 
 #endif

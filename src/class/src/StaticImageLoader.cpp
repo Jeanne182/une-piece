@@ -1,39 +1,20 @@
-#include <class/StaticImageLoader.hpp>
-#include <class/Error.hpp>
-#include <glimac/Program.hpp>
-#include <glimac/common.hpp>
-#include <glimac/Image.hpp>
-#include <glimac/FilePath.hpp>
 #include <map>
 #include <string>
 #include <iostream>
 #include <exception>
 #include <cassert>
 
+#include <glimac/Program.hpp>
+#include <glimac/common.hpp>
+#include <glimac/Image.hpp>
+#include <glimac/FilePath.hpp>
+
+#include <class/common.hpp>
+#include <class/StaticImageLoader.hpp>
+#include <class/Error.hpp>
+
 namespace UP
 {
-
-glm::mat3 translate(const float tx, const float ty)
-{
-  return glm::mat3(
-      glm::vec3(1, 0, 0),
-      glm::vec3(0, 1, 0),
-      glm::vec3(tx, ty, 1));
-}
-glm::mat3 scale(const float sx, const float sy)
-{
-  return glm::mat3(
-      glm::vec3(sx, 0, 0),
-      glm::vec3(0, sy, 0),
-      glm::vec3(0, 0, 1));
-}
-glm::mat3 rotate(const float a)
-{
-  return glm::mat3(
-      glm::vec3(cos(a), sin(a), 0),
-      glm::vec3(-sin(a), cos(a), 0),
-      glm::vec3(0, 0, 1));
-}
 
 StaticImageLoader::StaticImageLoader(const FilePath &appPath)
     : _appPath(appPath)
@@ -76,22 +57,21 @@ StaticImageLoader::~StaticImageLoader()
   }
 }
 
-StaticImage* StaticImageLoader::getStaticImage(const std::string &imageName, const char* file, const unsigned int line, const char* function)
+StaticImage *StaticImageLoader::getStaticImage(const std::string &imageName, const char *file, const unsigned int line, const char *function)
 {
   if (!hasImage(imageName))
     throw Error(std::string("imageName given " + imageName + ":  not in records"), file, line, function);
   else
-    return (StaticImage*) _images.find(imageName)->second;
+    return (StaticImage *)_images.find(imageName)->second;
 }
 
-StaticImage* StaticImageLoader::getStaticImage(const std::string &imageName, const char* file, const unsigned int line, const char* function) const
+StaticImage *StaticImageLoader::getStaticImage(const std::string &imageName, const char *file, const unsigned int line, const char *function) const
 {
   if (!hasImage(imageName))
     throw Error(std::string("imageName given " + imageName + ":  not in records"), file, line, function);
   else
-    return (StaticImage*) _images.find(imageName)->second;
+    return (StaticImage *)_images.find(imageName)->second;
 }
-
 
 void StaticImageLoader::addImage(const std::string &filename, const float &x, const float &y, const float &scale)
 {
@@ -106,9 +86,7 @@ void StaticImageLoader::addImage(const std::string &filename, const float &x, co
     return;
   }
 
-
   // Else create it
- 
 
   StaticImage *img = new StaticImage;
 
@@ -194,9 +172,13 @@ void StaticImageLoader::sendVertexBuffer() const
   glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void StaticImageLoader::displayImage(const std::string &imageName) const
+void StaticImageLoader::useProgram() const
 {
   _program._Program.use();
+}
+
+void StaticImageLoader::displayImage(const std::string &imageName) const
+{
   StaticImage *img = getStaticImage(imageName, AT);
 
   // On charge la bonne texture
@@ -234,7 +216,15 @@ void StaticImageLoader::computeMatrix(const std::string &imageName) const
 
 void StaticImageLoader::computeMatrix(StaticImage *img) const
 {
-  img->_computedMatrix = translate(img->_x, img->_y) * scale(img->_scale, img->_scale) * img->_modelMatrix;
+  glm::mat3 T = glm::mat3(
+      glm::vec3(1, 0, 0),
+      glm::vec3(0, 1, 0),
+      glm::vec3(img->_x, img->_y, 1));
+  glm::mat3 S = glm::mat3(
+      glm::vec3(img->_scale, 0, 0),
+      glm::vec3(0, img->_scale, 0),
+      glm::vec3(0, 0, 1));
+  img->_computedMatrix = T * S * img->_modelMatrix;
 }
 
 } // namespace UP

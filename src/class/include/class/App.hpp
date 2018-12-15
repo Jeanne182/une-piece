@@ -12,6 +12,7 @@
 
 #include <class/StaticImageLoader.hpp>
 #include <class/ButtonLoader.hpp>
+#include <class/Game.hpp>
 
 using namespace glimac;
 
@@ -38,7 +39,6 @@ enum LAYOUT
 class App
 {
 public:
-
   // =============== SELECT THE LAYOUT ===============
   /**
    * @brief Use the Layout of the Menu
@@ -82,7 +82,7 @@ private:
   static App instance;
 
   // CONSTRUCTOR
-  
+
   /**
    * @brief Construct a new App object 
    * 
@@ -90,12 +90,10 @@ private:
    * @param width 
    * @param height 
    */
-  App(const FilePath &appPath, const int &width, const int &height)
-      : buttons(appPath, width, height),
-        staticImages(appPath){};
+  App(char **argv, const int &width, const int &height);
 
   // METHODS
-// ============ SPECIFIC FUNCTIONS FOR EACH LAYOUT ============
+  // ============ SPECIFIC FUNCTIONS FOR EACH LAYOUT ============
   /**
    * @brief Draw the Menu
    * 
@@ -120,20 +118,28 @@ private:
    */
   void drawGame();
 
+  // ================ ATTRIBUTES ==============
 
-  // ATTRIBUTES
+  // App Path
+  const FilePath &_appPath;
+
+  // Programs
+  AssetProgram _assetProgram;
+
+  // Loaders
+  ButtonLoader _buttons;
+  StaticImageLoader _staticImages;
+  Game &_game;
+
+  // Internal States
   int _layout = LAYOUT_DEFAULT;
-  ButtonLoader buttons;
-  StaticImageLoader staticImages;
 
-
-  // DELETED
+  // ================ SINGLETON's STUFF ==============
   App() = delete;
   App(App const &) = delete;
   void operator=(App const &) = delete;
 
 public:
-
   /**
    * @brief Common Getter for the Singleton's Instance
    * 
@@ -142,9 +148,9 @@ public:
    * @param height 
    * @return App& 
    */
-  static App &Get(const FilePath &appPath, const int &width, const int &height)
+  static App &Get(char **argv, const int &width, const int &height)
   {
-    static App instance(appPath, width, height);
+    static App instance(argv, width, height);
     return instance;
   };
 };
