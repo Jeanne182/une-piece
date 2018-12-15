@@ -11,7 +11,7 @@ namespace UP
 Character::Character(const std::string &path, const std::map<std::string, GLint> &textureLocation)
     : GameObject(glm::vec3(-1.f, 0.f, -2.0f),
                  glm::vec3(0.0001f, 0.0001f, 0.0001f),
-                 0.05f),
+                 0.00001f),
       _health(1),
       _sideState(CENTER),
       _verticalState(RUNNING),
@@ -197,7 +197,7 @@ void Character::display(const glm::mat4 &ProjMatrix, const AssetProgram &assetPr
 
   _model.draw();
 
-  std::cout << _position << std::endl;
+  //std::cout << _position << std::endl;
 }
 
 } // namespace UP

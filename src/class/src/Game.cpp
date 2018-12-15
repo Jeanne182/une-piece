@@ -21,13 +21,16 @@ Game::Game(const FilePath &appPath, const AssetProgram &assetProgram)
 void Game::event(const SDL_Event &e)
 {
   _character.event(e);
+  _camera.event(e);
 }
 void Game::update()
 {
-  _character.move();
+  _camera.update();
+  //_character.move();
 }
 void Game::display() const
 {
+  //_character.display(_camera.look(_character.pos()), _assetProgram);
   _character.display(_camera.getViewMatrix(), _assetProgram);
 }
 

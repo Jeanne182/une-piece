@@ -26,8 +26,8 @@ GameObject::GameObject(const GameObject &g)
 void GameObject::computeMatrix()
 {
   _MVMatrix = glm::mat4(1.f);
-  _MVMatrix = glm::translate(_MVMatrix, glm::vec3(x(), y(), z()));
   _MVMatrix = glm::scale(_MVMatrix, glm::vec3(_scale));
+  _MVMatrix = glm::translate(_MVMatrix, glm::vec3(x(), y(), z()));
   _NormalMatrix = glm::transpose(glm::inverse(_MVMatrix));
 
   /*
