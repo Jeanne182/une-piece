@@ -9,9 +9,9 @@ namespace UP
 {
 
 Character::Character(const std::string &path, const std::map<std::string, GLint> &textureLocation)
-    : GameObject(glm::vec3(-1.f, 0.f, -2.0f),
+    : GameObject(glm::vec3(0.f, 0.f, 0.f),
                  glm::vec3(0.0001f, 0.0001f, 0.0001f),
-                 0.00001f),
+                 0.1f),
       _health(1),
       _sideState(CENTER),
       _verticalState(RUNNING),
@@ -79,7 +79,6 @@ void Character::move()
   forwardMove();
   sideMove(_sideState);
   sideMove(_verticalState);
-  computeMatrix();
 }
 
 void Character::sideMove(const int &side)
@@ -186,15 +185,8 @@ void Character::loseHealth(const unsigned int &value)
 {
   setHealth(_health - value);
 }
-
-void Character::display() const {};
-void Character::display(const glm::mat4 &ProjMatrix, const AssetProgram &assetProgram) const
+void Character::display() const
 {
-  /* Envoi des matrices au GPU */
-  glUniformMatrix4fv(assetProgram.uMVPMatrix, 1, GL_FALSE, glm::value_ptr(ProjMatrix * _MVMatrix));
-  glUniformMatrix4fv(assetProgram.uMVMatrix, 1, GL_FALSE, glm::value_ptr(_MVMatrix));
-  glUniformMatrix4fv(assetProgram.uNormalMatrix, 1, GL_FALSE, glm::value_ptr(_NormalMatrix));
-
   _model.draw();
 
   //std::cout << _position << std::endl;

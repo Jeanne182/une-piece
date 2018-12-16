@@ -35,7 +35,7 @@ void Model::loadModel(const std::string &path)
   _directory = path.substr(0, path.find_last_of('/'));
   processNode(scene->mRootNode, scene);
 
-  std::cout << "Amount of meshes : " << _meshes.size() << std::endl;
+  //std::cout << "Amount of meshes : " << _meshes.size() << std::endl;
 }
 
 void Model::processNode(const aiNode *node, const aiScene *scene)

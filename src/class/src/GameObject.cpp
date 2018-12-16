@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include <class/GameObject.hpp>
+#include <class/Program.hpp>
 #include <class/common.hpp>
 
 namespace UP
@@ -23,17 +24,27 @@ GameObject::GameObject(const GameObject &g)
       _speed(g._speed),
       _scale(g._scale){};
 
-void GameObject::computeMatrix()
+void GameObject::sendMatrix(const AssetProgram &assetProgram, const glm::mat4 &cameraMV)
 {
-  _MVMatrix = glm::mat4(1.f);
-  _MVMatrix = glm::scale(_MVMatrix, glm::vec3(_scale));
-  _MVMatrix = glm::translate(_MVMatrix, glm::vec3(x(), y(), z()));
-  _NormalMatrix = glm::transpose(glm::inverse(_MVMatrix));
+  /* Envoi des matrices au GPU */
+
+  // P
+  glm::mat4 P = glm::perspective(glm::radians(70.0f), (float)(WINDOW_WIDTH / WINDOW_HEIGHT), 0.1f, 100.f);
+
+  // MV -> Modify
+  glm::mat4 MV = glm::translate(cameraMV, _position);
+  MV = glm::scale(MV, glm::vec3(_scale));
+
+  // Normal
+  glm::mat4 normalMatrix = glm::transpose(glm::inverse(MV));
 
   /*
-  std::cout << "MATRIXES : " << std::endl;
-  std::cout << _position << std::endl;
-  std::cout << _MVMatrix << _NormalMatrix << std::endl;
-  */
+  std::cout << "MVP" << P * MV << std::endl;
+  std::cout << "MV" << MV << std::endl;
+  std::cout << "Normal" << normalMatrix << std::endl;
+*/
+  glUniformMatrix4fv(assetProgram.uMVPMatrix, 1, GL_FALSE, glm::value_ptr(P * MV));
+  glUniformMatrix4fv(assetProgram.uMVMatrix, 1, GL_FALSE, glm::value_ptr(MV));
+  glUniformMatrix4fv(assetProgram.uNormalMatrix, 1, GL_FALSE, glm::value_ptr(normalMatrix));
 }
 } // namespace UP

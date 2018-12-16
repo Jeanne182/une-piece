@@ -27,9 +27,9 @@ Mesh::Mesh(std::vector<ShapeVertex> vertices,
       _texturesLocation(texturesLocation)
 {
   setupMesh();
-  std::cout << "Indices: " << _indices.size() << std::endl;
-  std::cout << "Vertices: " << _vertices.size() << std::endl;
-  std::cout << "Textures: " << _textures.size() << std::endl;
+  //std::cout << "Indices: " << _indices.size() << std::endl;
+  //std::cout << "Vertices: " << _vertices.size() << std::endl;
+  //std::cout << "Textures: " << _textures.size() << std::endl;
 
   /*
   for(size_t i=0; i<_vertices.size(); i++) {

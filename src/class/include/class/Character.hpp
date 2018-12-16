@@ -145,12 +145,6 @@ public:
    */
   void display() const;
 
-  /**
-   * @brief Display the character
-   * 
-   */
-  void display(const glm::mat4 &ProjMatrix, const AssetProgram &assetProgram) const;
-
 private:
   // Health data
   unsigned int _health;

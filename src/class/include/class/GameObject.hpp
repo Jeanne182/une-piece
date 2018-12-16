@@ -7,6 +7,7 @@
 #include <map>
 
 #include <glimac/SDLWindowManager.hpp>
+#include <class/Program.hpp>
 #include <class/common.hpp>
 
 using namespace glimac;
@@ -166,19 +167,13 @@ public:
 
   // ============= MATRIX =============
 
-  /**
-   * @brief Update the personnal matrix
-   * 
-   */
-  void computeMatrix();
+  void sendMatrix(const AssetProgram &assetProgram, const glm::mat4 &cameraMV);
 
 
 protected:
   float _scale;
   glm::vec3 _position;
   glm::vec3 _speed;
-  glm::mat4 _NormalMatrix;
-  glm::mat4 _MVMatrix;
 };
 
 } // namespace UP

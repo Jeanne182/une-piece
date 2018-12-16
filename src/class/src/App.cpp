@@ -106,7 +106,7 @@ void App::layoutGame()
   _layout = LAYOUT_GAME;
 
   // TODO
-  std::cout << "START THE GAME HERE" << std::endl;
+  //std::cout << "START THE GAME HERE" << std::endl;
 };
 
 // =============== GENERIC FACADES FUNCTIONS ===============
@@ -135,7 +135,9 @@ void App::draw()
 void App::event(const SDL_Event &e)
 {
   if (_layout == LAYOUT_GAME)
+  {
     _game.event(e);
+  }
   else
   {
     switch (e.type)

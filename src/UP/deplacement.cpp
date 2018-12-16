@@ -114,7 +114,7 @@ int main(int argc, char **argv)
     }
 
     player.move();
-    player.display(ProjMatrix, assetProgram);
+    player.display();
     player.deleteExpiredBonuses();
 
     // Update the display

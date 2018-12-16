@@ -56,7 +56,6 @@ main(int argc, char **argv)
   //ProjMatrix = glm::perspective(glm::radians(70.0f), (float)(WINDOW_WIDTH / WINDOW_HEIGHT), 0.1f, 100.f);
   //NormalMatrix = glm::transpose(glm::inverse(MVMatrix));
 
-  
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   glEnable(GL_DEPTH_TEST);
@@ -97,7 +96,6 @@ main(int argc, char **argv)
     //bateau.draw();
 
     app.draw();
-
 
     // Update the display
     windowManager.swapBuffers();

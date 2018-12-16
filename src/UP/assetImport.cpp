@@ -84,7 +84,7 @@ main(int argc, char **argv)
     chr.start();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    angle += 0.05f;
+    angle += 0.0005f;
     MVMatrix = glm::scale(glm::translate(glm::mat4(), glm::vec3(0, -3, -5)), glm::vec3(0.3));
     MVMatrix = glm::rotate(MVMatrix,
                            angle,
