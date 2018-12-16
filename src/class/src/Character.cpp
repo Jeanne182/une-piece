@@ -1,3 +1,5 @@
+#include <map>
+
 #include <glimac/SDLWindowManager.hpp>
 
 #include <class/Character.hpp>
@@ -132,6 +134,7 @@ void Character::verticalMove(const int &movement)
     break;
   }
 }
+
 void Character::addBonus(const Bonus &bonus)
 {
   time_t startingTime = time(NULL);
@@ -146,6 +149,7 @@ void Character::addBonus(const Bonus &bonus)
     it->second = startingTime;
   }
 }
+
 void Character::deleteConsumedBonus(const Bonus &bonus)
 {
   std::map<unsigned int, time_t>::iterator it;
@@ -185,11 +189,26 @@ void Character::loseHealth(const unsigned int &value)
 {
   setHealth(_health - value);
 }
+
 void Character::display() const
 {
   _model.draw();
-
   //std::cout << _position << std::endl;
 }
+
+void Character::reset()
+{
+  // Directly Copied from the constructor
+  // TAKE CARE
+  GameObject::reset();
+  _health = 1;
+  _sideState = CENTER;
+  _verticalState = RUNNING;
+  _activeBonuses.clear();
+  setSpeed(glm::vec3(0.0001f, 0.0001f, 0.0001f));
+  _scale = 0.1f;
+
+}
+
 
 } // namespace UP

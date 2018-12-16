@@ -164,9 +164,21 @@ public:
    */
   inline void setSpeed(const glm::vec3 &speed) { _speed = speed; };
 
+  // ============= METHODS =============
+  /**
+   * @brief Reset the game object to default
+   * 
+   */
+  void reset();
+
 
   // ============= MATRIX =============
-
+  /**
+   * @brief Compute the MVP and Normal matrix and send them to the GPU
+   * 
+   * @param assetProgram 
+   * @param cameraMV 
+   */
   void sendMatrix(const AssetProgram &assetProgram, const glm::mat4 &cameraMV);
 
 

@@ -39,22 +39,12 @@ main(int argc, char **argv)
 
   App &app = App::Get(argv, WINDOW_WIDTH, WINDOW_HEIGHT);
   app.layoutMenu();
-  app.layoutGame();
-
-  // ============== MODELS ==============
-  //Model bateau(applicationPath.dirPath() + "../../src/assets/models/bateau.obj", assetProgram.uMapTextures);
-
   // ============== SCORE MANAGER ==============
 
   //ScoresManager& scores = ScoresManager::Get(applicationPath);
   //scores.addScore(Score("Paulounet", 66, time(0)));
   //scores.displayAll();
   //scores.store();
-
-  // ============== MATRIX ==============
-  //glm::mat4 ProjMatrix, MVMatrix, NormalMatrix;
-  //ProjMatrix = glm::perspective(glm::radians(70.0f), (float)(WINDOW_WIDTH / WINDOW_HEIGHT), 0.1f, 100.f);
-  //NormalMatrix = glm::transpose(glm::inverse(MVMatrix));
 
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -82,18 +72,6 @@ main(int argc, char **argv)
        *********************************/
     chr.start();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    //MVMatrix = glm::scale(glm::translate(glm::mat4(), glm::vec3(0, -3, -5)), glm::vec3(0.3));
-    //MVMatrix = glm::rotate(MVMatrix, angle, glm::vec3(0.f, 1.f, 0.f));
-    //MVMatrix = glm::scale(MVMatrix, glm::vec3(1.0f));
-
-    /* 9_ Envoi des matrices au GPU */
-    //glUniformMatrix4fv(assetProgram.uMVPMatrix, 1, GL_FALSE, glm::value_ptr(ProjMatrix * MVMatrix));
-    //glUniformMatrix4fv(assetProgram.uMVMatrix, 1, GL_FALSE, glm::value_ptr(MVMatrix));
-    //glUniformMatrix4fv(assetProgram.uNormalMatrix, 1, GL_FALSE, glm::value_ptr(NormalMatrix));
-
-    //assetProgram._Program.use();
-    //bateau.draw();
 
     app.draw();
 

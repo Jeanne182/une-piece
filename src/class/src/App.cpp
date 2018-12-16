@@ -15,15 +15,16 @@ App::App(char **argv, const int &width, const int &height)
     : _appPath(argv[0]),
       _assetProgram(_appPath),
       _buttons(_appPath, width, height),
-      _game(Game::Get(_appPath, _assetProgram)),
-      _staticImages(_appPath){};
+      _game(_appPath, _assetProgram),
+      _staticImages(_appPath),
+      _scores(ScoresManager::Get(_appPath)){};
 
 // =============== SELECT THE LAYOUT ===============
 void App::layoutMenu()
 {
   _buttons.disable();
-  _staticImages.useProgram();
   _layout = LAYOUT_MENU;
+  _staticImages.useProgram();
 
   // Load the images
   try
@@ -42,7 +43,7 @@ void App::layoutMenu()
   _staticImages.sendVertexBuffer();
 
   // Set the behaviors
-  _buttons.setBehavior("Play", [] { std::cout << "LAMBDA of Play" << std::endl; });
+  _buttons.setBehavior("Play", [this] { layoutGame(); });
   _buttons.setBehavior("Scores", [this] { layoutScores(); });
 };
 void App::layoutScores()
@@ -95,9 +96,12 @@ void App::layoutPause()
   _buttons.sendVertexBuffer();
 
   // Set the behaviors
-  _buttons.setBehavior("Menu", [this] { layoutMenu(); });
+  _buttons.setBehavior("Menu", [this] {
+    _game.reset();
+    layoutMenu();
+  });
   _buttons.setBehavior("Scores", [this] { layoutScores(); });
-  _buttons.setBehavior("Resume", [] { std::cout << "LAMBDA of Resume" << std::endl; });
+  _buttons.setBehavior("Resume", [this] { layoutGame(); });
 };
 void App::layoutGame()
 {
@@ -137,6 +141,10 @@ void App::event(const SDL_Event &e)
   if (_layout == LAYOUT_GAME)
   {
     _game.event(e);
+    if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE)
+    {
+      layoutPause();
+    }
   }
   else
   {

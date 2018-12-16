@@ -26,13 +26,17 @@ void Game::event(const SDL_Event &e)
 void Game::update()
 {
   _camera.update();
-  //_character.move();
+  _character.move();
   _character.sendMatrix(_assetProgram, _camera.getViewMatrix());
 }
 void Game::display() const
 {
-  //_character.display(_camera.look(_character.pos()), _assetProgram);
   _character.display();
+}
+
+void Game::reset()
+{
+  _character.reset();
 }
 
 }; // namespace UP

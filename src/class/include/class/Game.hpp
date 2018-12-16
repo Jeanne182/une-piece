@@ -18,7 +18,13 @@ namespace UP
 class Game
 {
 public:
-
+  /**
+   * @brief Construct a new Game object
+   * 
+   * @param appPath 
+   * @param assetProgram 
+   */
+  Game(const FilePath &appPath, const AssetProgram &assetProgram);
   /**
    * @brief Update all the states of the game
    * 
@@ -35,32 +41,18 @@ public:
    * @param e 
    */
   void event(const SDL_Event &e);
+  
+  /**
+   * @brief Reset the game and create a new one
+   * 
+   */
+  void reset();
 
 private:
   Character _character;
   const FilePath &_appPath;
   const AssetProgram &_assetProgram;
   Camera _camera;
-
-  // ================ SINGLETON's STUFF ==============
-public:
-  /**
-   * @brief Common Getter for the Singleton's Instance
-   * 
-   */
-  static Game &Get(const FilePath &appPath, const AssetProgram &assetProgram)
-  {
-    static Game instance(appPath, assetProgram);
-    return instance;
-  };
-
-  // DELETED
-  Game(Game const &) = delete;
-  void operator=(Game const &) = delete;
-
-private:
-  // CONSTRUCTOR
-  Game(const FilePath &appPath, const AssetProgram &assetProgram);
 };
 
 } // namespace UP

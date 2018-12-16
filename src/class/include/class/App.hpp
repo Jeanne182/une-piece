@@ -12,6 +12,7 @@
 
 #include <class/StaticImageLoader.hpp>
 #include <class/ButtonLoader.hpp>
+#include <class/ScoresManager.hpp>
 #include <class/Game.hpp>
 
 using namespace glimac;
@@ -129,7 +130,8 @@ private:
   // Loaders
   ButtonLoader _buttons;
   StaticImageLoader _staticImages;
-  Game &_game;
+  ScoresManager &_scores;
+  Game _game;
 
   // Internal States
   int _layout = LAYOUT_DEFAULT;

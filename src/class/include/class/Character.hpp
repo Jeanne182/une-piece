@@ -118,6 +118,18 @@ public:
    */
   void move();
 
+  /**
+   * @brief Display the character
+   * 
+   */
+  void display() const;
+
+    /**
+   * @brief Reset the Character to default
+   * 
+   */
+  void reset();
+
   // ============= BONUS =============
   /**
    * @brief Add a Bonus to the player
@@ -138,12 +150,6 @@ public:
   void deleteExpiredBonuses();
   bool collision(const Character &p2);
   void loseHealth(const unsigned int &value);
-
-  /**
-   * @brief Display the character
-   * 
-   */
-  void display() const;
 
 private:
   // Health data
