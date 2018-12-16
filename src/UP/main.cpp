@@ -82,5 +82,12 @@ main(int argc, char **argv)
     if (USE_CHRONO)
       std::cout << chr.timeSpan() << std::endl;
   }
+
+/*
+  glDeleteBuffers(1, &vbo);
+  glDeleteVertexArrays(1, &vao);
+  glDeleteTextures(2, textures);
+  */
+
   return EXIT_SUCCESS;
 }

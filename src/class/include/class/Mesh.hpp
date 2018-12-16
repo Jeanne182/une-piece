@@ -34,11 +34,19 @@ public:
        std::map<std::string, GLint> texturesLocation);
 
   /**
+   * @brief Destroy the Mesh object
+   * 
+   */
+  ~Mesh();
+
+  /**
    * @brief Draw a particular Mesh with it's texture at the given location
    * 
    */
   void draw() const;
 
+  // DATA
+  GLuint _VAO, _VBO, _EBO;
 private:
   //  Mesh Data
   std::vector<ShapeVertex> _vertices;
@@ -46,7 +54,6 @@ private:
   std::vector<Texture> _textures;
 
   // OBJ Data
-  GLuint _VAO, _VBO, _EBO;
   std::map<std::string, GLint> _texturesLocation;
 
   // Constructor

@@ -26,6 +26,7 @@ ButtonLoader::~ButtonLoader()
   for (it = _images.begin(); it != _images.end(); ++it)
   {
     Button *btn = (Button *)it->second;
+    glDeleteTextures(1, btn->_texture);
     delete btn->_texture_hovered;
     delete btn->_texture_clicked;
     delete btn->_texture;

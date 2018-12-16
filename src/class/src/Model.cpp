@@ -19,6 +19,23 @@ Model::Model(const std::string &path, const std::map<std::string, GLint> &textur
 {
   loadModel(path);
 }
+
+Model::~Model()
+{
+  //std::cout << "Destroying Model : " << _directory << std::endl;
+  for (size_t i = 0; i < _textures_loaded.size(); i++)
+  {
+    glDeleteTextures(1, &(_textures_loaded[i].id));
+  }
+  for (size_t i = 0; i < _meshes.size(); i++)
+  {
+    //std::cout << "Destroying Mesh : " << i << std::endl;
+    glDeleteBuffers(1, &(_meshes[i]._VBO));
+    glDeleteBuffers(1, &(_meshes[i]._EBO));
+    glDeleteVertexArrays(1, &(_meshes[i]._VAO));
+  }
+}
+
 void Model::loadModel(const std::string &path)
 {
   Assimp::Importer importer;

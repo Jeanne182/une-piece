@@ -47,9 +47,15 @@ StaticImageLoader::~StaticImageLoader()
   std::map<const std::string, StaticImage *>::const_iterator it;
   for (it = _images.begin(); it != _images.end(); ++it)
   {
+    glDeleteTextures(1, it->second->_texture);
     delete it->second->_texture;
     delete it->second;
+    _images.erase(it);
   }
+
+  glDeleteBuffers(1, &_vbo);
+  glDeleteBuffers(1, &_ibo);
+  glDeleteVertexArrays(1, &_vao);
 }
 
 StaticImage *StaticImageLoader::getStaticImage(const std::string &imageName, const char *file, const unsigned int line, const char *function)

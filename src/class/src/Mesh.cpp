@@ -1,12 +1,7 @@
 #include <class/Mesh.hpp>
 #include <class/Error.hpp>
 #include <class/Utils.hpp>
-/*
-#include <glimac/Program.hpp>
-#include <glimac/common.hpp>
-#include <glimac/Image.hpp>
-#include <glimac/FilePath.hpp>
-*/
+
 #include <string>
 #include <vector>
 #include <exception>
@@ -27,16 +22,9 @@ Mesh::Mesh(std::vector<ShapeVertex> vertices,
       _texturesLocation(texturesLocation)
 {
   setupMesh();
-  //std::cout << "Indices: " << _indices.size() << std::endl;
-  //std::cout << "Vertices: " << _vertices.size() << std::endl;
-  //std::cout << "Textures: " << _textures.size() << std::endl;
-
-  /*
-  for(size_t i=0; i<_vertices.size(); i++) {
-    std::cout << _vertices[i].position << " | " << _vertices[i].normal << std::endl;
-  }
-  */
 }
+
+Mesh::~Mesh(){};
 
 void Mesh::setupMesh()
 {

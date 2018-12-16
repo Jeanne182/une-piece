@@ -13,6 +13,9 @@ using namespace glimac;
 namespace UP
 {
 
+//static AssetProgram *assetProgram;
+//static StaticImageProgram *staticImageProgram;
+
 /**
  * @brief Data structure for the Shader an Asset
  * 

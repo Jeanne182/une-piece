@@ -34,6 +34,12 @@ public:
    */
   Model(const std::string &path, const std::map<std::string, GLint> &textureLocation);
 
+  /**
+   * @brief Destroy the Model object
+   * 
+   */
+  ~Model();
+
   // Methods
   /**
    * @brief Call the draw methods of each Meshes
