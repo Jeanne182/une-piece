@@ -20,6 +20,10 @@ static const bool USE_CHRONO = false;
 static const int WINDOW_WIDTH = 800;
 static const int WINDOW_HEIGHT = 800;
 
+/**
+ * @brief Data Structure for a 2D point
+ * 
+ */
 struct Vertex2DUV
 {
 
@@ -35,6 +39,10 @@ struct Vertex2DUV
   };
 };
 
+/**
+ * @brief Data structure for a texture
+ * 
+ */
 struct Texture
 {
   unsigned int id;
@@ -42,6 +50,10 @@ struct Texture
   std::string path;
 };
 
+/**
+ * @brief Data structure to simplify the Coordinates management
+ * 
+ */
 enum COORD
 {
   Y,

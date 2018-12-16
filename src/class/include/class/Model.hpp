@@ -19,7 +19,7 @@ namespace UP
 {
 
 /**
- * @brief Handle a Model from a OBJ file
+ * @brief Handle a Model from an OBJ file
  * 
  */
 class Model

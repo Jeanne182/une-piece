@@ -148,21 +148,28 @@ public:
      *
      */
   void deleteExpiredBonuses();
+
+  /**
+   * @brief Return true if there is a collision between 2 GameObjects
+   * 
+   * @param p2 
+   * @return true 
+   * @return false 
+   */
   bool collision(const Character &p2);
+
+  /**
+   * @brief Lose some health
+   * 
+   * @param value 
+   */
   void loseHealth(const unsigned int &value);
 
 private:
-  // Health data
   unsigned int _health;
-
-  // State datas
   int _sideState;
   int _verticalState;
-
-  // Model data
   Model _model;
-
-  // Bonus datas
   std::map<unsigned int, time_t> _activeBonuses;
 
   // ============= MOVEMENT =============

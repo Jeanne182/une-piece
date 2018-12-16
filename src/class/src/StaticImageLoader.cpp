@@ -17,7 +17,8 @@ namespace UP
 {
 
 StaticImageLoader::StaticImageLoader(const FilePath &appPath)
-    : _appPath(appPath)
+    : _appPath(appPath),
+      _program(appPath)
 {
   // Creation des données
   glGenBuffers(1, &_vbo);
@@ -39,12 +40,6 @@ StaticImageLoader::StaticImageLoader(const FilePath &appPath)
 
   glBindVertexArray(0);
 
-  // Création du programme
-  _program._Program = glimac::loadProgram(
-      appPath.dirPath() + "shaders/tex2D.vs.glsl",
-      appPath.dirPath() + "shaders/tex2D.fs.glsl");
-  _program._uTexture = glGetUniformLocation(_program._Program.getGLId(), "uTexture");
-  _program._uModelMatrix = glGetUniformLocation(_program._Program.getGLId(), "uModelMatrix");
 }
 
 StaticImageLoader::~StaticImageLoader()

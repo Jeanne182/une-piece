@@ -83,8 +83,7 @@ void App::layoutPause()
   {
     _staticImages.addImage("Pause", -0.5f, 0.9f, 0.4f);
     _buttons.addImage("Resume", -0.5f, -0.25f, 0.25f);
-    _buttons.addImage("Menu", 0.12f, -0.6f, 0.2f);
-    _buttons.addImage("Scores", -0.72f, -0.6f, 0.2f);
+    _buttons.addImage("Menu", -0.32f, -0.6f, 0.25f);
   }
   catch (std::exception &e)
   {
@@ -100,7 +99,6 @@ void App::layoutPause()
     _game.reset();
     layoutMenu();
   });
-  _buttons.setBehavior("Scores", [this] { layoutScores(); });
   _buttons.setBehavior("Resume", [this] { layoutGame(); });
 };
 void App::layoutGame()
@@ -200,7 +198,6 @@ void App::drawPause()
     _staticImages.displayImage("Pause");
     _buttons.displayImage("Resume");
     _buttons.displayImage("Menu");
-    _buttons.displayImage("Scores");
   }
   catch (std::exception &e)
   {

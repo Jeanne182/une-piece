@@ -54,6 +54,15 @@ struct StaticImageProgram
   Program _Program;
   GLuint _uTexture;
   GLuint _uModelMatrix;
+
+  StaticImageProgram(const FilePath &applicationPath)
+      : _Program(loadProgram(
+            applicationPath.dirPath() + "shaders/tex2D.vs.glsl",
+            applicationPath.dirPath() + "shaders/tex2D.fs.glsl"))
+  {
+    _uTexture = glGetUniformLocation(_Program.getGLId(), "uTexture");
+    _uModelMatrix = glGetUniformLocation(_Program.getGLId(), "uModelMatrix");
+  }
 };
 
 } // namespace UP
