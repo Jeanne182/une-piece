@@ -36,8 +36,12 @@ main(int argc, char **argv)
   /*********************************
    * HERE SHOULD COME THE INITIALIZATION CODE
    *********************************/
-
+  const FilePath applicationPath(argv[0]);
+  ASSET_PATH = applicationPath.dirPath() + "../../src/assets/";
+  assetProgram = new AssetProgram(applicationPath);
+  staticImageProgram = new StaticImageProgram(applicationPath);
   App &app = App::Get(argv, WINDOW_WIDTH, WINDOW_HEIGHT);
+
   app.layoutMenu();
   // ============== SCORE MANAGER ==============
 
@@ -88,6 +92,8 @@ main(int argc, char **argv)
   glDeleteVertexArrays(1, &vao);
   glDeleteTextures(2, textures);
   */
+  delete assetProgram;
+  delete staticImageProgram;
 
   return EXIT_SUCCESS;
 }

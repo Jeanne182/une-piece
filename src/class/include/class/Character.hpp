@@ -11,12 +11,7 @@
 
 #include <glimac/SDLWindowManager.hpp>
 #include <glimac/common.hpp>
-#include <glimac/Program.hpp>
-
-#include <class/Model.hpp>
-#include <class/Program.hpp>
 #include <class/Bonus.hpp>
-
 #include <class/GameObject.hpp>
 
 using namespace glimac;
@@ -43,11 +38,6 @@ public:
   // ============= CONSTRUCTORS =============
 
   /**
-   * @brief DELETED default constructor
-   * 
-   */
-  Character() = delete;
-  /**
    * @brief Construct a new Character object
    *
    */
@@ -55,7 +45,7 @@ public:
 
   /**
    * @brief Destroy the Character object
-   * 
+   *
    */
   ~Character(){};
 
@@ -95,8 +85,8 @@ public:
 
   /**
    * @brief React to a SDL_Event based on the current selected _layout
-   * 
-   * @param e 
+   *
+   * @param e
    */
   void event(const SDL_Event &e);
   /**
@@ -114,19 +104,19 @@ public:
   void keyUpHandler(const int &key);
   /**
    * @brief Move the character
-   * 
+   *
    */
   void move();
 
   /**
    * @brief Display the character
-   * 
+   *
    */
   void display() const;
 
     /**
    * @brief Reset the Character to default
-   * 
+   *
    */
   void reset();
 
@@ -151,17 +141,17 @@ public:
 
   /**
    * @brief Return true if there is a collision between 2 GameObjects
-   * 
-   * @param p2 
-   * @return true 
-   * @return false 
+   *
+   * @param p2
+   * @return true
+   * @return false
    */
   bool collision(const Character &p2);
 
   /**
    * @brief Lose some health
-   * 
-   * @param value 
+   *
+   * @param value
    */
   void loseHealth(const unsigned int &value);
 
@@ -169,7 +159,6 @@ private:
   unsigned int _health;
   int _sideState;
   int _verticalState;
-  Model _model;
   std::map<unsigned int, time_t> _activeBonuses;
 
   // ============= MOVEMENT =============

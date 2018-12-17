@@ -13,12 +13,9 @@ using namespace glimac;
 namespace UP
 {
 
-//static AssetProgram *assetProgram;
-//static StaticImageProgram *staticImageProgram;
-
 /**
  * @brief Data structure for the Shader an Asset
- * 
+ *
  */
 struct AssetProgram
 {
@@ -50,7 +47,7 @@ struct AssetProgram
 
 /**
  * @brief Data structure for the Shader of a Static Image
- * 
+ *
  */
 struct StaticImageProgram
 {
@@ -67,6 +64,9 @@ struct StaticImageProgram
     _uModelMatrix = glGetUniformLocation(_Program.getGLId(), "uModelMatrix");
   }
 };
+
+static AssetProgram *assetProgram;
+static StaticImageProgram *staticImageProgram;
 
 } // namespace UP
 

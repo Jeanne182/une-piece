@@ -19,10 +19,11 @@ namespace UP
 static const bool USE_CHRONO = false;
 static const int WINDOW_WIDTH = 800;
 static const int WINDOW_HEIGHT = 800;
+static std::string ASSET_PATH;
 
 /**
  * @brief Data Structure for a 2D point
- * 
+ *
  */
 struct Vertex2DUV
 {
@@ -41,7 +42,7 @@ struct Vertex2DUV
 
 /**
  * @brief Data structure for a texture
- * 
+ *
  */
 struct Texture
 {
@@ -52,7 +53,7 @@ struct Texture
 
 /**
  * @brief Data structure to simplify the Coordinates management
- * 
+ *
  */
 enum COORD
 {

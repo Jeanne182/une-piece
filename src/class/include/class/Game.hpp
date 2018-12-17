@@ -20,31 +20,31 @@ class Game
 public:
   /**
    * @brief Construct a new Game object
-   * 
-   * @param appPath 
-   * @param assetProgram 
+   *
+   * @param appPath
+   * @param assetProgram
    */
   Game(const FilePath &appPath, const AssetProgram &assetProgram);
   /**
    * @brief Update all the states of the game
-   * 
+   *
    */
   void update();
   /**
    * @brief Draw the current frame of the game
-   * 
+   *
    */
   void display() const;
   /**
    * @brief React to a SDL_Event
-   * 
-   * @param e 
+   *
+   * @param e
    */
   void event(const SDL_Event &e);
-  
+
   /**
    * @brief Reset the game and create a new one
-   * 
+   *
    */
   void reset();
 

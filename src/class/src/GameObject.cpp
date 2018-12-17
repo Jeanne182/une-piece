@@ -9,20 +9,17 @@
 
 namespace UP
 {
-GameObject::GameObject()
-    : _position(0.f, 0.f, 0.f),
-      _speed(0.f, 0.f, 0.f),
-      _scale(1.f){};
-
-GameObject::GameObject(const glm::vec3 &pos, const glm::vec3 &speed, const float &scale)
+GameObject::GameObject(const glm::vec3 &pos, const glm::vec3 &speed, const float &scale, const std::string &path, const std::map<std::string, GLint> &textureLocation)
     : _position(pos),
       _speed(speed),
-      _scale(scale){};
+      _scale(scale),
+      _model(path, textureLocation){};
 
 GameObject::GameObject(const GameObject &g)
     : _position(g._position),
       _speed(g._speed),
-      _scale(g._scale){};
+      _scale(g._scale),
+      _model(g._model){};
 
 void GameObject::sendMatrix(const AssetProgram &assetProgram, const glm::mat4 &cameraMV)
 {

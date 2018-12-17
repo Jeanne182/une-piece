@@ -22,7 +22,7 @@ namespace UP
 
 /**
  * @brief Data Structure for the Layout Modes
- * 
+ *
  */
 enum LAYOUT
 {
@@ -35,7 +35,7 @@ enum LAYOUT
 /**
  * @brief Single Class
  * @brief Create the App Object that serves as a facade for all the OpenGL stuff
- * 
+ *
  */
 class App
 {
@@ -43,39 +43,39 @@ public:
   // =============== SELECT THE LAYOUT ===============
   /**
    * @brief Use the Layout of the Menu
-   * 
+   *
    */
   void layoutMenu();
 
   /**
    * @brief Use the Layout of the Scores
-   * 
+   *
    */
   void layoutScores();
 
   /**
    * @brief Use the Layout of the Pause
-   * 
+   *
    */
   void layoutPause();
 
   /**
    * @brief Use the Layout of the Game
-   * 
+   *
    */
   void layoutGame();
 
   // =============== GENERIC FACADES FUNCTIONS ===============
   /**
    * @brief Draw based on the current selected _layout
-   * 
+   *
    */
   void draw();
 
   /**
    * @brief React to a SDL_Event based on the current selected _layout
-   * 
-   * @param e 
+   *
+   * @param e
    */
   void event(const SDL_Event &e);
 
@@ -85,11 +85,11 @@ private:
   // CONSTRUCTOR
 
   /**
-   * @brief Construct a new App object 
-   * 
-   * @param appPath 
-   * @param width 
-   * @param height 
+   * @brief Construct a new App object
+   *
+   * @param appPath
+   * @param width
+   * @param height
    */
   App(char **argv, const int &width, const int &height);
 
@@ -97,25 +97,25 @@ private:
   // ============ SPECIFIC FUNCTIONS FOR EACH LAYOUT ============
   /**
    * @brief Draw the Menu
-   * 
+   *
    */
   void drawMenu();
 
   /**
    * @brief Draw the Scores
-   * 
+   *
    */
   void drawScores();
 
   /**
    * @brief Draw the Pause
-   * 
+   *
    */
   void drawPause();
 
   /**
    * @brief Draw the Game
-   * 
+   *
    */
   void drawGame();
 
@@ -144,11 +144,11 @@ private:
 public:
   /**
    * @brief Common Getter for the Singleton's Instance
-   * 
-   * @param appPath 
-   * @param width 
-   * @param height 
-   * @return App& 
+   *
+   * @param appPath
+   * @param width
+   * @param height
+   * @return App&
    */
   static App &Get(char **argv, const int &width, const int &height)
   {

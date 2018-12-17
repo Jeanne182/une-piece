@@ -29,24 +29,20 @@ class Bonus : public GameObject
 {
 public:
   // ============= CONSTRUCTORS =============
+
   /**
    * @brief Construct a new Bonus object
-   * 
+   *
+   * @param position
+   * @param bonusType
    */
-  Bonus();
-  /**
-   * @brief Construct a new Bonus object
-   * 
-   * @param position 
-   * @param bonusType 
-   */
-  Bonus(const glm::vec3 position, const unsigned int bonusType);
+  Bonus(const glm::vec3 position, const unsigned int bonusType, const std::string &path, const std::map<std::string, GLint> &textureLocation);
   ~Bonus(){};
 
   // ============= METHODS =============
   /**
    * @brief Display the Bonus
-   * 
+   *
    */
   void display() const;
 
@@ -54,22 +50,22 @@ public:
   // ============= GETTERS =============
   /**
    * @brief Get the Bonus Type object
-   * 
-   * @return unsigned int 
+   *
+   * @return unsigned int
    */
   inline unsigned int getBonusType() const { return _bonusType; };
   /**
    * @brief Get the Bonus Duration object
-   * 
-   * @return unsigned int 
+   *
+   * @return unsigned int
    */
   inline unsigned int getBonusDuration() const { return _bonusDuration; };
 
   // ============= SETTERS =============
   /**
    * @brief Set the Bonus Type object
-   * 
-   * @param bonusType 
+   *
+   * @param bonusType
    */
   inline void setBonusType(const unsigned int &bonusType) { _bonusType = bonusType; };
 
