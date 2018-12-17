@@ -30,8 +30,7 @@ public:
    */
   Mesh(std::vector<ShapeVertex> vertices,
        std::vector<unsigned int> indices,
-       std::vector<Texture> textures,
-       std::map<std::string, GLint> texturesLocation);
+       std::vector<Texture> textures);
 
   /**
    * @brief Destroy the Mesh object
@@ -52,10 +51,6 @@ private:
   std::vector<ShapeVertex> _vertices;
   std::vector<unsigned int> _indices;
   std::vector<Texture> _textures;
-
-  // OBJ Data
-  std::map<std::string, GLint> _texturesLocation;
-
   // Constructor
   void setupMesh();
 };

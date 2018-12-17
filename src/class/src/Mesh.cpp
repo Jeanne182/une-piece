@@ -1,3 +1,4 @@
+#include <class/AssetManager.hpp>
 #include <class/Mesh.hpp>
 #include <class/Error.hpp>
 #include <class/Utils.hpp>
@@ -14,12 +15,10 @@ namespace UP
 
 Mesh::Mesh(std::vector<ShapeVertex> vertices,
            std::vector<unsigned int> indices,
-           std::vector<Texture> textures,
-           std::map<std::string, GLint> texturesLocation)
+           std::vector<Texture> textures)
     : _vertices(vertices),
       _indices(indices),
-      _textures(textures),
-      _texturesLocation(texturesLocation)
+      _textures(textures)
 {
   setupMesh();
 }
@@ -81,7 +80,7 @@ void Mesh::draw() const
       number = std::to_string(heightNr++);
     */
 
-    GLint location = _texturesLocation.at(name + number);
+    GLint location = AssetManager::Get()->assetProgram().uMapTextures.at(name + number);
     glUniform1i(location, i);
     glBindTexture(GL_TEXTURE_2D, _textures[i].id);
   }
