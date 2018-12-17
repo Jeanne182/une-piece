@@ -20,11 +20,27 @@ App::App(char **argv, const int &width, const int &height)
       _scores(ScoresManager::Get(_appPath)){};
 
 // =============== SELECT THE LAYOUT ===============
+void App::layout2D()
+{
+  _staticImages.useProgram();
+
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  glDisable(GL_DEPTH_TEST);
+
+}
+void App::layout3D()
+{
+  _assetProgram._Program.use();
+
+  glDisable(GL_BLEND);
+  glEnable(GL_DEPTH_TEST);
+}
 void App::layoutMenu()
 {
   _buttons.disable();
   _layout = LAYOUT_MENU;
-  _staticImages.useProgram();
+  layout2D();
 
   // Load the images
   try
@@ -49,8 +65,8 @@ void App::layoutMenu()
 void App::layoutScores()
 {
   _buttons.disable();
-  _staticImages.useProgram();
   _layout = LAYOUT_SCORES;
+  layout2D();
 
   // Load the Images
   try
@@ -75,8 +91,8 @@ void App::layoutScores()
 void App::layoutPause()
 {
   _buttons.disable();
-  _staticImages.useProgram();
   _layout = LAYOUT_PAUSE;
+  layout2D();
 
   // Load the Images
   try
@@ -104,7 +120,7 @@ void App::layoutPause()
 void App::layoutGame()
 {
   _buttons.disable();
-  _assetProgram._Program.use();
+  layout3D();
   _layout = LAYOUT_GAME;
 
   // TODO

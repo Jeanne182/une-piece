@@ -196,5 +196,6 @@ void Model::draw() const
 {
   for (size_t i = 0; i < _meshes.size(); i++)
     _meshes[i].draw();
+
 }
 } // namespace UP

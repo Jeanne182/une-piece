@@ -94,6 +94,9 @@ private:
   App(char **argv, const int &width, const int &height);
 
   // METHODS
+void layout2D();
+void layout3D();
+
   // ============ SPECIFIC FUNCTIONS FOR EACH LAYOUT ============
   /**
    * @brief Draw the Menu
