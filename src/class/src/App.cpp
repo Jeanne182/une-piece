@@ -13,12 +13,10 @@
 namespace UP
 {
 
-App::App(char **argv, const int &width, const int &height)
-    : _appPath(argv[0]),
-      _assetProgram(_appPath),
-      _staticImages(),
+App::App()
+    : _staticImages(),
       _buttons(),
-      _game(_appPath, _assetProgram),
+      _game(),
       _scores(ScoresManager::Get()){};
 
 // =============== SELECT THE LAYOUT ===============
@@ -31,7 +29,7 @@ void App::layout2D()
 }
 void App::layout3D()
 {
-  _assetProgram._Program.use();
+  AssetManager::Get()->assetProgram()._Program.use();
 
   glDisable(GL_BLEND);
   glEnable(GL_DEPTH_TEST);

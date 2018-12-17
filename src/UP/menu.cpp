@@ -50,7 +50,7 @@ int main(int argc, char **argv)
   
   // APP MANAGER
   AssetManager::Create(argv);
-  App& app = App::Get(argv, WINDOW_WIDTH, WINDOW_HEIGHT);
+  App& app = App::Get();
   app.layoutMenu();
 
 

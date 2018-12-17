@@ -50,8 +50,6 @@ void Model::loadModel(const std::string &name)
 
   _directory = AssetManager::Get()->model(name).substr(0, AssetManager::Get()->model(name).find_last_of('/'));
   processNode(scene->mRootNode, scene);
-
-  //std::cout << "Amount of meshes : " << _meshes.size() << std::endl;
 }
 
 void Model::processNode(const aiNode *node, const aiScene *scene)

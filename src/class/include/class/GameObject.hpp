@@ -180,7 +180,7 @@ public:
    * @param assetProgram
    * @param cameraMV
    */
-  void sendMatrix(const AssetProgram &assetProgram, const glm::mat4 &cameraMV);
+  void sendMatrix(const glm::mat4 &cameraMV);
 
 
 protected:

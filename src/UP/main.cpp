@@ -49,8 +49,7 @@ main(int argc, char **argv)
   staticImageProgram = new StaticImageProgram(applicationPath);
   */
 
-  App &app = App::Get(argv, WINDOW_WIDTH, WINDOW_HEIGHT);
-
+  App &app = App::Get();
   app.layoutMenu();
 
   // ============== SCORE MANAGER ==============

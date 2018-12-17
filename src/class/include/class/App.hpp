@@ -87,11 +87,8 @@ private:
   /**
    * @brief Construct a new App object
    *
-   * @param appPath
-   * @param width
-   * @param height
    */
-  App(char **argv, const int &width, const int &height);
+  App();
 
   // ============ METHODS ============
   /**
@@ -132,11 +129,6 @@ private:
 
   // ================ ATTRIBUTES ==============
 
-  // App Path
-  const FilePath &_appPath;
-
-  // Programs
-  AssetProgram _assetProgram;
 
   // Loaders
   ButtonLoader _buttons;
@@ -148,7 +140,6 @@ private:
   int _layout = LAYOUT_DEFAULT;
 
   // ================ SINGLETON's STUFF ==============
-  App() = delete;
   App(App const &) = delete;
   void operator=(App const &) = delete;
 
@@ -161,9 +152,9 @@ public:
    * @param height
    * @return App&
    */
-  static App &Get(char **argv, const int &width, const int &height)
+  static App &Get()
   {
-    static App instance(argv, width, height);
+    static App instance;
     return instance;
   };
 };

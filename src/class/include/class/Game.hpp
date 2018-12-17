@@ -24,7 +24,7 @@ public:
    * @param appPath
    * @param assetProgram
    */
-  Game(const FilePath &appPath, const AssetProgram &assetProgram);
+  Game();
   /**
    * @brief Update all the states of the game
    *
@@ -50,8 +50,6 @@ public:
 
 private:
   Character _character;
-  const FilePath &_appPath;
-  const AssetProgram &_assetProgram;
   Camera _camera;
 };
 

@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include <class/GameObject.hpp>
+#include <class/AssetManager.hpp>
 #include <class/Program.hpp>
 #include <class/common.hpp>
 
@@ -21,7 +22,7 @@ GameObject::GameObject(const GameObject &g)
       _scale(g._scale),
       _model(g._model){};
 
-void GameObject::sendMatrix(const AssetProgram &assetProgram, const glm::mat4 &cameraMV)
+void GameObject::sendMatrix(const glm::mat4 &cameraMV)
 {
   /* Envoi des matrices au GPU */
 
@@ -40,9 +41,9 @@ void GameObject::sendMatrix(const AssetProgram &assetProgram, const glm::mat4 &c
   std::cout << "MV" << MV << std::endl;
   std::cout << "Normal" << normalMatrix << std::endl;
 */
-  glUniformMatrix4fv(assetProgram.uMVPMatrix, 1, GL_FALSE, glm::value_ptr(P * MV));
-  glUniformMatrix4fv(assetProgram.uMVMatrix, 1, GL_FALSE, glm::value_ptr(MV));
-  glUniformMatrix4fv(assetProgram.uNormalMatrix, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+  glUniformMatrix4fv(AssetManager::Get()->assetProgram().uMVPMatrix, 1, GL_FALSE, glm::value_ptr(P * MV));
+  glUniformMatrix4fv(AssetManager::Get()->assetProgram().uMVMatrix, 1, GL_FALSE, glm::value_ptr(MV));
+  glUniformMatrix4fv(AssetManager::Get()->assetProgram().uNormalMatrix, 1, GL_FALSE, glm::value_ptr(normalMatrix));
 }
 
 void GameObject::reset()
