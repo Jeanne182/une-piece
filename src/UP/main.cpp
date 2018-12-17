@@ -33,16 +33,22 @@ main(int argc, char **argv)
     return EXIT_FAILURE;
   }
 
+  std::cout << "OpenGL Version : " << glGetString(GL_VERSION) << std::endl;
+  std::cout << "GLEW Version : " << glewGetString(GLEW_VERSION) << std::endl;
+
   /*********************************
    * HERE SHOULD COME THE INITIALIZATION CODE
    *********************************/
+
   const FilePath applicationPath(argv[0]);
   ASSET_PATH = applicationPath.dirPath() + "../../src/assets/";
   assetProgram = new AssetProgram(applicationPath);
   staticImageProgram = new StaticImageProgram(applicationPath);
+
   App &app = App::Get(argv, WINDOW_WIDTH, WINDOW_HEIGHT);
 
   app.layoutMenu();
+
   // ============== SCORE MANAGER ==============
 
   //ScoresManager& scores = ScoresManager::Get(applicationPath);
@@ -50,9 +56,7 @@ main(int argc, char **argv)
   //scores.displayAll();
   //scores.store();
 
-  glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-  glEnable(GL_DEPTH_TEST);
   glCheckError(); // We never know
   // Application loop:
   bool done = false;

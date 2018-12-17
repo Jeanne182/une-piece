@@ -31,6 +31,7 @@ void Game::update()
 }
 void Game::display() const
 {
+  _assetProgram._Program.use();
   _character.display();
 }
 
