@@ -14,7 +14,8 @@ namespace UP
 Game::Game(const FilePath &appPath, const AssetProgram &assetProgram)
     : _appPath(appPath),
       _assetProgram(assetProgram),
-      _character(appPath.dirPath() + "../../src/assets/models/bateau.obj", assetProgram.uMapTextures)
+      //_character(appPath.dirPath() + "../../src/assets/models/bateau.obj")
+      _character("bateau.obj")
 {
 };
 

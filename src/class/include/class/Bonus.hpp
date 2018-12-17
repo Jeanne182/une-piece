@@ -36,7 +36,7 @@ public:
    * @param position
    * @param bonusType
    */
-  Bonus(const glm::vec3 position, const unsigned int bonusType, const std::string &path, const std::map<std::string, GLint> &textureLocation);
+  Bonus(const glm::vec3 position, const unsigned int bonusType, const std::string &name);
   ~Bonus(){};
 
   // ============= METHODS =============

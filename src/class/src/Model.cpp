@@ -1,9 +1,9 @@
 #include <class/Model.hpp>
 #include <class/Error.hpp>
-//#include <glimac/Program.hpp>
+#include <class/AssetManager.hpp>
+
 #include <glimac/common.hpp>
-//#include <glimac/Image.hpp>
-//#include <glimac/FilePath.hpp>
+
 #include <string>
 #include <vector>
 #include <iostream>
@@ -14,8 +14,7 @@ using namespace glimac;
 namespace UP
 {
 
-Model::Model(const std::string &path, const std::map<std::string, GLint> &textureLocation)
-    : _texturesLocation(textureLocation)
+Model::Model(const std::string &path)
 {
   loadModel(path);
 }
@@ -36,11 +35,11 @@ Model::~Model()
   }
 }
 
-void Model::loadModel(const std::string &path)
+void Model::loadModel(const std::string &name)
 {
   Assimp::Importer importer;
   //const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals);
-  const aiScene *scene = importer.ReadFile(path,
+  const aiScene *scene = importer.ReadFile(AssetManager::Get()->model(name),
                                            aiProcess_CalcTangentSpace |
                                                aiProcess_Triangulate |
                                                aiProcess_JoinIdenticalVertices |
@@ -49,7 +48,7 @@ void Model::loadModel(const std::string &path)
   if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
     throw Error(std::string("Error Assimp: ") + importer.GetErrorString(), AT);
 
-  _directory = path.substr(0, path.find_last_of('/'));
+  _directory = AssetManager::Get()->model(name).substr(0, AssetManager::Get()->model(name).find_last_of('/'));
   processNode(scene->mRootNode, scene);
 
   //std::cout << "Amount of meshes : " << _meshes.size() << std::endl;
@@ -124,7 +123,7 @@ Mesh Model::processMesh(const aiMesh *mesh, const aiScene *scene)
     textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
   }
 
-  return Mesh(vertices, indices, textures, _texturesLocation);
+  return Mesh(vertices, indices, textures);
 };
 
 GLint TextureFromFile(const char *path, std::string directory)

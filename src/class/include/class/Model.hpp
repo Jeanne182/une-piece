@@ -32,7 +32,7 @@ public:
    * @param path 
    * @param textureLocation 
    */
-  Model(const std::string &path, const std::map<std::string, GLint> &textureLocation);
+  Model(const std::string &path);
 
   /**
    * @brief Destroy the Model object
@@ -84,7 +84,6 @@ private:
   std::vector<Mesh> _meshes;
   std::string _directory;
   std::vector<Texture> _textures_loaded;
-  std::map<std::string, GLint> _texturesLocation;
 };
 
 } // namespace UP

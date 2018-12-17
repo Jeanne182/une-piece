@@ -9,11 +9,11 @@
 
 namespace UP
 {
-GameObject::GameObject(const glm::vec3 &pos, const glm::vec3 &speed, const float &scale, const std::string &path, const std::map<std::string, GLint> &textureLocation)
+GameObject::GameObject(const glm::vec3 &pos, const glm::vec3 &speed, const float &scale, const std::string &name)
     : _position(pos),
       _speed(speed),
       _scale(scale),
-      _model(path, textureLocation){};
+      _model(name){};
 
 GameObject::GameObject(const GameObject &g)
     : _position(g._position),

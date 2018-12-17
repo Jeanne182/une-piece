@@ -41,7 +41,7 @@ public:
    * @brief Construct a new Character object
    *
    */
-  Character(const std::string &path, const std::map<std::string, GLint> &textureLocation);
+  Character(const std::string &name);
 
   /**
    * @brief Destroy the Character object

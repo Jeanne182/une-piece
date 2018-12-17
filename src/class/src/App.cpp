@@ -6,9 +6,9 @@
 #include <glimac/FilePath.hpp>
 
 #include <class/App.hpp>
+#include <class/AssetManager.hpp>
 #include <class/Error.hpp>
 #include <class/Utils.hpp>
-#include <class/AssetManager.hpp>
 
 namespace UP
 {

@@ -10,10 +10,11 @@ using namespace glimac;
 namespace UP
 {
 
-Character::Character(const std::string &path, const std::map<std::string, GLint> &textureLocation)
+Character::Character(const std::string &name)
     : GameObject(glm::vec3(0.f, 0.f, 0.f),
                  glm::vec3(0.0001f, 0.0001f, 0.0001f),
-                 0.1f, path, textureLocation),
+                 0.1f,
+                 name),
       _health(1),
       _sideState(CENTER),
       _verticalState(RUNNING){};
