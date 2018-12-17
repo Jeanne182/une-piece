@@ -70,6 +70,18 @@ public:
    */
   std::string texture(const std::string &texture) const;
 
+  /**
+   * @brief Get the Asset Program
+   * 
+   */
+  inline const AssetProgram &assetProgram() const { return _assetProgram; };
+
+  /**
+   * @brief Get the Asset Program
+   * 
+   */
+  inline const StaticImageProgram &staticImageProgram() const { return _staticImageProgram; };
+
 private:
   /**
    * @brief Construct a new AssetManager object
@@ -80,13 +92,15 @@ private:
    */
   AssetManager(char **argv)
       : _appPath(argv[0]),
-        _assetProgram(_appPath){};
+        _assetProgram(_appPath),
+        _staticImageProgram(_appPath){};
 
   // AssetManager Path
   FilePath _appPath;
 
   // Programs
   AssetProgram _assetProgram;
+  StaticImageProgram _staticImageProgram;
 
   // ================ SINGLETON's STUFF ==============
   static AssetManager *instance;
