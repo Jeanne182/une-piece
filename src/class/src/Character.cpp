@@ -1,8 +1,10 @@
 #include <map>
+#include <type_traits>
 
 #include <glimac/SDLWindowManager.hpp>
 
 #include <class/Character.hpp>
+#include <class/AssetManager.hpp>
 #include <class/Model.hpp>
 
 using namespace glimac;
@@ -192,7 +194,7 @@ void Character::loseHealth(const unsigned int &value)
 
 void Character::display() const
 {
-  _model.draw();
+  _model->draw();
   //std::cout << _position << std::endl;
 }
 

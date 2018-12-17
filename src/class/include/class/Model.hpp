@@ -6,6 +6,7 @@
 #include <map>
 #include <vector>
 #include <glimac/common.hpp>
+#include <iostream>
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -32,7 +33,7 @@ public:
    * @param path 
    * @param textureLocation 
    */
-  Model(const std::string &path);
+  Model(const std::string &name);
 
   /**
    * @brief Destroy the Model object
@@ -51,7 +52,7 @@ public:
    * 
    * @param path 
    */
-  void loadModel(const std::string &path);
+  void loadModel(const std::string &name);
 
   /**
    * @brief Reccursive function to load all the Nodes of an imported aiScene of the Model
@@ -69,6 +70,10 @@ public:
    * @return Mesh 
    */
   Mesh processMesh(const aiMesh *mesh, const aiScene *scene);
+
+  void check() const {
+    std::cout << "Amount of meshes : " << _meshes.size() << std::endl;
+  }
 
   /**
    * @brief Helper function to load all the textures from a material of a Node

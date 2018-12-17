@@ -2,11 +2,13 @@
 #define ASSET_MANAGER_UP_HPP__
 
 #include <string>
+#include <map>
 
 #include <glimac/common.hpp>
 #include <glimac/FilePath.hpp>
 
 #include <class/Program.hpp>
+#include <class/Model.hpp>
 #include <class/Error.hpp>
 
 using namespace glimac;
@@ -60,7 +62,7 @@ public:
    * @param modelName 
    * @return std::string 
    */
-  std::string model(const std::string &model) const;
+  std::string modelFile(const std::string &model) const;
 
   /**
    * @brief Get A texture
@@ -68,7 +70,24 @@ public:
    * @param modelName 
    * @return std::string 
    */
-  std::string texture(const std::string &texture) const;
+  std::string textureFile(const std::string &texture) const;
+
+
+  /**
+   * @brief Return a Model
+   * 
+   * @param name 
+   * @return const Model& 
+   */
+  const Model *model(const std::string &name);
+
+  /**
+   * @brief Return a Model
+   * 
+   * @param name 
+   * @return const Model& 
+   */
+  const Model *model(const std::string &name) const;
 
   /**
    * @brief Get the Asset Program
@@ -101,6 +120,9 @@ private:
   // Programs
   AssetProgram _assetProgram;
   StaticImageProgram _staticImageProgram;
+
+  // Models
+  std::map<std::string, Model*> _models;
 
   // ================ SINGLETON's STUFF ==============
   static AssetManager *instance;

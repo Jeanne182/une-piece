@@ -96,7 +96,7 @@ void StaticImageLoader::addImage(const std::string &filename, const float &x, co
 
   // Load Image
   img->_filename = filename;
-  img->_imgPtr = loadImage(AssetManager::Get()->texture((img->_filename + ".png")));
+  img->_imgPtr = loadImage(AssetManager::Get()->textureFile((img->_filename + ".png")));
   assert(img->_imgPtr != nullptr);
   img->_x = x;
   img->_y = y;

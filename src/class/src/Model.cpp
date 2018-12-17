@@ -14,9 +14,9 @@ using namespace glimac;
 namespace UP
 {
 
-Model::Model(const std::string &path)
+Model::Model(const std::string &name)
 {
-  loadModel(path);
+  loadModel(name);
 }
 
 Model::~Model()
@@ -39,7 +39,7 @@ void Model::loadModel(const std::string &name)
 {
   Assimp::Importer importer;
   //const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals);
-  const aiScene *scene = importer.ReadFile(AssetManager::Get()->model(name),
+  const aiScene *scene = importer.ReadFile(AssetManager::Get()->modelFile(name),
                                            aiProcess_CalcTangentSpace |
                                                aiProcess_Triangulate |
                                                aiProcess_JoinIdenticalVertices |
@@ -48,7 +48,7 @@ void Model::loadModel(const std::string &name)
   if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
     throw Error(std::string("Error Assimp: ") + importer.GetErrorString(), AT);
 
-  _directory = AssetManager::Get()->model(name).substr(0, AssetManager::Get()->model(name).find_last_of('/'));
+  _directory = AssetManager::Get()->modelFile(name).substr(0, AssetManager::Get()->modelFile(name).find_last_of('/'));
   processNode(scene->mRootNode, scene);
 }
 

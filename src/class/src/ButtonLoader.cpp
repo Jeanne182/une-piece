@@ -129,10 +129,10 @@ void ButtonLoader::addImage(const std::string &filename, const float &x, const f
   btn->_scale = scale;
 
   // Loaded
-  btn->_imgPtr = loadImage(AssetManager::Get()->texture(btn->_filename + ".png"));
+  btn->_imgPtr = loadImage(AssetManager::Get()->textureFile(btn->_filename + ".png"));
   std::unique_ptr<Image> hovered, clicked;
-  hovered = loadImage(AssetManager::Get()->texture(btn->_filename + "_hovered.png"));
-  clicked = loadImage(AssetManager::Get()->texture(btn->_filename + "_clicked.png"));
+  hovered = loadImage(AssetManager::Get()->textureFile(btn->_filename + "_hovered.png"));
+  clicked = loadImage(AssetManager::Get()->textureFile(btn->_filename + "_clicked.png"));
   assert(btn->_imgPtr != nullptr);
   assert(hovered != nullptr);
   assert(clicked != nullptr);

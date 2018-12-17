@@ -65,9 +65,6 @@ struct StaticImageProgram
   }
 };
 
-static AssetProgram *assetProgram;
-static StaticImageProgram *staticImageProgram;
-
 } // namespace UP
 
 #endif

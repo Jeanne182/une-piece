@@ -42,13 +42,6 @@ main(int argc, char **argv)
    *********************************/
   AssetManager::Create(argv);
 
-  /*
-  ASSET_PATH = applicationPath.dirPath() + "../../src/assets/";
-  std::cout << (ASSET_PATH + "/models/bateau.obj").str() << std::endl;
-  assetProgram = new AssetProgram(applicationPath);
-  staticImageProgram = new StaticImageProgram(applicationPath);
-  */
-
   App &app = App::Get();
   app.layoutMenu();
 
@@ -99,8 +92,5 @@ main(int argc, char **argv)
   glDeleteVertexArrays(1, &vao);
   glDeleteTextures(2, textures);
   */
-  delete assetProgram;
-  delete staticImageProgram;
-
   return EXIT_SUCCESS;
 }
