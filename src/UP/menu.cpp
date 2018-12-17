@@ -15,6 +15,7 @@
 #include <glimac/TrackballCamera.hpp>
 
 #include <class/App.hpp>
+#include <class/AssetManager.hpp>
 #include <class/ScoresManager.hpp>
 //#include <assimp/Importer.hpp>
 //#include <assimp/scene.h>
@@ -48,12 +49,13 @@ int main(int argc, char **argv)
    *********************************/
   
   // APP MANAGER
+  AssetManager::Create(argv);
   App& app = App::Get(argv, WINDOW_WIDTH, WINDOW_HEIGHT);
   app.layoutMenu();
 
 
   // SCORE MANAGER
-  ScoresManager& scores = ScoresManager::Get(applicationPath);
+  ScoresManager& scores = ScoresManager::Get();
   scores.addScore(Score("Paulounet", 66, time(0)));
   scores.displayAll();
   scores.store();

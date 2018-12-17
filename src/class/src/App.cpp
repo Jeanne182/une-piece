@@ -17,7 +17,7 @@ App::App(char **argv, const int &width, const int &height)
       _buttons(_appPath, width, height),
       _game(_appPath, _assetProgram),
       _staticImages(_appPath),
-      _scores(ScoresManager::Get(_appPath)){};
+      _scores(ScoresManager::Get()){};
 
 // =============== SELECT THE LAYOUT ===============
 void App::layout2D()

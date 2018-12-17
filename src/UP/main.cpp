@@ -12,6 +12,7 @@
 #include <glimac/TrackballCamera.hpp>
 
 #include <class/App.hpp>
+#include <class/AssetManager.hpp>
 #include <class/Utils.hpp>
 #include <class/common.hpp>
 #include <class/chrono.hpp>
@@ -39,11 +40,14 @@ main(int argc, char **argv)
   /*********************************
    * HERE SHOULD COME THE INITIALIZATION CODE
    *********************************/
+  AssetManager::Create(argv);
 
-  const FilePath applicationPath(argv[0]);
+  /*
   ASSET_PATH = applicationPath.dirPath() + "../../src/assets/";
+  std::cout << (ASSET_PATH + "/models/bateau.obj").str() << std::endl;
   assetProgram = new AssetProgram(applicationPath);
   staticImageProgram = new StaticImageProgram(applicationPath);
+  */
 
   App &app = App::Get(argv, WINDOW_WIDTH, WINDOW_HEIGHT);
 

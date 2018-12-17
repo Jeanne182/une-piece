@@ -19,7 +19,6 @@ namespace UP
 static const bool USE_CHRONO = false;
 static const int WINDOW_WIDTH = 800;
 static const int WINDOW_HEIGHT = 800;
-static std::string ASSET_PATH;
 
 /**
  * @brief Data Structure for a 2D point
