@@ -32,7 +32,7 @@ public:
    * @param pos
    * @param speed
    */
-  GameObject(const glm::vec3 &pos, const glm::vec3 &speed, const float &scale, const std::string &path, const std::map<std::string, GLint> &textureLocation);
+  GameObject(const glm::vec3 &pos, const glm::vec3 &speed, const float &scale, const std::string &name);
 
   /**
    * @brief Construct a new Game Object object
@@ -186,14 +186,15 @@ public:
    * @param assetProgram
    * @param cameraMV
    */
-  void sendMatrix(const AssetProgram &assetProgram, const glm::mat4 &cameraMV);
+  void sendMatrix(const glm::mat4 &cameraMV);
 
 
 protected:
   float _scale;
   glm::vec3 _position;
   glm::vec3 _speed;
-  Model _model;
+  const std::string _name;
+  Model *_model;
 };
 
 } // namespace UP

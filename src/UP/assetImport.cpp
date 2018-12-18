@@ -17,6 +17,7 @@
 #include <assimp/postprocess.h>
 
 #include <class/StaticImageLoader.hpp>
+#include <class/AssetManager.hpp>
 #include <class/Model.hpp>
 #include <class/Utils.hpp>
 #include <class/common.hpp>
@@ -54,8 +55,9 @@ main(int argc, char **argv)
   /*********************************
    * HERE SHOULD COME THE INITIALIZATION CODE
    *********************************/
+  AssetManager::Create(argv);
 
-  Model model(applicationPath.dirPath() + "../../src/assets/models/bateau.obj", assetProgram.uMapTextures);
+  Model model(applicationPath.dirPath() + "../../src/assets/models/bateau.obj");
   //Model model(applicationPath.dirPath() + "../../src/assets/models/cube.obj", assetProgram.uMapTextures);
 
   glm::mat4 ProjMatrix, MVMatrix, NormalMatrix;

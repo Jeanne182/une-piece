@@ -1,11 +1,11 @@
-# Blender MTL File: 'emerald.blend'
+# Blender MTL File: 'hole.blend'
 # Material Count: 1
 
-newmtl Piece
+newmtl roc
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
-Kd 0.322663 0.640000 0.247984
-Ks 0.500000 0.500000 0.500000
+Kd 0.640000 0.388297 0.238417
+Ks 0.500000 0.342697 0.050060
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000

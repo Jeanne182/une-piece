@@ -1,8 +1,10 @@
 #include <map>
+#include <type_traits>
 
 #include <glimac/SDLWindowManager.hpp>
 
 #include <class/Character.hpp>
+#include <class/AssetManager.hpp>
 #include <class/Model.hpp>
 #include <class/Error.hpp>
 
@@ -11,16 +13,24 @@ using namespace glimac;
 namespace UP
 {
 
-Character::Character(const std::string &path, const std::map<std::string, GLint> &textureLocation)
+Character::Character(const std::string &name)
     : GameObject(glm::vec3(0.f, 0.f, 0.f),
                  glm::vec3(0.0001f, 0.0001f, 0.0001f),
+<<<<<<< HEAD
                  0.1f,
                  path,
                  textureLocation),
+=======
+                 1.f,
+                 name),
+>>>>>>> f524e99f9a25f8fe9e337957bc57e380694b59b8
       _health(1),
       _score(0),
       _sideState(CENTER),
-      _verticalState(RUNNING){};
+      _verticalState(RUNNING)
+{
+  _model->setRepeat(4.f);
+};
 
 void Character::event(const SDL_Event &e)
 {
@@ -201,7 +211,7 @@ void Character::loseHealth(const unsigned int &value)
 
 void Character::display() const
 {
-  _model.draw();
+  _model->draw();
   //std::cout << _position << std::endl;
 }
 
@@ -216,13 +226,15 @@ void Character::reset()
   _activeBonuses.clear();
   setSpeed(glm::vec3(0.0001f, 0.0001f, 0.0001f));
   _scale = 0.1f;
-
 }
 
+<<<<<<< HEAD
 void Character::collisionHandler(GameObject *gameObject)
 {
     throw Error(std::string("Can't colide with yourself"), AT);
 }
 
 
+=======
+>>>>>>> f524e99f9a25f8fe9e337957bc57e380694b59b8
 } // namespace UP

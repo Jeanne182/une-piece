@@ -1,24 +1,23 @@
-#include <class/StaticImageLoader.hpp>
-#include <class/ButtonLoader.hpp>
-#include <class/Error.hpp>
-#include <class/Utils.hpp>
-#include <glimac/Program.hpp>
-#include <glimac/common.hpp>
-#include <glimac/Image.hpp>
-#include <glimac/FilePath.hpp>
 #include <map>
 #include <string>
 #include <iostream>
 #include <exception>
 #include <cassert>
 
+#include <glimac/Program.hpp>
+#include <glimac/common.hpp>
+#include <glimac/Image.hpp>
+#include <glimac/FilePath.hpp>
+
+#include <class/AssetManager.hpp>
+#include <class/StaticImageLoader.hpp>
+#include <class/ButtonLoader.hpp>
+#include <class/common.hpp>
+#include <class/Error.hpp>
+#include <class/Utils.hpp>
+
 namespace UP
 {
-
-ButtonLoader::ButtonLoader(const FilePath &appPath, const int &width, const int &height)
-    : StaticImageLoader(appPath), _window_width(width), _window_height(height)
-{
-}
 
 ButtonLoader::~ButtonLoader()
 {
@@ -70,8 +69,8 @@ void ButtonLoader::mouseHover(const SDL_Event &e) const
   {
     Button *btn = (Button *)it->second;
 
-    const int startX = (btn->_x + 1.f) * _window_width / 2;
-    const int startY = (btn->_y - 1.f) * _window_height / -2;
+    const int startX = (btn->_x + 1.f) * WINDOW_WIDTH / 2;
+    const int startY = (btn->_y - 1.f) * WINDOW_HEIGHT / -2;
 
     const int endX = startX + btn->_imgPtr->getWidth() * btn->_scale * 2.6;
     const int endY = startY + btn->_imgPtr->getHeight() * btn->_scale * 2.6;
@@ -130,10 +129,10 @@ void ButtonLoader::addImage(const std::string &filename, const float &x, const f
   btn->_scale = scale;
 
   // Loaded
-  btn->_imgPtr = loadImage(_appPath.dirPath() + "../../src/assets/textures" + (btn->_filename + ".png"));
+  btn->_imgPtr = loadImage(AssetManager::Get()->textureFile(btn->_filename + ".png"));
   std::unique_ptr<Image> hovered, clicked;
-  hovered = loadImage(_appPath.dirPath() + "../../src/assets/textures" + (btn->_filename + "_hovered.png"));
-  clicked = loadImage(_appPath.dirPath() + "../../src/assets/textures" + (btn->_filename + "_clicked.png"));
+  hovered = loadImage(AssetManager::Get()->textureFile(btn->_filename + "_hovered.png"));
+  clicked = loadImage(AssetManager::Get()->textureFile(btn->_filename + "_clicked.png"));
   assert(btn->_imgPtr != nullptr);
   assert(hovered != nullptr);
   assert(clicked != nullptr);
@@ -247,8 +246,8 @@ void ButtonLoader::displayImage(const std::string &imageName) const
   else
     glBindTexture(GL_TEXTURE_2D, *(btn->_texture));
 
-  glUniform1i(_program._uTexture, 0);
-  glUniformMatrix3fv(_program._uModelMatrix, 1, GL_FALSE, glm::value_ptr(btn->_computedMatrix));
+  glUniform1i(AssetManager::Get()->staticImageProgram()._uTexture, 0);
+  glUniformMatrix3fv(AssetManager::Get()->staticImageProgram()._uModelMatrix, 1, GL_FALSE, glm::value_ptr(btn->_computedMatrix));
   // DRAWING
   glBindVertexArray(_vao);
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

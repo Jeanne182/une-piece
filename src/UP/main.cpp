@@ -12,6 +12,7 @@
 #include <glimac/TrackballCamera.hpp>
 
 #include <class/App.hpp>
+#include <class/AssetManager.hpp>
 #include <class/Utils.hpp>
 #include <class/common.hpp>
 #include <class/chrono.hpp>
@@ -39,14 +40,9 @@ main(int argc, char **argv)
   /*********************************
    * HERE SHOULD COME THE INITIALIZATION CODE
    *********************************/
+  AssetManager::Create(argv);
 
-  const FilePath applicationPath(argv[0]);
-  ASSET_PATH = applicationPath.dirPath() + "../../src/assets/";
-  assetProgram = new AssetProgram(applicationPath);
-  staticImageProgram = new StaticImageProgram(applicationPath);
-
-  App &app = App::Get(argv, WINDOW_WIDTH, WINDOW_HEIGHT);
-
+  App &app = App::Get();
   app.layoutMenu();
 
   // ============== SCORE MANAGER ==============
@@ -96,8 +92,5 @@ main(int argc, char **argv)
   glDeleteVertexArrays(1, &vao);
   glDeleteTextures(2, textures);
   */
-  delete assetProgram;
-  delete staticImageProgram;
-
   return EXIT_SUCCESS;
 }

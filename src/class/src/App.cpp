@@ -1,37 +1,35 @@
-#include <class/App.hpp>
-#include <class/Error.hpp>
-
-#include <glimac/FilePath.hpp>
-
 #include <string>
 #include <iostream>
 #include <exception>
 #include <cassert>
 
+#include <glimac/FilePath.hpp>
+
+#include <class/App.hpp>
+#include <class/AssetManager.hpp>
+#include <class/Error.hpp>
+#include <class/Utils.hpp>
+
 namespace UP
 {
 
-App::App(char **argv, const int &width, const int &height)
-    : _appPath(argv[0]),
-      _assetProgram(_appPath),
-      _buttons(_appPath, width, height),
-      _game(_appPath, _assetProgram),
-      _staticImages(_appPath),
-      _scores(ScoresManager::Get(_appPath)){};
+App::App()
+    : _staticImages(),
+      _buttons(),
+      _game(),
+      _scores(ScoresManager::Get()){};
 
 // =============== SELECT THE LAYOUT ===============
 void App::layout2D()
 {
-  _staticImages.useProgram();
-
+  AssetManager::Get()->staticImageProgram()._Program.use();
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   glDisable(GL_DEPTH_TEST);
-
 }
 void App::layout3D()
 {
-  _assetProgram._Program.use();
+  AssetManager::Get()->assetProgram()._Program.use();
 
   glDisable(GL_BLEND);
   glEnable(GL_DEPTH_TEST);

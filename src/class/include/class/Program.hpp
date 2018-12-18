@@ -17,7 +17,7 @@ namespace UP
  * @brief Data structure for the Shader an Asset
  *
  */
-struct AssetProgram
+struct AssetProgramMulti
 {
   Program _Program;
 
@@ -26,10 +26,10 @@ struct AssetProgram
   GLint uNormalMatrix;
   std::map<std::string, GLint> uMapTextures;
 
-  AssetProgram(const FilePath &applicationPath)
+  AssetProgramMulti(const FilePath &applicationPath)
       : _Program(loadProgram(
             applicationPath.dirPath() + "shaders/3D.vs.glsl",
-            applicationPath.dirPath() + "shaders/normals.fs.glsl"))
+            applicationPath.dirPath() + "shaders/multiTex3D.fs.glsl"))
   {
     uMVPMatrix = glGetUniformLocation(_Program.getGLId(), "uMVPMatrix");
     uMVMatrix = glGetUniformLocation(_Program.getGLId(), "uMVMatrix");
@@ -42,6 +42,36 @@ struct AssetProgram
     uTexture_specular1 = glGetUniformLocation(_Program.getGLId(), "uTexture_specular1");
     uMapTextures.insert(std::pair<std::string, GLint>(std::string("uTexture_diffuse1"), uTexture_diffuse1));
     uMapTextures.insert(std::pair<std::string, GLint>(std::string("uTexture_specular1"), uTexture_specular1));
+  }
+};
+
+/**
+ * @brief Data structure for the Shader an Asset
+ *
+ */
+struct AssetProgram
+{
+  Program _Program;
+
+  GLint uMVPMatrix;
+  GLint uMVMatrix;
+  GLint uNormalMatrix;
+  GLint uTextureRepeat;
+  std::map<std::string, GLint> uMapTextures;
+
+  AssetProgram(const FilePath &applicationPath)
+      : _Program(loadProgram(
+            applicationPath.dirPath() + "shaders/3D.vs.glsl",
+            applicationPath.dirPath() + "shaders/tex3D.fs.glsl"))
+  {
+    uMVPMatrix = glGetUniformLocation(_Program.getGLId(), "uMVPMatrix");
+    uMVMatrix = glGetUniformLocation(_Program.getGLId(), "uMVMatrix");
+    uNormalMatrix = glGetUniformLocation(_Program.getGLId(), "uNormalMatrix");
+    uTextureRepeat = glGetUniformLocation(_Program.getGLId(), "uTextureRepeat");
+
+    // Textures
+    GLint uTexture = glGetUniformLocation(_Program.getGLId(), "uTexture");
+    uMapTextures.insert(std::pair<std::string, GLint>(std::string("uTexture"), uTexture));
   }
 };
 
@@ -64,9 +94,6 @@ struct StaticImageProgram
     _uModelMatrix = glGetUniformLocation(_Program.getGLId(), "uModelMatrix");
   }
 };
-
-static AssetProgram *assetProgram;
-static StaticImageProgram *staticImageProgram;
 
 } // namespace UP
 

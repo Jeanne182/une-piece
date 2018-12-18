@@ -1,4 +1,5 @@
 #include <class/ScoresManager.hpp>
+#include <class/AssetManager.hpp>
 #include <class/Score.hpp>
 #include <class/Error.hpp>
 
@@ -14,7 +15,7 @@ namespace UP
 
 void ScoresManager::loadScores()
 {
-  std::ifstream scoresFile(_appPath.dirPath() + "../save/scores");
+  std::ifstream scoresFile(AssetManager::Get()->saveFile(_scoresFilename));
   if (!scoresFile.is_open())
   {
     throw Error(std::string("Couldn't open the score file: " + _scoresFilename), AT);
@@ -57,7 +58,7 @@ void ScoresManager::displayBest(const int n) const
 
 void ScoresManager::store() const
 {
-  std::ofstream scoresFile(_appPath.dirPath() + "../save/scores");
+  std::ofstream scoresFile(AssetManager::Get()->saveFile(_scoresFilename));
   if (!scoresFile.is_open())
   {
     throw Error(std::string("Couldn't open the score file: " + _scoresFilename), AT);

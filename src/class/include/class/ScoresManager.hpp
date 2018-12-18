@@ -60,7 +60,6 @@ public:
 private:
   std::multiset<Score> _scores;
   const std::string _scoresFilename = "scores";
-  const FilePath &_appPath;
 
   // ================ SINGLETON's STUFF ==============
 
@@ -69,9 +68,9 @@ public:
    * @brief Common Getter for the Singleton's Instance
    * 
    */
-  static ScoresManager &Get(const FilePath &appPath)
+  static ScoresManager &Get()
   {
-    static ScoresManager instance(appPath);
+    static ScoresManager instance;
     return instance;
   };
 
@@ -81,9 +80,7 @@ public:
 
 private:
   // CONSTRUCTOR
-  ScoresManager() = delete;
-  ScoresManager(const FilePath &appPath)
-      : _appPath(appPath)
+  ScoresManager()
   {
     loadScores();
   };

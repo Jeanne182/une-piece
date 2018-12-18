@@ -1,8 +1,8 @@
 #include <glimac/glm.hpp>
-
 #include <glimac/FilePath.hpp>
 
 #include <class/Game.hpp>
+#include <class/AssetManager.hpp>
 #include <class/Character.hpp>
 #include <class/Program.hpp>
 #include <class/common.hpp>
@@ -11,12 +11,8 @@ using namespace glimac;
 namespace UP
 {
 
-Game::Game(const FilePath &appPath, const AssetProgram &assetProgram)
-    : _appPath(appPath),
-      _assetProgram(assetProgram),
-      _character(appPath.dirPath() + "../../src/assets/models/bateau.obj", assetProgram.uMapTextures)
-{
-};
+Game::Game()
+    : _character("bateau.obj"){};
 
 void Game::event(const SDL_Event &e)
 {
@@ -26,12 +22,12 @@ void Game::event(const SDL_Event &e)
 void Game::update()
 {
   _camera.update();
-  _character.move();
-  _character.sendMatrix(_assetProgram, _camera.getViewMatrix());
+  //_character.move();
+  _character.sendMatrix(_camera.getViewMatrix());
 }
 void Game::display() const
 {
-  _assetProgram._Program.use();
+  AssetManager::Get()->assetProgram()._Program.use();
   _character.display();
 }
 

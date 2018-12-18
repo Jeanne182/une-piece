@@ -10,15 +10,15 @@
 #include <glimac/FilePath.hpp>
 
 #include <class/common.hpp>
+#include <class/AssetManager.hpp>
 #include <class/StaticImageLoader.hpp>
 #include <class/Error.hpp>
+#include <class/Utils.hpp>
 
 namespace UP
 {
 
-StaticImageLoader::StaticImageLoader(const FilePath &appPath)
-    : _appPath(appPath),
-      _program(appPath)
+StaticImageLoader::StaticImageLoader()
 {
   // Creation des données
   glGenBuffers(1, &_vbo);
@@ -91,9 +91,12 @@ void StaticImageLoader::addImage(const std::string &filename, const float &x, co
 
   StaticImage *img = new StaticImage;
 
+  
+  glCheckError();
+
   // Load Image
   img->_filename = filename;
-  img->_imgPtr = loadImage(_appPath.dirPath() + "../../src/assets/textures" + (img->_filename + ".png"));
+  img->_imgPtr = loadImage(AssetManager::Get()->textureFile((img->_filename + ".png")));
   assert(img->_imgPtr != nullptr);
   img->_x = x;
   img->_y = y;
@@ -116,6 +119,8 @@ void StaticImageLoader::addImage(const std::string &filename, const float &x, co
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   glBindTexture(GL_TEXTURE_2D, 0);
+  
+  glCheckError();
 
   // Setup the Square, and update the IBO
   setupImage(filename, img);
@@ -173,19 +178,14 @@ void StaticImageLoader::sendVertexBuffer() const
   glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void StaticImageLoader::useProgram() const
-{
-  _program._Program.use();
-}
-
 void StaticImageLoader::displayImage(const std::string &imageName) const
 {
   StaticImage *img = getStaticImage(imageName, AT);
 
   // On charge la bonne texture
   glBindTexture(GL_TEXTURE_2D, *(img->_texture));
-  glUniform1i(_program._uTexture, 0);
-  glUniformMatrix3fv(_program._uModelMatrix, 1, GL_FALSE, glm::value_ptr(img->_computedMatrix));
+  glUniform1i(AssetManager::Get()->staticImageProgram()._uTexture, 0);
+  glUniformMatrix3fv(AssetManager::Get()->staticImageProgram()._uModelMatrix, 1, GL_FALSE, glm::value_ptr(img->_computedMatrix));
 
   // DRAWING
   glBindVertexArray(_vao);

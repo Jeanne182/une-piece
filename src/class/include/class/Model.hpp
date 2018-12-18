@@ -6,6 +6,7 @@
 #include <map>
 #include <vector>
 #include <glimac/common.hpp>
+#include <iostream>
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -32,7 +33,7 @@ public:
    * @param path 
    * @param textureLocation 
    */
-  Model(const std::string &path, const std::map<std::string, GLint> &textureLocation);
+  Model(const std::string &name, const float &textureRepeat = 1.0f);
 
   /**
    * @brief Destroy the Model object
@@ -51,7 +52,7 @@ public:
    * 
    * @param path 
    */
-  void loadModel(const std::string &path);
+  void loadModel(const std::string &name);
 
   /**
    * @brief Reccursive function to load all the Nodes of an imported aiScene of the Model
@@ -71,6 +72,24 @@ public:
   Mesh processMesh(const aiMesh *mesh, const aiScene *scene);
 
   /**
+   * @brief Get the Repeat object
+   * 
+   * @return float 
+   */
+  inline float getRepeat() const { return _textureRepeat; };
+  /**
+   * @brief Set the Repeat object
+   * 
+   * @param r 
+   */
+  inline void setRepeat(const float &r) { _textureRepeat = r; };
+
+  void check() const
+  {
+    std::cout << "Amount of meshes : " << _meshes.size() << std::endl;
+  }
+
+  /**
    * @brief Helper function to load all the textures from a material of a Node
    * 
    * @param mat 
@@ -83,8 +102,9 @@ public:
 private:
   std::vector<Mesh> _meshes;
   std::string _directory;
+  const std::string _name;
+  float _textureRepeat;
   std::vector<Texture> _textures_loaded;
-  std::map<std::string, GLint> _texturesLocation;
 };
 
 } // namespace UP

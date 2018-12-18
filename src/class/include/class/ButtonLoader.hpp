@@ -38,19 +38,6 @@ class ButtonLoader : public StaticImageLoader
 {
 public:
   /// Constructor and destructor
-
-  /**
-   * @brief Construct a new Button Loader:: Button Loader object
-   * @brief DO NOT USE 
-   */
-  ButtonLoader() = delete;
-
-  /**
-   * @brief Construct a new Button Loader:: Button Loader object. Require 3 images : <filename>
-   * 
-   * @param appPath 
-   */
-  ButtonLoader(const FilePath &appPath, const int &width, const int &height);
   
   /**
    * @brief Destroy the Button Loader:: Button Loader object
@@ -138,11 +125,6 @@ public:
    * @param imageName
    */
   void displayImage(const std::string &imageName) const;
-  
-private:
-  // ATTRIBUTES
-  const int _window_width, _window_height;
-
   // METHODS
 };
     

@@ -49,15 +49,8 @@ public:
 
   /**
    * @brief Construct a new Image Loader:: Image Loader object
-   * @brief DO NOT USE 
    */
-  StaticImageLoader() = delete;
-  /**
-   * @brief Construct a new Image Loader:: Image Loader object
-   * 
-   * @param appPath 
-   */
-  StaticImageLoader(const FilePath &appPath);
+  StaticImageLoader();
 
   /**
    * @brief Destroy the Image Loader:: Image Loader object
@@ -115,12 +108,6 @@ public:
    */
   void sendVertexBuffer() const;
 
-  /**
-   * @brief Use the StaticImageProgram
-   * 
-   */
-  void useProgram() const;
-
 protected:
   /// Methods
   /**
@@ -159,8 +146,6 @@ protected:
   void computeMatrix(StaticImage *img) const;
 
   /// Attributes
-  FilePath _appPath;
-  StaticImageProgram _program;
   std::map<const std::string, StaticImage *> _images;
   GLuint _vbo, _vao, _ibo;
 };

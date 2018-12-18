@@ -87,15 +87,20 @@ private:
   /**
    * @brief Construct a new App object
    *
-   * @param appPath
-   * @param width
-   * @param height
    */
-  App(char **argv, const int &width, const int &height);
+  App();
 
-  // METHODS
-void layout2D();
-void layout3D();
+  // ============ METHODS ============
+  /**
+   * @brief Setup Opengl to use 2D graphics
+   * 
+   */
+  void layout2D();
+  /**
+   * @brief Setup Opengl to use 3D graphics
+   * 
+   */
+  void layout3D();
 
   // ============ SPECIFIC FUNCTIONS FOR EACH LAYOUT ============
   /**
@@ -124,11 +129,6 @@ void layout3D();
 
   // ================ ATTRIBUTES ==============
 
-  // App Path
-  const FilePath &_appPath;
-
-  // Programs
-  AssetProgram _assetProgram;
 
   // Loaders
   ButtonLoader _buttons;
@@ -140,7 +140,6 @@ void layout3D();
   int _layout = LAYOUT_DEFAULT;
 
   // ================ SINGLETON's STUFF ==============
-  App() = delete;
   App(App const &) = delete;
   void operator=(App const &) = delete;
 
@@ -153,9 +152,9 @@ public:
    * @param height
    * @return App&
    */
-  static App &Get(char **argv, const int &width, const int &height)
+  static App &Get()
   {
-    static App instance(argv, width, height);
+    static App instance;
     return instance;
   };
 };
