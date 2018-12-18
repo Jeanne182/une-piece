@@ -15,7 +15,7 @@ namespace UP
 {
 MapManager::MapManager()
     : _direction(DIR_NORTH),
-      _probability(100)
+      _probability(10)
 {
   _probability[BATCH_TYPE_SIMPLE] = 2;
   _probability[BATCH_TYPE_COIN] = 3;
@@ -70,19 +70,19 @@ void MapManager::generateBatch()
   switch (choice)
   {
   case BATCH_TYPE_SIMPLE:
-    std::cout << "BATCH_TYPE_SIMPLE" << std::endl;
+    //std::cout << "BATCH_TYPE_SIMPLE" << std::endl;
     generateSimpleBatch();
     break;
   case BATCH_TYPE_COIN:
-    std::cout << "BATCH_TYPE_COIN" << std::endl;
+    //std::cout << "BATCH_TYPE_COIN" << std::endl;
     generateCoinBatch();
     break;
   case BATCH_TYPE_OBSTACLE:
-    std::cout << "BATCH_TYPE_OBSTACLE" << std::endl;
+    //std::cout << "BATCH_TYPE_OBSTACLE" << std::endl;
     generateObstacleBatch();
     break;
   default:
-    std::cout << "DEFAULT" << std::endl;
+    //std::cout << "DEFAULT" << std::endl;
     generateSimpleBatch();
   }
 }
