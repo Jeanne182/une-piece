@@ -25,6 +25,13 @@ public:
   static const int BATCH_SIZE_MIN = 4;
   static const int BATCH_SIZE_MAX = 7;
 
+  enum BATCH_TYPE : unsigned int
+  {
+    BATCH_TYPE_SIMPLE,
+    BATCH_TYPE_COIN,
+    BATCH_TYPE_OBSTACLE
+  };
+
   // =============== CONSTRUCTOR ===============
   /**
    * @brief Construct a new Map Manager object
@@ -70,14 +77,25 @@ public:
    */
   glm::vec3 getLastPos() const;
 
+  /**
+   * @brief Get the Directionnal Vector object
+   * 
+   * @return const glm::vec3& 
+   */
   const glm::vec3 &getDirectionnalVector() const;
+
+  /**
+   * @brief Get the Opposite Directionnal Vector object
+   * 
+   * @return const glm::vec3& 
+   */
   const glm::vec3 &getOppositeDirectionnalVector() const;
-      // =============== METHODS  ===============
-      /**
+  // =============== METHODS  ===============
+  /**
    * @brief Display the Map
    *
    */
-      void display() const;
+  void display() const;
 
   /**
    * @brief Compute the MVP and Normal matrix and send them to the GPU
@@ -88,12 +106,16 @@ public:
   void setMatrix(const glm::mat4 &cameraMV) const;
 
   void generateBatch();
+  void generateSimpleBatch();
+  void generateCoinBatch();
+  void generateObstacleBatch();
 
   inline void turnRight() { _direction = (_direction + 1) % 4; }
   inline void turnLeft() { _direction = (_direction - 1) % 4; }
 
 private:
   std::deque<Tile> _map;
+  std::vector<uint> _probability;
   unsigned int _direction;
 };
 

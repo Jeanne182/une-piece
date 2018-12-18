@@ -1,7 +1,3 @@
-#include <map>
-
-#include <glimac/SDLWindowManager.hpp>
-
 #include <class/Water.hpp>
 
 using namespace glimac;
@@ -12,7 +8,7 @@ namespace UP
 Water::Water(const glm::vec3 position)
     : GameObject(position,
                  glm::vec3(0.f, 0.f, 0.f),
-                 0.5f,
+                 0.505f,
                  "water.obj")
 {
   _model->setRepeat(0.2f);

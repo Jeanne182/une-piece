@@ -24,10 +24,37 @@ namespace Utils
 
 // select seed from time
 //static const unsigned seed = 0;
-static unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+static unsigned int seed = std::chrono::system_clock::now().time_since_epoch().count();
 static std::mt19937_64 generator(seed);
+static unsigned int pMax;
 
 void setSeed();
+
+/**
+ * @brief Return a randum number between min and max
+ * 
+ * @param min 
+ * @param max 
+ * @return int 
+ */
+int dicei(const int min, const int max);
+/**
+ * @brief Return a randum number between min and max
+ * 
+ * @param min 
+ * @param max 
+ * @return int 
+ */
+float dicef(const float min, const float max);
+
+/**
+ * @brief 
+ * 
+ * @param p 
+ * @return true 
+ * @return false 
+ */
+bool maybe(const float p);
 int rBatchSize();
 
 } // namespace Utils

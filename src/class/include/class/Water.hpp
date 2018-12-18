@@ -3,17 +3,7 @@
 
 #pragma once
 
-#include <iostream>
-#include <algorithm>
-#include <vector>
-#include <map>
-#include <time.h>
-
-#include <glimac/SDLWindowManager.hpp>
-#include <glimac/common.hpp>
 #include <class/GameObject.hpp>
-#include <class/Character.hpp>
-
 
 using namespace glimac;
 

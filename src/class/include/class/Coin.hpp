@@ -1,5 +1,5 @@
-#ifndef OBSTACLE_UP_HPP__
-#define OBSTACLE_UP_HPP__
+#ifndef COIN_UP_HPP__
+#define COIN_UP_HPP__
 
 #pragma once
 

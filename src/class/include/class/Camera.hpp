@@ -1,3 +1,6 @@
+#ifndef CAMERA_UP_HPP__
+#define CAMERA_UP_HPP__
+
 #include <glimac/glm.hpp>
 
 namespace glimac
@@ -66,3 +69,5 @@ private:
   float _fAngleY;   // Angle Y autour de la camera
 };
 } // namespace glimac
+
+#endif
