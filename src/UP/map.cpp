@@ -19,7 +19,11 @@
 
 #include <class/Model.hpp>
 #include <class/Utils.hpp>
+#include <class/Tile.hpp>
 #include <class/MapManager.hpp>
+#include <class/GameObject.hpp>
+#include <class/Tile.hpp>
+#include <class/Obstacle.hpp>
 
 #include <unistd.h>
 
@@ -88,6 +92,8 @@ main(int argc, char **argv)
 
   //Model model(applicationPath.dirPath() + "../../src/assets/models/nanosuit/nanosuit.obj", asssetProgram.uMapTextures);
   Model model(applicationPath.dirPath() + "../../src/assets/models/monkey.obj");
+  Obstacle obstacle(glm::vec3(3,3,3), "monkey.obj");
+  Tile tile(&obstacle);
 
   glm::mat4 ProjMatrix, MVMatrix, NormalMatrix;
   ProjMatrix = glm::perspective(glm::radians(70.0f), (float)(WINDOW_WIDTH / WINDOW_HEIGTH), 0.1f, 100.f);

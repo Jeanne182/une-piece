@@ -7,9 +7,10 @@ using namespace glimac;
 namespace UP
 {
 
+Tile::Tile(const GameObject *gameObject)
+{
+  _tileObjects.push_back(gameObject);
+}
 
 
-Tile::Tile(const GameObject &gameObject)
-    {}
-      
 } // namespace UP

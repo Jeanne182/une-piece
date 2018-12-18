@@ -17,10 +17,10 @@ class Tile
 {
 public:
   Tile();
-  Tile(const GameObject &gameObject);
-  ~Tile();
+  Tile(const GameObject *gameObject);
+  ~Tile(){};
 private:
-  std::vector<GameObject> _tileObjects;
+  std::vector<const GameObject*> _tileObjects;
 };
 
 } // namespace UP
