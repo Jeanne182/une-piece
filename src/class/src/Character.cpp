@@ -16,14 +16,8 @@ namespace UP
 Character::Character(const std::string &name)
     : GameObject(glm::vec3(0.f, 0.f, 0.f),
                  glm::vec3(0.0001f, 0.0001f, 0.0001f),
-<<<<<<< HEAD
-                 0.1f,
-                 path,
-                 textureLocation),
-=======
                  1.f,
                  name),
->>>>>>> f524e99f9a25f8fe9e337957bc57e380694b59b8
       _health(1),
       _score(0),
       _sideState(CENTER),
@@ -228,13 +222,9 @@ void Character::reset()
   _scale = 0.1f;
 }
 
-<<<<<<< HEAD
 void Character::collisionHandler(GameObject *gameObject)
 {
     throw Error(std::string("Can't colide with yourself"), AT);
 }
 
-
-=======
->>>>>>> f524e99f9a25f8fe9e337957bc57e380694b59b8
 } // namespace UP
