@@ -12,7 +12,7 @@ namespace UP
 {
 
 Game::Game()
-    : _character("bateau.obj"){};
+    : _character(){};
 
 void Game::event(const SDL_Event &e)
 {
@@ -23,12 +23,14 @@ void Game::update()
 {
   _camera.update();
   //_character.move();
-  _character.sendMatrix(_camera.getViewMatrix());
+  _character.setMatrix(_camera.getViewMatrix());
+  _map.setMatrix(_camera.getViewMatrix());
 }
 void Game::display() const
 {
   AssetManager::Get()->assetProgram()._Program.use();
   _character.display();
+  _map.display();
 }
 
 void Game::reset()

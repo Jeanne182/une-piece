@@ -56,8 +56,8 @@ struct Texture
  */
 enum COORD
 {
-  Y,
   X,
+  Y,
   Z
 };
 

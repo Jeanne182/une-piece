@@ -23,28 +23,32 @@ GameObject::GameObject(const GameObject &g)
       _scale(g._scale),
       _model(g._model){};
 
-void GameObject::sendMatrix(const glm::mat4 &cameraMV)
+void GameObject::setMatrix(const glm::mat4 &cameraMV)
 {
   /* Envoi des matrices au GPU */
 
   // P
-  glm::mat4 P = glm::perspective(glm::radians(70.0f), (float)(WINDOW_WIDTH / WINDOW_HEIGHT), 0.1f, 100.f);
+  _P = glm::perspective(glm::radians(70.0f), (float)(WINDOW_WIDTH / WINDOW_HEIGHT), 0.1f, 100.f);
 
   // MV -> Modify
-  glm::mat4 MV = glm::translate(cameraMV, _position);
-  MV = glm::scale(MV, glm::vec3(_scale));
+  _MV = glm::translate(cameraMV, _position);
+  _MV = glm::scale(_MV, glm::vec3(_scale));
 
   // Normal
-  glm::mat4 normalMatrix = glm::transpose(glm::inverse(MV));
+  _N = glm::transpose(glm::inverse(_MV));
 
   /*
   std::cout << "MVP" << P * MV << std::endl;
   std::cout << "MV" << MV << std::endl;
   std::cout << "Normal" << normalMatrix << std::endl;
 */
-  glUniformMatrix4fv(AssetManager::Get()->assetProgram().uMVPMatrix, 1, GL_FALSE, glm::value_ptr(P * MV));
-  glUniformMatrix4fv(AssetManager::Get()->assetProgram().uMVMatrix, 1, GL_FALSE, glm::value_ptr(MV));
-  glUniformMatrix4fv(AssetManager::Get()->assetProgram().uNormalMatrix, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+}
+
+void GameObject::useMatrix() const
+{
+  glUniformMatrix4fv(AssetManager::Get()->assetProgram().uMVPMatrix, 1, GL_FALSE, glm::value_ptr(_P * _MV));
+  glUniformMatrix4fv(AssetManager::Get()->assetProgram().uMVMatrix, 1, GL_FALSE, glm::value_ptr(_MV));
+  glUniformMatrix4fv(AssetManager::Get()->assetProgram().uNormalMatrix, 1, GL_FALSE, glm::value_ptr(_N));
 }
 
 void GameObject::reset()

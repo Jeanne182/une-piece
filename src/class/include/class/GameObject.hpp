@@ -52,7 +52,7 @@ public:
    * @brief Must Implement a way to display the object
    *
    */
-  virtual void display() const =0;
+  virtual void display() const = 0;
 
   /**
    * @brief Must Implement a way to handle the behaviour of the collision
@@ -178,21 +178,26 @@ public:
    */
   void reset();
 
-
   // ============= MATRIX =============
   /**
-   * @brief Compute the MVP and Normal matrix and send them to the GPU
+   * @brief Compute the MVP and Normal matrix
    *
    * @param assetProgram
    * @param cameraMV
    */
-  void sendMatrix(const glm::mat4 &cameraMV);
+  void setMatrix(const glm::mat4 &cameraMV);
 
+  /**
+   * @brief Send the matrix to the GPU
+   * 
+   */
+  void useMatrix() const;
 
 protected:
   float _scale;
   glm::vec3 _position;
   glm::vec3 _speed;
+  glm::mat4 _P, _MV, _N;
   const std::string _name;
   Model *_model;
 };

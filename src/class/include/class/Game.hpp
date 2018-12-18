@@ -8,6 +8,7 @@
 
 #include <class/Program.hpp>
 #include <class/Character.hpp>
+#include <class/MapManager.hpp>
 #include <class/Camera.hpp>
 
 using namespace glimac;
@@ -51,6 +52,7 @@ public:
 private:
   Character _character;
   Camera _camera;
+  MapManager _map;
 };
 
 } // namespace UP

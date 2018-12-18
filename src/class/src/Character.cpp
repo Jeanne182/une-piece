@@ -13,11 +13,11 @@ using namespace glimac;
 namespace UP
 {
 
-Character::Character(const std::string &name)
+Character::Character()
     : GameObject(glm::vec3(0.f, 0.f, 0.f),
                  glm::vec3(0.0001f, 0.0001f, 0.0001f),
                  1.f,
-                 name),
+                 "bateau.obj"),
       _health(1),
       _score(0),
       _sideState(CENTER),
@@ -205,6 +205,7 @@ void Character::loseHealth(const unsigned int &value)
 
 void Character::display() const
 {
+  useMatrix();
   _model->draw();
   //std::cout << _position << std::endl;
 }
