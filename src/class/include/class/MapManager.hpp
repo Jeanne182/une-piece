@@ -4,8 +4,10 @@
 #pragma once
 
 #include <string>
-#include <vector>
+#include <deque>
 #include <iostream>
+
+#include <glimac/glm.hpp>
 
 #include <class/Tile.hpp>
 
@@ -17,20 +19,32 @@ class MapManager
 {
 
 public:
+  // =============== CONSTS FOR THE GENERATION ===============
+
+  static const int ROW_SIZE = 3;
+  static const int BATCH_SIZE_MIN = 4;
+  static const int BATCH_SIZE_MAX = 7;
+
+  // =============== CONSTRUCTOR ===============
+  /**
+   * @brief Construct a new Map Manager object
+   * 
+   */
   MapManager();
 
+  // =============== GETTERS  ===============
   /**
    * @brief Getter for the map object
    *
-   * @return std::vector<Tile>&
+   * @return std::deque<Tile>&
    */
-  inline std::vector<Tile> &map() { return _map; };
+  inline std::deque<Tile> &map() { return _map; };
   /**
    * @brief Getter for the map object
    *
-   * @return const std::vector<Tile>&
+   * @return const std::deque<Tile>&
    */
-  inline const std::vector<Tile> &map() const { return _map; };
+  inline const std::deque<Tile> &map() const { return _map; };
 
   /**
    * @brief Getter for a tile
@@ -49,12 +63,21 @@ public:
    * @return const Tile
    */
   const Tile operator()(const size_t i, const size_t j) const { return _map[i * 3 + j]; };
-
   /**
+   * @brief Get the Pos of the last object
+   * 
+   * @return float 
+   */
+  glm::vec3 getLastPos() const;
+
+  const glm::vec3 &getDirectionnalVector() const;
+  const glm::vec3 &getOppositeDirectionnalVector() const;
+      // =============== METHODS  ===============
+      /**
    * @brief Display the Map
    *
    */
-  void display() const;
+      void display() const;
 
   /**
    * @brief Compute the MVP and Normal matrix and send them to the GPU
@@ -64,8 +87,14 @@ public:
    */
   void setMatrix(const glm::mat4 &cameraMV) const;
 
+  void generateBatch();
+
+  inline void turnRight() { _direction = (_direction + 1) % 4; }
+  inline void turnLeft() { _direction = (_direction - 1) % 4; }
+
 private:
-  std::vector<Tile> _map;
+  std::deque<Tile> _map;
+  unsigned int _direction;
 };
 
 } // namespace UP

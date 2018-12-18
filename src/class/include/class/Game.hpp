@@ -52,7 +52,7 @@ public:
 private:
   Character _character;
   Camera _camera;
-  MapManager _map;
+  MapManager *_map;
 };
 
 } // namespace UP

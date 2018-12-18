@@ -12,9 +12,11 @@ namespace UP
 Water::Water(const glm::vec3 position)
     : GameObject(position,
                  glm::vec3(0.f, 0.f, 0.f),
-                 1.f,
-                 "water.obj"){};
-
+                 0.5f,
+                 "water.obj")
+{
+  _model->setRepeat(0.2f);
+};
 
 void Water::display() const
 {

@@ -14,17 +14,21 @@ Coin::Coin(const glm::vec3 position, const unsigned int value, const std::string
                  glm::vec3(0.0001f, 0.0001f, 0.0001f),
                  0.1f,
                  name),
-      _value(value){};
+      _value(value)
+{
+  _model->setRepeat(4.f);
+};
 
 void Coin::display() const
 {
+  useMatrix();
   _model->draw();
   //std::cout << _position << std::endl;
 }
 
 void Coin::collisionHandler(GameObject *gameObject)
 {
-   dynamic_cast<Character*>(gameObject)->addCoin(_value);
+  dynamic_cast<Character *>(gameObject)->addCoin(_value);
 }
 
 } // namespace UP

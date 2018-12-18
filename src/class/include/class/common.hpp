@@ -19,6 +19,19 @@ namespace UP
 static const bool USE_CHRONO = false;
 static const int WINDOW_WIDTH = 800;
 static const int WINDOW_HEIGHT = 800;
+static const bool DEBUG = true;
+
+static const glm::vec3 VEC_NORTH = glm::vec3(1.f, 0.f, 0.f);
+static const glm::vec3 VEC_SOUTH = glm::vec3(-1.f, 0.f, 0.f);
+static const glm::vec3 VEC_EAST = glm::vec3(0.f, 0.0f, 1.f);
+static const glm::vec3 VEC_WEST = glm::vec3(0.f, 0.0f, -1.f);
+
+enum DIRECTION {
+  DIR_NORTH,
+  DIR_EAST,
+  DIR_SOUTH,
+  DIR_WEST
+};
 
 /**
  * @brief Data Structure for a 2D point
