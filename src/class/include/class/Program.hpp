@@ -62,7 +62,7 @@ struct AssetProgram
   AssetProgram(const FilePath &applicationPath)
       : _Program(loadProgram(
             applicationPath.dirPath() + "shaders/3D.vs.glsl",
-            applicationPath.dirPath() + "shaders/tex3D.fs.glsl"))
+            applicationPath.dirPath() + "shaders/normals.fs.glsl"))
   {
     uMVPMatrix = glGetUniformLocation(_Program.getGLId(), "uMVPMatrix");
     uMVMatrix = glGetUniformLocation(_Program.getGLId(), "uMVMatrix");

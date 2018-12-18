@@ -20,7 +20,11 @@ public:
   Tile(const GameObject *gameObject);
   ~Tile(){};
 private:
+<<<<<<< HEAD
   std::vector<const GameObject*> _tileObjects;
+=======
+  //std::vector<GameObject> _tileObjects;
+>>>>>>> 049177a7f985869ded3e288c10b1906bef991172
 };
 
 } // namespace UP

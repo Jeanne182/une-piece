@@ -41,7 +41,7 @@ public:
    * @brief Construct a new Character object
    *
    */
-  Character(const std::string &name);
+  Character();
 
   /**
    * @brief Destroy the Character object

@@ -18,6 +18,7 @@ Obstacle::Obstacle(const glm::vec3 position, const std::string &name)
 
 void Obstacle::display() const
 {
+  useMatrix();
   _model->draw();
   //std::cout << _position << std::endl;
 }
