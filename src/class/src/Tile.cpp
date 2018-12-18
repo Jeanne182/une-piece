@@ -7,16 +7,30 @@ using namespace glimac;
 namespace UP
 {
 
-<<<<<<< HEAD
-Tile::Tile(const GameObject *gameObject)
+Tile::Tile(GameObject *gameObject)
 {
   _tileObjects.push_back(gameObject);
 }
 
+void Tile::add(GameObject *gameObject)
+{
+  _tileObjects.push_back(gameObject);
+}
 
-=======
-Tile::Tile(const GameObject &gameObject){};
-Tile::~Tile(){};
+void Tile::setMatrix(const glm::mat4 &cameraMV) const
+{
+  for (int i = 0; i < _tileObjects.size(); i++)
+  {
+    _tileObjects[i]->setMatrix(cameraMV);
+  }
+}
 
->>>>>>> 049177a7f985869ded3e288c10b1906bef991172
+void Tile::display() const
+{
+  for (int i = 0; i <   _tileObjects.size(); i++)
+  {
+    _tileObjects[i]->display();
+  }
+}
+
 } // namespace UP

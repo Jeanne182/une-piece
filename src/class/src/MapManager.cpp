@@ -22,7 +22,7 @@ MapManager::MapManager()
     for (float j = 0.5; j < w; j++)
     {
       std::cout << "Coord : " << i << " | " << j << std::endl;
-      _temp.push_back(new Coin(glm::vec3(i, 0.f, j-1), 1));
+      _temp.push_back(new Coin(glm::vec3(i, 0.f, j-1), 1, "ruby.obj"));
     }
   }
 }

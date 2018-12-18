@@ -189,7 +189,7 @@ public:
 
   /**
    * @brief Send the matrix to the GPU
-   * 
+   *
    */
   void useMatrix() const;
 

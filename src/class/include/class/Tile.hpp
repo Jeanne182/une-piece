@@ -17,14 +17,15 @@ class Tile
 {
 public:
   Tile();
-  Tile(const GameObject *gameObject);
+  Tile(GameObject *gameObject);
+  void add(GameObject *gameObject);
+  void setMatrix(const glm::mat4 &cameraMV) const;
+  void display() const;
   ~Tile(){};
 private:
-<<<<<<< HEAD
-  std::vector<const GameObject*> _tileObjects;
-=======
-  //std::vector<GameObject> _tileObjects;
->>>>>>> 049177a7f985869ded3e288c10b1906bef991172
+
+  std::vector<GameObject*> _tileObjects;
+
 };
 
 } // namespace UP
