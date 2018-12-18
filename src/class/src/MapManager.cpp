@@ -22,24 +22,28 @@ MapManager::MapManager()
     for (float j = 0.5; j < w; j++)
     {
       std::cout << "Coord : " << i << " | " << j << std::endl;
-      _temp.push_back(new Coin(glm::vec3(i, 0.f, j-1), 1, "ruby.obj"));
+      //_temp.push_back(new Coin(glm::vec3(i, 0.f, j-1), 1, "ruby.obj"));
+      //_temp.push_back(new Water(glm::vec3(i, -1.f, j-1)));
+      Tile t(glm::vec3(i, 0.f, j-1));
+      t.add(new Coin(glm::vec3(i, 1.f, j-1), 1, "ruby.obj"));
+      _map.push_back(t);
     }
   }
 }
 
 void MapManager::setMatrix(const glm::mat4 &cameraMV) const
 {
-  for (int i = 0; i < _temp.size(); i++)
+  for (int i = 0; i < _map.size(); i++)
   {
-    _temp[i]->setMatrix(cameraMV);
+    _map[i].setMatrix(cameraMV);
   }
 }
 
 void MapManager::display() const
 {
-  for (int i = 0; i < _temp.size(); i++)
+  for (int i = 0; i < _map.size(); i++)
   {
-    _temp[i]->display();
+    _map[i].display();
   }
 }
 

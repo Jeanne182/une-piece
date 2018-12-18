@@ -21,38 +21,38 @@ public:
 
   /**
    * @brief Getter for the map object
-   * 
-   * @return std::vector<Tile>& 
+   *
+   * @return std::vector<Tile>&
    */
   inline std::vector<Tile> &map() { return _map; };
   /**
    * @brief Getter for the map object
-   * 
-   * @return const std::vector<Tile>& 
+   *
+   * @return const std::vector<Tile>&
    */
   inline const std::vector<Tile> &map() const { return _map; };
 
   /**
    * @brief Getter for a tile
-   * 
-   * @param i 
-   * @param j 
-   * @return Tile 
+   *
+   * @param i
+   * @param j
+   * @return Tile
    */
   Tile operator()(const size_t i, const size_t j) { return _map[i * 3 + j]; };
 
   /**
    * @brief Getter for a tile
-   * 
-   * @param i 
-   * @param j 
-   * @return const Tile 
+   *
+   * @param i
+   * @param j
+   * @return const Tile
    */
   const Tile operator()(const size_t i, const size_t j) const { return _map[i * 3 + j]; };
 
   /**
    * @brief Display the Map
-   * 
+   *
    */
   void display() const;
 
@@ -66,7 +66,6 @@ public:
 
 private:
   std::vector<Tile> _map;
-  std::vector<GameObject *> _temp;
 };
 
 } // namespace UP

@@ -1,11 +1,17 @@
 #include <glimac/SDLWindowManager.hpp>
 
 #include <class/Tile.hpp>
+#include <class/Water.hpp>
 
 using namespace glimac;
 
 namespace UP
 {
+
+Tile::Tile(const glm::vec3 &position)
+{
+  _tileObjects.push_back(new Water(position));
+}
 
 Tile::Tile(GameObject *gameObject)
 {

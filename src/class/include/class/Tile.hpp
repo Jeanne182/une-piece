@@ -16,7 +16,7 @@ namespace UP
 class Tile
 {
 public:
-  Tile();
+  Tile(const glm::vec3 &position);
   Tile(GameObject *gameObject);
   void add(GameObject *gameObject);
   void setMatrix(const glm::mat4 &cameraMV) const;
