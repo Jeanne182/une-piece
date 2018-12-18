@@ -2,6 +2,7 @@
 #include <class/Error.hpp>
 #include <class/AssetManager.hpp>
 
+#include <glimac/Image.hpp>
 #include <glimac/common.hpp>
 
 #include <string>
@@ -14,7 +15,11 @@ using namespace glimac;
 namespace UP
 {
 
-Model::Model(const std::string &name)
+GLint CreateTexture(const std::string &filepath);
+
+Model::Model(const std::string &name, const float &textureRepeat)
+    : _name(name),
+      _textureRepeat(textureRepeat)
 {
   loadModel(name);
 }
@@ -112,6 +117,8 @@ Mesh Model::processMesh(const aiMesh *mesh, const aiScene *scene)
   }
 
   // Process Textures
+
+  /*
   if (mesh->mMaterialIndex >= 0)
   {
     aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
@@ -120,9 +127,75 @@ Mesh Model::processMesh(const aiMesh *mesh, const aiScene *scene)
     std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "uTexture_specular");
     textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
   }
+  else
+  {
+    aiMaterial *material = new aiMaterial;
+    std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "uTexture_diffuse");
+    textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+  }
+  */
+
+  std::string replacedName = std::string("" + _name);
+  replacedName.replace(replacedName.end() - 3, replacedName.end(), "jpg");
+  std::string filepath = AssetManager::Get()->modelFile(replacedName);
+
+  if (_textures_loaded.size() > 0)
+  {
+    textures.push_back(_textures_loaded[0]);
+  }
+  else
+  {
+    Texture t;
+    t.path = replacedName;
+    t.id = CreateTexture(filepath);
+    t.type = "uTexture";
+
+    textures.push_back(t);
+    _textures_loaded.push_back(t); // add to loaded textures
+  }
+  //std::cout << textures.size() << std::endl;
 
   return Mesh(vertices, indices, textures);
 };
+
+GLint CreateTexture(const std::string &filepath)
+{
+  // Load the image
+
+  std::unique_ptr<Image> img = loadImage(filepath);
+  if (img == NULL)
+  {
+    throw Error(std::string("Texture failed to load at path: ") + filepath, AT);
+  }
+
+  // Setup it
+  GLuint textureID;
+  glGenTextures(1, &textureID);
+
+  // Assign texture to ID
+  glActiveTexture(GL_TEXTURE0);
+  glBindTexture(GL_TEXTURE_2D, textureID);
+  glTexImage2D(GL_TEXTURE_2D,
+               0,
+               GL_RGBA,
+               img->getWidth(),
+               img->getHeight(),
+               0,
+               GL_RGBA,
+               GL_FLOAT,
+               img->getPixels());
+  glGenerateMipmap(GL_TEXTURE_2D);
+
+  // Parameters
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+  // Unbind
+  glBindTexture(GL_TEXTURE_2D, 0);
+  return textureID;
+}
 
 GLint TextureFromFile(const char *path, std::string directory)
 {
@@ -142,7 +215,7 @@ GLint TextureFromFile(const char *path, std::string directory)
 
   // Assign texture to ID
   glBindTexture(GL_TEXTURE_2D, textureID);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
   glGenerateMipmap(GL_TEXTURE_2D);
 
   // Parameters
@@ -191,8 +264,8 @@ std::vector<Texture> Model::loadMaterialTextures(const aiMaterial *mat, const ai
 
 void Model::draw() const
 {
+  glUniform1f(AssetManager::Get()->assetProgram().uTextureRepeat, _textureRepeat);
   for (size_t i = 0; i < _meshes.size(); i++)
     _meshes[i].draw();
-
 }
 } // namespace UP

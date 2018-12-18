@@ -72,6 +72,13 @@ public:
    */
   std::string textureFile(const std::string &texture) const;
 
+  /**
+   * @brief Return a Model
+   * 
+   * @param name 
+   * @return const Model& 
+   */
+  Model *model(const std::string &name);
 
   /**
    * @brief Return a Model
@@ -79,21 +86,19 @@ public:
    * @param name 
    * @return const Model& 
    */
-  const Model *model(const std::string &name);
-
-  /**
-   * @brief Return a Model
-   * 
-   * @param name 
-   * @return const Model& 
-   */
-  const Model *model(const std::string &name) const;
+  Model *model(const std::string &name) const;
 
   /**
    * @brief Get the Asset Program
    * 
    */
   inline const AssetProgram &assetProgram() const { return _assetProgram; };
+
+  /**
+   * @brief Get the Asset Program
+   * 
+   */
+  inline const AssetProgramMulti &assetProgramMulti() const { return _assetProgramMulti; };
 
   /**
    * @brief Get the Asset Program
@@ -112,6 +117,7 @@ private:
   AssetManager(char **argv)
       : _appPath(argv[0]),
         _assetProgram(_appPath),
+        _assetProgramMulti(_appPath),
         _staticImageProgram(_appPath){};
 
   // AssetManager Path
@@ -119,6 +125,7 @@ private:
 
   // Programs
   AssetProgram _assetProgram;
+  AssetProgramMulti _assetProgramMulti;
   StaticImageProgram _staticImageProgram;
 
   // Models

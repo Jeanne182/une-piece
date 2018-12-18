@@ -38,7 +38,7 @@ void Mesh::setupMesh()
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _EBO);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, _indices.size() * sizeof(unsigned int), _indices.data(), GL_STATIC_DRAW);
-
+  
   const GLuint VERTEX_ATTR_POSITION = 0;
   const GLuint VERTEX_ATTR_NORMAL = 1;
   const GLuint VERTEX_ATTR_COORDS = 2;
@@ -58,38 +58,57 @@ void Mesh::setupMesh()
 void Mesh::draw() const
 {
   // Use Textures
-  unsigned int diffuseNr = 1;
-  unsigned int specularNr = 1;
-  unsigned int normalNr = 1;
-  unsigned int heightNr = 1;
-  for (size_t i = 0; i < _textures.size(); i++)
+
+  if (_textures.size() == 1)
   {
-    // activate proper texture unit before binding
-    glActiveTexture(GL_TEXTURE0 + i);
-    // retrieve texture number (the N in diffuse_textureN)
-    std::string number;
-    std::string name = _textures[i].type;
-    if (name == "uTexture_diffuse")
-      number = std::to_string(diffuseNr++);
-    else if (name == "uTexture_specular")
-      number = std::to_string(specularNr++);
-    /*
-    else if (name == "uTexture_normal")
-      number = std::to_string(normalNr++);
-    else if (name == "uTexture_height")
-      number = std::to_string(heightNr++);
-    */
+    //std::cout << "Draw 1" << std::endl;
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, _textures[0].id);
+    GLint location = AssetManager::Get()->assetProgram().uMapTextures.at(_textures[0].type);
+    glUniform1i(location, 0);
 
-    GLint location = AssetManager::Get()->assetProgram().uMapTextures.at(name + number);
-    glUniform1i(location, i);
-    glBindTexture(GL_TEXTURE_2D, _textures[i].id);
+    // draw mesh
+    glBindVertexArray(_VAO);
+    glDrawElements(GL_TRIANGLES, _indices.size(), GL_UNSIGNED_INT, 0);
+
+    // Unbind
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glBindVertexArray(0);
   }
-  glActiveTexture(GL_TEXTURE0);
+  else if (_textures.size() > 1)
+  {
 
-  // draw mesh
-  glBindVertexArray(_VAO);
-  glDrawElements(GL_TRIANGLES, _indices.size(), GL_UNSIGNED_INT, 0);
-  glBindVertexArray(0);
+    unsigned int diffuseNr = 1;
+    unsigned int specularNr = 1;
+    for (size_t i = 0; i < _textures.size(); i++)
+    {
+      // activate proper texture unit before binding
+      glActiveTexture(GL_TEXTURE0 + i);
+      // retrieve texture number (the N in diffuse_textureN)
+      std::string number;
+      std::string name = _textures[i].type;
+      if (name == "uTexture_diffuse")
+        number = std::to_string(diffuseNr++);
+      else if (name == "uTexture_specular")
+        number = std::to_string(specularNr++);
+
+      GLint location = AssetManager::Get()->assetProgram().uMapTextures.at(name + number);
+      glUniform1i(location, i);
+      glBindTexture(GL_TEXTURE_2D, _textures[i].id);
+    }
+
+    // draw mesh
+    glBindVertexArray(_VAO);
+    glDrawElements(GL_TRIANGLES, _indices.size(), GL_UNSIGNED_INT, 0);
+    glBindVertexArray(0);
+
+    // Unbind
+    for (size_t i = 0; i < _textures.size(); i++)
+    {
+      glActiveTexture(GL_TEXTURE0 + i);
+      glBindTexture(GL_TEXTURE_2D, 0);
+    }
+  }
 }
 
 } // namespace UP

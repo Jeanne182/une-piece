@@ -26,7 +26,7 @@ std::string AssetManager::textureFile(const std::string &texture) const
   return _appPath.dirPath() + "../../src/assets/textures/" + texture;
 }
 
-const Model *AssetManager::model(const std::string &name)
+Model *AssetManager::model(const std::string &name)
 {
   if (_models.find(name) == _models.end())
   {
@@ -38,7 +38,7 @@ const Model *AssetManager::model(const std::string &name)
 }
 
 
-const Model *AssetManager::model(const std::string &name) const
+Model *AssetManager::model(const std::string &name) const
 {
   if (_models.find(name) != _models.end())
   {

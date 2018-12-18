@@ -15,7 +15,6 @@ GameObject::GameObject(const glm::vec3 &pos, const glm::vec3 &speed, const float
       _speed(speed),
       _scale(scale),
       _name(name),
-      //_model(name)
       _model(AssetManager::Get()->model(name)){};
 
 GameObject::GameObject(const GameObject &g)

@@ -33,7 +33,7 @@ public:
    * @param path 
    * @param textureLocation 
    */
-  Model(const std::string &name);
+  Model(const std::string &name, const float &textureRepeat = 1.0f);
 
   /**
    * @brief Destroy the Model object
@@ -71,7 +71,21 @@ public:
    */
   Mesh processMesh(const aiMesh *mesh, const aiScene *scene);
 
-  void check() const {
+  /**
+   * @brief Get the Repeat object
+   * 
+   * @return float 
+   */
+  inline float getRepeat() const { return _textureRepeat; };
+  /**
+   * @brief Set the Repeat object
+   * 
+   * @param r 
+   */
+  inline void setRepeat(const float &r) { _textureRepeat = r; };
+
+  void check() const
+  {
     std::cout << "Amount of meshes : " << _meshes.size() << std::endl;
   }
 
@@ -88,6 +102,8 @@ public:
 private:
   std::vector<Mesh> _meshes;
   std::string _directory;
+  const std::string _name;
+  float _textureRepeat;
   std::vector<Texture> _textures_loaded;
 };
 

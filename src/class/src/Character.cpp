@@ -15,11 +15,14 @@ namespace UP
 Character::Character(const std::string &name)
     : GameObject(glm::vec3(0.f, 0.f, 0.f),
                  glm::vec3(0.0001f, 0.0001f, 0.0001f),
-                 0.1f,
+                 1.f,
                  name),
       _health(1),
       _sideState(CENTER),
-      _verticalState(RUNNING){};
+      _verticalState(RUNNING)
+{
+  _model->setRepeat(4.f);
+};
 
 void Character::event(const SDL_Event &e)
 {
@@ -209,8 +212,6 @@ void Character::reset()
   _activeBonuses.clear();
   setSpeed(glm::vec3(0.0001f, 0.0001f, 0.0001f));
   _scale = 0.1f;
-
 }
-
 
 } // namespace UP

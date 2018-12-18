@@ -188,7 +188,7 @@ protected:
   glm::vec3 _position;
   glm::vec3 _speed;
   const std::string _name;
-  const Model *_model;
+  Model *_model;
 };
 
 } // namespace UP

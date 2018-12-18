@@ -1,6 +1,4 @@
-#version 300 es
-
-precision highp float;
+#version 330
 
 // Entrées du shader
 in vec2 vTexCoords; // Coordonnées de texture du sommet

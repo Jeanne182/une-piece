@@ -12,7 +12,7 @@ namespace UP
 {
 
 Game::Game()
-    : _character("bateau.obj"){};
+    : _character("ruby.obj"){};
 
 void Game::event(const SDL_Event &e)
 {
@@ -22,7 +22,7 @@ void Game::event(const SDL_Event &e)
 void Game::update()
 {
   _camera.update();
-  _character.move();
+  //_character.move();
   _character.sendMatrix(_camera.getViewMatrix());
 }
 void Game::display() const
