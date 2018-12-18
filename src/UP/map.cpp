@@ -26,7 +26,7 @@
 using namespace glimac;
 using namespace UP;
 
-struct AssetProgram
+struct asssetProgram
 {
   Program _Program;
 
@@ -35,7 +35,7 @@ struct AssetProgram
   GLint uNormalMatrix;
   std::map<std::string, GLint> uMapTextures;
 
-  AssetProgram(const FilePath &applicationPath) : _Program(loadProgram(
+  asssetProgram(const FilePath &applicationPath) : _Program(loadProgram(
                                                       applicationPath.dirPath() + "shaders/3D.vs.glsl",
                                                       applicationPath.dirPath() + "shaders/normals.fs.glsl"))
   {
@@ -76,8 +76,8 @@ main(int argc, char **argv)
   }
 
   const FilePath applicationPath(argv[0]);
-  AssetProgram assetProgram(applicationPath);
-  assetProgram._Program.use();
+  AssetProgram asssetProgram(applicationPath);
+  asssetProgram._Program.use();
 
   std::cout << "OpenGL Version : " << glGetString(GL_VERSION) << std::endl;
   std::cout << "GLEW Version : " << glewGetString(GLEW_VERSION) << std::endl;
@@ -86,7 +86,7 @@ main(int argc, char **argv)
    * HERE SHOULD COME THE INITIALIZATION CODE
    *********************************/
 
-  //Model model(applicationPath.dirPath() + "../../src/assets/models/nanosuit/nanosuit.obj", assetProgram.uMapTextures);
+  //Model model(applicationPath.dirPath() + "../../src/assets/models/nanosuit/nanosuit.obj", asssetProgram.uMapTextures);
   Model model(applicationPath.dirPath() + "../../src/assets/models/monkey.obj");
 
   glm::mat4 ProjMatrix, MVMatrix, NormalMatrix;
@@ -118,11 +118,11 @@ main(int argc, char **argv)
     MVMatrix = glm::scale(MVMatrix, glm::vec3(1.0f));
 
     /* 9_ Envoi des matrices au GPU */
-    glUniformMatrix4fv(assetProgram.uMVPMatrix, 1, GL_FALSE, glm::value_ptr(ProjMatrix * MVMatrix));
-    glUniformMatrix4fv(assetProgram.uMVMatrix, 1, GL_FALSE, glm::value_ptr(MVMatrix));
-    glUniformMatrix4fv(assetProgram.uNormalMatrix, 1, GL_FALSE, glm::value_ptr(NormalMatrix));
+    glUniformMatrix4fv(asssetProgram.uMVPMatrix, 1, GL_FALSE, glm::value_ptr(ProjMatrix * MVMatrix));
+    glUniformMatrix4fv(asssetProgram.uMVMatrix, 1, GL_FALSE, glm::value_ptr(MVMatrix));
+    glUniformMatrix4fv(asssetProgram.uNormalMatrix, 1, GL_FALSE, glm::value_ptr(NormalMatrix));
 
-    assetProgram._Program.use();
+    asssetProgram._Program.use();
     model.draw();
 
     // Update the display

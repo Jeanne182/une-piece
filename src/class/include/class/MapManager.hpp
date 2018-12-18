@@ -7,16 +7,11 @@
 #include <vector>
 #include <iostream>
 
+#include <class/Tile.hpp>
+
 using namespace glimac;
 namespace UP
 {
-
-class Tile
-{
-public:
-  Tile();
-
-};
 
 class MapManager
 {
