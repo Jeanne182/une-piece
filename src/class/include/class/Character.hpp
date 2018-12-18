@@ -139,15 +139,25 @@ public:
      */
   void deleteExpiredBonuses();
 
+  // ============= COIN =============
   /**
-   * @brief Return true if there is a collision between 2 GameObjects
+   * @brief Add a coin to the player score
+   *
+   * @param coinValue;
+   */
+  void addCoin(const unsigned int coinValue);
+
+  // ============= COLLISION =============
+  /**
+   * @brief Detect a collision and call his solver
    *
    * @param p2
    * @return true
    * @return false
    */
-  bool collision(const Character &p2);
+  void collisionDetector(GameObject &gameObject);
 
+  // ============= HEALTH =============
   /**
    * @brief Lose some health
    *
@@ -155,8 +165,11 @@ public:
    */
   void loseHealth(const unsigned int &value);
 
+  void collisionHandler(GameObject *gameObject);
+
 private:
   unsigned int _health;
+  unsigned int _score;
   int _sideState;
   int _verticalState;
   std::map<unsigned int, time_t> _activeBonuses;

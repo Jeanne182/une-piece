@@ -37,6 +37,11 @@ public:
    * @param bonusType
    */
   Bonus(const glm::vec3 position, const unsigned int bonusType, const std::string &path, const std::map<std::string, GLint> &textureLocation);
+
+  /**
+   * @brief Destroy the Bonus object
+   *
+   */
   ~Bonus(){};
 
   // ============= METHODS =============
@@ -45,6 +50,12 @@ public:
    *
    */
   void display() const;
+  /**
+   * @brief Handle the collision with a player (gameObject dynamic casted)
+   *
+   */
+
+  void collisionHandler(GameObject *gameObject);
 
 
   // ============= GETTERS =============

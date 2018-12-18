@@ -54,6 +54,12 @@ public:
    */
   virtual void display() const =0;
 
+  /**
+   * @brief Must Implement a way to handle the behaviour of the collision
+   *
+   */
+  virtual void collisionHandler(GameObject *gameObject) = 0;
+
   // ============= GETTERS =============
   /**
    * @brief Get the Position object
