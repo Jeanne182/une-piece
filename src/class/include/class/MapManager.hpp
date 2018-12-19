@@ -23,7 +23,7 @@ public:
   // =============== CONSTS FOR THE GENERATION ===============
 
   static const int ROW_SIZE = 13;
-  static const int HALF_ROW_SIZE = (ROW_SIZE+1)/2;
+  static const int HALF_ROW_SIZE = (ROW_SIZE + 1) / 2;
   static const int BATCH_SIZE_MIN = 4;
   static const int BATCH_SIZE_MAX = 7;
   static const int PATH_SIZE_MIN = 16;
@@ -32,6 +32,7 @@ public:
   static const int LANE_MIN = -1;
   static const int LANE_MAX = 1;
   static const int FORK_SIZE = ROW_SIZE * 4;
+  static const int HALF_FORK_SIZE = FORK_SIZE / 2;
 
   enum BATCH_TYPE : unsigned int
   {
@@ -68,7 +69,7 @@ public:
    * @param j
    * @return Tile
    */
-  Tile &getTile(const size_t i, const size_t j);
+  Tile &getTile(const size_t x, const size_t z);
 
   /**
    * @brief Getter for a tile
@@ -77,14 +78,14 @@ public:
    * @param j
    * @return const Tile
    */
-  const Tile &getTile(const size_t i, const size_t j) const;
+  const Tile &getTile(const size_t x, const size_t z) const;
 
   /**
    * @brief Get the Pos of the last object
    *
    * @return float
    */
-  glm::vec3 getLastPos() const;
+  inline const glm::vec3 &getLastPos() const { return _lastPos; };
 
   /**
    * @brief Get the Directionnal Vector object
@@ -119,7 +120,9 @@ public:
    *
    */
   void destroy(const unsigned int index);
-  
+
+  void updateLastPos();
+
   void generatePath();
   void generateBatch();
   void generateSimpleBatch();
@@ -134,6 +137,7 @@ private:
   std::deque<Tile> _map;
   std::vector<glm::vec3> _forks;
   std::vector<uint> _probability;
+  glm::vec3 _lastPos;
   unsigned int _direction;
 };
 

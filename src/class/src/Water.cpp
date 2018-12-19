@@ -5,11 +5,12 @@ using namespace glimac;
 namespace UP
 {
 
-Water::Water(const glm::vec3 position)
+Water::Water(const glm::vec3 position, const bool &forkSection)
     : GameObject(position,
                  glm::vec3(0.f, 0.f, 0.f),
                  0.505f,
-                 "water.obj")
+                 "water.obj"),
+      _forkSection(forkSection)
 {
   _model->setRepeat(0.2f);
 };

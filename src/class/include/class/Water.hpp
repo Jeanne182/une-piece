@@ -19,7 +19,7 @@ public:
    * @brief Construct a new Water object
    *
    */
-  Water(const glm::vec3 position);
+  Water(const glm::vec3 position, const bool &forkSection = false);
 
   /**
    * @brief Destroy the Water object
@@ -39,9 +39,10 @@ public:
    */
   bool collisionHandler(GameObject *gameObject);
 
+  bool isFork() const { return _forkSection; };
 
 private:
-
+  bool _forkSection;
 };
 
 } // namespace UP

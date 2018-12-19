@@ -10,6 +10,7 @@
 #include <class/common.hpp>
 #include <class/Light.hpp>
 #include <class/Utils.hpp>
+#include <class/Water.hpp>
 
 using namespace glimac;
 namespace UP
@@ -103,6 +104,13 @@ void Game::collide()
     Tile &t = _map->getTile(x, z);
     for (int i = 0; i < t.tile().size(); i++)
     {
+      t.object(i)->markDeleted();
+
+      Water *w = dynamic_cast<Water *>(t.object(i));
+      if (w)
+      {
+        std::cout << w->isFork() << std::endl;
+      }
       //std::cout << "Position de l'objet : " << t.object(i)->pos() << std::endl;
       if (Utils::cast(t.object(i)->y()) == y)
       {

@@ -8,6 +8,7 @@
 #include <class/Obstacle.hpp>
 #include <class/Utils.hpp>
 #include <class/common.hpp>
+#include <class/Water.hpp>
 
 using namespace glimac;
 
@@ -18,7 +19,8 @@ const float MapManager::P_FLOATING_COINS = 0.5f;
 
 MapManager::MapManager()
     : _direction(DIR_NORTH),
-      _probability(10)
+      _probability(10),
+      _lastPos(glm::vec3(0.f))
 {
   _probability[BATCH_TYPE_SIMPLE] = 2;
   _probability[BATCH_TYPE_COIN] = 3;
@@ -48,20 +50,26 @@ void MapManager::display() const
     (*it).display();
   }
 }
-Tile &MapManager::getTile(const size_t i, const size_t j)
+Tile &MapManager::getTile(const size_t x, const size_t z)
 {
-  size_t index = i * ROW_SIZE + j - MapManager::HALF_ROW_SIZE;
-  if (index >= _map.size())
-    throw Error("No tile here", AT);
-  return _map[index];
+  for (int i = 0; i < _map.size(); i++)
+  {
+    if (_map[i].x() == x && _map[i].z() == z)
+      return _map[i];
+  }
+  throw Error("There is no tile at [" + std::to_string(x) + " , y, " + std::to_string(z) + "]", AT);
 };
 
-const Tile &MapManager::getTile(const size_t i, const size_t j) const
+const Tile &MapManager::getTile(const size_t x, const size_t z) const
 {
-  size_t index = i * ROW_SIZE + j - MapManager::HALF_ROW_SIZE;
-  if (index >= _map.size())
-    throw Error("No tile here", AT);
-  return _map[index];
+  return getTile(x, z);
+}
+
+void MapManager::updateLastPos()
+{
+  // We update the last pos
+  const Tile &t = *(_map.end() - 1 - MapManager::HALF_ROW_SIZE);
+  _lastPos = t.getObjects()[0]->pos();
 }
 
 void MapManager::generatePath()
@@ -115,6 +123,7 @@ void MapManager::generateBatch()
     //std::cout << "DEFAULT" << std::endl;
     generateSimpleBatch();
   }
+
 }
 
 void MapManager::generateSimpleBatch()
@@ -137,6 +146,7 @@ void MapManager::generateSimpleBatch()
     }
     pos += getDirectionnalVector();
   }
+  updateLastPos();
 }
 
 void MapManager::generateCoinBatch()
@@ -173,6 +183,7 @@ void MapManager::generateCoinBatch()
     }
     pos += getDirectionnalVector();
   }
+  updateLastPos();
 }
 
 void MapManager::generateObstacleBatch()
@@ -201,6 +212,7 @@ void MapManager::generateObstacleBatch()
     }
     pos += getDirectionnalVector();
   }
+  updateLastPos();
 }
 
 void MapManager::generateFork()
@@ -209,34 +221,30 @@ void MapManager::generateFork()
   glm::vec3 advance = getLastPos() + getDirectionnalVector() * (float)MapManager::HALF_ROW_SIZE;
 
   // Left Side
-  float m = (MapManager::FORK_SIZE+1)/2;
-  glm::vec3 leftSide = advance + getOppositeDirectionnalVector() * m;
+  glm::vec3 leftSide = advance + getOppositeDirectionnalVector() * (float)MapManager::HALF_FORK_SIZE;
 
   glm::vec3 pos = leftSide;
 
+  int noRockMin = MapManager::HALF_FORK_SIZE - MapManager::HALF_ROW_SIZE;
+  int noRockMax = MapManager::HALF_FORK_SIZE + MapManager::HALF_ROW_SIZE;
   // Build
   for (float i = 0; i < MapManager::FORK_SIZE; i++)
   {
     for (float j = 0; j < MapManager::ROW_SIZE; j++)
     {
       float k = j - MapManager::HALF_ROW_SIZE;
-      Tile t(pos + getDirectionnalVector() * k);
+      Tile t(new Water(pos + getDirectionnalVector() * k, true));
+
+      // Put rocks on the side
+      if ((j == 0 && (i < noRockMin || i > noRockMax)) ||
+          j == MapManager::ROW_SIZE - 1)
+      {
+        t.add(new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + getDirectionnalVector() * k, "hole.obj"));
+      }
+
       _map.push_back(t);
     }
     pos += getOppositeDirectionnalVector() * -1.f;
-  }
-}
-
-glm::vec3 MapManager::getLastPos() const
-{
-  if (_map.size() == 0)
-  {
-    return glm::vec3(0.f);
-  }
-  else
-  {
-    const Tile &t = *(_map.end() - 1 - MapManager::HALF_ROW_SIZE);
-    return t.getObjects()[0]->pos();
   }
 }
 
