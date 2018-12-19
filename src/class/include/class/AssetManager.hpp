@@ -98,16 +98,23 @@ public:
    * @brief Get the Asset Program
    * 
    */
+  inline const AssetProgramNormals &assetProgramNormals() const { return _assetProgramNormals; };
+
+
+  /**
+   * @brief Get the Asset ProgramMulti
+   * 
+   */
   inline const AssetProgramMulti &assetProgramMulti() const { return _assetProgramMulti; };
 
   /**
-   * @brief Get the Asset Program
+   * @brief Get the Asset ProgramMultiLight
    * 
    */
   inline const AssetProgramMultiLight &assetProgramMultiLight() const { return _assetProgramMultiLight; };
 
   /**
-   * @brief Get the Asset Program
+   * @brief Get the Static Image Program
    * 
    */
   inline const StaticImageProgram &staticImageProgram() const { return _staticImageProgram; };
@@ -123,6 +130,7 @@ private:
   AssetManager(char **argv)
       : _appPath(argv[0]),
         _assetProgram(_appPath),
+        _assetProgramNormals(_appPath),
         _assetProgramMulti(_appPath),
         _assetProgramMultiLight(_appPath),
         _staticImageProgram(_appPath){};
@@ -132,6 +140,7 @@ private:
 
   // Programs
   AssetProgram _assetProgram;
+  AssetProgramNormals _assetProgramNormals;
   AssetProgramMulti _assetProgramMulti;
   AssetProgramMultiLight _assetProgramMultiLight;
   StaticImageProgram _staticImageProgram;

@@ -76,7 +76,18 @@ public:
    */
   inline void setHealth(const unsigned int &health) { _health = health; }
 
-  inline void setlastCoordinate(const std::vector<int> &lastCoordinate) { _lastCoordinate = lastCoordinate; }
+  /**
+   * @brief Increase the count of cube run through
+   * 
+   */
+  inline void cubeCountIncrease() { _cubeCount++; };
+
+  /**
+   * @brief Set the Last Coordinate object
+   * 
+   * @param lastCoordinate 
+   */
+  inline void setLastCoordinate(const std::vector<int> &lastCoordinate) { _lastCoordinate = lastCoordinate; }
 
   // ============= MOVEMENT =============
   /**
@@ -119,7 +130,7 @@ public:
    */
   void display() const;
 
-    /**
+  /**
    * @brief Reset the Character to default
    *
    */
@@ -176,6 +187,7 @@ private:
   std::vector<int> _lastCoordinate;
   unsigned int _health;
   unsigned int _score;
+  unsigned int _cubeCount;
   int _sideState;
   int _verticalState;
   std::map<unsigned int, time_t> _activeBonuses;
@@ -200,7 +212,6 @@ private:
    * @param movement
    */
   void verticalMove(const int &movement);
-
 };
 
 } // namespace UP

@@ -52,7 +52,7 @@ public:
    * @brief Must Implement a way to display the object
    *
    */
-  virtual void display() const = 0;
+  void display() const;
 
   /**
    * @brief Must Implement a way to handle the behaviour of the collision
@@ -192,7 +192,18 @@ public:
    */
   void reset();
 
+  /**
+   * @brief Utils for the deletion
+   * 
+   */
   inline void markDeleted() { _toDelete = true; };
+
+  /**
+   * @brief Utils for the deletion
+   * 
+   * @return true 
+   * @return false 
+   */
   inline bool shallDelete() { return _toDelete; }
   // ============= MATRIX =============
   /**
@@ -215,6 +226,7 @@ protected:
   glm::vec3 _angles;
   glm::vec3 _position;
   glm::vec3 _speed;
+
   glm::mat4 _P, _MV, _N;
   const std::string _name;
   Model *_model;

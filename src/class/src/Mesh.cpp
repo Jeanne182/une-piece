@@ -59,66 +59,45 @@ void Mesh::setupMesh()
 void Mesh::draw() const
 {
   // Use Textures
-
-  if (_textures.size() == 1 && false)
+  unsigned int diffuseNr = 1;
+  unsigned int specularNr = 1;
+  for (size_t i = 0; i < _textures.size(); i++)
   {
-    std::cout << "Draw 1" << std::endl;
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, _textures[0].id);
-    GLint location = AssetManager::Get()->assetProgram().uMapTextures.at(_textures[0].type);
-    glUniform1i(location, 0);
+    // retrieve texture number (the N in diffuse_textureN)
+    std::string number;
+    std::string name = _textures[i].type;
+    const AssetProgramMultiLight &a = AssetManager::Get()->assetProgramMultiLight();
+    // activate proper texture unit before binding
+    glActiveTexture(GL_TEXTURE0 + i);
+    if (name == "uTexture_diffuse")
+    {
+      number = std::to_string(diffuseNr++);
 
-    // draw mesh
-    glBindVertexArray(_VAO);
-    glDrawElements(GL_TRIANGLES, _indices.size(), GL_UNSIGNED_INT, 0);
+      // Send the info of the first texture found
+      glUniform1f(a.uShininess, _textures[i].shininess);
+      glUniform3fv(a.uKd, 1, glm::value_ptr(_textures[i].diffuse));
+      glUniform3fv(a.uKs, 1, glm::value_ptr(_textures[i].specular));
+    }
+    else if (name == "uTexture_specular")
+    {
+      number = std::to_string(specularNr++);
+    }
 
-    // Unbind
-    glBindTexture(GL_TEXTURE_2D, 0);
-    glBindVertexArray(0);
+    GLint location = a.uMapTextures.at(std::string(name + number));
+    glUniform1i(location, i);
+    glBindTexture(GL_TEXTURE_2D, _textures[i].id);
   }
-  else
+
+  // draw mesh
+  glBindVertexArray(_VAO);
+  glDrawElements(GL_TRIANGLES, _indices.size(), GL_UNSIGNED_INT, 0);
+  glBindVertexArray(0);
+
+  // Unbind
+  for (size_t i = 0; i < _textures.size(); i++)
   {
-
-    unsigned int diffuseNr = 1;
-    unsigned int specularNr = 1;
-    for (size_t i = 0; i < _textures.size(); i++)
-    {
-      // activate proper texture unit before binding
-      glActiveTexture(GL_TEXTURE0 + i);
-      // retrieve texture number (the N in diffuse_textureN)
-      std::string number;
-      std::string name = _textures[i].type;
-      if (name == "uTexture_diffuse")
-      {
-        number = std::to_string(diffuseNr++);
-
-        // Send the info of the first texture found
-        const AssetProgramMultiLight &a = AssetManager::Get()->assetProgramMultiLight();
-        glUniform1f(a.uShininess, _textures[i].shininess);
-        glUniform3fv(a.uKd, 1, glm::value_ptr(_textures[i].diffuse));
-        glUniform3fv(a.uKs, 1, glm::value_ptr(_textures[i].specular));
-      }
-      else if (name == "uTexture_specular")
-      {
-        number = std::to_string(specularNr++);
-      }
-
-      GLint location = AssetManager::Get()->assetProgramMultiLight().uMapTextures.at(std::string(name + number));
-      glUniform1i(location, i);
-      glBindTexture(GL_TEXTURE_2D, _textures[i].id);
-    }
-
-    // draw mesh
-    glBindVertexArray(_VAO);
-    glDrawElements(GL_TRIANGLES, _indices.size(), GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
-
-    // Unbind
-    for (size_t i = 0; i < _textures.size(); i++)
-    {
-      glActiveTexture(GL_TEXTURE0 + i);
-      glBindTexture(GL_TEXTURE_2D, 0);
-    }
+    glActiveTexture(GL_TEXTURE0 + i);
+    glBindTexture(GL_TEXTURE_2D, 0);
   }
 }
 

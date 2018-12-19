@@ -7,6 +7,7 @@
 #include <class/AssetManager.hpp>
 #include <class/Program.hpp>
 #include <class/common.hpp>
+#include <class/Utils.hpp>
 
 namespace UP
 {
@@ -24,9 +25,16 @@ GameObject::GameObject(const GameObject &g)
       _scale(g._scale),
       _model(g._model){};
 
+void GameObject::display() const
+{
+  useMatrix();
+  _model->draw();
+  //std::cout << _position << std::endl;
+}
+
 void GameObject::setMatrix(const glm::mat4 &cameraMV)
 {
-  /* Envoi des matrices au GPU */
+  // Compute Matrix
 
   // P
   _P = glm::perspective(glm::radians(70.0f), (float)(WINDOW_WIDTH / WINDOW_HEIGHT), 0.1f, 100.f);
@@ -53,8 +61,6 @@ void GameObject::useMatrix() const
   glUniformMatrix4fv(AssetManager::Get()->assetProgramMultiLight().uMVPMatrix, 1, GL_FALSE, glm::value_ptr(_P * _MV));
   glUniformMatrix4fv(AssetManager::Get()->assetProgramMultiLight().uMVMatrix, 1, GL_FALSE, glm::value_ptr(_MV));
   glUniformMatrix4fv(AssetManager::Get()->assetProgramMultiLight().uNormalMatrix, 1, GL_FALSE, glm::value_ptr(_N));
-
-
 }
 
 void GameObject::reset()

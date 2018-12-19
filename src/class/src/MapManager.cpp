@@ -13,17 +13,22 @@ using namespace glimac;
 
 namespace UP
 {
+// WTF
+const float MapManager::P_FLOATING_COINS = 0.5f;
+
 MapManager::MapManager()
     : _direction(DIR_NORTH),
       _probability(10)
 {
   _probability[BATCH_TYPE_SIMPLE] = 2;
-  _probability[BATCH_TYPE_COIN] = 3000;
+  _probability[BATCH_TYPE_COIN] = 3;
   _probability[BATCH_TYPE_OBSTACLE] = 3;
   _probability.shrink_to_fit();
 
   Utils::setSeed();
-  generateBatch();
+  //generatePath();
+  generateSimpleBatch();
+  generateFork();
 }
 
 void MapManager::setMatrix(const glm::mat4 &cameraMV) const
@@ -45,7 +50,7 @@ void MapManager::display() const
 }
 Tile &MapManager::getTile(const size_t i, const size_t j)
 {
-  size_t index = i * ROW_SIZE + j - (ROW_SIZE + 1) / 2;
+  size_t index = i * ROW_SIZE + j - MapManager::HALF_ROW_SIZE;
   if (index >= _map.size())
     throw Error("No tile here", AT);
   return _map[index];
@@ -53,10 +58,20 @@ Tile &MapManager::getTile(const size_t i, const size_t j)
 
 const Tile &MapManager::getTile(const size_t i, const size_t j) const
 {
-  size_t index = i * ROW_SIZE + j - (ROW_SIZE + 1) / 2;
+  size_t index = i * ROW_SIZE + j - MapManager::HALF_ROW_SIZE;
   if (index >= _map.size())
     throw Error("No tile here", AT);
   return _map[index];
+}
+
+void MapManager::generatePath()
+{
+  int batchCount = Utils::dicei(MapManager::PATH_SIZE_MIN, MapManager::PATH_SIZE_MAX);
+  for (int i = 0; i < batchCount; i++)
+  {
+    generateBatch();
+  }
+  generateFork();
 }
 
 void MapManager::generateBatch()
@@ -110,7 +125,7 @@ void MapManager::generateSimpleBatch()
   {
     for (float j = 0; j < MapManager::ROW_SIZE; j++)
     {
-      float k = j - MapManager::ROW_SIZE / 2;
+      float k = j - MapManager::HALF_ROW_SIZE;
       Tile t(pos + getOppositeDirectionnalVector() * k);
 
       // Put rocks on the side
@@ -128,9 +143,8 @@ void MapManager::generateCoinBatch()
 {
   int length = Utils::rBatchSize();
   glm::vec3 pos = getLastPos() + getDirectionnalVector();
-  //int lane = Utils::dicei(-1, 1);
-  int lane = 0;
-  bool floatingCoins = Utils::maybe(0.5f);
+  int lane = Utils::dicei(MapManager::LANE_MIN, MapManager::LANE_MAX);
+  bool floatingCoins = Utils::maybe(MapManager::P_FLOATING_COINS);
   for (float i = 0; i < length - 1; i++)
   {
     for (float j = 0; j < MapManager::ROW_SIZE; j++)
@@ -153,7 +167,7 @@ void MapManager::generateCoinBatch()
       // Put rocks on the side
       if (j == 0 || j == MapManager::ROW_SIZE - 1)
       {
-        t.add(new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + getOppositeDirectionnalVector() * k, "hole.obj"));
+        t.add(new Obstacle(pos + getOppositeDirectionnalVector() * k, "hole.obj"));
       }
       _map.push_back(t);
     }
@@ -165,12 +179,12 @@ void MapManager::generateObstacleBatch()
 {
   int length = Utils::rBatchSize();
   glm::vec3 pos = getLastPos() + getDirectionnalVector();
-  int lane = Utils::dicei(-1, 1);
+  int lane = Utils::dicei(MapManager::LANE_MIN, MapManager::LANE_MAX);
   for (float i = 0; i < length - 1; i++)
   {
     for (float j = 0; j < MapManager::ROW_SIZE; j++)
     {
-      float k = j - MapManager::ROW_SIZE / 2;
+      float k = j - MapManager::HALF_ROW_SIZE;
       Tile t(pos + getOppositeDirectionnalVector() * k);
 
       // Choose the lane
@@ -189,6 +203,30 @@ void MapManager::generateObstacleBatch()
   }
 }
 
+void MapManager::generateFork()
+{
+  // Middle
+  glm::vec3 advance = getLastPos() + getDirectionnalVector() * (float)MapManager::HALF_ROW_SIZE;
+
+  // Left Side
+  float m = (MapManager::FORK_SIZE+1)/2;
+  glm::vec3 leftSide = advance + getOppositeDirectionnalVector() * m;
+
+  glm::vec3 pos = leftSide;
+
+  // Build
+  for (float i = 0; i < MapManager::FORK_SIZE; i++)
+  {
+    for (float j = 0; j < MapManager::ROW_SIZE; j++)
+    {
+      float k = j - MapManager::HALF_ROW_SIZE;
+      Tile t(pos + getDirectionnalVector() * k);
+      _map.push_back(t);
+    }
+    pos += getOppositeDirectionnalVector() * -1.f;
+  }
+}
+
 glm::vec3 MapManager::getLastPos() const
 {
   if (_map.size() == 0)
@@ -197,7 +235,7 @@ glm::vec3 MapManager::getLastPos() const
   }
   else
   {
-    const Tile &t = *(_map.end() - (ROW_SIZE - 1) / 2 - 1);
+    const Tile &t = *(_map.end() - 1 - MapManager::HALF_ROW_SIZE);
     return t.getObjects()[0]->pos();
   }
 }

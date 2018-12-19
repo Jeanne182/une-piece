@@ -16,12 +16,13 @@ namespace UP
 
 Character::Character()
     : GameObject(glm::vec3(0.f, 0.1f, 0.f),
-                 glm::vec3(0.001f),
+                 glm::vec3(0.01f),
                  0.5f,
                  "bateau.obj"),
       _lastCoordinate(3, 0),
       _health(1),
       _score(0),
+      _cubeCount(0),
       _sideState(CENTER),
       _verticalState(RUNNING){};
 
@@ -207,9 +208,7 @@ void Character::loseHealth(const unsigned int &value)
 
 void Character::display() const
 {
-  useMatrix();
-  _model->draw();
-  //std::cout << _position << std::endl;
+  GameObject::display();
 }
 
 void Character::reset()

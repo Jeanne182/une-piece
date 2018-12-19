@@ -16,9 +16,7 @@ Water::Water(const glm::vec3 position)
 
 void Water::display() const
 {
-  useMatrix();
-  _model->draw();
-  //std::cout << _position << std::endl;
+  GameObject::display();
 }
 
 bool Water::collisionHandler(GameObject *gameObject)

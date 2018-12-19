@@ -98,11 +98,9 @@ void Game::collide()
     //std::cout << "Nouvelle position du character : [" << x << "," << y << "," << z << "]" << std::endl;
     //std::cout << "Position du character : " << _character.pos() << std::endl;
     //std::cout << std::endl;
-    GameObject *g;
-    bool shallDelete = false;
-    int index;
-    _character.setlastCoordinate(std::vector<int>{x, y, z});
-    Tile &t = _map->getTile(x, z);    
+    _character.setLastCoordinate(std::vector<int>{x, y, z});
+    _character.cubeCountIncrease();
+    Tile &t = _map->getTile(x, z);
     for (int i = 0; i < t.tile().size(); i++)
     {
       //std::cout << "Position de l'objet : " << t.object(i)->pos() << std::endl;

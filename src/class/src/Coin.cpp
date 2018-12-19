@@ -21,9 +21,7 @@ Coin::Coin(const glm::vec3 position, const unsigned int value, const std::string
 
 void Coin::display() const
 {
-  useMatrix();
-  _model->draw();
-  //std::cout << _position << std::endl;
+  GameObject::display();
 }
 
 bool Coin::collisionHandler(GameObject *gameObject)

@@ -1,6 +1,7 @@
 #include <glimac/SDLWindowManager.hpp>
 
 #include <class/Tile.hpp>
+#include <class/AssetManager.hpp>
 #include <class/Water.hpp>
 
 using namespace glimac;
@@ -39,18 +40,15 @@ void Tile::destroy(const unsigned int index)
 void Tile::clean()
 {
 
-  std::cout << "Tile size : " << _tileObjects.size() << std::endl;
   for (int i = 0; i < _tileObjects.size(); i++)
   {
     if (_tileObjects[i]->shallDelete())
     {
-      std::cout << "Please don't segfault" << std::endl;
       GameObject *g = _tileObjects[i];
       _tileObjects.erase(_tileObjects.begin() + i);
       delete _tileObjects[i];
     }
   }
-  std::cout << "Tile size : " << _tileObjects.size() << std::endl;
 }
 
 void Tile::setMatrix(const glm::mat4 &cameraMV) const
@@ -65,6 +63,7 @@ void Tile::display() const
 {
   for (int i = 0; i < _tileObjects.size(); i++)
   {
+
     _tileObjects[i]->display();
   }
 }

@@ -38,6 +38,7 @@ struct AssetProgramMultiLight
       : _Program(loadProgram(
             applicationPath.dirPath() + "shaders/3D.vs.glsl",
             applicationPath.dirPath() + "shaders/directionnalMultiTexLight.fs.glsl"))
+            //applicationPath.dirPath() + "shaders/normals.fs.glsl"))
   {
     // Matrixes
     uMVPMatrix = glGetUniformLocation(_Program.getGLId(), "uMVPMatrix");
@@ -95,6 +96,33 @@ struct AssetProgramMulti
     uMapTextures.insert(std::pair<std::string, GLint>("uTexture_specular1", uTexture_specular1));
   }
 };
+
+
+/**
+ * @brief Data structure for the Shader an Asset
+ *
+ */
+struct AssetProgramNormals
+{
+  Program _Program;
+
+  GLint uMVPMatrix;
+  GLint uMVMatrix;
+  GLint uNormalMatrix;
+  GLint uColor;
+
+  AssetProgramNormals(const FilePath &applicationPath)
+      : _Program(loadProgram(
+            applicationPath.dirPath() + "shaders/3D.vs.glsl",
+            applicationPath.dirPath() + "shaders/normals.fs.glsl"))
+  {
+    uMVPMatrix = glGetUniformLocation(_Program.getGLId(), "uMVPMatrix");
+    uMVMatrix = glGetUniformLocation(_Program.getGLId(), "uMVMatrix");
+    uNormalMatrix = glGetUniformLocation(_Program.getGLId(), "uNormalMatrix");
+    uColor = glGetUniformLocation(_Program.getGLId(), "uColor");
+  }
+};
+
 
 /**
  * @brief Data structure for the Shader an Asset

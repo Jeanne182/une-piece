@@ -23,8 +23,15 @@ public:
   // =============== CONSTS FOR THE GENERATION ===============
 
   static const int ROW_SIZE = 13;
+  static const int HALF_ROW_SIZE = (ROW_SIZE+1)/2;
   static const int BATCH_SIZE_MIN = 4;
   static const int BATCH_SIZE_MAX = 7;
+  static const int PATH_SIZE_MIN = 16;
+  static const int PATH_SIZE_MAX = 20;
+  static const float P_FLOATING_COINS;
+  static const int LANE_MIN = -1;
+  static const int LANE_MAX = 1;
+  static const int FORK_SIZE = ROW_SIZE * 4;
 
   enum BATCH_TYPE : unsigned int
   {
@@ -70,7 +77,7 @@ public:
    * @param j
    * @return const Tile
    */
-  const Tile& getTile(const size_t i, const size_t j) const;
+  const Tile &getTile(const size_t i, const size_t j) const;
 
   /**
    * @brief Get the Pos of the last object
@@ -112,17 +119,20 @@ public:
    *
    */
   void destroy(const unsigned int index);
-
+  
+  void generatePath();
   void generateBatch();
   void generateSimpleBatch();
   void generateCoinBatch();
   void generateObstacleBatch();
+  void generateFork();
 
   inline void turnRight() { _direction = (_direction + 1) % 4; }
   inline void turnLeft() { _direction = (_direction - 1) % 4; }
 
 private:
   std::deque<Tile> _map;
+  std::vector<glm::vec3> _forks;
   std::vector<uint> _probability;
   unsigned int _direction;
 };
