@@ -22,12 +22,12 @@ class MapManager
 public:
   // =============== CONSTS FOR THE GENERATION ===============
 
-  static const int ROW_SIZE = 13;
-  static const int HALF_ROW_SIZE = (ROW_SIZE + 1) / 2;
+  static const int ROW_SIZE = 5;
+  static const int HALF_ROW_SIZE = (ROW_SIZE - 1) / 2;
   static const int BATCH_SIZE_MIN = 4;
   static const int BATCH_SIZE_MAX = 7;
-  static const int PATH_SIZE_MIN = 16;
-  static const int PATH_SIZE_MAX = 20;
+  static const int PATH_SIZE_MIN = 6;
+  static const int PATH_SIZE_MAX = 10;
   static const float P_FLOATING_COINS;
   static const int LANE_MIN = -1;
   static const int LANE_MAX = 1;
@@ -39,6 +39,11 @@ public:
     BATCH_TYPE_SIMPLE,
     BATCH_TYPE_COIN,
     BATCH_TYPE_OBSTACLE
+  };
+  enum FORK_POS_VECTOR
+  {
+    LEFT,
+    RIGHT
   };
 
   // =============== CONSTRUCTOR ===============
@@ -100,6 +105,7 @@ public:
    * @return const glm::vec3&
    */
   const glm::vec3 &getOppositeDirectionnalVector() const;
+
   // =============== METHODS  ===============
   /**
    * @brief Display the Map
@@ -121,7 +127,8 @@ public:
    */
   void destroy(const unsigned int index);
 
-  void updateLastPos();
+  void updateLastPos(const float &length);
+  void sideRocks(const float j, const float k, const glm::vec3 &pos, Tile &t);
 
   void generatePath();
   void generateBatch();
@@ -130,8 +137,8 @@ public:
   void generateObstacleBatch();
   void generateFork();
 
-  inline void turnRight() { _direction = (_direction + 1) % 4; }
-  inline void turnLeft() { _direction = (_direction - 1) % 4; }
+  void selectLeftFork();
+  void selectRightFork();
 
 private:
   std::deque<Tile> _map;
@@ -139,6 +146,9 @@ private:
   std::vector<uint> _probability;
   glm::vec3 _lastPos;
   unsigned int _direction;
+
+  inline void turnRight() { _direction = (_direction + 1) % 4; }
+  inline void turnLeft() { _direction = (_direction - 1) % 4; }
 };
 
 } // namespace UP

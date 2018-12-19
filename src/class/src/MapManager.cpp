@@ -31,6 +31,7 @@ MapManager::MapManager()
   //generatePath();
   generateSimpleBatch();
   generateFork();
+  selectRightFork();
 }
 
 void MapManager::setMatrix(const glm::mat4 &cameraMV) const
@@ -65,11 +66,15 @@ const Tile &MapManager::getTile(const size_t x, const size_t z) const
   return getTile(x, z);
 }
 
-void MapManager::updateLastPos()
+void MapManager::updateLastPos(const float &length)
 {
   // We update the last pos
-  const Tile &t = *(_map.end() - 1 - MapManager::HALF_ROW_SIZE);
-  _lastPos = t.getObjects()[0]->pos();
+
+  //const Tile &t = *(_map.end() - MapManager::HALF_ROW_SIZE + 1);
+  //_lastPos = t.getObjects()[0]->pos();
+  std::cout << "Last : " << _lastPos << std::endl;
+  _lastPos = getLastPos() + getDirectionnalVector() * (length - 1);
+  std::cout << "New : " << _lastPos << std::endl;
 }
 
 void MapManager::generatePath()
@@ -123,7 +128,6 @@ void MapManager::generateBatch()
     //std::cout << "DEFAULT" << std::endl;
     generateSimpleBatch();
   }
-
 }
 
 void MapManager::generateSimpleBatch()
@@ -138,15 +142,12 @@ void MapManager::generateSimpleBatch()
       Tile t(pos + getOppositeDirectionnalVector() * k);
 
       // Put rocks on the side
-      if (j == 0 || j == MapManager::ROW_SIZE - 1)
-      {
-        t.add(new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + getOppositeDirectionnalVector() * k, "hole.obj"));
-      }
+      sideRocks(j, k, pos, t);
       _map.push_back(t);
     }
     pos += getDirectionnalVector();
   }
-  updateLastPos();
+  updateLastPos(length);
 }
 
 void MapManager::generateCoinBatch()
@@ -159,7 +160,7 @@ void MapManager::generateCoinBatch()
   {
     for (float j = 0; j < MapManager::ROW_SIZE; j++)
     {
-      float k = j - MapManager::ROW_SIZE / 2;
+      float k = j - MapManager::HALF_ROW_SIZE;
       Tile t(pos + getOppositeDirectionnalVector() * k);
 
       // Choose the lane
@@ -175,15 +176,12 @@ void MapManager::generateCoinBatch()
       }
 
       // Put rocks on the side
-      if (j == 0 || j == MapManager::ROW_SIZE - 1)
-      {
-        t.add(new Obstacle(pos + getOppositeDirectionnalVector() * k, "hole.obj"));
-      }
+      sideRocks(j, k, pos, t);
       _map.push_back(t);
     }
     pos += getDirectionnalVector();
   }
-  updateLastPos();
+  updateLastPos(length);
 }
 
 void MapManager::generateObstacleBatch()
@@ -204,15 +202,12 @@ void MapManager::generateObstacleBatch()
         t.add(new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + getOppositeDirectionnalVector() * k, "tentacle.obj"));
       }
       // Put rocks on the side
-      if (j == 0 || j == MapManager::ROW_SIZE - 1)
-      {
-        t.add(new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + getOppositeDirectionnalVector() * k, "hole.obj"));
-      }
+      sideRocks(j, k, pos, t);
       _map.push_back(t);
     }
     pos += getDirectionnalVector();
   }
-  updateLastPos();
+  updateLastPos(length);
 }
 
 void MapManager::generateFork()
@@ -235,17 +230,51 @@ void MapManager::generateFork()
       float k = j - MapManager::HALF_ROW_SIZE;
       Tile t(new Water(pos + getDirectionnalVector() * k, true));
 
-      // Put rocks on the side
+      /*
       if ((j == 0 && (i < noRockMin || i > noRockMax)) ||
           j == MapManager::ROW_SIZE - 1)
       {
         t.add(new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + getDirectionnalVector() * k, "hole.obj"));
       }
-
+      */
       _map.push_back(t);
     }
     pos += getOppositeDirectionnalVector() * -1.f;
   }
+
+  if (getDirectionnalVector()[Z] != 0.f)
+  {
+    _forks.push_back(pos + getOppositeDirectionnalVector());
+    _forks.push_back(leftSide);
+  }
+  else
+  {
+    _forks.push_back(leftSide);
+    _forks.push_back(pos + getOppositeDirectionnalVector());
+  }
+}
+
+void MapManager::sideRocks(const float j, const float k, const glm::vec3 &pos, Tile &t)
+{
+
+  return;
+  if (j == 0 || j == MapManager::ROW_SIZE - 1)
+  {
+    t.add(new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + getOppositeDirectionnalVector() * k, "hole.obj"));
+  }
+}
+
+void MapManager::selectLeftFork()
+{
+  _lastPos = _forks[LEFT];
+  turnLeft();
+  _forks.clear();
+}
+void MapManager::selectRightFork()
+{
+  _lastPos = _forks[RIGHT];
+  turnRight();
+  _forks.clear();
 }
 
 void MapManager::destroy(const unsigned int index)

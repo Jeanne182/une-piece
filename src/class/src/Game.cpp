@@ -30,14 +30,20 @@ void Game::event(const SDL_Event &e)
     {
       if (e.key.keysym.sym == SDLK_r)
       {
-        _map->turnLeft();
+        _map->generateFork();
+        _map->selectLeftFork();
+        _camera.setCenter(_map->getLastPos());
       }
       if (e.key.keysym.sym == SDLK_t)
       {
-        _map->turnRight();
+        _map->generateFork();
+        _map->selectRightFork();
+        _camera.setCenter(_map->getLastPos());
       }
       if (e.key.keysym.sym == SDLK_g)
       {
+        _map->generateBatch();
+        _map->generateBatch();
         _map->generateBatch();
         _camera.setCenter(_map->getLastPos());
       }
@@ -53,7 +59,7 @@ void Game::update()
 
   // Update the scene
   _camera.update();
-  _character.move();
+  //_character.move();
   collide();
   _character.setMatrix(_camera.getViewMatrix());
   _map->setMatrix(_camera.getViewMatrix());
