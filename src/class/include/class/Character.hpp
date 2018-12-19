@@ -152,16 +152,6 @@ public:
    */
   void addCoin(const unsigned int coinValue);
 
-  // ============= COLLISION =============
-  /**
-   * @brief Detect a collision and call his solver
-   *
-   * @param p2
-   * @return true
-   * @return false
-   */
-  bool collisionDetector(GameObject &gameObject);
-
   // ============= HEALTH =============
   /**
    * @brief Lose some health

@@ -107,12 +107,6 @@ public:
    */
   void setMatrix(const glm::mat4 &cameraMV) const;
 
-  /**
-   * @brief Delete a Tile
-   *
-   */
-  void destroy(const unsigned int index);
-
   void generateBatch();
   void generateSimpleBatch();
   void generateCoinBatch();

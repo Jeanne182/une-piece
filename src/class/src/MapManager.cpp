@@ -202,11 +202,6 @@ glm::vec3 MapManager::getLastPos() const
   }
 }
 
-void MapManager::destroy(const unsigned int index)
-{
-  _map.erase(_map.begin() + index);
-}
-
 const glm::vec3 &MapManager::getDirectionnalVector() const
 {
   switch (_direction)

@@ -183,22 +183,6 @@ void Character::addCoin(const unsigned int coinValue)
 {
   _score += coinValue;
 }
-/*
-const float epsilon = 0.9f;
-if ( abs(cast(_position[X]) - cast(gameObject.x())) < epsilon &&
-    abs(cast(_position[Y]) - cast(gameObject.y())) < epsilon &&
-    abs(cast(_position[Z]) - cast(gameObject.z())) < epsilon)
-*/
-bool Character::collisionDetector(GameObject &gameObject)
-{
-  if (Utils::cast(_position[X]) == Utils::cast(gameObject.x()) &&
-      Utils::cast(_position[Y]) == Utils::cast(gameObject.y()) &&
-      Utils::cast(_position[Z]) == Utils::cast(gameObject.z()))
-  {
-    return gameObject.collisionHandler(this);
-  }
-  return false;
-}
 
 void Character::loseHealth(const unsigned int &value)
 {

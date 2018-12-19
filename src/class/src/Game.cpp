@@ -102,7 +102,7 @@ void Game::collide()
     bool shallDelete = false;
     int index;
     _character.setlastCoordinate(std::vector<int>{x, y, z});
-    Tile &t = _map->getTile(x, z);    
+    Tile &t = _map->getTile(x, z);
     for (int i = 0; i < t.tile().size(); i++)
     {
       //std::cout << "Position de l'objet : " << t.object(i)->pos() << std::endl;
@@ -110,37 +110,11 @@ void Game::collide()
       {
         if (t.object(i)->collisionHandler(&_character))
         {
-          t.object(i)->setPosY(3.f);
           t.object(i)->markDeleted();
         }
       }
     }
     t.clean();
-  }
-}
-
-void Game::destroy()
-{
-  std::deque<Tile> &map = _map->map();
-  for (int i = 0; i < map.size(); i++)
-  {
-    for (int j = 0; j < map[i].tile().size(); j++)
-    {
-      if (_character.collisionDetector(*(map[i].object(j))) == true)
-      {
-        std::cout << "Position de l'objet : " << map[i].object(j)->pos() << std::endl;
-        std::cout << "Avant d'être supprimer : " << map[i].tile().size() << std::endl;
-        map[i].destroy(j);
-        for (int k = 0; k < map[i].tile().size(); k++)
-        {
-          std::cout << "Après la supression : " << map[i].tile().size() << std::endl;
-        }
-      }
-      if (map[i].tile().empty())
-      {
-        _map->destroy(i);
-      }
-    }
   }
 }
 
