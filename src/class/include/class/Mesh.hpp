@@ -5,7 +5,7 @@
 
 #include <vector>
 #include <map>
-#include <glimac/common.hpp>
+#include <class/common.hpp>
 
 using namespace glimac;
 

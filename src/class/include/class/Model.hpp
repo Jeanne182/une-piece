@@ -5,13 +5,13 @@
 
 #include <map>
 #include <vector>
-#include <glimac/common.hpp>
 #include <iostream>
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+#include <class/common.hpp>
 #include <class/Mesh.hpp>
 
 using namespace glimac;

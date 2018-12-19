@@ -1,3 +1,5 @@
+#include <vector>
+
 #include <glimac/glm.hpp>
 #include <glimac/FilePath.hpp>
 
@@ -6,6 +8,7 @@
 #include <class/Character.hpp>
 #include <class/Program.hpp>
 #include <class/common.hpp>
+#include <class/Light.hpp>
 
 using namespace glimac;
 namespace UP
@@ -48,7 +51,17 @@ void Game::update()
 }
 void Game::display() const
 {
-  AssetManager::Get()->assetProgramMulti()._Program.use();
+  AssetManager::Get()->assetProgramMultiLight()._Program.use();
+
+  // Compute the ViewMatrix * Light
+  glm::vec4 l = _camera.getViewMatrix() * _light.direction();
+
+  // Send it
+  const AssetProgramMultiLight &a = AssetManager::Get()->assetProgramMultiLight();
+  glUniform3fv(a.uLightDir_vs, 1, glm::value_ptr(glm::vec3(l)));
+  glUniform3fv(a.uLightIntensity, 1, glm::value_ptr(_light.intensity()));
+
+  // Display stuff
   _character.display();
   _map->display();
 }

@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <vector>
+
 #include <glimac/FilePath.hpp>
 #include <glimac/Program.hpp>
 
@@ -10,6 +12,7 @@
 #include <class/Character.hpp>
 #include <class/MapManager.hpp>
 #include <class/Camera.hpp>
+#include <class/Light.hpp>
 
 using namespace glimac;
 
@@ -52,6 +55,7 @@ public:
 private:
   Character _character;
   Camera _camera;
+  Light _light;
   MapManager *_map;
 };
 

@@ -6,7 +6,7 @@
 
 #include <class/Camera.hpp>
 
-namespace glimac
+namespace UP
 {
 
 const double PI = 3.141592653589;

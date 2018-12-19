@@ -12,9 +12,6 @@ uniform float uTextureRepeat;
 void main() {
   vec4 tx1 = texture(uTexture_diffuse1, vTexCoords * uTextureRepeat);
   vec4 tx2 = texture(uTexture_specular1, vTexCoords * uTextureRepeat);
-  float multiplier = 1.0;
-  tx1 = tx1 * vec4(multiplier, multiplier, multiplier, multiplier);
-  tx2 = tx2 * vec4(multiplier, multiplier, multiplier, multiplier);
   fFragColor = tx1*tx2;
   //fFragColor = normalize(vec4(vTexCoords, vTexCoords));
   //fFragColor = tx1*tx2;

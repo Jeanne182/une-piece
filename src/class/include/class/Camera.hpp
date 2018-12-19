@@ -3,7 +3,7 @@
 
 #include <glimac/glm.hpp>
 
-namespace glimac
+namespace UP
 {
 
 /**

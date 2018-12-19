@@ -34,6 +34,27 @@ enum DIRECTION {
 };
 
 /**
+ * @brief Data structure for a vertex
+ * 
+ */
+struct ShapeVertex {
+    glm::vec3 position;
+    glm::vec3 normal;
+    glm::vec2 texCoords;
+    
+    ShapeVertex()
+    {
+    };
+
+    ShapeVertex(const glm::vec3& p, const glm::vec3& n, const glm::vec2& c) {
+      position = p;
+      normal = n;
+      texCoords = c;
+    };
+
+};
+
+/**
  * @brief Data Structure for a 2D point
  *
  */
@@ -61,8 +82,9 @@ struct Texture
   unsigned int id;
   std::string type;
   std::string path;
-  glm::vec3 diffuse(3);
-  glm::vec3 specular(3);
+  float shininess;
+  glm::vec3 diffuse = glm::vec3(3);
+  glm::vec3 specular = glm::vec3(3);
 };
 
 /**
