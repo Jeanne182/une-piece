@@ -104,6 +104,12 @@ public:
    * @brief Get the Asset Program
    * 
    */
+  inline const AssetProgramMultiLight &assetProgramMultiLight() const { return _assetProgramMultiLight; };
+
+  /**
+   * @brief Get the Asset Program
+   * 
+   */
   inline const StaticImageProgram &staticImageProgram() const { return _staticImageProgram; };
 
 private:
@@ -118,6 +124,7 @@ private:
       : _appPath(argv[0]),
         _assetProgram(_appPath),
         _assetProgramMulti(_appPath),
+        _assetProgramMultiLight(_appPath),
         _staticImageProgram(_appPath){};
 
   // AssetManager Path
@@ -126,6 +133,7 @@ private:
   // Programs
   AssetProgram _assetProgram;
   AssetProgramMulti _assetProgramMulti;
+  AssetProgramMultiLight _assetProgramMultiLight;
   StaticImageProgram _staticImageProgram;
 
   // Models

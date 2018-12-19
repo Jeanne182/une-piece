@@ -3,7 +3,7 @@
 #include <class/AssetManager.hpp>
 
 #include <glimac/Image.hpp>
-#include <glimac/common.hpp>
+#include <class/common.hpp>
 
 #include <string>
 #include <vector>
@@ -75,7 +75,7 @@ Mesh Model::processMesh(const aiMesh *mesh, const aiScene *scene)
 {
   std::vector<ShapeVertex> vertices;
   std::vector<unsigned int> indices;
-  std::vector<Texture> textures;
+  std::vector<UP::Texture> textures;
 
   // Process Vertex
   for (size_t i = 0; i < mesh->mNumVertices; i++)
@@ -118,7 +118,6 @@ Mesh Model::processMesh(const aiMesh *mesh, const aiScene *scene)
 
   // Process Textures
 
-  /*
   if (mesh->mMaterialIndex >= 0)
   {
     aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
@@ -127,33 +126,6 @@ Mesh Model::processMesh(const aiMesh *mesh, const aiScene *scene)
     std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "uTexture_specular");
     textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
   }
-  else
-  {
-    aiMaterial *material = new aiMaterial;
-    std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "uTexture_diffuse");
-    textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-  }
-  */
-
-  std::string replacedName = std::string("" + _name);
-  replacedName.replace(replacedName.end() - 3, replacedName.end(), "jpg");
-  std::string filepath = AssetManager::Get()->modelFile(replacedName);
-
-  if (_textures_loaded.size() > 0)
-  {
-    textures.push_back(_textures_loaded[0]);
-  }
-  else
-  {
-    Texture t;
-    t.path = replacedName;
-    t.id = CreateTexture(filepath);
-    t.type = "uTexture";
-
-    textures.push_back(t);
-    _textures_loaded.push_back(t); // add to loaded textures
-  }
-  //std::cout << textures.size() << std::endl;
 
   return Mesh(vertices, indices, textures);
 };
@@ -197,45 +169,13 @@ GLint CreateTexture(const std::string &filepath)
   return textureID;
 }
 
-GLint TextureFromFile(const char *path, std::string directory)
-{
-  //Generate texture ID and load texture data
-  std::string filename = std::string(path);
-  filename = directory + '/' + filename;
-
-  GLuint textureID;
-  glGenTextures(1, &textureID);
-
-  int width, height;
-  unsigned char *image = SOIL_load_image(filename.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
-  if (!image)
-  {
-    throw Error(std::string("Texture failed to load at path: ") + filename, AT);
-  }
-
-  // Assign texture to ID
-  glBindTexture(GL_TEXTURE_2D, textureID);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-  glGenerateMipmap(GL_TEXTURE_2D);
-
-  // Parameters
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-  // Unbind and quit
-  glBindTexture(GL_TEXTURE_2D, 0);
-  SOIL_free_image_data(image);
-  return textureID;
-}
-
 std::vector<Texture> Model::loadMaterialTextures(const aiMaterial *mat, const aiTextureType &type, const std::string &typeName)
 {
   std::vector<Texture> textures;
   for (size_t i = 0; i < mat->GetTextureCount(type); i++)
   {
     aiString str;
+
     mat->GetTexture(type, i, &str);
 
     // check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
@@ -251,10 +191,25 @@ std::vector<Texture> Model::loadMaterialTextures(const aiMaterial *mat, const ai
     }
     if (!skip)
     { // if texture hasn't been loaded already, load it
-      Texture texture;
-      texture.id = TextureFromFile(str.C_Str(), _directory);
+      UP::Texture texture;
+      // Basic Data
+      texture.id = CreateTexture(AssetManager::Get()->modelFile(str.C_Str()));
       texture.type = typeName;
       texture.path = str.C_Str();
+
+      // Light Data
+      aiColor3D diffuse(0.f, 0.f, 0.f);
+      aiColor3D specular(0.f, 0.f, 0.f);
+      float shininess;
+
+      mat->Get(AI_MATKEY_COLOR_DIFFUSE, diffuse);
+      mat->Get(AI_MATKEY_COLOR_SPECULAR, specular);
+      mat->Get(AI_MATKEY_SHININESS, shininess);
+
+      texture.diffuse = glm::vec3(diffuse.r, diffuse.g, diffuse.b);
+      texture.specular = glm::vec3(specular.r, specular.g, specular.b);
+      texture.shininess = shininess;
+
       textures.push_back(texture);
       _textures_loaded.push_back(texture); // add to loaded textures
     }
@@ -264,7 +219,7 @@ std::vector<Texture> Model::loadMaterialTextures(const aiMaterial *mat, const ai
 
 void Model::draw() const
 {
-  glUniform1f(AssetManager::Get()->assetProgram().uTextureRepeat, _textureRepeat);
+  glUniform1f(AssetManager::Get()->assetProgramMultiLight().uTextureRepeat, _textureRepeat);
   for (size_t i = 0; i < _meshes.size(); i++)
     _meshes[i].draw();
 }

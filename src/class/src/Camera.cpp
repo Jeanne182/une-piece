@@ -6,14 +6,14 @@
 
 #include <class/Camera.hpp>
 
-namespace glimac
+namespace UP
 {
 
 const double PI = 3.141592653589;
 const double HALF_PI = PI / 2;
 
 Camera::Camera()
-    : _fDistance(-5.0f), _fAngleX(0.0f), _fAngleY(0.0f)
+    : _fDistance(-15.0f), _fAngleX(0.0f), _fAngleY(0.0f), _center(0.f, 0.f, 0.f)
 {
 }
 
@@ -28,12 +28,12 @@ void Camera::event(const SDL_Event &e)
     float zoom = 1.0f;
     if (e.key.keysym.sym == SDLK_z || e.key.keysym.sym == SDLK_UP)
     {
-      std::cout << "Z or UP pressed" << std::endl;
+      //std::cout << "Z or UP pressed" << std::endl;
       moveFront(zoom);
     }
     else if (e.key.keysym.sym == SDLK_s || e.key.keysym.sym == SDLK_DOWN)
     {
-      std::cout << "S or DOWN pressed" << std::endl;
+      //std::cout << "S or DOWN pressed" << std::endl;
       moveFront(-zoom);
     }
   }
@@ -82,6 +82,7 @@ glm::mat4 Camera::getViewMatrix() const
   VM = glm::translate(VM, glm::vec3(0.0f, 0.0f, _fDistance));
   VM = glm::rotate(VM, glm::radians(_fAngleX), glm::vec3(1.0f, 0.0f, 0.0f));
   VM = glm::rotate(VM, glm::radians(_fAngleY), glm::vec3(0.0f, 1.0f, 0.0f));
+  VM = glm::translate(VM, -_center);
   return VM;
 }
 

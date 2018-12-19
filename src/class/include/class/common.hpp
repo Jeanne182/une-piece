@@ -19,6 +19,40 @@ namespace UP
 static const bool USE_CHRONO = false;
 static const int WINDOW_WIDTH = 800;
 static const int WINDOW_HEIGHT = 800;
+static const bool DEBUG = true;
+
+static const glm::vec3 VEC_NORTH = glm::vec3(1.f, 0.f, 0.f);
+static const glm::vec3 VEC_SOUTH = glm::vec3(-1.f, 0.f, 0.f);
+static const glm::vec3 VEC_EAST = glm::vec3(0.f, 0.0f, 1.f);
+static const glm::vec3 VEC_WEST = glm::vec3(0.f, 0.0f, -1.f);
+
+enum DIRECTION {
+  DIR_NORTH,
+  DIR_EAST,
+  DIR_SOUTH,
+  DIR_WEST
+};
+
+/**
+ * @brief Data structure for a vertex
+ * 
+ */
+struct ShapeVertex {
+    glm::vec3 position;
+    glm::vec3 normal;
+    glm::vec2 texCoords;
+    
+    ShapeVertex()
+    {
+    };
+
+    ShapeVertex(const glm::vec3& p, const glm::vec3& n, const glm::vec2& c) {
+      position = p;
+      normal = n;
+      texCoords = c;
+    };
+
+};
 
 /**
  * @brief Data Structure for a 2D point
@@ -48,6 +82,9 @@ struct Texture
   unsigned int id;
   std::string type;
   std::string path;
+  float shininess;
+  glm::vec3 diffuse = glm::vec3(3);
+  glm::vec3 specular = glm::vec3(3);
 };
 
 /**

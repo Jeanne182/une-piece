@@ -7,6 +7,7 @@
 #include <class/AssetManager.hpp>
 #include <class/Model.hpp>
 #include <class/Error.hpp>
+#include <class/Utils.hpp>
 
 using namespace glimac;
 
@@ -14,17 +15,15 @@ namespace UP
 {
 
 Character::Character()
-    : GameObject(glm::vec3(0.f, 0.f, 0.f),
+    : GameObject(glm::vec3(0.f, 0.1f, 0.f),
                  glm::vec3(0.0001f, 0.0001f, 0.0001f),
                  0.5f,
                  "bateau.obj"),
+      _lastCoordinate(3,0),
       _health(1),
       _score(0),
       _sideState(CENTER),
-      _verticalState(RUNNING)
-{
-  _model->setRepeat(4.f);
-};
+      _verticalState(RUNNING){};
 
 void Character::event(const SDL_Event &e)
 {
@@ -87,7 +86,7 @@ void Character::move()
 {
   forwardMove();
   sideMove(_sideState);
-  sideMove(_verticalState);
+  verticalMove(_verticalState);
 }
 
 void Character::sideMove(const int &side)
@@ -95,25 +94,25 @@ void Character::sideMove(const int &side)
   switch (side)
   {
   case CENTER:
-    if (_position[Y] < 0)
+    if (_position[Z] < 0)
     {
-      setPosY(_position[Y] + _speed[Y]);
+      setPosY(_position[Z] + _speed[Z]);
     }
-    else if (_position[Y] > 0)
+    else if (_position[Z] > 0)
     {
-      setPosY(_position[Y] - _speed[Y]);
+      setPosY(_position[Z] - _speed[Z]);
     }
     break;
   case LEFT:
-    if (_position[Y] > -2)
+    if (_position[Z] > -2)
     {
-      setPosY(_position[Y] - _speed[Y]);
+      setPosY(_position[Z] - _speed[Z]);
     }
     break;
   case RIGHT:
-    if (_position[Y] < 2)
+    if (_position[Z] < 2)
     {
-      setPosY(_position[Y] + _speed[Y]);
+      setPosY(_position[Z] + _speed[Z]);
     }
     break;
   }
@@ -124,19 +123,15 @@ void Character::verticalMove(const int &movement)
   switch (movement)
   {
   case RUNNING:
-    if (_position[Z] < 0)
+    if (_position[Y] > 3*_speed[Y])
     {
-      setPosZ(_position[Z] + _speed[Z]);
-    }
-    else if (_position[Z] > 0)
-    {
-      setPosZ(_position[Z] - _speed[Z]);
+      setPosZ(_position[Y] - _speed[Y]);
     }
     break;
   case JUMPING:
-    if (_position[Z] < 2)
+    if (_position[Y] < 2)
     {
-      setPosZ(_position[Z] + _speed[Z]);
+      setPosZ(_position[Y] + _speed[Y]);
     }
     break;
   }
@@ -184,15 +179,21 @@ void Character::deleteExpiredBonuses()
   }
 }
 
-void Character::addCoin(const unsigned int coinValue){
+void Character::addCoin(const unsigned int coinValue)
+{
   _score += coinValue;
 }
-
+/*
+const float epsilon = 0.9f;
+if ( abs(cast(_position[X]) - cast(gameObject.x())) < epsilon &&
+    abs(cast(_position[Y]) - cast(gameObject.y())) < epsilon &&
+    abs(cast(_position[Z]) - cast(gameObject.z())) < epsilon)
+*/
 bool Character::collisionDetector(GameObject &gameObject)
 {
-  if ((int)_position[X] == (int)gameObject.x() &&
-      (int)_position[Y] == (int)gameObject.y() &&
-      (int)_position[Z] == (int)gameObject.z())
+  if ( Utils::cast(_position[X]) == Utils::cast(gameObject.x()) &&
+      Utils::cast(_position[Y]) == Utils::cast(gameObject.y()) &&
+      Utils::cast(_position[Z]) == Utils::cast(gameObject.z()))
   {
     return gameObject.collisionHandler(this);
   }
@@ -221,12 +222,12 @@ void Character::reset()
   _verticalState = RUNNING;
   _activeBonuses.clear();
   setSpeed(glm::vec3(0.0001f, 0.0001f, 0.0001f));
-  _scale = 0.1f;
+  _scale = 1.f;
 }
 
 bool Character::collisionHandler(GameObject *gameObject)
 {
-    throw Error(std::string("Can't colide with yourself"), AT);
+  throw Error(std::string("Can't colide with yourself"), AT);
 }
 
 } // namespace UP

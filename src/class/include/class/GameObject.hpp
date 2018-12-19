@@ -165,6 +165,20 @@ public:
   inline void addPosZ(const float &z) { _position[Z] += z; };
 
   /**
+   * @brief Set the Rotation Angle object
+   *
+   * @param speed
+   */
+  inline void setAngles(const glm::vec3 &angles) { _angles = angles; };
+
+  /**
+   * @brief Set the Rotation Angle object
+   *
+   * @param speed
+   */
+  inline void setScale(const float &scale) { _scale = scale; };
+
+  /**
    * @brief Set the Speed object
    *
    * @param speed
@@ -195,6 +209,7 @@ public:
 
 protected:
   float _scale;
+  glm::vec3 _angles;
   glm::vec3 _position;
   glm::vec3 _speed;
   glm::mat4 _P, _MV, _N;

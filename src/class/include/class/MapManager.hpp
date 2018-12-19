@@ -4,8 +4,10 @@
 #pragma once
 
 #include <string>
-#include <vector>
+#include <deque>
 #include <iostream>
+
+#include <glimac/glm.hpp>
 
 #include <class/Tile.hpp>
 
@@ -17,20 +19,39 @@ class MapManager
 {
 
 public:
+  // =============== CONSTS FOR THE GENERATION ===============
+
+  static const int ROW_SIZE = 13;
+  static const int BATCH_SIZE_MIN = 4;
+  static const int BATCH_SIZE_MAX = 7;
+
+  enum BATCH_TYPE : unsigned int
+  {
+    BATCH_TYPE_SIMPLE,
+    BATCH_TYPE_COIN,
+    BATCH_TYPE_OBSTACLE
+  };
+
+  // =============== CONSTRUCTOR ===============
+  /**
+   * @brief Construct a new Map Manager object
+   *
+   */
   MapManager();
 
+  // =============== GETTERS  ===============
   /**
    * @brief Getter for the map object
    *
-   * @return std::vector<Tile>&
+   * @return std::deque<Tile>&
    */
-  inline std::vector<Tile> &map() { return _map; };
+  inline std::deque<Tile> &map() { return _map; };
   /**
    * @brief Getter for the map object
    *
-   * @return const std::vector<Tile>&
+   * @return const std::deque<Tile>&
    */
-  inline const std::vector<Tile> &map() const { return _map; };
+  inline const std::deque<Tile> &map() const { return _map; };
 
   /**
    * @brief Getter for a tile
@@ -39,7 +60,8 @@ public:
    * @param j
    * @return Tile
    */
-  Tile operator()(const size_t i, const size_t j) { return _map[i * 3 + j]; };
+  Tile& getTile(const size_t i, const size_t j) { return _map[i * ROW_SIZE + j]; };
+
 
   /**
    * @brief Getter for a tile
@@ -48,8 +70,28 @@ public:
    * @param j
    * @return const Tile
    */
-  const Tile operator()(const size_t i, const size_t j) const { return _map[i * 3 + j]; };
+  const Tile& getTile(const size_t i, const size_t j) const { return _map[i * ROW_SIZE + j]; };
+  /**
+   * @brief Get the Pos of the last object
+   *
+   * @return float
+   */
+  glm::vec3 getLastPos() const;
 
+  /**
+   * @brief Get the Directionnal Vector object
+   *
+   * @return const glm::vec3&
+   */
+  const glm::vec3 &getDirectionnalVector() const;
+
+  /**
+   * @brief Get the Opposite Directionnal Vector object
+   *
+   * @return const glm::vec3&
+   */
+  const glm::vec3 &getOppositeDirectionnalVector() const;
+  // =============== METHODS  ===============
   /**
    * @brief Display the Map
    *
@@ -64,14 +106,26 @@ public:
    */
   void setMatrix(const glm::mat4 &cameraMV) const;
 
+
   /**
    * @brief Delete a Tile
    *
    */
   void destroy(const unsigned int index);
 
+  void generateBatch();
+  void generateSimpleBatch();
+  void generateCoinBatch();
+  void generateObstacleBatch();
+
+  inline void turnRight() { _direction = (_direction + 1) % 4; }
+  inline void turnLeft() { _direction = (_direction - 1) % 4; }
+
+
 private:
-  std::vector<Tile> _map;
+  std::deque<Tile> _map;
+  std::vector<uint> _probability;
+  unsigned int _direction;
 };
 
 } // namespace UP

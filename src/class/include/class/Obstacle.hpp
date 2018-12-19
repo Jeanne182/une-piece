@@ -3,17 +3,7 @@
 
 #pragma once
 
-#include <iostream>
-#include <algorithm>
-#include <vector>
-#include <map>
-#include <time.h>
-
-#include <glimac/SDLWindowManager.hpp>
-#include <glimac/common.hpp>
 #include <class/GameObject.hpp>
-#include <class/Character.hpp>
-
 
 using namespace glimac;
 
@@ -30,13 +20,7 @@ public:
    *
    */
   Obstacle(const glm::vec3 position, const std::string &name);
-
-  /**
-   * @brief Destroy the Obstacle object
-   *
-   */
-  ~Obstacle(){};
-
+  
   /**
    * @brief Display the obstacle
    *
@@ -48,9 +32,6 @@ public:
    *
    */
   bool collisionHandler(GameObject *gameObject);
-
-
-private:
 
 };
 

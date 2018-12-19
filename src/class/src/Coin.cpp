@@ -14,7 +14,10 @@ Coin::Coin(const glm::vec3 position, const unsigned int value, const std::string
                  glm::vec3(0.0001f, 0.0001f, 0.0001f),
                  0.1f,
                  name),
-      _value(value){};
+      _value(value)
+{
+  _model->setRepeat(4.f);
+};
 
 void Coin::display() const
 {

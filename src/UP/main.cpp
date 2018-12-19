@@ -68,6 +68,17 @@ main(int argc, char **argv)
         done = true; // Leave the loop after this iteration
       }
 
+      if (DEBUG)
+      {
+        if (e.type == SDL_KEYDOWN)
+        {
+          if (e.key.keysym.sym == SDLK_q)
+          {
+            done = true;
+          }
+        }
+      }
+
       app.event(e);
     }
 
@@ -87,7 +98,7 @@ main(int argc, char **argv)
       std::cout << chr.timeSpan() << std::endl;
   }
 
-/*
+  /*
   glDeleteBuffers(1, &vbo);
   glDeleteVertexArrays(1, &vao);
   glDeleteTextures(2, textures);

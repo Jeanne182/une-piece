@@ -1,6 +1,9 @@
+#ifndef CAMERA_UP_HPP__
+#define CAMERA_UP_HPP__
+
 #include <glimac/glm.hpp>
 
-namespace glimac
+namespace UP
 {
 
 /**
@@ -10,7 +13,6 @@ namespace glimac
 class Camera
 {
 public:
-  
   /**
    * @brief Construct a new Camera object
    * 
@@ -53,9 +55,19 @@ public:
    */
   glm::mat4 getViewMatrix() const;
 
+  /**
+   * @brief Set the Center object
+   * 
+   * @param center 
+   */
+  inline void setCenter(const glm::vec3 &center) { _center = center; };
+
 private:
+  glm::vec3 _center;
   float _fDistance; // Distane par rapport au centre de la scene
   float _fAngleX;   // Angle X autour de la camera
   float _fAngleY;   // Angle Y autour de la camera
 };
 } // namespace glimac
+
+#endif

@@ -57,6 +57,8 @@ public:
    */
   inline unsigned int getHealth() const { return _health; }
 
+  inline const std::vector<int> &getLastCoordinate() const { return _lastCoordinate; }
+
   // ============= SETTERS =============
   /**
     * @brief Get the Active Bonuses object
@@ -65,13 +67,14 @@ public:
     */
   inline std::map<unsigned int, time_t> getActiveBonuses() const { return _activeBonuses; }
 
-  // ============= SETTERS =============
   /**
    * @brief Set the Health object
    *
    * @param health
    */
   inline void setHealth(const unsigned int &health) { _health = health; }
+
+  inline void setlastCoordinate(const std::vector<int> &lastCoordinate) { _lastCoordinate = lastCoordinate; }
 
   // ============= MOVEMENT =============
   /**
@@ -168,6 +171,7 @@ public:
   bool collisionHandler(GameObject *gameObject);
 
 private:
+  std::vector<int> _lastCoordinate;
   unsigned int _health;
   unsigned int _score;
   int _sideState;
