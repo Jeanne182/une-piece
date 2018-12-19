@@ -29,11 +29,12 @@ public:
    * @param gameObject
    */
   Tile(GameObject *gameObject);
-  std::vector<GameObject*> tile() const { return _tileObjects; }
-  GameObject* object(const unsigned int index) const { if(index < _tileObjects.size()) return _tileObjects[index]; };
+  std::vector<GameObject *> tile() const { return _tileObjects; }
+  GameObject *object(const unsigned int index) const;
   void add(GameObject *gameObject);
   void destroy(const unsigned int index);
   void setMatrix(const glm::mat4 &cameraMV) const;
+  void clean();
 
   /**
    * @brief Call the display of all GameObject

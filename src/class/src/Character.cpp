@@ -19,7 +19,7 @@ Character::Character()
                  glm::vec3(0.001f),
                  0.5f,
                  "bateau.obj"),
-      _lastCoordinate(3,0),
+      _lastCoordinate(3, 0),
       _health(1),
       _score(0),
       _sideState(CENTER),
@@ -123,7 +123,7 @@ void Character::verticalMove(const int &movement)
   switch (movement)
   {
   case RUNNING:
-    if (_position[Y] > 3*_speed[Y])
+    if (_position[Y] > 3 * _speed[Y])
     {
       setPosZ(_position[Y] - _speed[Y]);
     }
@@ -191,7 +191,7 @@ if ( abs(cast(_position[X]) - cast(gameObject.x())) < epsilon &&
 */
 bool Character::collisionDetector(GameObject &gameObject)
 {
-  if ( Utils::cast(_position[X]) == Utils::cast(gameObject.x()) &&
+  if (Utils::cast(_position[X]) == Utils::cast(gameObject.x()) &&
       Utils::cast(_position[Y]) == Utils::cast(gameObject.y()) &&
       Utils::cast(_position[Z]) == Utils::cast(gameObject.z()))
   {

@@ -192,6 +192,8 @@ public:
    */
   void reset();
 
+  inline void markDeleted() { _toDelete = true; };
+  inline bool shallDelete() { return _toDelete; }
   // ============= MATRIX =============
   /**
    * @brief Compute the MVP and Normal matrix
@@ -209,6 +211,7 @@ public:
 
 protected:
   float _scale;
+  bool _toDelete = false;
   glm::vec3 _angles;
   glm::vec3 _position;
   glm::vec3 _speed;

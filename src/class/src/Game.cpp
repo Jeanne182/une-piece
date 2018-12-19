@@ -47,7 +47,7 @@ void Game::update()
 {
 
   // Change Light Direction
-  glm::mat4 r = glm::rotate(glm::mat4(1.f) ,glm::radians(0.01f), glm::vec3(0.f, 1.f, 0.f));
+  glm::mat4 r = glm::rotate(glm::mat4(1.f), glm::radians(0.01f), glm::vec3(0.f, 1.f, 0.f));
   _light.setDirection(r * _light.direction());
 
   // Update the scene
@@ -84,50 +84,59 @@ void Game::reset()
   _map = new MapManager;
 }
 
-void Game::collide(){
+void Game::collide()
+{
   const std::vector<int> &v = _character.getLastCoordinate();
   int x = Utils::cast(_character.x());
   int y = Utils::cast(_character.y());
   int z = Utils::cast(_character.z());
-  if( v[X] != x ||
+  if (v[X] != x ||
       v[Y] != y ||
       v[Z] != z)
+  {
+    //std::cout << "Ancienne position du character : [" << v[X] << "," << v[Y] << "," << v[Z] << "]" << std::endl;
+    //std::cout << "Nouvelle position du character : [" << x << "," << y << "," << z << "]" << std::endl;
+    //std::cout << "Position du character : " << _character.pos() << std::endl;
+    //std::cout << std::endl;
+    GameObject *g;
+    bool shallDelete = false;
+    int index;
+    _character.setlastCoordinate(std::vector<int>{x, y, z});
+    Tile &t = _map->getTile(x, z);    
+    for (int i = 0; i < t.tile().size(); i++)
+    {
+      //std::cout << "Position de l'objet : " << t.object(i)->pos() << std::endl;
+      if (Utils::cast(t.object(i)->y()) == y)
       {
-        std::cout << "Ancienne position du character : [" << v[X] << "," << v[Y] << ","  << v[Z] << "]"<< std::endl;
-        std::cout << "Nouvelle position du character : [" << x << "," << y << ","  << z << "]"<< std::endl;
-        std::cout << "Position du character : " << _character.pos() << std::endl;
-        std::cout << std::endl;
-        _character.setlastCoordinate(std::vector<int>{x, y, z});
-        Tile &t = _map->getTile(x, z);
-        for(int i = 0; i < t.tile().size(); i++){
-            std::cout << "Position de l'objet : " << t.object(i)->pos() << std::endl;
-            if( Utils::cast(t.object(i)->y()) == y )
-            {
-              t.object(i)->collisionHandler(&_character);
-            }
+        if (t.object(i)->collisionHandler(&_character))
+        {
+          t.object(i)->setPosY(3.f);
+          t.object(i)->markDeleted();
         }
       }
-
+    }
+    t.clean();
+  }
 }
 
 void Game::destroy()
 {
   std::deque<Tile> &map = _map->map();
-  for(int i = 0; i < map.size(); i++)
+  for (int i = 0; i < map.size(); i++)
   {
-    for(int j = 0; j < map[i].tile().size(); j++)
+    for (int j = 0; j < map[i].tile().size(); j++)
     {
-      if(_character.collisionDetector(*(map[i].object(j))) == true)
+      if (_character.collisionDetector(*(map[i].object(j))) == true)
       {
         std::cout << "Position de l'objet : " << map[i].object(j)->pos() << std::endl;
         std::cout << "Avant d'être supprimer : " << map[i].tile().size() << std::endl;
         map[i].destroy(j);
-        for(int k = 0; k < map[i].tile().size(); k++)
+        for (int k = 0; k < map[i].tile().size(); k++)
         {
           std::cout << "Après la supression : " << map[i].tile().size() << std::endl;
         }
       }
-      if(map[i].tile().empty())
+      if (map[i].tile().empty())
       {
         _map->destroy(i);
       }
