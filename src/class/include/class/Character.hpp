@@ -155,7 +155,7 @@ public:
    * @return true
    * @return false
    */
-  void collisionDetector(GameObject &gameObject);
+  bool collisionDetector(GameObject &gameObject);
 
   // ============= HEALTH =============
   /**
@@ -165,7 +165,7 @@ public:
    */
   void loseHealth(const unsigned int &value);
 
-  void collisionHandler(GameObject *gameObject);
+  bool collisionHandler(GameObject *gameObject);
 
 private:
   unsigned int _health;

@@ -25,7 +25,7 @@ MapManager::MapManager()
       //_temp.push_back(new Coin(glm::vec3(i, 0.f, j-1), 1, "ruby.obj"));
       //_temp.push_back(new Water(glm::vec3(i, -1.f, j-1)));
       Tile t(glm::vec3(i, 0.f, j-1));
-      t.add(new Coin(glm::vec3(i, 1.f, j-1), 1, "ruby.obj"));
+      t.add(new Coin(glm::vec3(i, 0.f, j-1), 1, "ruby.obj"));
       _map.push_back(t);
     }
   }
@@ -45,6 +45,10 @@ void MapManager::display() const
   {
     _map[i].display();
   }
+}
+
+void MapManager::destroy(const unsigned int index){
+  _map.erase(_map.begin() + index);
 }
 
 } // namespace UP

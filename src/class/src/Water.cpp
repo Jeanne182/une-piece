@@ -23,9 +23,9 @@ void Water::display() const
   //std::cout << _position << std::endl;
 }
 
-void Water::collisionHandler(GameObject *gameObject)
+bool Water::collisionHandler(GameObject *gameObject)
 {
-  return;
+  return false;
 }
 
 } // namespace UP

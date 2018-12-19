@@ -58,7 +58,7 @@ public:
    * @brief Must Implement a way to handle the behaviour of the collision
    *
    */
-  virtual void collisionHandler(GameObject *gameObject) = 0;
+  virtual bool collisionHandler(GameObject *gameObject) = 0;
 
   // ============= GETTERS =============
   /**

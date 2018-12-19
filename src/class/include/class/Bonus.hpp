@@ -56,7 +56,7 @@ public:
    *
    */
 
-  void collisionHandler(GameObject *gameObject);
+  bool collisionHandler(GameObject *gameObject);
 
 
   // ============= GETTERS =============

@@ -55,7 +55,7 @@ public:
    * @brief Handle the collision with a player (gameObject dynamic casted)
    *
    */
-  void collisionHandler(GameObject *gameObject);
+  bool collisionHandler(GameObject *gameObject);
 
 
 private:

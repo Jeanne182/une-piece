@@ -23,9 +23,10 @@ void Bonus::display() const
   _model->draw();
 }
 
-void Bonus::collisionHandler(GameObject *gameObject)
+bool Bonus::collisionHandler(GameObject *gameObject)
 {
   dynamic_cast<Character*>(gameObject)->addBonus(*this);
+  return true;
 }
 
 } // namespace UP

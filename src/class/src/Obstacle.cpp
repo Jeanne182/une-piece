@@ -23,9 +23,10 @@ void Obstacle::display() const
   //std::cout << _position << std::endl;
 }
 
-void Obstacle::collisionHandler(GameObject *gameObject)
+bool Obstacle::collisionHandler(GameObject *gameObject)
 {
    dynamic_cast<Character*>(gameObject)->loseHealth(1);
+   return false;
 }
 
 } // namespace UP

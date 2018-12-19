@@ -16,7 +16,7 @@ namespace UP
 Character::Character()
     : GameObject(glm::vec3(0.f, 0.f, 0.f),
                  glm::vec3(0.0001f, 0.0001f, 0.0001f),
-                 1.f,
+                 0.5f,
                  "bateau.obj"),
       _health(1),
       _score(0),
@@ -188,14 +188,15 @@ void Character::addCoin(const unsigned int coinValue){
   _score += coinValue;
 }
 
-void Character::collisionDetector(GameObject &gameObject)
+bool Character::collisionDetector(GameObject &gameObject)
 {
   if ((int)_position[X] == (int)gameObject.x() &&
       (int)_position[Y] == (int)gameObject.y() &&
       (int)_position[Z] == (int)gameObject.z())
   {
-    gameObject.collisionHandler(this);
+    return gameObject.collisionHandler(this);
   }
+  return false;
 }
 
 void Character::loseHealth(const unsigned int &value)
@@ -223,7 +224,7 @@ void Character::reset()
   _scale = 0.1f;
 }
 
-void Character::collisionHandler(GameObject *gameObject)
+bool Character::collisionHandler(GameObject *gameObject)
 {
     throw Error(std::string("Can't colide with yourself"), AT);
 }
