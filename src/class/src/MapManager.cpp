@@ -43,6 +43,21 @@ void MapManager::display() const
     (*it).display();
   }
 }
+Tile &MapManager::getTile(const size_t i, const size_t j)
+{
+  size_t index = i * ROW_SIZE + j - (ROW_SIZE + 1) / 2;
+  if (index >= _map.size())
+    throw Error("No tile here", AT);
+  return _map[index];
+};
+
+const Tile &MapManager::getTile(const size_t i, const size_t j) const
+{
+  size_t index = i * ROW_SIZE + j - (ROW_SIZE + 1) / 2;
+  if (index >= _map.size())
+    throw Error("No tile here", AT);
+  return _map[index];
+}
 
 void MapManager::generateBatch()
 {
@@ -187,7 +202,8 @@ glm::vec3 MapManager::getLastPos() const
   }
 }
 
-void MapManager::destroy(const unsigned int index){
+void MapManager::destroy(const unsigned int index)
+{
   _map.erase(_map.begin() + index);
 }
 
