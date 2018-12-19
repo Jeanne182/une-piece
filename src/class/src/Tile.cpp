@@ -38,6 +38,8 @@ void Tile::destroy(const unsigned int index)
 
 void Tile::clean()
 {
+
+  std::cout << "Tile size : " << _tileObjects.size() << std::endl;
   for (int i = 0; i < _tileObjects.size(); i++)
   {
     if (_tileObjects[i]->shallDelete())
@@ -48,6 +50,7 @@ void Tile::clean()
       delete _tileObjects[i];
     }
   }
+  std::cout << "Tile size : " << _tileObjects.size() << std::endl;
 }
 
 void Tile::setMatrix(const glm::mat4 &cameraMV) const

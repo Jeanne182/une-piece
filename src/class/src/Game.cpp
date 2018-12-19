@@ -110,7 +110,6 @@ void Game::collide()
       {
         if (t.object(i)->collisionHandler(&_character))
         {
-          t.object(i)->setPosY(3.f);
           t.object(i)->markDeleted();
         }
       }
