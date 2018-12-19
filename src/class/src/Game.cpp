@@ -99,7 +99,13 @@ void Game::collide(){
         std::cout << std::endl;
         _character.setlastCoordinate(std::vector<int>{x, y, z});
         Tile &t = _map->getTile(x, z);
-        std::cout << "Position de l'objet : " << t.object(0)->pos() << std::endl;
+        for(int i = 0; i < t.tile().size(); i++){
+            std::cout << "Position de l'objet : " << t.object(i)->pos() << std::endl;
+            if( Utils::cast(t.object(i)->y()) == y )
+            {
+              t.object(i)->collisionHandler(&_character);
+            }
+        }
       }
 
 }

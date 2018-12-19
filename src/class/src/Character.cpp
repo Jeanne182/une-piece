@@ -16,7 +16,7 @@ namespace UP
 
 Character::Character()
     : GameObject(glm::vec3(0.f, 0.1f, 0.f),
-                 glm::vec3(0.0001f, 0.0001f, 0.0001f),
+                 glm::vec3(0.001f, 0.001f, 0.001f),
                  0.5f,
                  "bateau.obj"),
       _lastCoordinate(3,0),

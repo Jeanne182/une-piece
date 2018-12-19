@@ -128,7 +128,7 @@ void MapManager::generateCoinBatch()
       {
         // Put the rubies in the air
         float y = 0.5f;
-        if (floatingCoins && i != 0 && i != length - 2 && false)
+        if (floatingCoins && i != 0 && i != length - 2)
         {
           y = 1.5f;
         }

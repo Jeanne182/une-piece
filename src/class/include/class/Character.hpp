@@ -55,9 +55,11 @@ public:
    *
    * @return unsigned int
    */
-  inline unsigned int getHealth() const { return _health; }
+  inline unsigned int health() const { return _health; }
 
   inline const std::vector<int> &getLastCoordinate() const { return _lastCoordinate; }
+
+  inline unsigned int score() const { return _score; }
 
   // ============= SETTERS =============
   /**

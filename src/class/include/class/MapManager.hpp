@@ -60,7 +60,7 @@ public:
    * @param j
    * @return Tile
    */
-  Tile& getTile(const size_t i, const size_t j) { return _map[i * ROW_SIZE + j]; };
+  Tile& getTile(const size_t i, const size_t j) { return _map[i * ROW_SIZE + j - (ROW_SIZE + 1)/2]; };
 
 
   /**
@@ -70,7 +70,7 @@ public:
    * @param j
    * @return const Tile
    */
-  const Tile& getTile(const size_t i, const size_t j) const { return _map[i * ROW_SIZE + j]; };
+  const Tile& getTile(const size_t i, const size_t j) const { return _map[i * ROW_SIZE + j - (ROW_SIZE + 1)/2]; };
   /**
    * @brief Get the Pos of the last object
    *
