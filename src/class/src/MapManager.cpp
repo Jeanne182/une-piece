@@ -95,8 +95,15 @@ void MapManager::generateSimpleBatch()
   {
     for (float j = 0; j < MapManager::ROW_SIZE; j++)
     {
-      float k = j - 1;
-      _map.push_back(Tile(pos + getOppositeDirectionnalVector() * k));
+      float k = j - MapManager::ROW_SIZE / 2;
+      Tile t(pos + getOppositeDirectionnalVector() * k);
+
+      // Put rocks on the side
+      if (j == 0 || j == MapManager::ROW_SIZE - 1)
+      {
+        t.add(new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + getOppositeDirectionnalVector() * k, "hole.obj"));
+      }
+      _map.push_back(t);
     }
     pos += getDirectionnalVector();
   }
@@ -112,7 +119,7 @@ void MapManager::generateCoinBatch()
   {
     for (float j = 0; j < MapManager::ROW_SIZE; j++)
     {
-      float k = j - 1;
+      float k = j - MapManager::ROW_SIZE / 2;
       Tile t(pos + getOppositeDirectionnalVector() * k);
 
       // Choose the lane
@@ -125,6 +132,12 @@ void MapManager::generateCoinBatch()
           y = 2.0f;
         }
         t.add(new Coin(pos + glm::vec3(0.f, y, 0.f) + getOppositeDirectionnalVector() * k, 1, "ruby.obj"));
+      }
+
+      // Put rocks on the side
+      if (j == 0 || j == MapManager::ROW_SIZE - 1)
+      {
+        t.add(new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + getOppositeDirectionnalVector() * k, "hole.obj"));
       }
       _map.push_back(t);
     }
@@ -141,13 +154,18 @@ void MapManager::generateObstacleBatch()
   {
     for (float j = 0; j < MapManager::ROW_SIZE; j++)
     {
-      float k = j - 1;
+      float k = j - MapManager::ROW_SIZE / 2;
       Tile t(pos + getOppositeDirectionnalVector() * k);
 
       // Choose the lane
       if (k == lane && i != 0 && i != length - 2)
       {
         t.add(new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + getOppositeDirectionnalVector() * k, "tentacle.obj"));
+      }
+      // Put rocks on the side
+      if (j == 0 || j == MapManager::ROW_SIZE - 1)
+      {
+        t.add(new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + getOppositeDirectionnalVector() * k, "hole.obj"));
       }
       _map.push_back(t);
     }
@@ -163,7 +181,7 @@ glm::vec3 MapManager::getLastPos() const
   }
   else
   {
-    const Tile &t = *(_map.end() - 2);
+    const Tile &t = *(_map.end() - (ROW_SIZE - 1) / 2 - 1);
     return t.getObjects()[0]->pos();
   }
 }

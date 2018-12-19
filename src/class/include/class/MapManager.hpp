@@ -21,7 +21,7 @@ class MapManager
 public:
   // =============== CONSTS FOR THE GENERATION ===============
 
-  static const int ROW_SIZE = 3;
+  static const int ROW_SIZE = 13;
   static const int BATCH_SIZE_MIN = 4;
   static const int BATCH_SIZE_MAX = 7;
 

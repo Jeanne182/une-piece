@@ -13,11 +13,20 @@ Obstacle::Obstacle(const glm::vec3 position, const std::string &name)
                  0.1f,
                  name)
 {
-  float x = Utils::dicef(-40.f, 40.f);
-  float y = Utils::dicef(0.f, 360.f);
-  float z = Utils::dicef(-40.f, 40.f);
-  setAngles(glm::vec3(x, y, 0.f));
-  setScale(Utils::dicef(0.1f, 0.35f));
+  if (name == "tentacle.obj")
+  {
+    float x = Utils::dicef(-40.f, 40.f);
+    float y = Utils::dicef(0.f, 360.f);
+    float z = Utils::dicef(-40.f, 40.f);
+    setAngles(glm::vec3(x, y, z));
+    setScale(Utils::dicef(0.1f, 0.35f));
+  }
+  else if (name == "hole.obj")
+  {
+    float y = Utils::dicef(0.f, 360.f);
+    setAngles(glm::vec3(0.f, y, 0.f));
+    setScale(2.f);
+  }
 }
 
 void Obstacle::display() const

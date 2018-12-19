@@ -22,7 +22,6 @@ uniform sampler2D uTexture_specular1;
 uniform float uTextureRepeat;
 
 vec3 blinnPhong() {
-  // Couleur=Li(Kd(wi˙N)+Ks(halfVector˙N)shininess)
   vec3 wi = normalize(uLightDir_vs);
   vec3 halfVector = normalize(-vPosition_vs);
   vec3 p1 = uKd*(dot(wi, vNormal_vs));
@@ -34,5 +33,5 @@ vec3 blinnPhong() {
 void main() {
   vec4 tx1 = texture(uTexture_diffuse1, vTexCoords * uTextureRepeat);
   vec4 tx2 = texture(uTexture_specular1, vTexCoords * uTextureRepeat);
-  fFragColor = (tx1*tx2) * vec4(blinnPhong(), 0) * 0.5 + (tx1*tx2) * 0.5;
+  fFragColor = ((tx1*tx2) * vec4(blinnPhong(), 1) * 0.5) + ((tx1*tx2) * 0.5);
 }

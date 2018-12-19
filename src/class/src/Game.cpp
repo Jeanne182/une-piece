@@ -44,6 +44,12 @@ void Game::event(const SDL_Event &e)
 }
 void Game::update()
 {
+
+  // Change Light Direction
+  glm::mat4 r = glm::rotate(glm::mat4(1.f) ,glm::radians(0.01f), glm::vec3(0.f, 1.f, 0.f));
+  _light.setDirection(r * _light.direction());
+  
+  // Update the scene
   _camera.update();
   //_character.move();
   _character.setMatrix(_camera.getViewMatrix());
@@ -54,7 +60,8 @@ void Game::display() const
   AssetManager::Get()->assetProgramMultiLight()._Program.use();
 
   // Compute the ViewMatrix * Light
-  glm::vec4 l = _camera.getViewMatrix() * _light.direction();
+  glm::vec4 l = _light.direction() * _camera.getViewMatrix();
+  //glm::vec4 l = _light.direction();
 
   // Send it
   const AssetProgramMultiLight &a = AssetManager::Get()->assetProgramMultiLight();
