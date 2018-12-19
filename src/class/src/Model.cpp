@@ -118,7 +118,6 @@ Mesh Model::processMesh(const aiMesh *mesh, const aiScene *scene)
 
   // Process Textures
 
-  /*
   if (mesh->mMaterialIndex >= 0)
   {
     aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
@@ -127,32 +126,33 @@ Mesh Model::processMesh(const aiMesh *mesh, const aiScene *scene)
     std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "uTexture_specular");
     textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
   }
-  else
-  {
-    aiMaterial *material = new aiMaterial;
-    std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "uTexture_diffuse");
-    textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-  }
-  */
 
-  std::string replacedName = std::string("" + _name);
-  replacedName.replace(replacedName.end() - 3, replacedName.end(), "jpg");
-  std::string filepath = AssetManager::Get()->modelFile(replacedName);
-
-  if (_textures_loaded.size() > 0)
+/*
+  if (mesh->mMaterialIndex >= 0)
   {
-    textures.push_back(_textures_loaded[0]);
-  }
-  else
-  {
-    Texture t;
-    t.path = replacedName;
-    t.id = CreateTexture(filepath);
-    t.type = "uTexture";
 
-    textures.push_back(t);
-    _textures_loaded.push_back(t); // add to loaded textures
+    // Replace the name
+    std::string replacedName = std::string("" + _name);
+    replacedName.replace(replacedName.end() - 3, replacedName.end(), "jpg");
+    std::string filepath = AssetManager::Get()->modelFile(replacedName);
+
+    if (_textures_loaded.size() > 0)
+    {
+      textures.push_back(_textures_loaded[0]);
+    }
+    else
+    {
+      Texture t;
+      t.path = replacedName;
+      t.id = CreateTexture(filepath);
+      t.type = "uTexture_diffuse";
+
+      textures.push_back(t);
+      _textures_loaded.push_back(t); // add to loaded textures
+    }
+
   }
+    */
   //std::cout << textures.size() << std::endl;
 
   return Mesh(vertices, indices, textures);
@@ -252,7 +252,8 @@ std::vector<Texture> Model::loadMaterialTextures(const aiMaterial *mat, const ai
     if (!skip)
     { // if texture hasn't been loaded already, load it
       Texture texture;
-      texture.id = TextureFromFile(str.C_Str(), _directory);
+      //texture.id = TextureFromFile(str.C_Str(), _directory);
+      texture.id = CreateTexture(AssetManager::Get()->modelFile(str.C_Str()));
       texture.type = typeName;
       texture.path = str.C_Str();
       textures.push_back(texture);
@@ -264,7 +265,7 @@ std::vector<Texture> Model::loadMaterialTextures(const aiMaterial *mat, const ai
 
 void Model::draw() const
 {
-  glUniform1f(AssetManager::Get()->assetProgram().uTextureRepeat, _textureRepeat);
+  glUniform1f(AssetManager::Get()->assetProgramMulti().uTextureRepeat, _textureRepeat);
   for (size_t i = 0; i < _meshes.size(); i++)
     _meshes[i].draw();
 }

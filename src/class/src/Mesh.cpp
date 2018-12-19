@@ -59,9 +59,9 @@ void Mesh::draw() const
 {
   // Use Textures
 
-  if (_textures.size() == 1)
+  if (_textures.size() == 1 && false)
   {
-    //std::cout << "Draw 1" << std::endl;
+    std::cout << "Draw 1" << std::endl;
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, _textures[0].id);
     GLint location = AssetManager::Get()->assetProgram().uMapTextures.at(_textures[0].type);
@@ -75,7 +75,7 @@ void Mesh::draw() const
     glBindTexture(GL_TEXTURE_2D, 0);
     glBindVertexArray(0);
   }
-  else if (_textures.size() > 1)
+  else
   {
 
     unsigned int diffuseNr = 1;
@@ -92,7 +92,7 @@ void Mesh::draw() const
       else if (name == "uTexture_specular")
         number = std::to_string(specularNr++);
 
-      GLint location = AssetManager::Get()->assetProgram().uMapTextures.at(name + number);
+      GLint location = AssetManager::Get()->assetProgramMulti().uMapTextures.at(std::string(name + number));
       glUniform1i(location, i);
       glBindTexture(GL_TEXTURE_2D, _textures[i].id);
     }
