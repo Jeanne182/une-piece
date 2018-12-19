@@ -127,7 +127,7 @@ Mesh Model::processMesh(const aiMesh *mesh, const aiScene *scene)
     textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
   }
 
-/*
+  /*
   if (mesh->mMaterialIndex >= 0)
   {
 
@@ -236,6 +236,7 @@ std::vector<Texture> Model::loadMaterialTextures(const aiMaterial *mat, const ai
   for (size_t i = 0; i < mat->GetTextureCount(type); i++)
   {
     aiString str;
+
     mat->GetTexture(type, i, &str);
 
     // check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
@@ -252,10 +253,18 @@ std::vector<Texture> Model::loadMaterialTextures(const aiMaterial *mat, const ai
     if (!skip)
     { // if texture hasn't been loaded already, load it
       Texture texture;
-      //texture.id = TextureFromFile(str.C_Str(), _directory);
+      // Basic Data
       texture.id = CreateTexture(AssetManager::Get()->modelFile(str.C_Str()));
       texture.type = typeName;
       texture.path = str.C_Str();
+
+      // Light Data
+      aiColor3D diffuse(0.f, 0.f, 0.f);
+      aiColor3D specular(0.f, 0.f, 0.f);
+
+      mat->Get(AI_MATKEY_COLOR_DIFFUSE, diffuse);
+      mat->Get(AI_MATKEY_COLOR_SPECULAR, specular);
+
       textures.push_back(texture);
       _textures_loaded.push_back(texture); // add to loaded textures
     }

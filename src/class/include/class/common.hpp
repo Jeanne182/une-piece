@@ -61,6 +61,8 @@ struct Texture
   unsigned int id;
   std::string type;
   std::string path;
+  glm::vec3 diffuse(3);
+  glm::vec3 specular(3);
 };
 
 /**
