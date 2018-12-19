@@ -56,13 +56,6 @@ public:
   void add(GameObject *gameObject);
 
   /**
-   * @brief Destroy the tile
-   * 
-   * @param index 
-   */
-  void destroy(const unsigned int index);
-
-  /**
    * @brief Utils : Call the setMatrix of all GameObjects
    * 
    * @param cameraMV 

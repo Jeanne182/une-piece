@@ -28,10 +28,12 @@ MapManager::MapManager()
   _probability.shrink_to_fit();
 
   Utils::setSeed();
-  //generatePath();
   generateSimpleBatch();
+  generateSimpleBatch();
+  generateSimpleBatch();
+  generateSimpleBatch();
+  generatePath();
   generateFork();
-  selectRightFork();
 }
 
 void MapManager::setMatrix(const glm::mat4 &cameraMV) const
@@ -68,13 +70,7 @@ const Tile &MapManager::getTile(const size_t x, const size_t z) const
 
 void MapManager::updateLastPos(const float &length)
 {
-  // We update the last pos
-
-  //const Tile &t = *(_map.end() - MapManager::HALF_ROW_SIZE + 1);
-  //_lastPos = t.getObjects()[0]->pos();
-  std::cout << "Last : " << _lastPos << std::endl;
   _lastPos = getLastPos() + getDirectionnalVector() * (length - 1);
-  std::cout << "New : " << _lastPos << std::endl;
 }
 
 void MapManager::generatePath()
@@ -84,6 +80,8 @@ void MapManager::generatePath()
   {
     generateBatch();
   }
+  generateSimpleBatch();
+  generateSimpleBatch();
   generateFork();
 }
 
@@ -277,9 +275,26 @@ void MapManager::selectRightFork()
   _forks.clear();
 }
 
-void MapManager::destroy(const unsigned int index)
+void MapManager::deleteOldPath()
 {
-  _map.erase(_map.begin() + index);
+  bool forkFound = false;
+  int cpt = 0;
+  // Delete until a forkWater is found
+  Water *w = dynamic_cast<Water*>(_map.begin()->object(0));
+  while (!(w->isFork()) && cpt < 1000)
+  {
+    cpt++;
+    _map.pop_front();
+    w = dynamic_cast<Water*>((_map.begin())->object(0));
+  }
+
+  // Delete until a not for Water is found
+  while (w->isFork() && cpt < 1000)
+  {
+    cpt++;
+    _map.pop_front();
+    w = dynamic_cast<Water*>((_map.begin())->object(0));
+  }
 }
 
 const glm::vec3 &MapManager::getDirectionnalVector() const
@@ -292,7 +307,11 @@ const glm::vec3 &MapManager::getDirectionnalVector() const
   case DIR_SOUTH:
     return VEC_SOUTH;
     break;
-  case DIR_EAST:
+  case DIR_EAST: /**
+   * @brief Destroy elements that are no longer in the game
+   *
+   */
+    void destroy();
     return VEC_EAST;
     break;
   case DIR_WEST:

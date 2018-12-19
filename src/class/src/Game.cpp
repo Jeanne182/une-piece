@@ -30,21 +30,32 @@ void Game::event(const SDL_Event &e)
     {
       if (e.key.keysym.sym == SDLK_r)
       {
+        _map->generatePath();
         _map->generateFork();
         _map->selectLeftFork();
+        _map->generateBatch();
+        _map->deleteOldPath();
         _camera.setCenter(_map->getLastPos());
       }
       if (e.key.keysym.sym == SDLK_t)
       {
+        _map->generatePath();
         _map->generateFork();
         _map->selectRightFork();
+        _map->generateBatch();
+        _map->deleteOldPath();
         _camera.setCenter(_map->getLastPos());
       }
       if (e.key.keysym.sym == SDLK_g)
       {
+        _map->generatePath();
+        _map->generateFork();
+        if (Utils::maybe(0.5f))
+          _map->selectRightFork();
+        else
+          _map->selectLeftFork();
         _map->generateBatch();
-        _map->generateBatch();
-        _map->generateBatch();
+        _map->deleteOldPath();
         _camera.setCenter(_map->getLastPos());
       }
     }
@@ -58,9 +69,11 @@ void Game::update()
   _light.setDirection(r * _light.direction());
 
   // Update the scene
-  _camera.update();
-  //_character.move();
+  _camera.setCenter(_character.pos());
+  _character.move();
   collide();
+
+  // Update the matrixes
   _character.setMatrix(_camera.getViewMatrix());
   _map->setMatrix(_camera.getViewMatrix());
 }
@@ -110,13 +123,26 @@ void Game::collide()
     Tile &t = _map->getTile(x, z);
     for (int i = 0; i < t.tile().size(); i++)
     {
-      t.object(i)->markDeleted();
 
+      // Check if there is a water that is a fork
       Water *w = dynamic_cast<Water *>(t.object(i));
-      if (w)
+      if (w && w->isFork())
       {
-        std::cout << w->isFork() << std::endl;
+        if (_character.getSideState() == LEFT)
+        {
+          _map->selectLeftFork();
+        }
+        else if (_character.getSideState() == RIGHT)
+        {
+          _map->selectRightFork();
+        }
+        else
+        {
+          std::cout << "GAME OVER" << std::endl;
+          exit(0);
+        }
       }
+      
       //std::cout << "Position de l'objet : " << t.object(i)->pos() << std::endl;
       if (Utils::cast(t.object(i)->y()) == y)
       {
@@ -127,31 +153,6 @@ void Game::collide()
       }
     }
     t.clean();
-  }
-}
-
-void Game::destroy()
-{
-  std::deque<Tile> &map = _map->map();
-  for (int i = 0; i < map.size(); i++)
-  {
-    for (int j = 0; j < map[i].tile().size(); j++)
-    {
-      if (_character.collisionDetector(*(map[i].object(j))) == true)
-      {
-        std::cout << "Position de l'objet : " << map[i].object(j)->pos() << std::endl;
-        std::cout << "Avant d'être supprimer : " << map[i].tile().size() << std::endl;
-        map[i].destroy(j);
-        for (int k = 0; k < map[i].tile().size(); k++)
-        {
-          std::cout << "Après la supression : " << map[i].tile().size() << std::endl;
-        }
-      }
-      if (map[i].tile().empty())
-      {
-        _map->destroy(i);
-      }
-    }
   }
 }
 

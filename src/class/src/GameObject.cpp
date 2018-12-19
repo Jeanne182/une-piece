@@ -37,7 +37,7 @@ void GameObject::setMatrix(const glm::mat4 &cameraMV)
   // Compute Matrix
 
   // P
-  _P = glm::perspective(glm::radians(70.0f), (float)(WINDOW_WIDTH / WINDOW_HEIGHT), 0.1f, 100.f);
+  _P = glm::perspective(glm::radians(70.0f), (float)(WINDOW_WIDTH / WINDOW_HEIGHT), 0.1f, 1000.f);
 
   // MV -> Modify
   _MV = glm::translate(cameraMV, _position);

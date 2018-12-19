@@ -39,11 +39,7 @@ public:
    *
    */
   void display() const;
-  /**
-   * @brief Destroy elements that are no longer in the game
-   *
-   */
-  void destroy();
+
   /**
    * @brief React to a SDL_Event
    *

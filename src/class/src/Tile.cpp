@@ -39,11 +39,6 @@ void Tile::add(GameObject *gameObject)
   _tileObjects.push_back(gameObject);
 }
 
-void Tile::destroy(const unsigned int index)
-{
-  _tileObjects.clear();
-}
-
 void Tile::clean()
 {
 

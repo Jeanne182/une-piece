@@ -57,9 +57,26 @@ public:
    */
   inline unsigned int health() const { return _health; }
 
+  /**
+   * @brief Get the Last Coordinate object
+   * 
+   * @return const std::vector<int>& 
+   */
   inline const std::vector<int> &getLastCoordinate() const { return _lastCoordinate; }
 
+  /**
+   * @brief 
+   * 
+   * @return unsigned int 
+   */
   inline unsigned int score() const { return _score; }
+
+  /**
+   * @brief Get the Side State object
+   * 
+   * @return int 
+   */
+  inline int getSideState() const { return _sideState; };
 
   // ============= SETTERS =============
   /**
