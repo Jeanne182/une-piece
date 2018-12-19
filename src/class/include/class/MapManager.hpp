@@ -10,6 +10,7 @@
 #include <glimac/glm.hpp>
 
 #include <class/Tile.hpp>
+#include <class/Error.hpp>
 
 using namespace glimac;
 namespace UP
@@ -60,8 +61,7 @@ public:
    * @param j
    * @return Tile
    */
-  Tile& getTile(const size_t i, const size_t j) { return _map[i * ROW_SIZE + j - (ROW_SIZE + 1)/2]; };
-
+  Tile &getTile(const size_t i, const size_t j);
 
   /**
    * @brief Getter for a tile
@@ -70,7 +70,8 @@ public:
    * @param j
    * @return const Tile
    */
-  const Tile& getTile(const size_t i, const size_t j) const { return _map[i * ROW_SIZE + j - (ROW_SIZE + 1)/2]; };
+  const Tile& getTile(const size_t i, const size_t j) const;
+
   /**
    * @brief Get the Pos of the last object
    *
@@ -106,7 +107,6 @@ public:
    */
   void setMatrix(const glm::mat4 &cameraMV) const;
 
-
   /**
    * @brief Delete a Tile
    *
@@ -120,7 +120,6 @@ public:
 
   inline void turnRight() { _direction = (_direction + 1) % 4; }
   inline void turnLeft() { _direction = (_direction - 1) % 4; }
-
 
 private:
   std::deque<Tile> _map;
