@@ -48,7 +48,6 @@ void Game::update()
 }
 void Game::display() const
 {
-  AssetManager::Get()->assetProgram()._Program.use();
   _character.display();
   _map->display();
 }

@@ -50,9 +50,9 @@ void GameObject::setMatrix(const glm::mat4 &cameraMV)
 
 void GameObject::useMatrix() const
 {
-  glUniformMatrix4fv(AssetManager::Get()->assetProgram().uMVPMatrix, 1, GL_FALSE, glm::value_ptr(_P * _MV));
-  glUniformMatrix4fv(AssetManager::Get()->assetProgram().uMVMatrix, 1, GL_FALSE, glm::value_ptr(_MV));
-  glUniformMatrix4fv(AssetManager::Get()->assetProgram().uNormalMatrix, 1, GL_FALSE, glm::value_ptr(_N));
+  glUniformMatrix4fv(AssetManager::Get()->assetProgramMulti().uMVPMatrix, 1, GL_FALSE, glm::value_ptr(_P * _MV));
+  glUniformMatrix4fv(AssetManager::Get()->assetProgramMulti().uMVMatrix, 1, GL_FALSE, glm::value_ptr(_MV));
+  glUniformMatrix4fv(AssetManager::Get()->assetProgramMulti().uNormalMatrix, 1, GL_FALSE, glm::value_ptr(_N));
 }
 
 void GameObject::reset()

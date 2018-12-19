@@ -24,6 +24,7 @@ struct AssetProgramMulti
   GLint uMVPMatrix;
   GLint uMVMatrix;
   GLint uNormalMatrix;
+  GLint uTextureRepeat;
   std::map<std::string, GLint> uMapTextures;
 
   AssetProgramMulti(const FilePath &applicationPath)
@@ -34,14 +35,15 @@ struct AssetProgramMulti
     uMVPMatrix = glGetUniformLocation(_Program.getGLId(), "uMVPMatrix");
     uMVMatrix = glGetUniformLocation(_Program.getGLId(), "uMVMatrix");
     uNormalMatrix = glGetUniformLocation(_Program.getGLId(), "uNormalMatrix");
+    uTextureRepeat = glGetUniformLocation(_Program.getGLId(), "uTextureRepeat");
 
     // Textures
     GLint uTexture_diffuse1;
     GLint uTexture_specular1;
     uTexture_diffuse1 = glGetUniformLocation(_Program.getGLId(), "uTexture_diffuse1");
     uTexture_specular1 = glGetUniformLocation(_Program.getGLId(), "uTexture_specular1");
-    uMapTextures.insert(std::pair<std::string, GLint>(std::string("uTexture_diffuse1"), uTexture_diffuse1));
-    uMapTextures.insert(std::pair<std::string, GLint>(std::string("uTexture_specular1"), uTexture_specular1));
+    uMapTextures.insert(std::pair<std::string, GLint>("uTexture_diffuse1", uTexture_diffuse1));
+    uMapTextures.insert(std::pair<std::string, GLint>("uTexture_specular1", uTexture_specular1));
   }
 };
 

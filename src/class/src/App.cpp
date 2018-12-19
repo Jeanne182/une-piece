@@ -29,7 +29,7 @@ void App::layout2D()
 }
 void App::layout3D()
 {
-  AssetManager::Get()->assetProgram()._Program.use();
+  AssetManager::Get()->assetProgramMulti()._Program.use();
 
   glDisable(GL_BLEND);
   glEnable(GL_DEPTH_TEST);
