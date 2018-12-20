@@ -22,13 +22,14 @@ namespace UP
 class Game
 {
 public:
+  // ============= CONSTRUCTOR =============
   /**
    * @brief Construct a new Game object
    *
-   * @param appPath
-   * @param assetProgram
    */
   Game();
+
+  // ============= METHODS =============
   /**
    * @brief Update all the states of the game
    *
@@ -52,13 +53,16 @@ public:
    *
    */
   void reset();
-  void collide();
 
 private:
   Character _character;
   Camera _camera;
   Light _light;
   MapManager *_map;
+
+  // ============= METHODS =============
+  void sendLight() const;
+  void collide();
 };
 
 } // namespace UP

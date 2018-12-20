@@ -27,6 +27,7 @@ Obstacle::Obstacle(const glm::vec3 position, const std::string &name)
     setAngles(glm::vec3(0.f, y, 0.f));
     setScale(2.f);
   }
+  setMatrix();
 }
 
 void Obstacle::display() const

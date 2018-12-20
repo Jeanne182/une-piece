@@ -36,12 +36,12 @@ MapManager::MapManager()
   generateFork();
 }
 
-void MapManager::setMatrix(const glm::mat4 &cameraMV) const
+void MapManager::computeMatrix(const glm::mat4 &cameraMV) const
 {
   std::deque<Tile>::const_iterator it;
   for (it = _map.cbegin(); it != _map.cend(); ++it)
   {
-    (*it).setMatrix(cameraMV);
+    (*it).computeMatrix(cameraMV);
   }
 }
 

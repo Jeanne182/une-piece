@@ -70,19 +70,29 @@ void Game::update()
 
   // Update the scene
   _camera.setCenter(_character.pos());
-  _character.move();
+  //_character.move();
   collide();
 
   // Update the matrixes
-  _character.setMatrix(_camera.getViewMatrix());
-  _map->setMatrix(_camera.getViewMatrix());
+  _character.setMatrix();
+  _character.computeMatrix(_camera.getViewMatrix());
+  _map->computeMatrix(_camera.getViewMatrix());
 }
 
 void Game::display() const
 {
+
+  // Display stuff
+  sendLight();
+  _character.display();
+  _map->display();
+}
+
+void Game::sendLight() const
+{
   AssetManager::Get()->assetProgramMultiLight()._Program.use();
 
-  // Compute the ViewMatrix * Light
+  // Compute the V * Light
   glm::vec4 l = _light.direction() * _camera.getViewMatrix();
   //glm::vec4 l = _light.direction();
 
@@ -90,10 +100,6 @@ void Game::display() const
   const AssetProgramMultiLight &a = AssetManager::Get()->assetProgramMultiLight();
   glUniform3fv(a.uLightDir_vs, 1, glm::value_ptr(glm::vec3(l)));
   glUniform3fv(a.uLightIntensity, 1, glm::value_ptr(_light.intensity()));
-
-  // Display stuff
-  _character.display();
-  _map->display();
 }
 
 void Game::reset()
@@ -142,7 +148,7 @@ void Game::collide()
           exit(0);
         }
       }
-      
+
       //std::cout << "Position de l'objet : " << t.object(i)->pos() << std::endl;
       if (Utils::cast(t.object(i)->y()) == y)
       {

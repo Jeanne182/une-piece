@@ -114,12 +114,11 @@ public:
   void display() const;
 
   /**
-   * @brief Compute the MVP and Normal matrix and send them to the GPU
+   * @brief Call the computeMatrix of each Tile
    *
-   * @param assetProgram
    * @param cameraMV
    */
-  void setMatrix(const glm::mat4 &cameraMV) const;
+  void computeMatrix(const glm::mat4 &cameraMV) const;
 
   void deleteOldPath();
 

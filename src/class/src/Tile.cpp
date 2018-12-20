@@ -53,11 +53,11 @@ void Tile::clean()
   }
 }
 
-void Tile::setMatrix(const glm::mat4 &cameraMV) const
+void Tile::computeMatrix(const glm::mat4 &cameraMV) const
 {
   for (int i = 0; i < _tileObjects.size(); i++)
   {
-    _tileObjects[i]->setMatrix(cameraMV);
+    _tileObjects[i]->computeMatrix(cameraMV);
   }
 }
 

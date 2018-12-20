@@ -205,14 +205,21 @@ public:
    * @return false 
    */
   inline bool shallDelete() { return _toDelete; }
+
   // ============= MATRIX =============
   /**
-   * @brief Compute the MVP and Normal matrix
+   * @brief Compute the M and P
+   *
+   */
+  void setMatrix();
+
+  /**
+   * @brief Compute the MV , MVP and Normal
    *
    * @param assetProgram
    * @param cameraMV
    */
-  void setMatrix(const glm::mat4 &cameraMV);
+  void computeMatrix(const glm::mat4 &cameraView);
 
   /**
    * @brief Send the matrix to the GPU
@@ -227,7 +234,7 @@ protected:
   glm::vec3 _position;
   glm::vec3 _speed;
 
-  glm::mat4 _P, _MV, _N;
+  glm::mat4 _P, _M, _N, _MV, _MVP;
   const std::string _name;
   Model *_model;
 };

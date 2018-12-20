@@ -26,8 +26,8 @@ void Coin::display() const
 
 bool Coin::collisionHandler(GameObject *gameObject)
 {
-   dynamic_cast<Character*>(gameObject)->addCoin(_value);
-   return true;
+  dynamic_cast<Character *>(gameObject)->addCoin(_value);
+  return true;
 }
 
 } // namespace UP

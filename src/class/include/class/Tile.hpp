@@ -56,11 +56,11 @@ public:
   void add(GameObject *gameObject);
 
   /**
-   * @brief Utils : Call the setMatrix of all GameObjects
+   * @brief Utils : Call the computeMatrix of all GameObjects
    * 
    * @param cameraMV 
    */
-  void setMatrix(const glm::mat4 &cameraMV) const;
+  void computeMatrix(const glm::mat4 &cameraMV) const;
 
   /**
    * @brief Delete all the markedAsDelete gameObjects
