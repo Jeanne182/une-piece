@@ -184,7 +184,7 @@ public:
   /**
    * @brief Detect a collision and call his solver
    *
-   * @param p2
+   * @param gameObject
    * @return true
    * @return false
    */

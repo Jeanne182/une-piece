@@ -28,9 +28,11 @@ public:
 
   /**
    * @brief Construct a new Game Object object
-   *
-   * @param pos
-   * @param speed
+   * 
+   * @param pos 
+   * @param speed 
+   * @param scale 
+   * @param name 
    */
   GameObject(const glm::vec3 &pos, const glm::vec3 &speed, const float &scale, const std::string &name);
 
@@ -167,14 +169,14 @@ public:
   /**
    * @brief Set the Rotation Angle object
    *
-   * @param speed
+   * @param angles
    */
   inline void setAngles(const glm::vec3 &angles) { _angles = angles; };
 
   /**
-   * @brief Set the Rotation Angle object
+   * @brief Set the Scale object
    *
-   * @param speed
+   * @param scale
    */
   inline void setScale(const float &scale) { _scale = scale; };
 
@@ -216,8 +218,7 @@ public:
   /**
    * @brief Compute the MV , MVP and Normal
    *
-   * @param assetProgram
-   * @param cameraMV
+   * @param cameraView
    */
   void computeMatrix(const glm::mat4 &cameraView);
 

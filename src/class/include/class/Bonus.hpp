@@ -30,13 +30,14 @@ class Bonus : public GameObject
 public:
   // ============= CONSTRUCTORS =============
 
+
   /**
    * @brief Construct a new Bonus object
-   *
-   * @param position
-   * @param bonusType
+   * 
+   * @param position 
+   * @param bonusType 
+   * @param name 
    */
-
   Bonus(const glm::vec3 position, const unsigned int bonusType, const std::string &name);
 
   /**

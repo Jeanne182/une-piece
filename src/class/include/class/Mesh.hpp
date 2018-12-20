@@ -26,7 +26,6 @@ public:
    * @param vertices 
    * @param indices 
    * @param textures 
-   * @param texturesLocation 
    */
   Mesh(std::vector<ShapeVertex> vertices,
        std::vector<unsigned int> indices,

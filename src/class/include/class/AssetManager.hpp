@@ -59,15 +59,15 @@ public:
   /**
    * @brief Get a Model file
    * 
-   * @param modelName 
+   * @param model 
    * @return std::string 
    */
   std::string modelFile(const std::string &model) const;
 
   /**
-   * @brief Get A texture
+   * @brief Get a Texture file
    * 
-   * @param modelName 
+   * @param texture 
    * @return std::string 
    */
   std::string textureFile(const std::string &texture) const;

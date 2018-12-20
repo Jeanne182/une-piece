@@ -146,11 +146,6 @@ private:
 public:
   /**
    * @brief Common Getter for the Singleton's Instance
-   *
-   * @param appPath
-   * @param width
-   * @param height
-   * @return App&
    */
   static App &Get()
   {

@@ -53,17 +53,23 @@ public:
   void disable() const;
 
   /**
-   * @brief Get an Button object
+   * @brief Get the Button object
    * 
    * @param buttonName 
+   * @param file 
+   * @param line 
+   * @param function 
    * @return Button* 
    */
   Button* getButton(const std::string &buttonName, const char* file, const unsigned int line, const char* function);
 
   /**
-   * @brief Get an const Button object
+   * @brief Get the Button object
    * 
    * @param buttonName 
+   * @param file 
+   * @param line 
+   * @param function 
    * @return Button* 
    */
   Button* getButton(const std::string &buttonName, const char* file, const unsigned int line, const char* function) const;

@@ -68,20 +68,20 @@ public:
   inline const std::deque<Tile> &map() const { return _map; };
 
   /**
-   * @brief Getter for a tile
-   *
-   * @param i
-   * @param j
-   * @return Tile
+   * @brief Get the Tile object
+   * 
+   * @param x 
+   * @param z 
+   * @return Tile& 
    */
   Tile &getTile(const size_t x, const size_t z);
 
   /**
-   * @brief Getter for a tile
-   *
-   * @param i
-   * @param j
-   * @return const Tile
+   * @brief Get the Tile object
+   * 
+   * @param x 
+   * @param z 
+   * @return const Tile& 
    */
   const Tile &getTile(const size_t x, const size_t z) const;
 
@@ -120,19 +120,59 @@ public:
    */
   void computeMatrix(const glm::mat4 &cameraMV) const;
 
+  /**
+   * @brief Delete the already seen Tiles
+   * 
+   */
   void deleteOldPath();
 
+  /**
+   * @brief Update the _lastPos Object
+   * 
+   * @param length 
+   */
   void updateLastPos(const float &length);
-  void sideRocks(const float j, const float k, const glm::vec3 &pos, Tile &t);
 
+  /**
+   * @brief Create a bunch of batches
+   * 
+   */
   void generatePath();
+  /**
+   * @brief Create one of the existing batches
+   * 
+   */
   void generateBatch();
+  /**
+   * @brief A batch with just water
+   * 
+   */
   void generateSimpleBatch();
+  /**
+   * @brief A batch with coin
+   * 
+   */
   void generateCoinBatch();
+  /**
+   * @brief A batch with random obstacle
+   * 
+   */
   void generateObstacleBatch();
+  /**
+   * @brief A fork in the path
+   * 
+   */
   void generateFork();
 
+  /**
+   * @brief Select the Left way of the next fork
+   * 
+   */
   void selectLeftFork();
+  /**
+   * @brief Select the Left way of the next fork
+   * 
+   */
   void selectRightFork();
 
 private:
@@ -142,8 +182,28 @@ private:
   glm::vec3 _lastPos;
   unsigned int _direction;
 
+  /**
+   * @brief Modify the _direction vector to turn right
+   * 
+   */
   inline void turnRight() { _direction = (_direction + 1) % 4; }
+
+  /**
+   * @brief Modify the _direction vector to turn left
+   * 
+   */
   inline void turnLeft() { _direction = (_direction - 1) % 4; }
+
+
+  /**
+   * @brief Utils Function to create the rocks on the side
+   * 
+   * @param j 
+   * @param k 
+   * @param pos 
+   * @param t 
+   */
+  void sideRocks(const float j, const float k, const glm::vec3 &pos, Tile &t);
 };
 
 } // namespace UP
