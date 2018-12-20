@@ -19,8 +19,7 @@ Bonus::Bonus(const glm::vec3 position, const unsigned int bonusType, const std::
 
 void Bonus::display() const
 {
-  useMatrix();
-  _model->draw();
+  GameObject::display();
 }
 
 bool Bonus::collisionHandler(GameObject *gameObject)

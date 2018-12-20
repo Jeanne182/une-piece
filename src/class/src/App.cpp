@@ -80,9 +80,6 @@ void App::layoutScores()
   // Send the VBO
   _buttons.sendVertexBuffer();
 
-  // Set the behaviors
-  // TODO
-  // Fake behavior to test
   _buttons.setBehavior("Scores", [this] { layoutPause(); });
   _buttons.setBehavior("Menu", [this] { layoutMenu(); });
 };
@@ -120,9 +117,6 @@ void App::layoutGame()
   _buttons.disable();
   layout3D();
   _layout = LAYOUT_GAME;
-
-  // TODO
-  //std::cout << "START THE GAME HERE" << std::endl;
 };
 
 // =============== GENERIC FACADES FUNCTIONS ===============

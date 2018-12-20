@@ -14,7 +14,6 @@ find_package(GLEW REQUIRED)
 # Pour gérer un bug a la fac, a supprimer sur machine perso:
 # set(OPENGL_LIBRARIES /usr/lib/x86_64-linux-gnu/libGL.so.1)
 
-
 include_directories(${SDL_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLEW_INCLUDE_DIR})
 include_directories(class/include glimac/include third-party/include)
 
@@ -45,3 +44,8 @@ file(GLOB UP_DIRECTORY "UP*")
 foreach(UP ${UP_DIRECTORY})
     add_subdirectory(${UP})
 endforeach()
+
+# call the CMakeLists.txt to make the documentation (Doxygen)
+# > 'make html' to generate the documentation
+# > the documentation is located in : [CMAKE ROOT]/build/doc/doc-doxygen/html
+add_subdirectory(doc)

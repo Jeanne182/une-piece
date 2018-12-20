@@ -28,9 +28,11 @@ public:
 
   /**
    * @brief Construct a new Game Object object
-   *
-   * @param pos
-   * @param speed
+   * 
+   * @param pos 
+   * @param speed 
+   * @param scale 
+   * @param name 
    */
   GameObject(const glm::vec3 &pos, const glm::vec3 &speed, const float &scale, const std::string &name);
 
@@ -52,7 +54,7 @@ public:
    * @brief Must Implement a way to display the object
    *
    */
-  virtual void display() const = 0;
+  void display() const;
 
   /**
    * @brief Must Implement a way to handle the behaviour of the collision
@@ -167,14 +169,14 @@ public:
   /**
    * @brief Set the Rotation Angle object
    *
-   * @param speed
+   * @param angles
    */
   inline void setAngles(const glm::vec3 &angles) { _angles = angles; };
 
   /**
-   * @brief Set the Rotation Angle object
+   * @brief Set the Scale object
    *
-   * @param speed
+   * @param scale
    */
   inline void setScale(const float &scale) { _scale = scale; };
 
@@ -192,16 +194,33 @@ public:
    */
   void reset();
 
+  /**
+   * @brief Utils for the deletion
+   * 
+   */
   inline void markDeleted() { _toDelete = true; };
+
+  /**
+   * @brief Utils for the deletion
+   * 
+   * @return true 
+   * @return false 
+   */
   inline bool shallDelete() { return _toDelete; }
+
   // ============= MATRIX =============
   /**
-   * @brief Compute the MVP and Normal matrix
+   * @brief Compute the M and P
    *
-   * @param assetProgram
-   * @param cameraMV
    */
-  void setMatrix(const glm::mat4 &cameraMV);
+  void setMatrix();
+
+  /**
+   * @brief Compute the MV , MVP and Normal
+   *
+   * @param cameraView
+   */
+  void computeMatrix(const glm::mat4 &cameraView);
 
   /**
    * @brief Send the matrix to the GPU
@@ -215,7 +234,8 @@ protected:
   glm::vec3 _angles;
   glm::vec3 _position;
   glm::vec3 _speed;
-  glm::mat4 _P, _MV, _N;
+
+  glm::mat4 _P, _M, _N, _MV, _MVP;
   const std::string _name;
   Model *_model;
 };

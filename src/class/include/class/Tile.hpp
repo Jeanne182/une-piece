@@ -29,10 +29,43 @@ public:
    * @param gameObject
    */
   Tile(GameObject *gameObject);
-  std::vector<GameObject*> tile() const { return _tileObjects; }
-  GameObject* object(const unsigned int index) const { return _tileObjects[index]; };
+
+  /**
+   * @brief Get the std::vector tileObject
+   *
+   * @return std::vector<GameObject *>
+   */
+  std::vector<GameObject *> tile() const { return _tileObjects; }
+
+  /**
+   * @brief Get the gameObject at the given index
+   * 
+   * @param index
+   * @return GameObject*
+   */
+  GameObject *object(const unsigned int index) const;
+
+  const int x() const { return _x; };
+  const int z() const { return _z; };
+
+  /**
+   * @brief Add a gameObject to the tile
+   *
+   * @param gameObject
+   */
   void add(GameObject *gameObject);
-  void setMatrix(const glm::mat4 &cameraMV) const;
+
+  /**
+   * @brief Utils : Call the computeMatrix of all GameObjects
+   *
+   * @param cameraMV
+   */
+  void computeMatrix(const glm::mat4 &cameraMV) const;
+
+  /**
+   * @brief Delete all the markedAsDelete gameObjects
+   *
+   */
   void clean();
 
   /**
@@ -50,6 +83,7 @@ public:
 
 private:
   std::vector<GameObject *> _tileObjects;
+  int _x, _z;
 };
 
 } // namespace UP

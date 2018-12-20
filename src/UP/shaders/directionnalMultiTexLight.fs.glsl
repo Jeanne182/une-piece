@@ -6,7 +6,7 @@ in vec3 vNormal_vs; // Normale du sommet transformé dans l'espace View
 in vec2 vTexCoords; // Coordonnées de texture du sommet
 
 // Sorties
-out vec4 fFragColor;
+out vec3 fFragColor;
 
 // Uniforms
 uniform vec3 uKd;
@@ -31,7 +31,9 @@ vec3 blinnPhong() {
 }
 
 void main() {
-  vec4 tx1 = texture(uTexture_diffuse1, vTexCoords * uTextureRepeat);
-  vec4 tx2 = texture(uTexture_specular1, vTexCoords * uTextureRepeat);
-  fFragColor = ((tx1*tx2) * vec4(blinnPhong(), 1) * 0.5) + ((tx1*tx2) * 0.5);
+  vec3 tx1 = texture(uTexture_diffuse1, vTexCoords * uTextureRepeat).xyz;
+  vec3 tx2 = texture(uTexture_specular1, vTexCoords * uTextureRepeat).xyz;
+  vec3 tx = mix(tx1, tx2, 0.5);
+  float mixer = 0.2;
+  fFragColor = tx * blinnPhong()*(1-mixer) + tx*(mixer);
 }

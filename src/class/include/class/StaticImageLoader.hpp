@@ -70,17 +70,23 @@ public:
   inline bool hasImage(const std::string &imageName) const { return _images.find(imageName) != _images.end(); };
 
   /**
-   * @brief Get an Image object
+   * @brief Get the Static Image object
    * 
    * @param imageName 
+   * @param file 
+   * @param line 
+   * @param function 
    * @return StaticImage* 
    */
   StaticImage *getStaticImage(const std::string &imageName, const char *file, const unsigned int line, const char *function);
 
   /**
-   * @brief Get an const Image object
+   * @brief Get the Static Image object
    * 
    * @param imageName 
+   * @param file 
+   * @param line 
+   * @param function 
    * @return StaticImage* 
    */
   StaticImage *getStaticImage(const std::string &imageName, const char *file, const unsigned int line, const char *function) const;
@@ -114,9 +120,7 @@ protected:
    * @brief Setup the Square, and update the IBO
    * 
    * @param filename
-   * @param x
-   * @param y
-   * @param scale
+   * @param img
    */
   void setupImage(const std::string &filename, StaticImage *img);
 
@@ -143,6 +147,12 @@ protected:
    * @param imageName
    */
   void computeMatrix(const std::string &imageName) const;
+
+  /**
+   * @brief Compute the final matrix to be used for the GPU
+   * 
+   * @param img
+   */
   void computeMatrix(StaticImage *img) const;
 
   /// Attributes

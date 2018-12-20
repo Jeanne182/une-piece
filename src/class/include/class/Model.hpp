@@ -29,9 +29,9 @@ public:
   // Constructor
   /**
    * @brief Construct a new Model object
-   * @brief Take in parameters the path of the model to load and the glLocation of the textures to use from the shader
-   * @param path 
-   * @param textureLocation 
+   * 
+   * @param name 
+   * @param textureRepeat 
    */
   Model(const std::string &name, const float &textureRepeat = 1.0f);
 
@@ -50,7 +50,7 @@ public:
   /**
    * @brief Load a model, do the Initializing stuff
    * 
-   * @param path 
+   * @param name 
    */
   void loadModel(const std::string &name);
 

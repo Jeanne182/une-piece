@@ -10,6 +10,7 @@
 #include <class/common.hpp>
 #include <class/Light.hpp>
 #include <class/Utils.hpp>
+#include <class/Water.hpp>
 
 using namespace glimac;
 namespace UP
@@ -29,15 +30,32 @@ void Game::event(const SDL_Event &e)
     {
       if (e.key.keysym.sym == SDLK_r)
       {
-        _map->turnLeft();
+        _map->generatePath();
+        _map->generateFork();
+        _map->selectLeftFork();
+        _map->generateBatch();
+        _map->deleteOldPath();
+        _camera.setCenter(_map->getLastPos());
       }
       if (e.key.keysym.sym == SDLK_t)
       {
-        _map->turnRight();
+        _map->generatePath();
+        _map->generateFork();
+        _map->selectRightFork();
+        _map->generateBatch();
+        _map->deleteOldPath();
+        _camera.setCenter(_map->getLastPos());
       }
       if (e.key.keysym.sym == SDLK_g)
       {
+        _map->generatePath();
+        _map->generateFork();
+        if (Utils::maybe(0.5f))
+          _map->selectRightFork();
+        else
+          _map->selectLeftFork();
         _map->generateBatch();
+        _map->deleteOldPath();
         _camera.setCenter(_map->getLastPos());
       }
     }
@@ -51,29 +69,36 @@ void Game::update()
   _light.setDirection(r * _light.direction());
 
   // Update the scene
-  _camera.update();
+  _camera.setCenter(_character.pos());
   _character.move();
   collide();
-  _character.setMatrix(_camera.getViewMatrix());
-  _map->setMatrix(_camera.getViewMatrix());
+
+  // Update the matrixes
+  _character.setMatrix();
+  _character.computeMatrix(_camera.getViewMatrix());
+  _map->computeMatrix(_camera.getViewMatrix());
 }
 
 void Game::display() const
 {
-  AssetManager::Get()->assetProgramMultiLight()._Program.use();
-
-  // Compute the ViewMatrix * Light
-  glm::vec4 l = _light.direction() * _camera.getViewMatrix();
-  //glm::vec4 l = _light.direction();
-
-  // Send it
-  const AssetProgramMultiLight &a = AssetManager::Get()->assetProgramMultiLight();
-  glUniform3fv(a.uLightDir_vs, 1, glm::value_ptr(glm::vec3(l)));
-  glUniform3fv(a.uLightIntensity, 1, glm::value_ptr(_light.intensity()));
 
   // Display stuff
+  sendLight();
   _character.display();
   _map->display();
+}
+
+void Game::sendLight() const
+{
+  const AssetProgramMultiLight &a = AssetManager::Get()->assetProgramMultiLight();
+
+  // Compute the V * Light
+  glm::vec4 l = _camera.getViewMatrix() * _light.direction();
+
+  // Send it
+  a._Program.use();
+  glUniform3fv(a.uLightDir_vs, 1, glm::value_ptr(glm::vec3(l)));
+  glUniform3fv(a.uLightIntensity, 1, glm::value_ptr(_light.intensity()));
 }
 
 void Game::reset()
@@ -98,13 +123,32 @@ void Game::collide()
     //std::cout << "Nouvelle position du character : [" << x << "," << y << "," << z << "]" << std::endl;
     //std::cout << "Position du character : " << _character.pos() << std::endl;
     //std::cout << std::endl;
-    GameObject *g;
-    bool shallDelete = false;
-    int index;
-    _character.setlastCoordinate(std::vector<int>{x, y, z});
+    _character.setLastCoordinate(std::vector<int>{x, y, z});
+    _character.cubeCountIncrease();
     Tile &t = _map->getTile(x, z);
     for (int i = 0; i < t.tile().size(); i++)
     {
+
+      // Check if there is a water that is a fork
+      Water *w = dynamic_cast<Water *>(t.object(i));
+      if (w && w->isFork())
+      {
+        if (_character.getSideState() == LEFT)
+        {
+          _map->selectLeftFork();
+        }
+        else if (_character.getSideState() == RIGHT)
+        {
+          _map->selectRightFork();
+        }
+        else
+        {
+          std::cout << "GAME OVER" << std::endl;
+          exit(0);
+        }
+      }
+
+          t.object(i)->markDeleted();
       //std::cout << "Position de l'objet : " << t.object(i)->pos() << std::endl;
       if (Utils::cast(t.object(i)->y()) == y)
       {

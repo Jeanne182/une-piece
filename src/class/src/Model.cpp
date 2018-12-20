@@ -210,6 +210,16 @@ std::vector<Texture> Model::loadMaterialTextures(const aiMaterial *mat, const ai
       texture.specular = glm::vec3(specular.r, specular.g, specular.b);
       texture.shininess = shininess;
 
+      texture.diffuse = glm::vec3(0.25f, 0.25f, 0.25f);
+      texture.specular = glm::vec3(0.25f, 0.25f, 0.25f);
+      //texture.shininess = 100.f;
+      
+      std::cout << "Diffuse: " << texture.diffuse << std::endl;
+      std::cout << "Specular: " << texture.specular << std::endl;
+      std::cout << "Shininess: " << texture.shininess << std::endl;
+
+
+
       textures.push_back(texture);
       _textures_loaded.push_back(texture); // add to loaded textures
     }

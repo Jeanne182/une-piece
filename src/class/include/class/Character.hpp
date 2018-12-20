@@ -63,9 +63,26 @@ public:
    */
   inline unsigned int health() const { return _health; }
 
+  /**
+   * @brief Get the Last Coordinate object
+   *
+   * @return const std::vector<int>&
+   */
   inline const std::vector<int> &getLastCoordinate() const { return _lastCoordinate; }
 
+  /**
+   * @brief
+   *
+   * @return unsigned int
+   */
   inline unsigned int score() const { return _score; }
+
+  /**
+   * @brief Get the Side State object
+   *
+   * @return int
+   */
+  inline int getSideState() const { return _sideState; };
 
   // ============= SETTERS =============
   /**
@@ -82,7 +99,18 @@ public:
    */
   inline void setHealth(const unsigned int &health) { _health = health; }
 
-  inline void setlastCoordinate(const std::vector<int> &lastCoordinate) { _lastCoordinate = lastCoordinate; }
+  /**
+   * @brief Increase the count of cube run through
+   *
+   */
+  inline void cubeCountIncrease() { _cubeCount++; };
+
+  /**
+   * @brief Set the Last Coordinate object
+   *
+   * @param lastCoordinate
+   */
+  inline void setLastCoordinate(const std::vector<int> &lastCoordinate) { _lastCoordinate = lastCoordinate; }
 
   inline void setAccelerationY(const float &acceleration) { _acceleration[Y] = acceleration; }
 
@@ -127,7 +155,7 @@ public:
    */
   void display() const;
 
-    /**
+  /**
    * @brief Reset the Character to default
    *
    */
@@ -160,6 +188,16 @@ public:
    */
   void addCoin(const unsigned int &coinValue);
 
+  // ============= COLLISION =============
+  /**
+   * @brief Detect a collision and call his solver
+   *
+   * @param gameObject
+   * @return true
+   * @return false
+   */
+  bool collisionDetector(GameObject &gameObject);
+
   // ============= HEALTH =============
   /**
    * @brief Lose some health
@@ -169,18 +207,23 @@ public:
   void loseHealth(const unsigned int &value);
 
   bool collisionHandler(GameObject *gameObject);
+
   void speedLimiter(glm::vec3 &speed);
   void speedUpdate();
   void applyForce(const glm::vec3 &force);
   void seek(const glm::vec3 &target);
+  void setMatrix();
+
 
 private:
   std::vector<int> _lastCoordinate;
   glm::vec3 _acceleration;
   unsigned int _health;
   unsigned int _score;
+  unsigned int _cubeCount;
   int _sideState;
   int _verticalState;
+  glm::mat4 _rotScaleMatrix;
   std::map<unsigned int, time_t> _activeBonuses;
 
   // ============= MOVEMENT =============

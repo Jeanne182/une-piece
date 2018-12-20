@@ -20,6 +20,7 @@ static const bool USE_CHRONO = false;
 static const int WINDOW_WIDTH = 800;
 static const int WINDOW_HEIGHT = 800;
 static const bool DEBUG = true;
+static bool DEBUG_DISPLAY = false;
 
 static const glm::vec3 VEC_NORTH = glm::vec3(1.f, 0.f, 0.f);
 static const glm::vec3 VEC_SOUTH = glm::vec3(-1.f, 0.f, 0.f);
