@@ -13,13 +13,17 @@ using namespace glimac;
 
 namespace UP
 {
+const float Character::MAX_SPEED = 0.01f;
+const glm::vec3 Character::GRAVITY = glm::vec3(0.f,-0.00008f, 0.f);
+const glm::vec3 Character::JUMP_FORCE = glm::vec3(0.f,0.02f, 0.f);
 
 Character::Character()
     : GameObject(glm::vec3(0.f, 0.1f, 0.f),
-                 glm::vec3(0.001f),
+                 glm::vec3(0.005f,0.f,0.f),
                  0.5f,
                  "bateau.obj"),
       _lastCoordinate(3, 0),
+      _acceleration(0.f),
       _health(1),
       _score(0),
       _sideState(CENTER),
@@ -53,9 +57,10 @@ void Character::keyDownHandler(const int &key)
     _sideState = LEFT;
   }
   /* up player */
-  if (key == SDLK_UP)
+  if (key == SDLK_UP && _verticalState == RUNNING)
   {
     _verticalState = JUMPING;
+    applyForce(JUMP_FORCE);
   }
 }
 
@@ -70,70 +75,22 @@ void Character::keyUpHandler(const int &key)
   {
     _sideState = CENTER;
   }
-  /* up player */
-  if (key == SDLK_UP)
-  {
-    _verticalState = RUNNING;
-  }
 }
 
-void Character::forwardMove()
-{
-  addPosX(speedX());
-}
 
-void Character::move()
+void Character::sideMove()
 {
-  forwardMove();
-  sideMove(_sideState);
-  verticalMove(_verticalState);
-}
-
-void Character::sideMove(const int &side)
-{
-  switch (side)
+  switch (_sideState)
   {
   case CENTER:
-    if (_position[Z] < 0)
-    {
-      setPosY(_position[Z] + _speed[Z]);
-    }
-    else if (_position[Z] > 0)
-    {
-      setPosY(_position[Z] - _speed[Z]);
-    }
-    break;
+    seek(glm::vec3(x(), y(), 0.f));
+  break;
   case LEFT:
-    if (_position[Z] > -2)
-    {
-      setPosY(_position[Z] - _speed[Z]);
-    }
-    break;
+    seek(glm::vec3(x(), y(), -1.f));
+  break;
   case RIGHT:
-    if (_position[Z] < 2)
-    {
-      setPosY(_position[Z] + _speed[Z]);
-    }
-    break;
-  }
-}
-
-void Character::verticalMove(const int &movement)
-{
-  switch (movement)
-  {
-  case RUNNING:
-    if (_position[Y] > 3 * _speed[Y])
-    {
-      setPosZ(_position[Y] - _speed[Y]);
-    }
-    break;
-  case JUMPING:
-    if (_position[Y] < 2)
-    {
-      setPosZ(_position[Y] + _speed[Y]);
-    }
-    break;
+    seek(glm::vec3(x(), y(), 1.f));
+  break;
   }
 }
 
@@ -179,7 +136,7 @@ void Character::deleteExpiredBonuses()
   }
 }
 
-void Character::addCoin(const unsigned int coinValue)
+void Character::addCoin(const unsigned int &coinValue)
 {
   _score += coinValue;
 }
@@ -193,7 +150,6 @@ void Character::display() const
 {
   useMatrix();
   _model->draw();
-  //std::cout << _position << std::endl;
 }
 
 void Character::reset()
@@ -212,6 +168,78 @@ void Character::reset()
 bool Character::collisionHandler(GameObject *gameObject)
 {
   throw Error(std::string("Can't colide with yourself"), AT);
+}
+
+void Character::forwardMove()
+{
+  addPosX(speedX());
+}
+
+void Character::move()
+{
+  //forwardMove();
+  // Gravity
+  sideMove();
+  if(_verticalState == JUMPING)
+    applyForce(GRAVITY);
+  std::cout << "Position :" << _position << std::endl;
+  std::cout << "Speed :" << _speed << std::endl;
+  std::cout << "Acceleration :" << _acceleration << std::endl;
+  std::cout << std::endl;
+  speedUpdate();
+  if(_position[Y] < 0.01f){
+    _position[Y] = 0.01f;
+    _speed[Y] = 0.f;
+    _verticalState = RUNNING;
+  }
+
+
+}
+
+void Character::speedLimiter(glm::vec3 &speed)
+{
+  float ly = glm::length(speed[Y]);
+  float lz = glm::length(speed[Z]);
+  if( ly > MAX_SPEED){
+    speed[Y] = glm::normalize(speed[Y]) * MAX_SPEED;
+  }
+  if( lz > MAX_SPEED){
+    speed[Z] = glm::normalize(speed[Z]) * MAX_SPEED;
+  }
+}
+
+void Character::speedUpdate()
+{
+   // Update velocity
+   _speed += _acceleration;
+
+   // Limit speed
+   speedLimiter(_speed);
+   _position += _speed;
+
+   _acceleration = glm::vec3(0.f);
+ }
+
+void Character::applyForce(const glm::vec3 &force)
+{
+   _acceleration += force;
+}
+
+// A method that calculates a steering force towards a target
+  // STEER = DESIRED MINUS VELOCITY
+void Character::seek(const glm::vec3 &target)
+{
+    glm::vec3 desired = target - _position; // A vector pointing from the location to the target
+
+    // Scale to maximum speed
+    speedLimiter(desired);
+
+    // Steering = Desired minus velocity
+    glm::vec3 steer = desired - _speed;
+    speedLimiter(steer); // Limit to maximum steering force
+    steer[X] = 0.f;
+    steer[Y] = 0.f;
+    applyForce(steer);
 }
 
 } // namespace UP

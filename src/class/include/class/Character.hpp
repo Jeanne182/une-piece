@@ -29,12 +29,18 @@ enum SIDE
 enum VERTICAL
 {
   RUNNING,
-  JUMPING
+  JUMPING,
+  FALLING
 };
+
+
 
 class Character : public GameObject
 {
 public:
+  static const float MAX_SPEED;
+  static const glm::vec3 GRAVITY;
+  static const glm::vec3 JUMP_FORCE;
   // ============= CONSTRUCTORS =============
 
   /**
@@ -77,6 +83,8 @@ public:
   inline void setHealth(const unsigned int &health) { _health = health; }
 
   inline void setlastCoordinate(const std::vector<int> &lastCoordinate) { _lastCoordinate = lastCoordinate; }
+
+  inline void setAccelerationY(const float &acceleration) { _acceleration[Y] = acceleration; }
 
   // ============= MOVEMENT =============
   /**
@@ -150,7 +158,7 @@ public:
    *
    * @param coinValue;
    */
-  void addCoin(const unsigned int coinValue);
+  void addCoin(const unsigned int &coinValue);
 
   // ============= HEALTH =============
   /**
@@ -161,9 +169,14 @@ public:
   void loseHealth(const unsigned int &value);
 
   bool collisionHandler(GameObject *gameObject);
+  void speedLimiter(glm::vec3 &speed);
+  void speedUpdate();
+  void applyForce(const glm::vec3 &force);
+  void seek(const glm::vec3 &target);
 
 private:
   std::vector<int> _lastCoordinate;
+  glm::vec3 _acceleration;
   unsigned int _health;
   unsigned int _score;
   int _sideState;
@@ -182,14 +195,7 @@ private:
    *
    * @param side
    */
-  void sideMove(const int &side);
-
-  /**
-   * @brief Move on the vertical type given : SLIDING, RUNNING, JUMPING
-   *
-   * @param movement
-   */
-  void verticalMove(const int &movement);
+  void sideMove();
 
 };
 

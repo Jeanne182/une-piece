@@ -33,6 +33,7 @@ public:
   GameObject* object(const unsigned int index) const { return _tileObjects[index]; };
   void add(GameObject *gameObject);
   void setMatrix(const glm::mat4 &cameraMV) const;
+  void clean();
 
   /**
    * @brief Call the display of all GameObject
