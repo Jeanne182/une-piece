@@ -199,6 +199,8 @@ public:
   void loseHealth(const unsigned int &value);
 
   bool collisionHandler(GameObject *gameObject);
+  
+  void setMatrix();
 
 private:
   std::vector<int> _lastCoordinate;
@@ -207,6 +209,7 @@ private:
   unsigned int _cubeCount;
   int _sideState;
   int _verticalState;
+  glm::mat4 _rotScaleMatrix;
   std::map<unsigned int, time_t> _activeBonuses;
 
   // ============= MOVEMENT =============
@@ -229,6 +232,7 @@ private:
    * @param movement
    */
   void verticalMove(const int &movement);
+
 };
 
 } // namespace UP

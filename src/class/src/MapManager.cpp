@@ -228,13 +228,13 @@ void MapManager::generateFork()
       float k = j - MapManager::HALF_ROW_SIZE;
       Tile t(new Water(pos + getDirectionnalVector() * k, true));
 
-      /*
+
+      // Rocks on the side
       if ((j == 0 && (i < noRockMin || i > noRockMax)) ||
           j == MapManager::ROW_SIZE - 1)
       {
-        t.add(new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + getDirectionnalVector() * k, "hole.obj"));
+        t.add(new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + getDirectionnalVector() * k, "rock.obj"));
       }
-      */
       _map.push_back(t);
     }
     pos += getOppositeDirectionnalVector() * -1.f;
@@ -255,10 +255,9 @@ void MapManager::generateFork()
 void MapManager::sideRocks(const float j, const float k, const glm::vec3 &pos, Tile &t)
 {
 
-  return;
-  if (j == 0 || j == MapManager::ROW_SIZE - 1)
+  if ((j == 0 || j == MapManager::ROW_SIZE - 1) && (int)pos[X] % 2 == 0)
   {
-    t.add(new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + getOppositeDirectionnalVector() * k, "hole.obj"));
+    t.add(new Obstacle(pos + glm::vec3(0.f, 0.0f, 0.f) + getOppositeDirectionnalVector() * k, "rock.obj"));
   }
 }
 

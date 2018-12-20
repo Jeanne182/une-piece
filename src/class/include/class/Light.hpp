@@ -38,11 +38,11 @@ public:
    * 
    * @return const glm::vec4& 
    */
-  inline const glm::vec4 &intensity() const { return _intensity; };
+  inline const glm::vec3 &intensity() const { return _intensity; };
 
 private:
   glm::vec4 _direction;
-  glm::vec4 _intensity;
+  glm::vec3 _intensity;
 };
 } // namespace UP
 

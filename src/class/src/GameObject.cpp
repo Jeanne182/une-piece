@@ -59,7 +59,7 @@ void GameObject::computeMatrix(const glm::mat4 &cameraView)
 {
   _MV = cameraView * _M;
   _MVP = _P * _MV;
-  _N = glm::transpose(glm::inverse(_MV));
+  _N = -1.f *glm::transpose(glm::inverse(_MV));
 }
 
 void GameObject::useMatrix() const

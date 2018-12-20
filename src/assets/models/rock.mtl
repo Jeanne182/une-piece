@@ -1,0 +1,13 @@
+# Blender MTL File: 'rock.obj'
+# Material Count: 1
+
+newmtl rock
+Ns 7.843137
+Ka 1.000000 1.000000 1.000000
+Kd 0.965517 0.965517 0.965517
+Ks 0.073892 0.073892 0.073892
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd rock.jpg

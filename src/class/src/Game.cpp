@@ -70,7 +70,7 @@ void Game::update()
 
   // Update the scene
   _camera.setCenter(_character.pos());
-  //_character.move();
+  _character.move();
   collide();
 
   // Update the matrixes
@@ -90,14 +90,13 @@ void Game::display() const
 
 void Game::sendLight() const
 {
-  AssetManager::Get()->assetProgramMultiLight()._Program.use();
+  const AssetProgramMultiLight &a = AssetManager::Get()->assetProgramMultiLight();
 
   // Compute the V * Light
-  glm::vec4 l = _light.direction() * _camera.getViewMatrix();
-  //glm::vec4 l = _light.direction();
+  glm::vec4 l = _camera.getViewMatrix() * _light.direction();
 
   // Send it
-  const AssetProgramMultiLight &a = AssetManager::Get()->assetProgramMultiLight();
+  a._Program.use();
   glUniform3fv(a.uLightDir_vs, 1, glm::value_ptr(glm::vec3(l)));
   glUniform3fv(a.uLightIntensity, 1, glm::value_ptr(_light.intensity()));
 }
@@ -149,6 +148,7 @@ void Game::collide()
         }
       }
 
+          t.object(i)->markDeleted();
       //std::cout << "Position de l'objet : " << t.object(i)->pos() << std::endl;
       if (Utils::cast(t.object(i)->y()) == y)
       {

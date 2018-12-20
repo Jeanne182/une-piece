@@ -17,14 +17,38 @@ namespace UP
 Character::Character()
     : GameObject(glm::vec3(0.f, 0.1f, 0.f),
                  glm::vec3(0.03f),
-                 0.5f,
+                 0.3f,
                  "bateau.obj"),
       _lastCoordinate(3, 0),
       _health(1),
       _score(0),
       _cubeCount(0),
       _sideState(CENTER),
-      _verticalState(RUNNING){};
+      _verticalState(RUNNING)
+{
+  setAngles(glm::vec3(0.f, 90.f, 0.f));
+  _rotScaleMatrix = glm::mat4(1.f);
+  _rotScaleMatrix = glm::translate(_rotScaleMatrix, glm::vec3(-0.2f, -0.2f, 0.f));
+  _rotScaleMatrix = glm::scale(_rotScaleMatrix, glm::vec3(_scale));
+  _rotScaleMatrix = glm::rotate(_rotScaleMatrix, glm::radians(_angles[X]), glm::vec3(1.f, 0.f, 0.f));
+  _rotScaleMatrix = glm::rotate(_rotScaleMatrix, glm::radians(_angles[Y]), glm::vec3(0.f, 1.f, 0.f));
+  _rotScaleMatrix = glm::rotate(_rotScaleMatrix, glm::radians(_angles[Z]), glm::vec3(0.f, 0.f, 1.f));
+}
+
+void Character::setMatrix()
+{
+  // P
+  _P = glm::perspective(glm::radians(70.0f), (float)(WINDOW_WIDTH / WINDOW_HEIGHT), 0.1f, 200.f);
+
+  // MV -> Modify
+  _M = glm::translate(glm::mat4(1.f), _position);
+  _M = _M * _rotScaleMatrix;
+
+  /*
+  std::cout << "P" << _P << std::endl;
+  std::cout << "M" << _M << std::endl;
+*/
+}
 
 void Character::event(const SDL_Event &e)
 {
