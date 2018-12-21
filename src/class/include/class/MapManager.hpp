@@ -26,8 +26,8 @@ public:
   static const int HALF_ROW_SIZE = (ROW_SIZE - 1) / 2;
   static const int BATCH_SIZE_MIN = 4;
   static const int BATCH_SIZE_MAX = 7;
-  static const int PATH_SIZE_MIN = 14;
-  static const int PATH_SIZE_MAX = 18;
+  static const int PATH_SIZE_MIN = 4;
+  static const int PATH_SIZE_MAX = 8;
   static const float P_FLOATING_COINS;
   static const int LANE_MIN = -1;
   static const int LANE_MAX = 1;

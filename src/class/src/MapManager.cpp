@@ -70,11 +70,15 @@ const Tile &MapManager::getTile(const size_t x, const size_t z) const
 
 void MapManager::updateLastPos(const float &length)
 {
-  _lastPos = getLastPos() + getDirectionnalVector() * (length - 1);
+  _lastPos = getLastPos() + Utils::getDirectionnalVector(_direction) * (length - 1);
 }
 
 void MapManager::generatePath()
 {
+  if (_map.size() > 1500)
+  {
+    deleteOldPath();
+  }
   int batchCount = Utils::dicei(MapManager::PATH_SIZE_MIN, MapManager::PATH_SIZE_MAX);
   for (int i = 0; i < batchCount; i++)
   {
@@ -131,19 +135,19 @@ void MapManager::generateBatch()
 void MapManager::generateSimpleBatch()
 {
   int length = Utils::rBatchSize();
-  glm::vec3 pos = getLastPos() + getDirectionnalVector();
+  glm::vec3 pos = getLastPos() + Utils::getDirectionnalVector(_direction);
   for (float i = 0; i < length - 1; i++)
   {
     for (float j = 0; j < MapManager::ROW_SIZE; j++)
     {
       float k = j - MapManager::HALF_ROW_SIZE;
-      Tile t(pos + getOppositeDirectionnalVector() * k);
+      Tile t(pos + Utils::getOppositeDirectionnalVector(_direction) * k);
 
       // Put rocks on the side
       sideRocks(j, k, pos, t);
       _map.push_back(t);
     }
-    pos += getDirectionnalVector();
+    pos += Utils::getDirectionnalVector(_direction);
   }
   updateLastPos(length);
 }
@@ -151,7 +155,7 @@ void MapManager::generateSimpleBatch()
 void MapManager::generateCoinBatch()
 {
   int length = Utils::rBatchSize();
-  glm::vec3 pos = getLastPos() + getDirectionnalVector();
+  glm::vec3 pos = getLastPos() + Utils::getDirectionnalVector(_direction);
   int lane = Utils::dicei(MapManager::LANE_MIN, MapManager::LANE_MAX);
   bool floatingCoins = Utils::maybe(MapManager::P_FLOATING_COINS);
   for (float i = 0; i < length - 1; i++)
@@ -159,7 +163,7 @@ void MapManager::generateCoinBatch()
     for (float j = 0; j < MapManager::ROW_SIZE; j++)
     {
       float k = j - MapManager::HALF_ROW_SIZE;
-      Tile t(pos + getOppositeDirectionnalVector() * k);
+      Tile t(pos + Utils::getOppositeDirectionnalVector(_direction) * k);
 
       // Choose the lane
       if (k == lane)
@@ -170,14 +174,14 @@ void MapManager::generateCoinBatch()
         {
           y = 1.5f;
         }
-        t.add(new Coin(pos + glm::vec3(0.f, y, 0.f) + getOppositeDirectionnalVector() * k, 1, "ruby.obj"));
+        t.add(new Coin(pos + glm::vec3(0.f, y, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, 1, "ruby.obj"));
       }
 
       // Put rocks on the side
       sideRocks(j, k, pos, t);
       _map.push_back(t);
     }
-    pos += getDirectionnalVector();
+    pos += Utils::getDirectionnalVector(_direction);
   }
   updateLastPos(length);
 }
@@ -185,25 +189,25 @@ void MapManager::generateCoinBatch()
 void MapManager::generateObstacleBatch()
 {
   int length = Utils::rBatchSize();
-  glm::vec3 pos = getLastPos() + getDirectionnalVector();
+  glm::vec3 pos = getLastPos() + Utils::getDirectionnalVector(_direction);
   int lane = Utils::dicei(MapManager::LANE_MIN, MapManager::LANE_MAX);
   for (float i = 0; i < length - 1; i++)
   {
     for (float j = 0; j < MapManager::ROW_SIZE; j++)
     {
       float k = j - MapManager::HALF_ROW_SIZE;
-      Tile t(pos + getOppositeDirectionnalVector() * k);
+      Tile t(pos + Utils::getOppositeDirectionnalVector(_direction) * k);
 
       // Choose the lane
       if (k == lane && i != 0 && i != length - 2)
       {
-        t.add(new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + getOppositeDirectionnalVector() * k, "tentacle.obj"));
+        t.add(new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, "tentacle.obj"));
       }
       // Put rocks on the side
       sideRocks(j, k, pos, t);
       _map.push_back(t);
     }
-    pos += getDirectionnalVector();
+    pos += Utils::getDirectionnalVector(_direction);
   }
   updateLastPos(length);
 }
@@ -211,10 +215,10 @@ void MapManager::generateObstacleBatch()
 void MapManager::generateFork()
 {
   // Middle
-  glm::vec3 advance = getLastPos() + getDirectionnalVector() * (float)MapManager::HALF_ROW_SIZE;
+  glm::vec3 advance = getLastPos() + Utils::getDirectionnalVector(_direction) * (float)MapManager::HALF_ROW_SIZE;
 
   // Left Side
-  glm::vec3 leftSide = advance + getOppositeDirectionnalVector() * (float)MapManager::HALF_FORK_SIZE;
+  glm::vec3 leftSide = advance + Utils::getOppositeDirectionnalVector(_direction) * (float)MapManager::HALF_FORK_SIZE;
 
   glm::vec3 pos = leftSide;
 
@@ -226,29 +230,29 @@ void MapManager::generateFork()
     for (float j = 0; j < MapManager::ROW_SIZE; j++)
     {
       float k = j - MapManager::HALF_ROW_SIZE;
-      Tile t(new Water(pos + getDirectionnalVector() * k, true));
+      Tile t(new Water(pos + Utils::getDirectionnalVector(_direction) * k, true));
 
 
       // Rocks on the side
       if ((j == 0 && (i < noRockMin || i > noRockMax)) ||
           j == MapManager::ROW_SIZE - 1)
       {
-        t.add(new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + getDirectionnalVector() * k, "rock.obj"));
+        t.add(new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + Utils::getDirectionnalVector(_direction) * k, "rock.obj"));
       }
       _map.push_back(t);
     }
-    pos += getOppositeDirectionnalVector() * -1.f;
+    pos += Utils::getOppositeDirectionnalVector(_direction) * -1.f;
   }
 
-  if (getDirectionnalVector()[Z] != 0.f)
+  if (Utils::getDirectionnalVector(_direction)[Z] != 0.f)
   {
-    _forks.push_back(pos + getOppositeDirectionnalVector());
+    _forks.push_back(pos + Utils::getOppositeDirectionnalVector(_direction));
     _forks.push_back(leftSide);
   }
   else
   {
     _forks.push_back(leftSide);
-    _forks.push_back(pos + getOppositeDirectionnalVector());
+    _forks.push_back(pos + Utils::getOppositeDirectionnalVector(_direction));
   }
 }
 
@@ -257,7 +261,7 @@ void MapManager::sideRocks(const float j, const float k, const glm::vec3 &pos, T
 
   if ((j == 0 || j == MapManager::ROW_SIZE - 1) && (int)pos[X] % 2 == 0)
   {
-    t.add(new Obstacle(pos + glm::vec3(0.f, 0.0f, 0.f) + getOppositeDirectionnalVector() * k, "rock.obj"));
+    t.add(new Obstacle(pos + glm::vec3(0.f, 0.0f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, "rock.obj"));
   }
 }
 
@@ -293,54 +297,6 @@ void MapManager::deleteOldPath()
     cpt++;
     _map.pop_front();
     w = dynamic_cast<Water*>((_map.begin())->object(0));
-  }
-}
-
-const glm::vec3 &MapManager::getDirectionnalVector() const
-{
-  switch (_direction)
-  {
-  case DIR_NORTH:
-    return VEC_NORTH;
-    break;
-  case DIR_SOUTH:
-    return VEC_SOUTH;
-    break;
-  case DIR_EAST: /**
-   * @brief Destroy elements that are no longer in the game
-   *
-   */
-    void destroy();
-    return VEC_EAST;
-    break;
-  case DIR_WEST:
-    return VEC_WEST;
-    break;
-  default:
-    throw new Error("Wrong direction : " + std::to_string(_direction), AT);
-    break;
-  }
-}
-
-const glm::vec3 &MapManager::getOppositeDirectionnalVector() const
-{
-  switch (_direction)
-  {
-  case DIR_NORTH:
-    return VEC_WEST;
-    break;
-  case DIR_SOUTH:
-    return VEC_EAST;
-    break;
-  case DIR_EAST:
-    return VEC_SOUTH;
-    break;
-  case DIR_WEST:
-    return VEC_NORTH;
-    break;
-  default:
-    throw new Error("Wrong direction : " + std::to_string(_direction), AT);
-    break;
   }
 }
 } // namespace UP

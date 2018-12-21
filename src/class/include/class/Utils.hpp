@@ -4,6 +4,9 @@
 #pragma once
 
 #include <GL/glew.h>
+
+#include <glimac/glm.hpp>
+
 #include <string>
 #include <iostream>
 #include <random>
@@ -57,6 +60,10 @@ float dicef(const float min, const float max);
 bool maybe(const float p);
 int rBatchSize();
 int cast(const float f);
+
+const glm::vec3 &getDirectionnalVector(const unsigned int &direction);
+
+const glm::vec3 &getOppositeDirectionnalVector(const unsigned int &direction);
 
 } // namespace Utils
 

@@ -33,8 +33,6 @@ enum VERTICAL
   FALLING
 };
 
-
-
 class Character : public GameObject
 {
 public:
@@ -61,7 +59,7 @@ public:
    *
    * @return unsigned int
    */
-  inline unsigned int health() const { return _health; }
+  inline const unsigned int health() const { return _health; }
 
   /**
    * @brief Get the Last Coordinate object
@@ -71,26 +69,56 @@ public:
   inline const std::vector<int> &getLastCoordinate() const { return _lastCoordinate; }
 
   /**
+   * @brief Get the Turn Position object
+   * 
+   * @return const std::vector<int>& 
+   */
+  inline const std::vector<int> &getTurnPosition() const { return _turnPosition; }
+
+  /**
+   * @brief Get the Direction object
+   * 
+   * @return const int 
+   */
+  inline const int getDirection() const { return _direction; };
+
+  /**
    * @brief
    *
    * @return unsigned int
    */
-  inline unsigned int score() const { return _score; }
+  inline const unsigned int score() const { return _score; }
 
   /**
    * @brief Get the Side State object
    *
    * @return int
    */
-  inline int getSideState() const { return _sideState; };
+  inline const int getSideState() const { return _sideState; };
 
-  // ============= SETTERS =============
+  /**
+   * @brief Get the Fork Selected object
+   * 
+   * @return true 
+   * @return false 
+   */
+  inline const bool getForkSelected() const { return _forkSelected; };
+
   /**
     * @brief Get the Active Bonuses object
     *
     * @return std::map<unsigned int, time_t>
     */
   inline std::map<unsigned int, time_t> getActiveBonuses() const { return _activeBonuses; }
+
+  /**
+   * @brief Get the Turn Chosen object
+   * 
+   * @return unsigned int 
+   */
+  inline unsigned int getTurnChosen() { return _turnChosen; };
+
+  // ============= SETTERS =============
 
   /**
    * @brief Set the Health object
@@ -112,7 +140,26 @@ public:
    */
   inline void setLastCoordinate(const std::vector<int> &lastCoordinate) { _lastCoordinate = lastCoordinate; }
 
-  inline void setAccelerationY(const float &acceleration) { _acceleration[Y] = acceleration; }
+  /**
+   * @brief Set the turn position object
+   *
+   * @param turnPosition
+   */
+  inline void setTurnPosition(const std::vector<int> &turnPosition) { _turnPosition = turnPosition; }
+
+  /**
+   * @brief Set the Fork Selected object
+   * 
+   * @param b 
+   */
+  inline void setForkSelected(const bool &b) { _forkSelected = b; };
+
+  /**
+   * @brief Set the Turn Chosend object
+   * 
+   * @param t 
+   */
+  inline void setTurnChosen(const unsigned int &t) { _turnChosen = t; };
 
   // ============= MOVEMENT =============
   /**
@@ -143,12 +190,35 @@ public:
    * @param key
    */
   void keyUpHandler(const int &key);
+
+  // =============  MOVEMENT =============
   /**
    * @brief Move the character
    *
    */
   void move();
 
+  /**
+   * @brief Modify the _direction vector to turn right
+   *
+   */
+  inline void turnRight()
+  {
+    _direction = (_direction + 1) % 4;
+    changeMovement();
+  }
+
+  /**
+   * @brief Modify the _direction vector to turn left
+   *
+   */
+  inline void turnLeft()
+  {
+    _direction = (_direction - 1) % 4;
+    changeMovement();
+  }
+
+  // =============  GENERIC =============
   /**
    * @brief Display the character
    *
@@ -189,15 +259,15 @@ public:
   void addCoin(const unsigned int &coinValue);
 
   // ============= COLLISION =============
-  /**
-   * @brief Detect a collision and call his solver
-   *
-   * @param gameObject
-   * @return true
-   * @return false
-   */
-  bool collisionDetector(GameObject &gameObject);
 
+  /**
+   * @brief Handle the collision for a player : i.e do nothing
+   * 
+   * @param gameObject 
+   * @return true 
+   * @return false 
+   */
+  bool collisionHandler(GameObject *gameObject);
   // ============= HEALTH =============
   /**
    * @brief Lose some health
@@ -206,33 +276,33 @@ public:
    */
   void loseHealth(const unsigned int &value);
 
-  bool collisionHandler(GameObject *gameObject);
-
-  void speedLimiter(glm::vec3 &speed);
-  void speedUpdate();
-  void applyForce(const glm::vec3 &force);
-  void seek(const glm::vec3 &target);
+  /**
+   * @brief Set the Matrix objectComput the matrixes in a special way for the player
+   * 
+   */
   void setMatrix();
-
 
 private:
   std::vector<int> _lastCoordinate;
+  std::vector<int> _turnPosition;
+
   glm::vec3 _acceleration;
+
   unsigned int _health;
   unsigned int _score;
   unsigned int _cubeCount;
-  int _sideState;
-  int _verticalState;
-  glm::mat4 _rotScaleMatrix;
+  unsigned int _direction;
+  bool _forkSelected;
+  unsigned int _turnChosen;
+
   std::map<unsigned int, time_t> _activeBonuses;
 
-  // ============= MOVEMENT =============
-  /**
-   * @brief Constantly make the character move forward
-   *
-   */
-  void forwardMove();
+  int _sideState;
+  int _verticalState;
 
+  glm::mat4 _rotScaleMatrix;
+
+  // ============= MOVEMENT =============
   /**
    * @brief Move on the side given : LEFT, CENTER, RIGHT
    *
@@ -240,6 +310,11 @@ private:
    */
   void sideMove();
 
+  void speedLimiter(glm::vec3 &speed);
+  void speedUpdate();
+  void applyForce(const glm::vec3 &force);
+  void seek(const glm::vec3 &target);
+  void changeMovement();
 };
 
 } // namespace UP

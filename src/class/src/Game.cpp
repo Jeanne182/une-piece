@@ -1,4 +1,6 @@
 #include <vector>
+#include <exception>
+#include <typeinfo>
 
 #include <glimac/glm.hpp>
 #include <glimac/FilePath.hpp>
@@ -31,19 +33,13 @@ void Game::event(const SDL_Event &e)
       if (e.key.keysym.sym == SDLK_r)
       {
         _map->generatePath();
-        _map->generateFork();
         _map->selectLeftFork();
-        _map->generateBatch();
-        _map->deleteOldPath();
         _camera.setCenter(_map->getLastPos());
       }
       if (e.key.keysym.sym == SDLK_t)
       {
         _map->generatePath();
-        _map->generateFork();
         _map->selectRightFork();
-        _map->generateBatch();
-        _map->deleteOldPath();
         _camera.setCenter(_map->getLastPos());
       }
       if (e.key.keysym.sym == SDLK_g)
@@ -54,8 +50,6 @@ void Game::event(const SDL_Event &e)
           _map->selectRightFork();
         else
           _map->selectLeftFork();
-        _map->generateBatch();
-        _map->deleteOldPath();
         _camera.setCenter(_map->getLastPos());
       }
     }
@@ -126,39 +120,109 @@ void Game::collide()
     _character.setLastCoordinate(std::vector<int>{x, y, z});
     _character.cubeCountIncrease();
     Tile &t = _map->getTile(x, z);
+    bool shallClean = false;
     for (int i = 0; i < t.tile().size(); i++)
     {
 
       // Check if there is a water that is a fork
       Water *w = dynamic_cast<Water *>(t.object(i));
-      if (w && w->isFork())
+      //std::cout << w << std::endl;
+      if (w != 0)
       {
-        if (_character.getSideState() == LEFT)
+        if (w->isFork())
         {
-          _map->selectLeftFork();
+          // Water is fork
+
+          if (!_character.getForkSelected())
+          {
+
+            // Set the coord when you need to move
+            glm::vec3 dirVec = Utils::getDirectionnalVector(_character.getDirection());
+            int dirX = static_cast<int>(dirVec[0]) * (MapManager::HALF_ROW_SIZE - 1);
+            int dirZ = static_cast<int>(dirVec[2]) * (MapManager::HALF_ROW_SIZE - 1);
+            std::vector<int> turnPos = {x + dirX, 0, z + dirZ};
+
+            glm::vec3 opDirVec = Utils::getOppositeDirectionnalVector(_character.getDirection());
+
+            turnPos[X] += opDirVec[X];
+            turnPos[Z] += opDirVec[Z];
+
+            std::cout << "Turn pos : " << turnPos[X] << " , " << turnPos[Z] << std::endl;
+
+            _character.setTurnPosition(turnPos);
+
+            // Generate the map
+            if (_character.getSideState() == LEFT)
+            {
+              _character.setTurnChosen(LEFT);
+              _map->selectLeftFork();
+            }
+            else if (_character.getSideState() == RIGHT)
+            {
+              _character.setTurnChosen(RIGHT);
+              _map->selectRightFork();
+            }
+            else
+            {
+              std::cout << "GAME OVER" << std::endl;
+              exit(0);
+            }
+
+            // Modify the player
+            _character.setForkSelected(true);
+
+            // Gnererate the map
+            _map->generatePath();
+            continue;
+          }
         }
-        else if (_character.getSideState() == RIGHT)
-        {
-          _map->selectRightFork();
-        }
+        // Water is not Fork
         else
         {
-          std::cout << "GAME OVER" << std::endl;
-          exit(0);
+          if (_character.getForkSelected())
+          {
+            _character.setForkSelected(false);
+          }
         }
       }
-
-          t.object(i)->markDeleted();
-      //std::cout << "Position de l'objet : " << t.object(i)->pos() << std::endl;
-      if (Utils::cast(t.object(i)->y()) == y)
+      else
       {
-        if (t.object(i)->collisionHandler(&_character))
+        /* code */
+
+        //t.object(i)->markDeleted();
+        //std::cout << "Position de l'objet : " << t.object(i)->pos() << std::endl;
+        if (Utils::cast(t.object(i)->y()) == y)
         {
-          t.object(i)->markDeleted();
+          if (t.object(i)->collisionHandler(&_character))
+          {
+            shallClean = true;
+            t.object(i)->markDeleted();
+          }
         }
+      }
+      if (shallClean)
+        t.clean();
+    }
+
+    // Check if the player must turn
+    if ((_character.getDirection() % 2 == 0 && x == _character.getTurnPosition()[X]) ||
+        (_character.getDirection() % 2 == 1 && z == _character.getTurnPosition()[Z]))
+    {
+      std::cout << "Turning" << std::endl;
+      // Turn
+      if (_character.getTurnChosen() == LEFT)
+      {
+        _character.turnLeft();
+      }
+      else if (_character.getTurnChosen() == RIGHT)
+      {
+        _character.turnRight();
+      }
+      else
+      {
+        throw Error("Can't turn on the center", AT);
       }
     }
-    t.clean();
   }
 }
 

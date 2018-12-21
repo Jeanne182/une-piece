@@ -1,7 +1,9 @@
 #include <random>
+#include <cmath>
 #include <functional>
 
 #include <class/Utils.hpp>
+#include <class/common.hpp>
 #include <class/MapManager.hpp>
 
 GLenum glCheckError_(const char *file, int line)
@@ -70,7 +72,51 @@ int rBatchSize()
 }
 
 int cast(const float f) {
-    return f < 0 ? (int)f - 1 : f;
+    return static_cast<int>(floor(f));
+}
+
+const glm::vec3 &getDirectionnalVector(const unsigned int &direction)
+{
+  switch (direction)
+  {
+  case UP::DIR_NORTH:
+    return UP::VEC_NORTH;
+    break;
+  case UP::DIR_SOUTH:
+    return UP::VEC_SOUTH;
+    break;
+  case UP::DIR_EAST:
+    return UP::VEC_EAST;
+    break;
+  case UP::DIR_WEST:
+    return UP::VEC_WEST;
+    break;
+  default:
+    throw new Error("Wrong direction : " + std::to_string(direction), AT);
+    break;
+  }
+}
+
+const glm::vec3 &getOppositeDirectionnalVector(const unsigned int &direction)
+{
+  switch (direction)
+  {
+  case UP::DIR_NORTH:
+    return UP::VEC_WEST;
+    break;
+  case UP::DIR_SOUTH:
+    return UP::VEC_EAST;
+    break;
+  case UP::DIR_EAST:
+    return UP::VEC_SOUTH;
+    break;
+  case UP::DIR_WEST:
+    return UP::VEC_NORTH;
+    break;
+  default:
+    throw new Error("Wrong direction : " + std::to_string(direction), AT);
+    break;
+  }
 }
 
 } // namespace Utils
