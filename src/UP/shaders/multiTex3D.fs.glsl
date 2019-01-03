@@ -1,4 +1,4 @@
-#version 330
+#version 330 core
 
 // Entrées du shader
 in vec2 vTexCoords; // Coordonnées de texture du sommet

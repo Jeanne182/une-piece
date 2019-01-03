@@ -1,4 +1,4 @@
-#version 330
+#version 330 core
 
 // Attributs de sommet
 layout(location = 0) in vec3 aVertexPosition; // Position
@@ -11,8 +11,8 @@ uniform mat4 uMVMatrix;
 uniform mat4 uNormalMatrix;
 
 // Sorties du shader
-out vec3 vPosition_vs; // Position du sommet transformé dans l'espace View
-out vec3 vNormal_vs; // Normale du sommet transformé dans l'espace View
+out vec4 vPosition_vs; // Position du sommet transformé dans l'espace View
+out vec4 vNormal_vs; // Normale du sommet transformé dans l'espace View
 out vec2 vTexCoords; // Coordonnées de texture du sommet
 
 void main() {
@@ -21,10 +21,10 @@ void main() {
   vec4 vertexNormal = vec4(aVertexNormal, 1);
   
   /* Position et normales en View Coordinates */
-  vPosition_vs = vec3(uMVMatrix * vertexPosition);
-  vNormal_vs = vec3(uNormalMatrix * vertexNormal);
+  vPosition_vs = (uMVMatrix * vec4(aVertexPosition, 1));
+  vNormal_vs = (uNormalMatrix * vec4(aVertexNormal, 0));
   vTexCoords = aVertexTexCoords;
   
   /* Calcul de la position */
-  gl_Position = uMVPMatrix * vertexPosition;
+  gl_Position = uMVPMatrix * vec4(aVertexPosition, 1);
 }

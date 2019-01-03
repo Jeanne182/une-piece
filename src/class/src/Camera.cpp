@@ -271,7 +271,10 @@ void Camera::FPMoveLeft(const float &t)
 void Camera::FPRotateFront(const float &degrees)
 {
   _fPhi += glm::radians(degrees);
-  _fPhi = Utils::clamp(_fPhi, glm::radians(-_fAngleY - Camera::VIEW_WIDTH), glm::radians(-_fAngleY + Camera::VIEW_WIDTH) );
+  if (_currentPOV == FIRST_PERSON)
+  {
+    _fPhi = Utils::clamp(_fPhi, glm::radians(-_fAngleY - Camera::VIEW_WIDTH), glm::radians(-_fAngleY + Camera::VIEW_WIDTH));
+  }
   _frontVector = glm::vec3(std::cos(_fTheta) * std::sin(_fPhi), std::sin(_fTheta), std::cos(_fTheta) * std::cos(_fPhi));
 
   _leftVector = glm::vec3(std::sin(_fPhi + HALF_PI), 0, std::cos(_fPhi + HALF_PI));
@@ -279,7 +282,10 @@ void Camera::FPRotateFront(const float &degrees)
 void Camera::FPRotateLeft(const float &degrees)
 {
   _fTheta += glm::radians(degrees);
-  _fTheta = Utils::clamp(_fTheta, glm::radians(-Camera::VIEW_WIDTH), glm::radians(Camera::VIEW_WIDTH) );
+  if (_currentPOV == FIRST_PERSON)
+  {
+    _fTheta = Utils::clamp(_fTheta, glm::radians(-Camera::VIEW_WIDTH), glm::radians(Camera::VIEW_WIDTH));
+  }
   _frontVector = glm::vec3(std::cos(_fTheta) * std::sin(_fPhi), std::sin(_fTheta), std::cos(_fTheta) * std::cos(_fPhi));
 
   _leftVector = glm::vec3(std::sin(_fPhi + HALF_PI), 0, std::cos(_fPhi + HALF_PI));

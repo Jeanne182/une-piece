@@ -37,8 +37,8 @@ struct AssetProgramMultiLight
   AssetProgramMultiLight(const FilePath &applicationPath)
       : _Program(loadProgram(
             applicationPath.dirPath() + "shaders/3D.vs.glsl",
-            //applicationPath.dirPath() + "shaders/directionnalMultiTexLight.fs.glsl"))
-            applicationPath.dirPath() + "shaders/normals.fs.glsl"))
+            applicationPath.dirPath() + "shaders/directionnalMultiTexLight.fs.glsl"))
+            //applicationPath.dirPath() + "shaders/normals.fs.glsl"))
   {
     // Matrixes
     uMVPMatrix = glGetUniformLocation(_Program.getGLId(), "uMVPMatrix");
