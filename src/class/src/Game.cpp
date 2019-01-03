@@ -29,6 +29,13 @@ void Game::event(const SDL_Event &e)
 {
   _character.event(e);
   _camera.event(e);
+  if (e.type == SDL_KEYDOWN)
+  {
+    if (e.key.keysym.sym == SDLK_c)
+    {
+      _camera.setCharacterInfo(_character.getScale(), _character.getAngles());
+    }
+  }
   if (DEBUG)
   {
     if (e.type == SDL_KEYDOWN)
@@ -66,7 +73,7 @@ void Game::update()
   _light.setDirection(r * _light.direction());
 
   // Update the scene
-  _character.move();
+  //_character.move();
   collide();
   _camera.update(_character.pos());
 

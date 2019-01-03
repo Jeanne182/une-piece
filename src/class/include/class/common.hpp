@@ -108,6 +108,7 @@ enum POV
   FIRST_PERSON,
   THIRD_PERSON,
   ROTATING,
+  FREE_FLY
 };
 
 } // namespace UP
