@@ -60,8 +60,8 @@ float dicef(const float min, const float max)
 }
 bool maybe(const float p)
 {
-   std::uniform_real_distribution<float> uniformRealDistribution(0, 1);
-   return uniformRealDistribution(generator) < p;
+  std::uniform_real_distribution<float> uniformRealDistribution(0, 1);
+  return uniformRealDistribution(generator) < p;
 }
 int rBatchSize()
 {
@@ -71,8 +71,9 @@ int rBatchSize()
   return uniformIntDistribution(generator);
 }
 
-int cast(const float f) {
-    return static_cast<int>(floor(f));
+int cast(const float f)
+{
+  return static_cast<int>(floor(f));
 }
 
 const glm::vec3 &getDirectionnalVector(const unsigned int &direction)
@@ -118,5 +119,4 @@ const glm::vec3 &getOppositeDirectionnalVector(const unsigned int &direction)
     break;
   }
 }
-
 } // namespace Utils

@@ -6,12 +6,14 @@
 
 #include <class/Camera.hpp>
 #include <class/common.hpp>
+#include <class/Utils.hpp>
 
 namespace UP
 {
 
 const double PI = 3.141592653589;
 const double HALF_PI = PI / 2;
+const float Camera::VIEW_WIDTH = 30.f;
 
 Camera::Camera()
     : _fDistance(-15.0f),
@@ -36,6 +38,8 @@ void Camera::event(const SDL_Event &e)
       else
       {
         _currentPOV = FIRST_PERSON;
+        _fTheta = glm::radians(_fAngleX);
+        _fPhi = glm::radians(-_fAngleY);
         computeDirectionVectors();
       }
     }
@@ -145,7 +149,7 @@ void Camera::event(const SDL_Event &e)
     {
       float speed = 0.5f;
       std::cout << "Mouse move: ";
-      std::cout << e.motion.xrel << " | " << e.motion.yrel << std::endl;
+      std::cout << e.motion.xrel << " | " << e.motion.yrel << " | Phi: " << _fPhi << " | Theta: " << _fTheta << std::endl;
       if (e.motion.xrel != 0)
       {
         FPRotateFront(float(-e.motion.xrel) * speed);
@@ -190,7 +194,7 @@ void Camera::update(const glm::vec3 &center)
   }
   else if (_currentPOV == FIRST_PERSON)
   {
-    _center = center + glm::vec3(0.f, 3.f, 0.f);
+    _center = center + glm::vec3(0.f, 1.f, 0.f);
   }
   else
   {
@@ -203,6 +207,9 @@ void Camera::setCharacterInfo(const float &scale, const glm::vec3 &angles)
   _fDistance = scale * -10.0f;
   _fAngleX = 10.f;
   _fAngleY = -angles[Y];
+  _fPhi = glm::radians(_fAngleY);
+  _fTheta = 0.f;
+  computeDirectionVectors();
 }
 
 // ========================== THIRD PERSON ========================
@@ -264,6 +271,7 @@ void Camera::FPMoveLeft(const float &t)
 void Camera::FPRotateFront(const float &degrees)
 {
   _fPhi += glm::radians(degrees);
+  _fPhi = Utils::clamp(_fPhi, glm::radians(-_fAngleY - Camera::VIEW_WIDTH), glm::radians(-_fAngleY + Camera::VIEW_WIDTH) );
   _frontVector = glm::vec3(std::cos(_fTheta) * std::sin(_fPhi), std::sin(_fTheta), std::cos(_fTheta) * std::cos(_fPhi));
 
   _leftVector = glm::vec3(std::sin(_fPhi + HALF_PI), 0, std::cos(_fPhi + HALF_PI));
@@ -271,6 +279,7 @@ void Camera::FPRotateFront(const float &degrees)
 void Camera::FPRotateLeft(const float &degrees)
 {
   _fTheta += glm::radians(degrees);
+  _fTheta = Utils::clamp(_fTheta, glm::radians(-Camera::VIEW_WIDTH), glm::radians(Camera::VIEW_WIDTH) );
   _frontVector = glm::vec3(std::cos(_fTheta) * std::sin(_fPhi), std::sin(_fTheta), std::cos(_fTheta) * std::cos(_fPhi));
 
   _leftVector = glm::vec3(std::sin(_fPhi + HALF_PI), 0, std::cos(_fPhi + HALF_PI));

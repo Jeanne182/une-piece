@@ -51,20 +51,58 @@ int dicei(const int min, const int max);
 float dicef(const float min, const float max);
 
 /**
- * @brief
+ * @brief Return true with a probability of p
  *
  * @param p
  * @return true
  * @return false
  */
 bool maybe(const float p);
+
+/**
+ * @brief Utils for the map batch size
+ * 
+ * @return int 
+ */
 int rBatchSize();
+
+/**
+ * @brief Custom made cast for our map system
+ * 
+ * @param f 
+ * @return int 
+ */
 int cast(const float f);
 
+/**
+ * @brief Get the Directionnal Vector object
+ * 
+ * @param direction 
+ * @return const glm::vec3& 
+ */
 const glm::vec3 &getDirectionnalVector(const unsigned int &direction);
 
+/**
+ * @brief Get the Opposite Directionnal Vector object
+ * 
+ * @param direction 
+ * @return const glm::vec3& 
+ */
 const glm::vec3 &getOppositeDirectionnalVector(const unsigned int &direction);
 
+/**
+ * @brief Clamp a float between the min and max
+ * 
+ * @param n 
+ * @param lower 
+ * @param upper 
+ * @return float 
+ */
+template<typename T>
+T clamp(const T &n, const T &lower, const T &upper)
+{
+  return std::max(lower, std::min(n, upper));
+}
 } // namespace Utils
 
 #endif

@@ -13,6 +13,7 @@ namespace UP
 class Camera
 {
 public:
+  static const float VIEW_WIDTH;
   /**
    * @brief Construct a new Camera object
    * 
@@ -89,7 +90,7 @@ private:
    */
   void TPRotateRight(const float &degrees);
 
-/**
+  /**
  * @brief Move the camera to the front
  * 
  * @param t 

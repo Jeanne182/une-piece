@@ -73,7 +73,7 @@ void Game::update()
   _light.setDirection(r * _light.direction());
 
   // Update the scene
-  //_character.move();
+  _character.move();
   collide();
   _camera.update(_character.pos());
 
