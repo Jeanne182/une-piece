@@ -152,7 +152,7 @@ public:
    * 
    * @param b 
    */
-  inline void setForkSelected(const bool &b) { _forkSelected = b; };
+  void setForkSelected(const bool &b);
 
   /**
    * @brief Set the Turn Chosend object
@@ -202,21 +202,13 @@ public:
    * @brief Modify the _direction vector to turn right
    *
    */
-  inline void turnRight()
-  {
-    _direction = (_direction + 1) % 4;
-    changeMovement();
-  }
+  void turnRight();
 
   /**
    * @brief Modify the _direction vector to turn left
    *
    */
-  inline void turnLeft()
-  {
-    _direction = (_direction - 1) % 4;
-    changeMovement();
-  }
+  void turnLeft();
 
   // =============  GENERIC =============
   /**
@@ -282,6 +274,12 @@ public:
    */
   void setMatrix();
 
+  /**
+   * @brief Update the rotScaleMatrix
+   * 
+   */
+  void updateRotScaleMatrix();
+
 private:
   std::vector<int> _lastCoordinate;
   std::vector<int> _turnPosition;
@@ -314,6 +312,11 @@ private:
   void speedUpdate();
   void applyForce(const glm::vec3 &force);
   void seek(const glm::vec3 &target);
+
+  /**
+   * @brief Is called when the character turn after a fork
+   * 
+   */
   void changeMovement();
 };
 

@@ -35,17 +35,20 @@ Character::Character()
       _verticalState(RUNNING)
 {
   setAngles(glm::vec3(0.f, 90.f, 0.f));
+  updateRotScaleMatrix();
 
+  _speed = Utils::getDirectionnalVector(_direction) * MAX_SPEED;
+}
+
+void Character::updateRotScaleMatrix()
+{
   _rotScaleMatrix = glm::mat4(1.f);
   _rotScaleMatrix = glm::translate(_rotScaleMatrix, glm::vec3(-0.2f, -0.2f, 0.f));
   _rotScaleMatrix = glm::scale(_rotScaleMatrix, glm::vec3(_scale));
   _rotScaleMatrix = glm::rotate(_rotScaleMatrix, glm::radians(_angles[X]), glm::vec3(1.f, 0.f, 0.f));
   _rotScaleMatrix = glm::rotate(_rotScaleMatrix, glm::radians(_angles[Y]), glm::vec3(0.f, 1.f, 0.f));
   _rotScaleMatrix = glm::rotate(_rotScaleMatrix, glm::radians(_angles[Z]), glm::vec3(0.f, 0.f, 1.f));
-
-  _speed = Utils::getDirectionnalVector(_direction) * MAX_SPEED;
 }
-
 void Character::setMatrix()
 {
   // P
@@ -63,6 +66,10 @@ void Character::setMatrix()
 
 void Character::event(const SDL_Event &e)
 {
+
+  if (_forkSelected)
+    return;
+
   switch (e.type)
   {
   case SDL_KEYDOWN:
@@ -107,39 +114,6 @@ void Character::keyUpHandler(const int &key)
   {
     _sideState = CENTER;
   }
-}
-
-void Character::sideMove()
-{
-  glm::vec3 center = _position * glm::abs(Utils::getDirectionnalVector(_direction));
-
-  if (center[X] == 0.f)
-    center[X] = _turnPosition[X];
-  if (center[Z] == 0.f)
-    center[Z] = _turnPosition[Z];
-
-
-  glm::vec3 sideDir = Utils::getOppositeDirectionnalVector(_direction);
-
-  switch (_sideState)
-  {
-  case CENTER:
-    sideDir = sideDir * 0.f;
-    break;
-  case LEFT:
-    sideDir = sideDir * 1.f;
-    break;
-  case RIGHT:
-    sideDir = sideDir * -1.f;
-    break;
-  }
-
-  glm::vec3 target = center + sideDir;
-
-  std::cout << "Center Vector " << center << std::endl;
-  std::cout << "SideDir Vector " << sideDir << std::endl;
-  std::cout << "Target Vector " << target << std::endl;
-  seek(target);
 }
 
 void Character::addBonus(const Bonus &bonus)
@@ -225,8 +199,9 @@ bool Character::collisionHandler(GameObject *gameObject)
 
 void Character::move()
 {
-  // Gravity
   sideMove();
+
+  // Gravity
   if (_verticalState == JUMPING)
     applyForce(GRAVITY);
 
@@ -234,6 +209,9 @@ void Character::move()
   //std::cout << "Speed :" << _speed << std::endl;
   //std::cout << "Acceleration :" << _acceleration << std::endl;
   //std::cout << std::endl;
+  
+  std::cout << "Current Speed : " << glm::length(_speed) << std::endl;
+
   speedUpdate();
   if (_position[Y] < 0.1f)
   {
@@ -241,6 +219,62 @@ void Character::move()
     _speed[Y] = 0.f;
     _verticalState = RUNNING;
   }
+}
+
+void Character::sideMove()
+{
+  glm::vec3 center = _position * glm::abs(Utils::getDirectionnalVector(_direction));
+
+  if (center[X] == 0.f)
+    center[X] = _turnPosition[X];
+  if (center[Z] == 0.f)
+    center[Z] = _turnPosition[Z];
+
+  glm::vec3 sideDir = Utils::getOppositeDirectionnalVector(_direction);
+
+  if ((_direction % 2) == 1)
+  {
+    // Debug
+    switch (_sideState)
+    {
+    case CENTER:
+      sideDir = sideDir * 0.f;
+      break;
+    case LEFT:
+      sideDir = sideDir * -1.f;
+      break;
+    case RIGHT:
+      sideDir = sideDir * 1.f;
+      break;
+    }
+    /*
+    // Bug on this side
+    std::cout << "Center :" << center << std::endl;
+    std::cout << "Side  " << sideDir << std::endl;
+    std::cout << "Target : " << target << std::endl;
+    std::cout << "Position : " << _position << std::endl;
+    std::cout << std::endl;
+*/
+  }
+  else
+  {
+    switch (_sideState)
+    {
+    case CENTER:
+      sideDir = sideDir * 0.f;
+      break;
+    case LEFT:
+      sideDir = sideDir * 1.f;
+      break;
+    case RIGHT:
+      sideDir = sideDir * -1.f;
+      break;
+    }
+  }
+  glm::vec3 target = center + sideDir;
+  // Normal case
+  if (glm::distance(target, _position) > 0.01f)
+    seek(target);
 }
 
 void Character::speedLimiter(glm::vec3 &speed)
@@ -264,6 +298,11 @@ void Character::speedUpdate()
     _speed += _acceleration;
     speedLimiter(_speed);
   }
+  if (_speed == glm::vec3(0.f))
+  {
+    _speed = Utils::getDirectionnalVector(_direction) * Character::MAX_SPEED;
+    std::cout << "Ugly debug :/ " << std::endl;
+  }
 
   // Limit speed
   _position += _speed;
@@ -280,30 +319,51 @@ void Character::applyForce(const glm::vec3 &force)
 // STEER = DESIRED MINUS VELOCITY
 void Character::seek(const glm::vec3 &target)
 {
-  glm::vec3 desired = target - _position; // A vector pointing from the location to the target
-
-  // Scale to maximum speed
-  speedLimiter(desired);
+  glm::vec3 desired = (target - _position) * Character::MAX_SPEED;
 
   // Steering = Desired minus velocity
   glm::vec3 steer = desired - _speed;
   speedLimiter(steer); // Limit to maximum steering force
-  steer[X] = 0.f;
-  steer[Y] = 0.f;
+  steer = steer * glm::abs(Utils::getOppositeDirectionnalVector(_direction));
   applyForce(steer);
 }
 
 void Character::changeMovement()
 {
+  _turnChosen = CENTER;
+
   // Stop the player
   applyForce(_speed * -1.f);
 
   // Lunch in new dir
   glm::vec3 newDir = Utils::getDirectionnalVector(_direction) * Character::MAX_SPEED;
   std::cout << "New dir : " << newDir << std::endl;
+
   applyForce(newDir);
 
   std::cout << "Speed: " << _speed << std::endl;
 }
 
+void Character::setForkSelected(const bool &b)
+{
+  _forkSelected = b;
+  if (b)
+    _sideState = CENTER;
+}
+
+void Character::turnRight()
+{
+  _direction = (_direction + 1) % 4;
+  changeMovement();
+  setAngles(glm::vec3(_angles[X], _angles[Y] - 90.f, _angles[Z]));
+  updateRotScaleMatrix();
+}
+
+void Character::turnLeft()
+{
+  _direction = (_direction - 1) % 4;
+  changeMovement();
+  setAngles(glm::vec3(_angles[X], _angles[Y] + 90.f, _angles[Z]));
+  updateRotScaleMatrix();
+}
 } // namespace UP

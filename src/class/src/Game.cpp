@@ -187,10 +187,8 @@ void Game::collide()
       }
       else
       {
-        /* code */
-
-        //t.object(i)->markDeleted();
         //std::cout << "Position de l'objet : " << t.object(i)->pos() << std::endl;
+        // Normal collision handler for something different than water
         if (Utils::cast(t.object(i)->y()) == y)
         {
           if (t.object(i)->collisionHandler(&_character))
@@ -205,6 +203,7 @@ void Game::collide()
     }
 
     // Check if the player must turn
+    // The player should turn if he is on a fork
     if ((_character.getDirection() % 2 == 0 && x == _character.getTurnPosition()[X]) ||
         (_character.getDirection() % 2 == 1 && z == _character.getTurnPosition()[Z]))
     {
@@ -225,5 +224,4 @@ void Game::collide()
     }
   }
 }
-
 }; // namespace UP
