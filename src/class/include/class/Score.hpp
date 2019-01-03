@@ -9,7 +9,6 @@
 namespace UP
 {
 
-
 /**
  * @brief Data structure for a SCORE
  * 
@@ -24,10 +23,8 @@ public:
    * @param score 
    * @param t 
    */
-  Score(const std::string &name, const int &score, const time_t &t)
-      : _name(name), _score(score), _time(t)
-  {
-  }
+  Score(const std::string &name, const int &score, const time_t time = std::time(0))
+      : _name(name), _score(score), _time(time){};
 
   /**
    * @brief Getter of the name
@@ -35,7 +32,7 @@ public:
    * @return const std::string 
    */
   inline const std::string name() const { return _name; };
-  
+
   /**
    * @brief Getter of the score
    * 
@@ -82,6 +79,6 @@ private:
   const time_t _time;
 };
 
-} // UP
+} // namespace UP
 
 #endif

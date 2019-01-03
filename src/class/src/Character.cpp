@@ -21,7 +21,7 @@ Character::Character()
     : GameObject(glm::vec3(0.f, 0.1f, 0.f),
                  glm::vec3(MAX_SPEED, 0.f, 0.f),
                  0.3f,
-                 "boat.obj"),
+                 "bateau.obj"),
       _lastCoordinate(3, 0),
       _turnPosition(3, 0),
       _direction(DIR_NORTH),
@@ -171,25 +171,6 @@ void Character::loseHealth(const unsigned int &value)
 void Character::display() const
 {
   GameObject::display();
-}
-
-void Character::reset()
-{
-  // Directly Copied from the constructor
-  // TAKE CARE
-
-  /**
-   * @TODO
-   * 
-   */
-  throw Error("MUST UPDATE THIS FUNCTION", AT);
-  GameObject::reset();
-  _health = 1;
-  _sideState = CENTER;
-  _verticalState = RUNNING;
-  _activeBonuses.clear();
-  setSpeed(glm::vec3(0.0001f, 0.0001f, 0.0001f));
-  _scale = 1.f;
 }
 
 bool Character::collisionHandler(GameObject *gameObject)

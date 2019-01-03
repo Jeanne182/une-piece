@@ -87,7 +87,7 @@ public:
    *
    * @return unsigned int
    */
-  inline const unsigned int score() const { return _score; }
+  inline const unsigned int score() const { return _score * 3 + _cubeCount; }
 
   /**
    * @brief Get the Side State object
@@ -229,12 +229,6 @@ public:
    *
    */
   void display() const;
-
-  /**
-   * @brief Reset the Character to default
-   *
-   */
-  void reset();
 
   // ============= BONUS =============
   /**

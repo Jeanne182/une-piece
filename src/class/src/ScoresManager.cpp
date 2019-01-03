@@ -26,7 +26,7 @@ void ScoresManager::loadScores()
   time_t t;
   while (scoresFile >> name >> score >> t)
   {
-    addScore(Score(name, score, t));
+    addScore(Score(name, score));
   }
   scoresFile.close();
 }

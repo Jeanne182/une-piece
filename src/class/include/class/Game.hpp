@@ -54,6 +54,12 @@ public:
    */
   void reset();
 
+  /**
+   * @brief  Handle stuff to end the game
+   * 
+   */
+  void gameOver();
+
 private:
   Character _character;
   Camera _camera;

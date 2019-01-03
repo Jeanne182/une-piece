@@ -56,7 +56,7 @@ int main(int argc, char **argv)
 
   // SCORE MANAGER
   ScoresManager& scores = ScoresManager::Get();
-  scores.addScore(Score("Paulounet", 66, time(0)));
+  scores.addScore(Score("Paulounet", 66));
   scores.displayAll();
   scores.store();
   

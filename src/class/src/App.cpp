@@ -16,8 +16,7 @@ namespace UP
 App::App()
     : _staticImages(),
       _buttons(),
-      _game(),
-      _scores(ScoresManager::Get()){};
+      _game(){};
 
 // =============== SELECT THE LAYOUT ===============
 void App::layout2D()

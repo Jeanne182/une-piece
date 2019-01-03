@@ -69,11 +69,4 @@ void GameObject::useMatrix() const
   glUniformMatrix4fv(AssetManager::Get()->assetProgramMultiLight().uNormalMatrix, 1, GL_FALSE, glm::value_ptr(_N));
 }
 
-void GameObject::reset()
-{
-  _position = glm::vec3(0.f, 0.f, 0.f);
-  _speed = glm::vec3(0.f, 0.f, 0.f);
-  _scale = 1.f;
-}
-
 } // namespace UP

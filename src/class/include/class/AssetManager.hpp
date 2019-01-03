@@ -7,6 +7,7 @@
 #include <glimac/common.hpp>
 #include <glimac/FilePath.hpp>
 
+#include <class/ScoresManager.hpp>
 #include <class/Program.hpp>
 #include <class/Model.hpp>
 #include <class/Error.hpp>
@@ -137,7 +138,7 @@ private:
   StaticImageProgram _staticImageProgram;
 
   // Models
-  std::map<std::string, Model*> _models;
+  std::map<std::string, Model *> _models;
 
   // ================ SINGLETON's STUFF ==============
   static AssetManager *instance;

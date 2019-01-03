@@ -8,6 +8,8 @@
 #include <class/Game.hpp>
 #include <class/AssetManager.hpp>
 #include <class/Character.hpp>
+#include <class/ScoresManager.hpp>
+#include <class/Score.hpp>
 #include <class/Program.hpp>
 #include <class/common.hpp>
 #include <class/Light.hpp>
@@ -107,10 +109,32 @@ void Game::sendLight() const
 
 void Game::reset()
 {
-  _character.reset();
-  _camera.update(glm::vec3(0.f));
+  // Reset the character
+  (&_character)->~Character();
+  new (&_character) Character();
+
+  // Reset the camera
+  (&_camera)->~Camera();
+  new (&_camera) Camera();
+  _camera.setCharacterInfo(_character.getScale(), _character.getAngles());
+
+  // Reset the map
   delete _map;
   _map = new MapManager;
+}
+
+void Game::gameOver()
+{
+
+  Score s = Score("Player", _character.score());
+  ScoresManager &scores = ScoresManager::Get();
+  scores.addScore(s);
+  scores.displayAll();
+  scores.store();
+
+  std::cout << "GAME OVER" << std::endl;
+  std::cout << "MDR TA PERDUUUUU" << std::endl;
+  exit(0);
 }
 
 void Game::collide()
@@ -174,8 +198,7 @@ void Game::collide()
             }
             else
             {
-              std::cout << "GAME OVER" << std::endl;
-              exit(0);
+              gameOver();
             }
 
             // Modify the player

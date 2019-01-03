@@ -189,12 +189,6 @@ public:
 
   // ============= METHODS =============
   /**
-   * @brief Reset the game object to default
-   *
-   */
-  void reset();
-
-  /**
    * @brief Utils for the deletion
    * 
    */

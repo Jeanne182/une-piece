@@ -133,7 +133,6 @@ private:
   // Loaders
   ButtonLoader _buttons;
   StaticImageLoader _staticImages;
-  ScoresManager &_scores;
   Game _game;
 
   // Internal States
