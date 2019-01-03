@@ -20,7 +20,10 @@ namespace UP
 
 Game::Game()
     : _character(),
-      _map(new MapManager){};
+      _map(new MapManager)
+{
+  _camera.setCharacterInfo(_character.getScale(), _character.getAngles());
+};
 
 void Game::event(const SDL_Event &e)
 {
@@ -34,13 +37,13 @@ void Game::event(const SDL_Event &e)
       {
         _map->generatePath();
         _map->selectLeftFork();
-        _camera.setCenter(_map->getLastPos());
+        _camera.update(_map->getLastPos());
       }
       if (e.key.keysym.sym == SDLK_t)
       {
         _map->generatePath();
         _map->selectRightFork();
-        _camera.setCenter(_map->getLastPos());
+        _camera.update(_map->getLastPos());
       }
       if (e.key.keysym.sym == SDLK_g)
       {
@@ -50,7 +53,7 @@ void Game::event(const SDL_Event &e)
           _map->selectRightFork();
         else
           _map->selectLeftFork();
-        _camera.setCenter(_map->getLastPos());
+        _camera.update(_map->getLastPos());
       }
     }
   }
@@ -63,9 +66,9 @@ void Game::update()
   _light.setDirection(r * _light.direction());
 
   // Update the scene
-  _camera.setCenter(_character.pos());
   _character.move();
   collide();
+  _camera.update(_character.pos());
 
   // Update the matrixes
   _character.setMatrix();
@@ -98,7 +101,7 @@ void Game::sendLight() const
 void Game::reset()
 {
   _character.reset();
-  _camera.setCenter(glm::vec3(0.f));
+  _camera.update(glm::vec3(0.f));
   delete _map;
   _map = new MapManager;
 }
@@ -207,7 +210,6 @@ void Game::collide()
     if ((_character.getDirection() % 2 == 0 && x == _character.getTurnPosition()[X]) ||
         (_character.getDirection() % 2 == 1 && z == _character.getTurnPosition()[Z]))
     {
-      std::cout << "Turning" << std::endl;
       // Turn
       if (_character.getTurnChosen() == LEFT)
       {
@@ -221,6 +223,7 @@ void Game::collide()
       {
         throw Error("Can't turn on the center", AT);
       }
+      _camera.setCharacterInfo(_character.getScale(), _character.getAngles());
     }
   }
 }

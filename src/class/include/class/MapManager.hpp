@@ -31,7 +31,7 @@ public:
   static const float P_FLOATING_COINS;
   static const int LANE_MIN = -1;
   static const int LANE_MAX = 1;
-  static const int FORK_SIZE = ROW_SIZE * 4;
+  static const int FORK_SIZE = ROW_SIZE * 3;
   static const int HALF_FORK_SIZE = FORK_SIZE / 2;
 
   enum BATCH_TYPE : unsigned int

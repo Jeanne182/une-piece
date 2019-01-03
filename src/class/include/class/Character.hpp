@@ -118,6 +118,19 @@ public:
    */
   inline unsigned int getTurnChosen() { return _turnChosen; };
 
+  /**
+   * @brief Get the Scale object
+   * 
+   * @return const float 
+   */
+  inline const float getScale() { return _scale; };
+
+  /**
+   * @brief Get the Angles object
+   * 
+   * @return const glm::vec3 
+   */
+  inline const glm::vec3 getAngles() { return _angles; };
   // ============= SETTERS =============
 
   /**

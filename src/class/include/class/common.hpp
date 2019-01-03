@@ -99,6 +99,17 @@ enum COORD
   Z
 };
 
+/**
+ * @brief Data structure to identify the Point of View
+ * 
+ */
+enum POV
+{
+  FIRST_PERSON,
+  THIRD_PERSON,
+  ROTATING,
+};
+
 } // namespace UP
 
 #endif

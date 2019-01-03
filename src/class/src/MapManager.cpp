@@ -75,10 +75,14 @@ void MapManager::updateLastPos(const float &length)
 
 void MapManager::generatePath()
 {
-  if (_map.size() > 1500)
+  if (_map.size() > 1200)
   {
     deleteOldPath();
   }
+  
+  generateSimpleBatch();
+  generateSimpleBatch();
+
   int batchCount = Utils::dicei(MapManager::PATH_SIZE_MIN, MapManager::PATH_SIZE_MAX);
   for (int i = 0; i < batchCount; i++)
   {

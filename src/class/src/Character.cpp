@@ -21,7 +21,7 @@ Character::Character()
     : GameObject(glm::vec3(0.f, 0.1f, 0.f),
                  glm::vec3(MAX_SPEED, 0.f, 0.f),
                  0.3f,
-                 "bateau.obj"),
+                 "boat.obj"),
       _lastCoordinate(3, 0),
       _turnPosition(3, 0),
       _direction(DIR_NORTH),
@@ -210,7 +210,7 @@ void Character::move()
   //std::cout << "Acceleration :" << _acceleration << std::endl;
   //std::cout << std::endl;
   
-  std::cout << "Current Speed : " << glm::length(_speed) << std::endl;
+  //std::cout << "Current Speed : " << glm::length(_speed) << std::endl;
 
   speedUpdate();
   if (_position[Y] < 0.1f)

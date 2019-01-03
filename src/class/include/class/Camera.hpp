@@ -25,7 +25,19 @@ public:
    * @param e 
    */
   void event(const SDL_Event &e);
-  void update();
+
+  /**
+   * @brief Update the camera based on the center position
+   * 
+   * @param center 
+   */
+  void update(const glm::vec3 &center);
+
+  /**
+   * @brief Get the infos from the character
+   * 
+   */
+  void setCharacterInfo(const float &scale, const glm::vec3 &angles);
 
   /**
    * @brief Translate the camera closer or further to the center
@@ -55,19 +67,13 @@ public:
    */
   glm::mat4 getViewMatrix() const;
 
-  /**
-   * @brief Set the Center object
-   * 
-   * @param center 
-   */
-  inline void setCenter(const glm::vec3 &center) { _center = center; };
-
 private:
   glm::vec3 _center;
   float _fDistance; // Distane par rapport au centre de la scene
   float _fAngleX;   // Angle X autour de la camera
   float _fAngleY;   // Angle Y autour de la camera
+  unsigned int _currentPOV;
 };
-} // namespace glimac
+} // namespace UP
 
 #endif
