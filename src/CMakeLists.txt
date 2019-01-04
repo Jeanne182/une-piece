@@ -29,11 +29,17 @@ link_directories(${ASSIMP_DIRECTORY})
 include_directories(${ASSIMP_DIRECTORY})
 find_library(assimp assimp ${ASSIMP_DIRECTORY})
 
+# Include Freetype
+set(FREETYPE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/libs/COMPILED_FREETYPE)
+link_directories(${FREETYPE_DIRECTORY})
+include_directories(${FREETYPE_DIRECTORY})
+find_library(freetype freetype ${FREETYPE_DIRECTORY})
+
 # Adding libraries
 add_subdirectory(class)
 add_subdirectory(glimac)
 
-set(ALL_LIBRARIES class glimac assimp SOIL ${SDL_LIBRARY} ${GLEW_LIBRARY} ${OPENGL_LIBRARIES})
+set(ALL_LIBRARIES class glimac assimp SOIL freetype ${SDL_LIBRARY} ${GLEW_LIBRARY} ${OPENGL_LIBRARIES})
 
 # Copy save directory
 file(COPY save DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

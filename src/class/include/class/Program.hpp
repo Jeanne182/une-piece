@@ -4,6 +4,7 @@
 #pragma once
 
 #include <map>
+#include <iostream>
 
 #include <glimac/FilePath.hpp>
 #include <glimac/Program.hpp>
@@ -38,7 +39,7 @@ struct AssetProgramMultiLight
       : _Program(loadProgram(
             applicationPath.dirPath() + "shaders/3D.vs.glsl",
             applicationPath.dirPath() + "shaders/directionnalMultiTexLight.fs.glsl"))
-            //applicationPath.dirPath() + "shaders/normals.fs.glsl"))
+  //applicationPath.dirPath() + "shaders/normals.fs.glsl"))
   {
     // Matrixes
     uMVPMatrix = glGetUniformLocation(_Program.getGLId(), "uMVPMatrix");
@@ -144,6 +145,28 @@ struct StaticImageProgram
   {
     _uTexture = glGetUniformLocation(_Program.getGLId(), "uTexture");
     _uModelMatrix = glGetUniformLocation(_Program.getGLId(), "uModelMatrix");
+  }
+};
+
+/**
+ * @brief Data structure for the Shader of a Static Image
+ *
+ */
+struct GlyphProgram
+{
+  Program _Program;
+  GLuint _uText;
+  GLuint _uTextColor;
+  GLuint _uProjection;
+
+  GlyphProgram(const FilePath &applicationPath)
+      : _Program(loadProgram(
+            applicationPath.dirPath() + "shaders/glyph.vs.glsl",
+            applicationPath.dirPath() + "shaders/glyph.fs.glsl"))
+  {
+    _uText = glGetUniformLocation(_Program.getGLId(), "uText");
+    _uTextColor = glGetUniformLocation(_Program.getGLId(), "uTextColor");
+    _uProjection = glGetUniformLocation(_Program.getGLId(), "uProjection");
   }
 };
 

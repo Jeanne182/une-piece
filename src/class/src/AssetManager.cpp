@@ -26,17 +26,21 @@ std::string AssetManager::textureFile(const std::string &texture) const
   return _appPath.dirPath() + "../../src/assets/textures/" + texture;
 }
 
+std::string AssetManager::fontFile(const std::string &font) const
+{
+  return _appPath.dirPath() + "../../src/assets/fonts/" + font;
+}
+
 Model *AssetManager::model(const std::string &name)
 {
   if (_models.find(name) == _models.end())
   {
     // We don't have loaded the model. Let's load it
-    _models.insert(std::pair<std::string, Model*>(name, new Model(name)));
+    _models.insert(std::pair<std::string, Model *>(name, new Model(name)));
   }
   //std::cout << "Nb models in store : " << _models.size() << std::endl;
   return _models.find(name)->second;
 }
-
 
 Model *AssetManager::model(const std::string &name) const
 {

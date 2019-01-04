@@ -189,8 +189,12 @@ void App::drawScores()
 {
   try
   {
+    AssetManager::Get()->staticImageProgram()._Program.use();
     _buttons.displayImage("Scores");
     _buttons.displayImage("Menu");
+
+    AssetManager::Get()->textManager().renderText("This is a text rendered by FreeType :)", 25.0f, 100.0f, 1.0f, glm::vec3(0.8, 0.3f, 0.2f));
+    AssetManager::Get()->textManager().renderText("Keur", 300.0f, 300.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
   }
   catch (std::exception &e)
   {

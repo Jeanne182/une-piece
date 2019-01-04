@@ -8,6 +8,7 @@
 #include <glimac/FilePath.hpp>
 
 #include <class/ScoresManager.hpp>
+#include <class/TextManager.hpp>
 #include <class/Program.hpp>
 #include <class/Model.hpp>
 #include <class/Error.hpp>
@@ -35,6 +36,7 @@ public:
   {
     if (!instance) // Only allow one instance of class to be generated.
       instance = new AssetManager(argv);
+    instance->_textManager.setupTTF();
   };
 
   /**
@@ -72,6 +74,14 @@ public:
    * @return std::string 
    */
   std::string textureFile(const std::string &texture) const;
+
+  /**
+   * @brief Get a font file
+   * 
+   * @param file 
+   * @return std::string 
+   */
+  std::string fontFile(const std::string &font) const;
 
   /**
    * @brief Return a Model
@@ -113,6 +123,20 @@ public:
    */
   inline const StaticImageProgram &staticImageProgram() const { return _staticImageProgram; };
 
+  /**
+   * @brief Get the Glyph Program
+   * 
+   * @return const GlyphProgram& 
+   */
+  inline const GlyphProgram &glyphProgram() const { return _glyphProgram; };
+
+  /**
+   * @brief Get the Text Manager
+   * 
+   * @return const TextManager& 
+   */
+  inline TextManager &textManager() { return _textManager; };
+
 private:
   /**
    * @brief Construct a new AssetManager object
@@ -126,7 +150,8 @@ private:
         _assetProgram(_appPath),
         _assetProgramMulti(_appPath),
         _assetProgramMultiLight(_appPath),
-        _staticImageProgram(_appPath){};
+        _staticImageProgram(_appPath),
+        _glyphProgram(_appPath){};
 
   // AssetManager Path
   FilePath _appPath;
@@ -136,6 +161,10 @@ private:
   AssetProgramMulti _assetProgramMulti;
   AssetProgramMultiLight _assetProgramMultiLight;
   StaticImageProgram _staticImageProgram;
+  GlyphProgram _glyphProgram;
+
+  // TextManager
+  TextManager _textManager;
 
   // Models
   std::map<std::string, Model *> _models;
