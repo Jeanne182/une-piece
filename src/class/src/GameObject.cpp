@@ -39,9 +39,6 @@ void GameObject::setMatrix()
 {
   // Compute Matrix
 
-  // P
-  _P = glm::perspective(glm::radians(70.0f), (float)(WINDOW_WIDTH / WINDOW_HEIGHT), 0.1f, 200.f);
-
   // MV -> Modify
   _M = glm::translate(glm::mat4(1.f), _position);
   _M = glm::scale(_M, glm::vec3(_scale));
@@ -50,7 +47,6 @@ void GameObject::setMatrix()
   _M = glm::rotate(_M, glm::radians(_angles[Z]), glm::vec3(0.f, 0.f, 1.f));
 
   /*
-  std::cout << "P" << _P << std::endl;
   std::cout << "M" << _M << std::endl;
 */
 }
@@ -58,7 +54,7 @@ void GameObject::setMatrix()
 void GameObject::computeMatrix(const glm::mat4 &cameraView)
 {
   _MV = cameraView * _M;
-  _MVP = _P * _MV;
+  _MVP = MATRIX_PERSPECTIVE * _MV;
   _N = -1.f *glm::transpose(glm::inverse(_MV));
 }
 

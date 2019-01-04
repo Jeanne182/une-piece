@@ -131,6 +131,13 @@ public:
   inline const GlyphProgram &glyphProgram() const { return _glyphProgram; };
 
   /**
+   * @brief Get the Skybox Program
+   * 
+   * @return const SkyboxProgram& 
+   */
+  inline const SkyboxProgram &skyboxProgram() const { return _skyboxProgram; };
+
+  /**
    * @brief Get the Text Manager
    * 
    * @return const TextManager& 
@@ -151,6 +158,7 @@ private:
         _assetProgramMulti(_appPath),
         _assetProgramMultiLight(_appPath),
         _staticImageProgram(_appPath),
+        _skyboxProgram(_appPath),
         _glyphProgram(_appPath){};
 
   // AssetManager Path
@@ -161,6 +169,7 @@ private:
   AssetProgramMulti _assetProgramMulti;
   AssetProgramMultiLight _assetProgramMultiLight;
   StaticImageProgram _staticImageProgram;
+  SkyboxProgram _skyboxProgram;
   GlyphProgram _glyphProgram;
 
   // TextManager

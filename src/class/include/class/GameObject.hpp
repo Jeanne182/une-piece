@@ -34,7 +34,7 @@ public:
    * @param scale 
    * @param name 
    */
-  GameObject(const glm::vec3 &pos, const glm::vec3 &speed, const float &scale, const std::string &name);
+  GameObject(const glm::vec3 &pos, const glm::vec3 &speed, const float &scale, const std::string &name = "null");
 
   /**
    * @brief Construct a new Game Object object
@@ -229,7 +229,7 @@ protected:
   glm::vec3 _position;
   glm::vec3 _speed;
 
-  glm::mat4 _P, _M, _N, _MV, _MVP;
+  glm::mat4 _M, _N, _MV, _MVP;
   const std::string _name;
   Model *_model;
 };

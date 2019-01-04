@@ -27,6 +27,9 @@ static const glm::vec3 VEC_SOUTH = glm::vec3(-1.f, 0.f, 0.f);
 static const glm::vec3 VEC_EAST = glm::vec3(0.f, 0.0f, 1.f);
 static const glm::vec3 VEC_WEST = glm::vec3(0.f, 0.0f, -1.f);
 
+static const glm::mat4 MATRIX_PERSPECTIVE = glm::perspective(glm::radians(70.0f), (float)(WINDOW_WIDTH / WINDOW_HEIGHT), 0.1f, 200.f);
+
+
 enum DIRECTION {
   DIR_NORTH,
   DIR_EAST,

@@ -170,6 +170,25 @@ struct GlyphProgram
   }
 };
 
+struct SkyboxProgram
+{
+  Program _Program;
+  GLuint _uProj;
+  GLuint _uView;
+  GLuint _uSkybox;
+
+  SkyboxProgram(const FilePath &applicationPath)
+      : _Program(loadProgram(
+            applicationPath.dirPath() + "shaders/skybox.vs.glsl",
+            applicationPath.dirPath() + "shaders/skybox.fs.glsl"))
+  {
+    _Program.use();
+    _uProj = glGetUniformLocation(_Program.getGLId(), "uProj");
+    _uView = glGetUniformLocation(_Program.getGLId(), "uView");
+    _uSkybox = glGetUniformLocation(_Program.getGLId(), "uSkybox");
+  }
+};
+
 } // namespace UP
 
 #endif

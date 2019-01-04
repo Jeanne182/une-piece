@@ -12,6 +12,7 @@
 #include <class/Character.hpp>
 #include <class/MapManager.hpp>
 #include <class/Camera.hpp>
+#include <class/Skybox.hpp>
 #include <class/Light.hpp>
 
 using namespace glimac;
@@ -65,6 +66,7 @@ private:
   Camera _camera;
   Light _light;
   MapManager *_map;
+  Skybox _skybox;
 
   // ============= METHODS =============
   void sendLight() const;

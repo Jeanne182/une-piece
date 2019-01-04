@@ -51,15 +51,11 @@ void Character::updateRotScaleMatrix()
 }
 void Character::setMatrix()
 {
-  // P
-  _P = glm::perspective(glm::radians(70.0f), (float)(WINDOW_WIDTH / WINDOW_HEIGHT), 0.1f, 200.f);
-
   // MV -> Modify
   _M = glm::translate(glm::mat4(1.f), _position);
   _M = _M * _rotScaleMatrix;
 
   /*
-  std::cout << "P" << _P << std::endl;
   std::cout << "M" << _M << std::endl;
 */
 }

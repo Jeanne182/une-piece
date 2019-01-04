@@ -45,12 +45,6 @@ main(int argc, char **argv)
   App &app = App::Get();
   app.layoutMenu();
 
-  // ============== SCORE MANAGER ==============
-  ScoresManager& scores = ScoresManager::Get();
-  scores.addScore(Score("Paulounet", 66));
-  scores.displayAll();
-  scores.store();
-
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   glCheckError(); // We never know
   // Application loop:

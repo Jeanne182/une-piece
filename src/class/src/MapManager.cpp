@@ -20,7 +20,7 @@ const float MapManager::P_FLOATING_COINS = 0.5f;
 MapManager::MapManager()
     : _direction(DIR_NORTH),
       _probability(10),
-      _lastPos(glm::vec3(0.f))
+      _lastPos(glm::vec3(-7.f, 0.f, 0.f))
 {
   _probability[BATCH_TYPE_SIMPLE] = 2;
   _probability[BATCH_TYPE_COIN] = 3;

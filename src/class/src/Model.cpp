@@ -197,28 +197,9 @@ std::vector<Texture> Model::loadMaterialTextures(const aiMaterial *mat, const ai
       texture.type = typeName;
       texture.path = str.C_Str();
 
-      // Light Data
-      aiColor3D diffuse(0.f, 0.f, 0.f);
-      aiColor3D specular(0.f, 0.f, 0.f);
-      float shininess;
-
-      mat->Get(AI_MATKEY_COLOR_DIFFUSE, diffuse);
-      mat->Get(AI_MATKEY_COLOR_SPECULAR, specular);
-      mat->Get(AI_MATKEY_SHININESS, shininess);
-
-      texture.diffuse = glm::vec3(diffuse.r, diffuse.g, diffuse.b);
-      texture.specular = glm::vec3(specular.r, specular.g, specular.b);
-      texture.shininess = shininess;
-
       texture.diffuse = glm::vec3(0.25f, 0.25f, 0.25f);
       texture.specular = glm::vec3(0.25f, 0.25f, 0.25f);
-      //texture.shininess = 100.f;
-      
-      std::cout << "Diffuse: " << texture.diffuse << std::endl;
-      std::cout << "Specular: " << texture.specular << std::endl;
-      std::cout << "Shininess: " << texture.shininess << std::endl;
-
-
+      texture.shininess = 10.f;
 
       textures.push_back(texture);
       _textures_loaded.push_back(texture); // add to loaded textures
