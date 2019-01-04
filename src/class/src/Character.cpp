@@ -14,8 +14,8 @@ using namespace glimac;
 namespace UP
 {
 const float Character::MAX_SPEED = 0.1f;
-const glm::vec3 Character::GRAVITY = glm::vec3(0.f, -0.0008f, 0.f);
-const glm::vec3 Character::JUMP_FORCE = glm::vec3(0.f, 0.04f, 0.f);
+const glm::vec3 Character::GRAVITY = glm::vec3(0.f, -0.005f, 0.f);
+const glm::vec3 Character::JUMP_FORCE = glm::vec3(0.f, 0.1f, 0.f);
 
 Character::Character()
     : GameObject(glm::vec3(0.f, 0.1f, 0.f),
