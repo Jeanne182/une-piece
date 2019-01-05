@@ -48,6 +48,46 @@ public:
   inline const time_t time() const { return _time; };
 
   /**
+   * @brief Getter of the name
+   * 
+   * @return const std::string 
+   */
+  inline std::string name() { return _name; };
+
+  /**
+   * @brief Getter of the score
+   * 
+   * @return int 
+   */
+  inline int score() { return _score; };
+
+  /**
+   * @brief Getter of the time
+   * 
+   * @return time_t 
+   */
+  inline time_t time() { return _time; };
+
+  /**
+   * @brief Set the Name object
+   * 
+   * @param n 
+   */
+  inline void setName(const std::string &n) { _name = n; };
+  /**
+   * @brief Set the Score object
+   * 
+   * @param s 
+   */
+  inline void setScore(const int &s) { _score = s; };
+  /**
+   * @brief Set the Time object
+   * 
+   * @param t 
+   */
+  inline void setTime(const time_t &t) { _time = t; };
+
+  /**
    * @brief Compare two Scores, for a sorted map
    * 
    * @param s 
@@ -74,9 +114,9 @@ public:
   }
 
 private:
-  const std::string _name;
-  const int _score;
-  const time_t _time;
+  std::string _name;
+  int _score;
+  time_t _time;
 };
 
 } // namespace UP

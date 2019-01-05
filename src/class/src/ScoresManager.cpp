@@ -26,7 +26,7 @@ void ScoresManager::loadScores()
   time_t t;
   while (scoresFile >> name >> score >> t)
   {
-    addScore(Score(name, score));
+    addScore(Score(name, score, t));
   }
   scoresFile.close();
 }
@@ -35,6 +35,7 @@ void ScoresManager::addScore(const Score &s)
 {
   _scores.insert(s);
 }
+
 
 void ScoresManager::displayAll() const
 {
@@ -48,8 +49,8 @@ void ScoresManager::displayAll() const
 void ScoresManager::displayBest(const int n) const
 {
   std::multiset<Score>::iterator it;
-  int cpt=0;
-  for (it=_scores.begin(); it!=_scores.end() && cpt<n; ++it)
+  int cpt = 0;
+  for (it = _scores.begin(); it != _scores.end() && cpt < n; ++it)
   {
     cpt++;
     std::cout << *it << std::endl;

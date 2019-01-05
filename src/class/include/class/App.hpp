@@ -30,7 +30,8 @@ enum LAYOUT
   LAYOUT_MENU,
   LAYOUT_SCORES,
   LAYOUT_PAUSE,
-  LAYOUT_GAME
+  LAYOUT_GAME,
+  LAYOUT_GAME_OVER
 };
 /**
  * @brief Single Class
@@ -53,6 +54,12 @@ public:
    */
   void layoutScores();
 
+  /**
+   * @brief Use the Layout of the Gameover
+   * 
+   */
+  void layoutGameOver();
+  
   /**
    * @brief Use the Layout of the Pause
    *
@@ -79,6 +86,14 @@ public:
    */
   void event(const SDL_Event &e);
 
+  // =============== LISTENERS ===============
+  /**
+   * @brief Handle the stuff after the game is over
+   * 
+   * @param score 
+   */
+  void gameOverListener(const int &score);
+
 private:
   static App instance;
 
@@ -96,6 +111,7 @@ private:
    * 
    */
   void layout2D();
+
   /**
    * @brief Setup Opengl to use 3D graphics
    * 
@@ -127,8 +143,17 @@ private:
    */
   void drawGame();
 
+  /**
+   * @brief Draw the Gameover
+   * 
+   */
+  void drawGameOver();
+
   // ================ ATTRIBUTES ==============
 
+  // Keyboard data
+  std::string _buffer;
+  bool SHIFT_PRESSED = false;
 
   // Loaders
   ButtonLoader _buttons;

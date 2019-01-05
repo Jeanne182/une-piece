@@ -47,7 +47,7 @@ void Camera::event(const SDL_Event &e)
       _currentPOV = ROTATING;
     if (e.key.keysym.sym == SDLK_b && DEBUG)
       _currentPOV = FREE_FLY;
-    std::cout << "Changement de camera : " << _currentPOV << std::endl;
+    //std::cout << "Changement de camera : " << _currentPOV << std::endl;
   }
 
   // Handle the keys for the rotating camera
@@ -148,8 +148,8 @@ void Camera::event(const SDL_Event &e)
     case SDL_MOUSEMOTION:
     {
       float speed = 0.5f;
-      std::cout << "Mouse move: ";
-      std::cout << e.motion.xrel << " | " << e.motion.yrel << " | Phi: " << _fPhi << " | Theta: " << _fTheta << std::endl;
+      //std::cout << "Mouse move: ";
+      //std::cout << e.motion.xrel << " | " << e.motion.yrel << " | Phi: " << _fPhi << " | Theta: " << _fTheta << std::endl;
       if (e.motion.xrel != 0)
       {
         FPRotateFront(float(-e.motion.xrel) * speed);

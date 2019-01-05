@@ -39,6 +39,36 @@ public:
   void addScore(const Score &s);
 
   /**
+   * @brief Get the Scores object
+   * 
+   * @return const std::multiset<Score>& 
+   */
+  inline const std::multiset<Score> &getScores() const
+  {
+    return _scores;
+  }
+
+  /**
+   * @brief Get the Pending object
+   * 
+   * @return Score& 
+   */
+  inline Score &getPending() { return _pending; };
+
+  /**
+   * @brief Set the Pending object
+   * 
+   * @param s 
+   */
+  inline void setPending(const Score &s) { _pending = s; };
+
+  /**
+   * @brief Save the pending score
+   * 
+   */
+  inline void savePending() { addScore(_pending); };
+
+  /**
    * @brief Display all the scores loaded
    * 
    */
@@ -60,6 +90,7 @@ public:
 private:
   std::multiset<Score> _scores;
   const std::string _scoresFilename = "scores";
+  Score _pending;
 
   // ================ SINGLETON's STUFF ==============
 
@@ -81,6 +112,7 @@ public:
 private:
   // CONSTRUCTOR
   ScoresManager()
+      : _pending("default", 0)
   {
     loadScores();
   };

@@ -4,6 +4,8 @@
 #pragma once
 
 #include <vector>
+#include <algorithm>
+#include <functional>
 
 #include <glimac/FilePath.hpp>
 #include <glimac/Program.hpp>
@@ -61,12 +63,22 @@ public:
    */
   void gameOver();
 
+  /**
+   * @brief Set the Game Over Trigger object
+   * 
+   * @param trigger 
+   */
+  inline void setGameOverTrigger(std::function<void(const int&)> &trigger) {
+    _gameOverTrigger = trigger;
+  };
+
 private:
   Character _character;
   Camera _camera;
   Light _light;
   MapManager *_map;
   Skybox _skybox;
+  std::function<void(const int &)> _gameOverTrigger;
 
   // ============= METHODS =============
   void sendLight() const;

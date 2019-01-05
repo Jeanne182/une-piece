@@ -79,6 +79,7 @@ void Game::update()
   _character.computeMatrix(_camera.getViewMatrix());
   _map->computeMatrix(_camera.getViewMatrix());
   _skybox.computeMatrix(_camera.getViewMatrix());
+
 }
 
 void Game::display() const
@@ -123,16 +124,14 @@ void Game::reset()
 
 void Game::gameOver()
 {
-
-  Score s = Score("Player", _character.score());
-  ScoresManager &scores = ScoresManager::Get();
-  scores.addScore(s);
-  scores.displayAll();
-  scores.store();
-
-  std::cout << "GAME OVER" << std::endl;
-  std::cout << "MDR TA PERDUUUUU" << std::endl;
-  exit(0);
+  if (_gameOverTrigger)
+  {
+    _gameOverTrigger(_character.score());
+  }
+  else
+  {
+    throw Error("No game over trigger", AT);
+  }
 }
 
 void Game::collide()
