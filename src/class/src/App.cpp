@@ -140,7 +140,7 @@ void App::layoutGameOver()
   try
   {
     _staticImages.addImage("bgGameover", -2.f, 1.0f, 2.f);
-    _staticImages.addImage("Gameover", -0.5f, 0.9f, 0.6f);
+    _staticImages.addImage("Gameover", -0.8f, 0.8f, 0.3f);
   }
   catch (std::exception &e)
   {
@@ -234,7 +234,7 @@ void App::event(const SDL_Event &e)
         _game.reset();
       }
 
-      if (key >= SDLK_a && key <= SDLK_z)
+      if (key >= SDLK_a && key <= SDLK_z && _buffer.size() < 18)
       {
         // Alphabetic key
         key = SHIFT_PRESSED ? key - 32 : key;
@@ -282,14 +282,14 @@ void App::drawScores()
     _staticImages.displayImage("bgScores");
     _buttons.displayImage("Scores");
     _buttons.displayImage("Menu");
-    tm.renderText("Top 10", 300.f, WINDOW_HEIGHT - 220.f, 1.2f, glm::vec3(0.98f, 0.65f, 0.24f));
+    tm.renderText("Top 10", 300.f, WINDOW_HEIGHT - 220.f, 1.4f, glm::vec3(0.98f, 0.65f, 0.24f));
 
     std::multiset<Score>::const_iterator it;
     float PADDING_TOP = 250.f;
     float PADDING_LEFT = 100.f;
-    float PADDING_RIGHT = 400.f;
-    float STRADDING = 42.f;
-    float SIZE = 0.65f;
+    float PADDING_RIGHT = 300.f;
+    float STRADDING = 46.f;
+    float SIZE = 0.8f;
 
     int cpt = 0;
     for (it = scores.getScores().cbegin(); it != scores.getScores().cend() && cpt < 10; ++it)
@@ -362,8 +362,11 @@ void App::drawGameOver()
     if ((SDL_GetTicks() / 700) % 2 == 1)
       underscore += "_";
 
-    AssetManager::Get()->textManager().renderText("Enter your pseudo here :", 50.0f, 400.0f, 1.1f, glm::vec3(0.4f, 0.8f, 0.4f));
-    AssetManager::Get()->textManager().renderText(_buffer + underscore, 50.0f, 200.0f, 1.2f, glm::vec3(0.4f, 0.8f, 0.4f));
+    AssetManager::Get()->textManager().renderText("Enter your pseudo here :", 150.0f, 400.0f, 1.1f, glm::vec3(1.f, 1.0f, 1.0f));
+
+    float center = WINDOW_WIDTH / 2;
+    float x = center - (_buffer.size() * 10.f);
+    AssetManager::Get()->textManager().renderText(_buffer + underscore, x, 200.0f, 1.2f, glm::vec3(1.f, 1.0f, 1.0f));
   }
   catch (std::exception &e)
   {

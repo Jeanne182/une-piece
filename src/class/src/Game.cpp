@@ -80,6 +80,8 @@ void Game::update()
   _map->computeMatrix(_camera.getViewMatrix());
   _skybox.computeMatrix(_camera.getViewMatrix());
 
+  gameOver();
+
 }
 
 void Game::display() const

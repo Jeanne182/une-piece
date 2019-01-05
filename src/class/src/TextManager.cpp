@@ -16,7 +16,7 @@ void TextManager::setupTTF()
     std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
 
   FT_Face face;
-  if (FT_New_Face(ft, AssetManager::Get()->fontFile("Lato-Regular.ttf").c_str(), 0, &face))
+  if (FT_New_Face(ft, AssetManager::Get()->fontFile("Old-London.ttf").c_str(), 0, &face))
     std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
 
   FT_Set_Pixel_Sizes(face, 0, 48);
