@@ -9,6 +9,7 @@
 #include <class/Utils.hpp>
 #include <class/common.hpp>
 #include <class/Water.hpp>
+#include <class/Bonus.hpp>
 
 using namespace glimac;
 
@@ -75,7 +76,7 @@ void MapManager::updateLastPos(const float &length)
 
 void MapManager::generatePath()
 {
-  if ( _shallDelete)
+  if (_shallDelete)
   {
     deleteOldPath();
   }
@@ -239,6 +240,35 @@ void MapManager::generateObstacleBatch()
           t.add(o);
         }
       }
+      // Put rocks on the side
+      sideRocks(j, k, pos, t);
+      _map.push_back(t);
+    }
+    pos += Utils::getDirectionnalVector(_direction);
+  }
+  updateLastPos(length);
+}
+
+void MapManager::generateBonusBatch()
+{
+  int bonusType = Utils::dicei(INVULNERABILITY, MAGNET);
+  int length = Utils::rBatchSize();
+  int lane = Utils::dicei(MapManager::LANE_MIN, MapManager::LANE_MAX);
+  glm::vec3 pos = getLastPos() + Utils::getDirectionnalVector(_direction);
+  for (float i = 0; i < length - 1; i++)
+  {
+    for (float j = 0; j < MapManager::ROW_SIZE; j++)
+    {
+      float k = j - MapManager::HALF_ROW_SIZE;
+      Tile t(pos + Utils::getOppositeDirectionnalVector(_direction) * k);
+
+      // Choose the lane
+      if (i == length - 1 && k == lane)
+      {
+        Bonus *bonus = new Bonus(pos + glm::vec3(0.f, 0.5f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, 1, BONUS_INVICIBLE_MODEL_NAME);
+        t.add(bonus);
+      }
+
       // Put rocks on the side
       sideRocks(j, k, pos, t);
       _map.push_back(t);

@@ -39,6 +39,7 @@ public:
     BATCH_TYPE_SIMPLE,
     BATCH_TYPE_COIN,
     BATCH_TYPE_OBSTACLE
+    BATCH_TYPE_BONUS
   };
   enum FORK_POS_VECTOR
   {
@@ -158,6 +159,11 @@ public:
    *
    */
   void generateObstacleBatch();
+  /**
+   * @brief A batch with random obstacle
+   *
+   */
+  void generateBonusBatch();
   /**
    * @brief A fork in the path
    *
