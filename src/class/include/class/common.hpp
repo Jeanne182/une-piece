@@ -29,9 +29,13 @@ static const float TENTACLE_ANGLE_SPEED = 0.3f;
 static const std::string PLAYER_MODEL_NAME = "bateau.obj";
 static const std::string ROCK_MODEL_NAME = "rock.obj";
 static const std::string TENTACLE_MODEL_NAME = "tentacle.obj";
+static const std::string PONTON_MODEL_NAME = "ponton.obj";
 static const std::string WATER_MODEL_NAME = "water.obj";
 static const std::string COIN_MODEL_NAME = "ruby.obj";
-static const std::string BONUS_INVICIBLE_MODEL_NAME = "invicible.obj";
+static const std::string BONUS_INVULNERABILITY_MODEL_NAME = "invincible.obj";
+static const std::string BONUS_SLOWNESS_MODEL_NAME = "Bonus_SpeedUp.obj";
+static const std::string BONUS_REVIVE_MODEL_NAME = "Bonus_SpeedDown.obj";
+static const std::string BONUS_MAGNET_MODEL_NAME = "Bonus_SpeedDown.obj";
 
 static const float PLAYER_ACCELERATION_AMOUNT = 0.02f;
 static const int PLAYER_ACCELERATION_INTERVAL = 600;

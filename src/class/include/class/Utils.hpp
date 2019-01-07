@@ -91,6 +91,13 @@ const glm::vec3 &getDirectionnalVector(const unsigned int &direction);
 const glm::vec3 &getOppositeDirectionnalVector(const unsigned int &direction);
 
 /**
+ * @brief Get the Bonus Model Name object
+ * 
+ * @param bonusType 
+ * @return const std::string& 
+ */
+const std::string &getBonusModelName(const unsigned int bonusType);
+/**
  * @brief Clamp a float between the min and max
  * 
  * @param n 

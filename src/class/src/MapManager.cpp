@@ -26,9 +26,11 @@ MapManager::MapManager()
   _probability[BATCH_TYPE_SIMPLE] = 2;
   _probability[BATCH_TYPE_COIN] = 3;
   _probability[BATCH_TYPE_OBSTACLE] = 3;
+  _probability[BATCH_TYPE_BONUS] = 1;
   _probability.shrink_to_fit();
 
   Utils::setSeed();
+  generateSimpleBatch();
   generateSimpleBatch();
   generateSimpleBatch();
   generateSimpleBatch();
@@ -132,6 +134,10 @@ void MapManager::generateBatch()
     //std::cout << "BATCH_TYPE_OBSTACLE" << std::endl;
     generateObstacleBatch();
     break;
+  case BATCH_TYPE_BONUS:
+    //std::cout << "BATCH_TYPE_BONUS" << std::endl;
+    generateBonusBatch();
+    break;
   default:
     //std::cout << "DEFAULT" << std::endl;
     generateSimpleBatch();
@@ -200,46 +206,46 @@ void MapManager::generateObstacleBatch()
   glm::vec3 pos = getLastPos() + Utils::getDirectionnalVector(_direction);
   int lane = Utils::dicei(MapManager::LANE_MIN, MapManager::LANE_MAX);
   bool two_lanes = Utils::maybe(0.3f);
-  bool use_rock = Utils::maybe(0.5f);
+  unsigned int obstacleType = Utils::dicei(0, 2);
   for (float i = 0; i < length - 1; i++)
   {
     for (float j = 0; j < MapManager::ROW_SIZE; j++)
     {
       float k = j - MapManager::HALF_ROW_SIZE;
       Tile t(pos + Utils::getOppositeDirectionnalVector(_direction) * k);
+      bool shallCreate = false;
 
       // Choose the lane
-      Obstacle *o;
-      if (two_lanes)
+      if (i != 0 && i < length - 2.f && j != 0 && j != MapManager::ROW_SIZE - 1)
+        if (two_lanes && k != lane)
+          shallCreate = true;
+        else if (!two_lanes && k == lane)
+          shallCreate = true;
+
+      if (shallCreate)
       {
-        if (k != lane && i != 0 && i != length - 2)
+        //std::cout << "lane : " << lane << " | k : " << k << std::endl;
+        Obstacle *o;
+        switch (obstacleType)
         {
-          if (use_rock)
-          {
-            o = new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, ROCK_MODEL_NAME);
-            o->setScale(0.4f);
-            o->setMatrix();
-          }
-          else
-            o = new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, TENTACLE_MODEL_NAME);
-          t.add(o);
-        }
+        case 0:
+          o = new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, ROCK_MODEL_NAME);
+          o->setScale(0.4f);
+          o->setMatrix();
+          break;
+        case 1:
+          o = new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, TENTACLE_MODEL_NAME);
+          break;
+        case 2:
+          o = new Obstacle(pos + glm::vec3(0.f, 0.1f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, PONTON_MODEL_NAME);
+          break;
+        default:
+          o = new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, TENTACLE_MODEL_NAME);
+          break;
+        };
+        t.add(o);
       }
-      else
-      {
-        if (k == lane && i != 0 && i != length - 2)
-        {
-          if (use_rock)
-          {
-            o = new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, ROCK_MODEL_NAME);
-            o->setScale(0.4f);
-            o->setMatrix();
-          }
-          else
-            o = new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, TENTACLE_MODEL_NAME);
-          t.add(o);
-        }
-      }
+
       // Put rocks on the side
       sideRocks(j, k, pos, t);
       _map.push_back(t);
@@ -263,9 +269,9 @@ void MapManager::generateBonusBatch()
       Tile t(pos + Utils::getOppositeDirectionnalVector(_direction) * k);
 
       // Choose the lane
-      if (i == length - 1 && k == lane)
+      if (i == length - 2 && k == lane)
       {
-        Bonus *bonus = new Bonus(pos + glm::vec3(0.f, 0.5f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, 1, BONUS_INVICIBLE_MODEL_NAME);
+        Bonus *bonus = new Bonus(pos + glm::vec3(0.f, 0.5f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, bonusType, Utils::getBonusModelName(bonusType));
         t.add(bonus);
       }
 

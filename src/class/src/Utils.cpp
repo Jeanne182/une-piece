@@ -4,6 +4,7 @@
 
 #include <class/Utils.hpp>
 #include <class/common.hpp>
+#include <class/Bonus.hpp>
 #include <class/MapManager.hpp>
 
 GLenum glCheckError_(const char *file, int line)
@@ -116,6 +117,25 @@ const glm::vec3 &getOppositeDirectionnalVector(const unsigned int &direction)
     break;
   default:
     throw new Error("Wrong direction : " + std::to_string(direction), AT);
+    break;
+  }
+}
+
+const std::string &getBonusModelName(const unsigned int bonusType)
+{
+  switch (bonusType)
+  {
+  case UP::INVULNERABILITY:
+    return UP::BONUS_INVULNERABILITY_MODEL_NAME;
+    break;
+  case UP::SLOWNESS:
+    return UP::BONUS_SLOWNESS_MODEL_NAME;
+    break;
+  case UP::REVIVE:
+    return UP::BONUS_REVIVE_MODEL_NAME;
+    break;
+  case UP::MAGNET:
+    return UP::BONUS_MAGNET_MODEL_NAME;
     break;
   }
 }
