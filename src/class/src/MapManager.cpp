@@ -28,10 +28,10 @@ MapManager::MapManager()
   _probability.shrink_to_fit();
 
   Utils::setSeed();
-  generateSimpleBatch();
-  generateSimpleBatch();
-  generateSimpleBatch();
-  generateSimpleBatch();
+  generateObstacleBatch();
+  generateObstacleBatch();
+  generateObstacleBatch();
+  generateObstacleBatch();
   generatePath();
   generateFork();
 }
@@ -178,7 +178,9 @@ void MapManager::generateCoinBatch()
         {
           y = 1.5f;
         }
-        t.add(new Coin(pos + glm::vec3(0.f, y, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, 1, "ruby.obj"));
+        Coin *coin = new Coin(pos + glm::vec3(0.f, y, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, 1, "ruby.obj");
+        coin->setRotateOffset( static_cast<float>((i+j)*20.f));
+        t.add(coin);
       }
 
       // Put rocks on the side

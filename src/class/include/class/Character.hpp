@@ -11,8 +11,10 @@
 
 #include <glimac/SDLWindowManager.hpp>
 #include <glimac/common.hpp>
+
 #include <class/Bonus.hpp>
 #include <class/GameObject.hpp>
+#include <class/Camera.hpp>
 
 using namespace glimac;
 
@@ -45,7 +47,7 @@ public:
    * @brief Construct a new Character object
    *
    */
-  Character();
+  Character(Camera &camera);
 
   /**
    * @brief Destroy the Character object
@@ -224,11 +226,14 @@ public:
   void turnLeft();
 
   // =============  GENERIC =============
+
   /**
-   * @brief Display the character
+   * 
+   * @brief Compute the MV , MVP and Normal
    *
+   * @param cameraView
    */
-  void display() const;
+  void computeMatrix(const glm::mat4 &cameraView);
 
   // ============= BONUS =============
   /**
@@ -279,7 +284,7 @@ public:
    * @brief Set the Matrix objectComput the matrixes in a special way for the player
    * 
    */
-  void setMatrix();
+  void updateMatrix();
 
   /**
    * @brief Update the rotScaleMatrix
@@ -306,6 +311,11 @@ private:
   int _verticalState;
 
   glm::mat4 _rotScaleMatrix;
+
+  bool _smoothRotate;
+  glm::vec3 _desiredAngle;
+
+  Camera &_camera;
 
   // ============= MOVEMENT =============
   /**

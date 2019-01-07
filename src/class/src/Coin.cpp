@@ -1,4 +1,5 @@
 #include <map>
+#include <iostream>
 
 #include <glimac/SDLWindowManager.hpp>
 
@@ -19,9 +20,12 @@ Coin::Coin(const glm::vec3 position, const unsigned int value, const std::string
   _model->setRepeat(4.f);
 };
 
-void Coin::display() const
+void Coin::computeMatrix(const glm::mat4 &cameraView)
 {
-  GameObject::display();
+  _M = glm::rotate(_M, glm::radians(COIN_ROTATION_SPEED), glm::vec3(0.f, 1.f, 0.f));
+  _MV = cameraView * _M;
+  _MVP = MATRIX_PERSPECTIVE * _MV;
+  _N = -1.f * glm::transpose(glm::inverse(_MV));
 }
 
 bool Coin::collisionHandler(GameObject *gameObject)

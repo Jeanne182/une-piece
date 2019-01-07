@@ -58,6 +58,14 @@ public:
    */
 
   bool collisionHandler(GameObject *gameObject);
+  
+  /**
+   * 
+   * @brief Compute the MV , MVP and Normal
+   *
+   * @param cameraView
+   */
+  void computeMatrix(const glm::mat4 &cameraView);
 
 
   // ============= GETTERS =============

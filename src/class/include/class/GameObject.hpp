@@ -204,17 +204,18 @@ public:
 
   // ============= MATRIX =============
   /**
-   * @brief Compute the M and P
+   * @brief Compute the Initial M and P
    *
    */
   void setMatrix();
-
+  
   /**
+   * 
    * @brief Compute the MV , MVP and Normal
    *
    * @param cameraView
    */
-  void computeMatrix(const glm::mat4 &cameraView);
+  virtual void computeMatrix(const glm::mat4 &cameraView) = 0;
 
   /**
    * @brief Send the matrix to the GPU

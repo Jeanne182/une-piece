@@ -15,9 +15,11 @@ Water::Water(const glm::vec3 position, const bool &forkSection)
   _model->setRepeat(0.2f);
 };
 
-void Water::display() const
+void Water::computeMatrix(const glm::mat4 &cameraView)
 {
-  GameObject::display();
+  _MV = cameraView * _M;
+  _MVP = MATRIX_PERSPECTIVE * _MV;
+  _N = -1.f * glm::transpose(glm::inverse(_MV));
 }
 
 bool Water::collisionHandler(GameObject *gameObject)

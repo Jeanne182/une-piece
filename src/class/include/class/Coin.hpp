@@ -14,7 +14,6 @@
 
 #include <class/GameObject.hpp>
 
-
 using namespace glimac;
 
 namespace UP
@@ -45,11 +44,16 @@ public:
    */
   inline unsigned int value() const { return _value; };
 
+  // ============= SETTERS =============
   /**
-   * @brief Display the Coin
-   *
+   * @brief Set the Rotate Offset object
+   * 
+   * @param r 
    */
-  void display() const;
+  inline void setRotateOffset(const float &r)
+  {
+    _M = glm::rotate(_M, glm::radians(r), glm::vec3(0.f, 1.f, 0.f));
+  };
 
   /**
    * @brief Handle the collision with a player (gameObject dynamic casted)
@@ -57,9 +61,16 @@ public:
    */
   bool collisionHandler(GameObject *gameObject);
 
+  /**
+   * @brief Rotate the coin
+   * 
+   * @param cameraView 
+   */
+  void computeMatrix(const glm::mat4 &cameraView);
 
 private:
   unsigned int _value;
+  float _rotateOffset;
 };
 
 } // namespace UP

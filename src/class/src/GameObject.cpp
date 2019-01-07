@@ -51,13 +51,6 @@ void GameObject::setMatrix()
 */
 }
 
-void GameObject::computeMatrix(const glm::mat4 &cameraView)
-{
-  _MV = cameraView * _M;
-  _MVP = MATRIX_PERSPECTIVE * _MV;
-  _N = -1.f *glm::transpose(glm::inverse(_MV));
-}
-
 void GameObject::useMatrix() const
 {
   glUniformMatrix4fv(AssetManager::Get()->assetProgramMultiLight().uMVPMatrix, 1, GL_FALSE, glm::value_ptr(_MVP));

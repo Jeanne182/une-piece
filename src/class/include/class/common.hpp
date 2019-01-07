@@ -22,6 +22,10 @@ static const int WINDOW_HEIGHT = 800;
 static const bool DEBUG = true;
 static bool DEBUG_DISPLAY = false;
 
+static const float COIN_ROTATION_SPEED = 1.f;
+static const float TENTACLE_ANGLE_AMPLITUDE = 1.5f;
+static const float TENTACLE_ANGLE_SPEED = 0.3f;
+
 static const glm::vec3 VEC_NORTH = glm::vec3(1.f, 0.f, 0.f);
 static const glm::vec3 VEC_SOUTH = glm::vec3(-1.f, 0.f, 0.f);
 static const glm::vec3 VEC_EAST = glm::vec3(0.f, 0.0f, 1.f);

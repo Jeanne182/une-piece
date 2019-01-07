@@ -15,11 +15,11 @@ Obstacle::Obstacle(const glm::vec3 position, const std::string &name)
 {
   if (name == "tentacle.obj")
   {
-    float x = Utils::dicef(-40.f, 40.f);
+    //float x = Utils::dicef(-40.f, 40.f);
     float y = Utils::dicef(0.f, 360.f);
     float z = Utils::dicef(-40.f, 40.f);
     setScale(Utils::dicef(0.1f, 0.35f));
-    setAngles(glm::vec3(x, y, z));
+    setAngles(glm::vec3(0.f, y, z));
   }
   else if (name == "rock.obj")
   {
@@ -30,9 +30,19 @@ Obstacle::Obstacle(const glm::vec3 position, const std::string &name)
   setMatrix();
 }
 
-void Obstacle::display() const
+void Obstacle::computeMatrix(const glm::mat4 &cameraView)
 {
-  GameObject::display();
+  if (_name == "tentacle.obj")
+  {
+    float tick = SDL_GetTicks() * TENTACLE_ANGLE_SPEED;
+    float angleC = cosf(glm::radians(tick)) * TENTACLE_ANGLE_AMPLITUDE;
+    float angleS = sinf(glm::radians(tick)) * TENTACLE_ANGLE_AMPLITUDE;
+    _M = glm::rotate(_M, glm::radians(-angleC), glm::vec3(0.f, 0.f, 1.f));
+    _M = glm::rotate(_M, glm::radians(angleS), glm::vec3(1.f, 0.f, 0.f));
+  }
+  _MV = cameraView * _M;
+  _MVP = MATRIX_PERSPECTIVE * _MV;
+  _N = -1.f * glm::transpose(glm::inverse(_MV));
 }
 
 bool Obstacle::collisionHandler(GameObject *gameObject)

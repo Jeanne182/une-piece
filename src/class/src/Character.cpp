@@ -1,5 +1,6 @@
 #include <map>
 #include <type_traits>
+#include <glm/gtc/noise.hpp>
 
 #include <glimac/SDLWindowManager.hpp>
 
@@ -17,17 +18,20 @@ const float Character::MAX_SPEED = 0.1f;
 const glm::vec3 Character::GRAVITY = glm::vec3(0.f, -0.005f, 0.f);
 const glm::vec3 Character::JUMP_FORCE = glm::vec3(0.f, 0.1f, 0.f);
 
-Character::Character()
+Character::Character(Camera &camera)
     : GameObject(glm::vec3(0.f, 0.1f, 0.f),
                  glm::vec3(MAX_SPEED, 0.f, 0.f),
                  0.3f,
                  "bateau.obj"),
+      _camera(camera),
       _lastCoordinate(3, 0),
       _turnPosition(3, 0),
       _direction(DIR_NORTH),
       _acceleration(0.f),
+      _desiredAngle(0.f),
       _health(1),
       _forkSelected(false),
+      _smoothRotate(false),
       _score(0),
       _cubeCount(0),
       _turnChosen(CENTER),
@@ -43,21 +47,28 @@ Character::Character()
 void Character::updateRotScaleMatrix()
 {
   _rotScaleMatrix = glm::mat4(1.f);
-  _rotScaleMatrix = glm::translate(_rotScaleMatrix, glm::vec3(-0.2f, -0.2f, 0.f));
+  _rotScaleMatrix = glm::translate(_rotScaleMatrix, glm::vec3(0.f, -0.2f, 0.f));
   _rotScaleMatrix = glm::scale(_rotScaleMatrix, glm::vec3(_scale));
   _rotScaleMatrix = glm::rotate(_rotScaleMatrix, glm::radians(_angles[X]), glm::vec3(1.f, 0.f, 0.f));
   _rotScaleMatrix = glm::rotate(_rotScaleMatrix, glm::radians(_angles[Y]), glm::vec3(0.f, 1.f, 0.f));
   _rotScaleMatrix = glm::rotate(_rotScaleMatrix, glm::radians(_angles[Z]), glm::vec3(0.f, 0.f, 1.f));
 }
-void Character::setMatrix()
+void Character::updateMatrix()
 {
   // MV -> Modify
-  _M = glm::translate(glm::mat4(1.f), _position);
+  float x = glm::perlin(glm::vec2(static_cast<float>(SDL_GetTicks() + 160000) / 1000.f));
+  float y = glm::perlin(glm::vec2(static_cast<float>(SDL_GetTicks()) / 3000.f));
+  float z = glm::perlin(glm::vec2(static_cast<float>(SDL_GetTicks() + 8000) / 5000.f));
+  glm::vec3 displacementVector = glm::vec3(x, y, z) * 0.2f;
+  _M = glm::translate(glm::mat4(1.f), _position + displacementVector);
   _M = _M * _rotScaleMatrix;
+}
 
-  /*
-  std::cout << "M" << _M << std::endl;
-*/
+void Character::computeMatrix(const glm::mat4 &cameraView)
+{
+  _MV = cameraView * _M;
+  _MVP = MATRIX_PERSPECTIVE * _MV;
+  _N = -1.f * glm::transpose(glm::inverse(_MV));
 }
 
 void Character::event(const SDL_Event &e)
@@ -164,11 +175,6 @@ void Character::loseHealth(const unsigned int &value)
   setHealth(_health - value);
 }
 
-void Character::display() const
-{
-  GameObject::display();
-}
-
 bool Character::collisionHandler(GameObject *gameObject)
 {
   throw Error(std::string("Can't colide with yourself"), AT);
@@ -186,7 +192,7 @@ void Character::move()
   //std::cout << "Speed :" << _speed << std::endl;
   //std::cout << "Acceleration :" << _acceleration << std::endl;
   //std::cout << std::endl;
-  
+
   //std::cout << "Current Speed : " << glm::length(_speed) << std::endl;
 
   speedUpdate();
@@ -195,6 +201,24 @@ void Character::move()
     _position[Y] = 0.1f;
     _speed[Y] = 0.f;
     _verticalState = RUNNING;
+  }
+
+  // Angle rotation
+  if (_smoothRotate)
+  {
+    float ratio = 0.05f;
+
+    glm::vec3 rot = _angles * (1.f - ratio);
+    setAngles(rot + _desiredAngle * ratio);
+    _camera.setCharacterInfo(_scale, _angles);
+
+    updateRotScaleMatrix();
+
+    if (glm::length(_desiredAngle - _angles) < 0.1f)
+    {
+      setAngles(_desiredAngle);
+      _smoothRotate = false;
+    }
   }
 }
 
@@ -332,7 +356,8 @@ void Character::turnRight()
 {
   _direction = (_direction + 1) % 4;
   changeMovement();
-  setAngles(glm::vec3(_angles[X], _angles[Y] - 90.f, _angles[Z]));
+  _desiredAngle = glm::vec3(_angles[X], _angles[Y] - 90.f, _angles[Z]);
+  _smoothRotate = true;
   updateRotScaleMatrix();
 }
 
@@ -340,7 +365,8 @@ void Character::turnLeft()
 {
   _direction = (_direction - 1) % 4;
   changeMovement();
-  setAngles(glm::vec3(_angles[X], _angles[Y] + 90.f, _angles[Z]));
+  _desiredAngle = glm::vec3(_angles[X], _angles[Y] + 90.f, _angles[Z]);
+  _smoothRotate = true;
   updateRotScaleMatrix();
 }
 } // namespace UP

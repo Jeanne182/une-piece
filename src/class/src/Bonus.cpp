@@ -17,9 +17,11 @@ Bonus::Bonus(const glm::vec3 position, const unsigned int bonusType, const std::
       _bonusType(bonusType),
       _bonusDuration(BONUS_DURATION){};
 
-void Bonus::display() const
+void Bonus::computeMatrix(const glm::mat4 &cameraView)
 {
-  GameObject::display();
+  _MV = cameraView * _M;
+  _MVP = MATRIX_PERSPECTIVE * _MV;
+  _N = -1.f * glm::transpose(glm::inverse(_MV));
 }
 
 bool Bonus::collisionHandler(GameObject *gameObject)

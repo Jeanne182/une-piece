@@ -21,7 +21,7 @@ namespace UP
 {
 
 Game::Game()
-    : _character(),
+    : _character(_camera),
       _map(new MapManager)
 {
   _camera.setCharacterInfo(_character.getScale(), _character.getAngles());
@@ -70,12 +70,12 @@ void Game::event(const SDL_Event &e)
 void Game::update()
 {
   // Update the scene
-  //_character.move();
+  _character.move();
   collide();
   _camera.update(_character.pos());
 
   // Update the matrixes
-  _character.setMatrix();
+  _character.updateMatrix();
   _character.computeMatrix(_camera.getViewMatrix());
   _map->computeMatrix(_camera.getViewMatrix());
   _skybox.computeMatrix(_camera.getViewMatrix());
@@ -99,12 +99,8 @@ void Game::sendLight() const
   const AssetProgramMultiLight &a = AssetManager::Get()->assetProgramMultiLight();
 
   // Compute the V * Light
-  glm::mat4 lightMatrix;
-  glm::vec4 lightVector;
-  
-  //lightMatrix = glm::transpose(glm::mat4(glm::mat3(_camera.getViewMatrix())));
-  lightMatrix = glm::transpose(_camera.getViewMatrix());
-  lightVector = glm::normalize(_light.direction() * lightMatrix);
+  glm::mat4 lightMatrix = glm::transpose(_camera.getViewMatrix());
+  glm::vec4 lightVector = glm::normalize(lightMatrix * _light.direction());
 
   // Send it
   a._Program.use();
@@ -116,7 +112,7 @@ void Game::reset()
 {
   // Reset the character
   (&_character)->~Character();
-  new (&_character) Character();
+  new (&_character) Character(_camera);
 
   // Reset the camera
   (&_camera)->~Camera();
