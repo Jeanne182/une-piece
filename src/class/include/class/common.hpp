@@ -26,6 +26,15 @@ static const float COIN_ROTATION_SPEED = 1.f;
 static const float TENTACLE_ANGLE_AMPLITUDE = 1.5f;
 static const float TENTACLE_ANGLE_SPEED = 0.3f;
 
+static const std::string PLAYER_MODEL_NAME = "bateau.obj";
+static const std::string ROCK_MODEL_NAME = "rock.obj";
+static const std::string TENTACLE_MODEL_NAME = "tentacle.obj";
+static const std::string WATER_MODEL_NAME = "water.obj";
+static const std::string COIN_MODEL_NAME = "ruby.obj";
+
+static const float PLAYER_ACCELERATION_AMOUNT = 0.02f;
+static const int PLAYER_ACCELERATION_INTERVAL = 600;
+
 static const glm::vec3 VEC_NORTH = glm::vec3(1.f, 0.f, 0.f);
 static const glm::vec3 VEC_SOUTH = glm::vec3(-1.f, 0.f, 0.f);
 static const glm::vec3 VEC_EAST = glm::vec3(0.f, 0.0f, 1.f);

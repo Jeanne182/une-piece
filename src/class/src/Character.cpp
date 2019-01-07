@@ -14,15 +14,15 @@ using namespace glimac;
 
 namespace UP
 {
-const float Character::MAX_SPEED = 0.1f;
-const glm::vec3 Character::GRAVITY = glm::vec3(0.f, -0.005f, 0.f);
+float Character::MAX_SPEED = 0.1f;
+const glm::vec3 Character::GRAVITY = glm::vec3(0.f, -0.007f, 0.f);
 const glm::vec3 Character::JUMP_FORCE = glm::vec3(0.f, 0.1f, 0.f);
 
 Character::Character(Camera &camera)
     : GameObject(glm::vec3(0.f, 0.1f, 0.f),
                  glm::vec3(MAX_SPEED, 0.f, 0.f),
                  0.3f,
-                 "bateau.obj"),
+                 PLAYER_MODEL_NAME),
       _camera(camera),
       _lastCoordinate(3, 0),
       _turnPosition(3, 0),
@@ -220,6 +220,12 @@ void Character::move()
       _smoothRotate = false;
     }
   }
+}
+
+void Character::speedUp()
+{
+  MAX_SPEED += PLAYER_ACCELERATION_AMOUNT;
+  applyForce(Utils::getDirectionnalVector(_direction) * PLAYER_ACCELERATION_AMOUNT);
 }
 
 void Character::sideMove()

@@ -79,6 +79,9 @@ private:
   MapManager *_map;
   Skybox _skybox;
   std::function<void(const int &)> _gameOverTrigger;
+  
+  unsigned int _nextTickAcceleration = PLAYER_ACCELERATION_INTERVAL;
+  unsigned int _gameTick = 0;
 
   // ============= METHODS =============
   void sendLight() const;

@@ -38,7 +38,7 @@ enum VERTICAL
 class Character : public GameObject
 {
 public:
-  static const float MAX_SPEED;
+  static float MAX_SPEED;
   static const glm::vec3 GRAVITY;
   static const glm::vec3 JUMP_FORCE;
   // ============= CONSTRUCTORS =============
@@ -225,6 +225,12 @@ public:
    */
   void turnLeft();
 
+  /**
+   * @brief Increases the speed of the player over time
+   * 
+   */
+  void speedUp();
+
   // =============  GENERIC =============
 
   /**
@@ -293,6 +299,7 @@ public:
   void updateRotScaleMatrix();
 
 private:
+
   std::vector<int> _lastCoordinate;
   std::vector<int> _turnPosition;
 

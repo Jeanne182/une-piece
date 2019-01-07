@@ -13,7 +13,7 @@ Obstacle::Obstacle(const glm::vec3 position, const std::string &name)
                  0.5f,
                  name)
 {
-  if (name == "tentacle.obj")
+  if (name == TENTACLE_MODEL_NAME)
   {
     //float x = Utils::dicef(-40.f, 40.f);
     float y = Utils::dicef(0.f, 360.f);
@@ -21,7 +21,7 @@ Obstacle::Obstacle(const glm::vec3 position, const std::string &name)
     setScale(Utils::dicef(0.1f, 0.35f));
     setAngles(glm::vec3(0.f, y, z));
   }
-  else if (name == "rock.obj")
+  else if (name == ROCK_MODEL_NAME)
   {
     float y = Utils::dicef(0.f, 360.f);
     setAngles(glm::vec3(0.f, y, 0.f));
@@ -32,7 +32,7 @@ Obstacle::Obstacle(const glm::vec3 position, const std::string &name)
 
 void Obstacle::computeMatrix(const glm::mat4 &cameraView)
 {
-  if (_name == "tentacle.obj")
+  if (_name == TENTACLE_MODEL_NAME)
   {
     float tick = SDL_GetTicks() * TENTACLE_ANGLE_SPEED;
     float angleC = cosf(glm::radians(tick)) * TENTACLE_ANGLE_AMPLITUDE;

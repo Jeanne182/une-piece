@@ -69,6 +69,16 @@ void Game::event(const SDL_Event &e)
 }
 void Game::update()
 {
+
+  _gameTick++;
+  // Acceleration
+  if (_gameTick > _nextTickAcceleration)
+  {
+    std::cout << SDL_GetTicks() << std::endl;
+    _nextTickAcceleration += PLAYER_ACCELERATION_INTERVAL;
+    _character.speedUp();
+  }
+
   // Update the scene
   _character.move();
   collide();
@@ -81,7 +91,6 @@ void Game::update()
   _skybox.computeMatrix(_camera.getViewMatrix());
 
   //gameOver();
-
 }
 
 void Game::display() const
@@ -113,6 +122,7 @@ void Game::reset()
   // Reset the character
   (&_character)->~Character();
   new (&_character) Character(_camera);
+  Character::MAX_SPEED = 0.1f;
 
   // Reset the camera
   (&_camera)->~Camera();
