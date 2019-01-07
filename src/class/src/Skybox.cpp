@@ -87,12 +87,12 @@ void Skybox::loadImages()
   glBindTexture(GL_TEXTURE_CUBE_MAP, _texture);
 
   std::vector<std::string> texturesNames = {
-      "front",
-      "back",
+      "right",
+      "left",
       "top",
       "bottom",
-      "right",
-      "left"};
+      "front",
+      "back"};
 
   // Load the 6 textures
   std::unique_ptr<Image> imgPtr;

@@ -70,7 +70,7 @@ void Game::event(const SDL_Event &e)
 void Game::update()
 {
   // Update the scene
-  _character.move();
+  //_character.move();
   collide();
   _camera.update(_character.pos());
 
@@ -80,7 +80,7 @@ void Game::update()
   _map->computeMatrix(_camera.getViewMatrix());
   _skybox.computeMatrix(_camera.getViewMatrix());
 
-  gameOver();
+  //gameOver();
 
 }
 
@@ -99,12 +99,16 @@ void Game::sendLight() const
   const AssetProgramMultiLight &a = AssetManager::Get()->assetProgramMultiLight();
 
   // Compute the V * Light
-  glm::vec4 l = _camera.getViewMatrix() * _light.direction();
-  //glm::vec4 l = _light.direction();
+  glm::mat4 lightMatrix;
+  glm::vec4 lightVector;
+  
+  //lightMatrix = glm::transpose(glm::mat4(glm::mat3(_camera.getViewMatrix())));
+  lightMatrix = glm::transpose(_camera.getViewMatrix());
+  lightVector = glm::normalize(_light.direction() * lightMatrix);
 
   // Send it
   a._Program.use();
-  glUniform3fv(a.uLightDir_vs, 1, glm::value_ptr(glm::vec3(l)));
+  glUniform3fv(a.uLightDir_vs, 1, glm::value_ptr(glm::vec3(lightVector)));
   glUniform3fv(a.uLightIntensity, 1, glm::value_ptr(_light.intensity()));
 }
 

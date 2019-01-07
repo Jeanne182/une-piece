@@ -22,7 +22,7 @@ void main() {
   
   /* Position et normales en View Coordinates */
   vPosition_vs = (uMVMatrix * vec4(aVertexPosition, 1));
-  vNormal_vs = (uNormalMatrix * vec4(aVertexNormal, 0));
+  vNormal_vs = -(uNormalMatrix * vec4(aVertexNormal, 0));
   vTexCoords = aVertexTexCoords;
   
   /* Calcul de la position */

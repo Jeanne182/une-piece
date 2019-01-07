@@ -139,7 +139,7 @@ void App::layoutGameOver()
   // Load the Images
   try
   {
-    _staticImages.addImage("bgGameover", -2.f, 1.0f, 2.f);
+    _staticImages.addImage("bgGameover", -1.f, 1.0f, 2.f);
     _staticImages.addImage("Gameover", -0.8f, 0.8f, 0.3f);
   }
   catch (std::exception &e)
