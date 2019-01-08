@@ -26,26 +26,39 @@ public:
   /**
    * @brief Construct a new Tile object
    *
-   * @param gameObject
+   * @param std::unique_ptr<GameObject>
    */
-  Tile(GameObject *gameObject);
+  Tile(std::unique_ptr<GameObject> gameObject);
 
   /**
    * @brief Get the std::vector tileObject
    *
-   * @return std::vector<GameObject *>
+   * @return std::vector<std::unique_ptr<GameObject>>
    */
-  std::vector<GameObject *> tile() const { return _tileObjects; }
+  inline std::vector<std::unique_ptr<GameObject>> &tile() { return _tileObjects; }
+
+  inline const std::vector<std::unique_ptr<GameObject>> &tile() const { return _tileObjects; }
 
   /**
-   * @brief Get the gameObject at the given index
+   * @brief Get the gameobject at given index
    * 
-   * @param index
-   * @return GameObject*
+   * @param index 
+   * @return std::unique_ptr<GameObject> 
    */
-  GameObject *object(const unsigned int index) const;
+  GameObject &object(const unsigned int index) const;
 
+  /**
+   * @brief Get x
+   * 
+   * @return const int 
+   */
   const int x() const { return _x; };
+
+  /**
+   * @brief Get z
+   * 
+   * @return const int 
+   */
   const int z() const { return _z; };
 
   /**
@@ -53,7 +66,7 @@ public:
    *
    * @param gameObject
    */
-  void add(GameObject *gameObject);
+  void add(std::unique_ptr<GameObject> gameObject);
 
   /**
    * @brief Utils : Call the computeMatrix of all GameObjects
@@ -74,15 +87,8 @@ public:
    */
   void display() const;
 
-  /**
-   * @brief
-   *
-   * @return const Tile&
-   */
-  inline const std::vector<GameObject *> &getObjects() const { return _tileObjects; };
-
 private:
-  std::vector<GameObject *> _tileObjects;
+  std::vector<std::unique_ptr<GameObject>> _tileObjects;
   int _x, _z;
 };
 

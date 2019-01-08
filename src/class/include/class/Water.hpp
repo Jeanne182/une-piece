@@ -38,7 +38,7 @@ public:
    *
    */
   bool collisionHandler(GameObject *gameObject);
-  
+
   /**
    * 
    * @brief Compute the MV , MVP and Normal
@@ -47,6 +47,12 @@ public:
    */
   void computeMatrix(const glm::mat4 &cameraView);
 
+  /**
+   * @brief Return true if its a fork section
+   * 
+   * @return true 
+   * @return false 
+   */
   bool isFork() const { return _forkSection; };
 
 private:

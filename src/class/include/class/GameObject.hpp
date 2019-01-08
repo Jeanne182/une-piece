@@ -114,6 +114,7 @@ public:
    */
   inline float speedZ() const { return _speed[Z]; };
 
+
   // ============= SETTERS =============
 
   /**

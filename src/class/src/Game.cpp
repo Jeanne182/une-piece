@@ -156,26 +156,21 @@ void Game::collide()
       v[Y] != y ||
       v[Z] != z)
   {
-    //std::cout << "Ancienne position du character : [" << v[X] << "," << v[Y] << "," << v[Z] << "]" << std::endl;
-    //std::cout << "Nouvelle position du character : [" << x << "," << y << "," << z << "]" << std::endl;
-    //std::cout << "Position du character : " << _character.pos() << std::endl;
-    //std::cout << std::endl;
+
     _character.setLastCoordinate(std::vector<int>{x, y, z});
     _character.cubeCountIncrease();
+
     Tile &t = _map->getTile(x, z);
     bool shallClean = false;
     for (int i = 0; i < t.tile().size(); i++)
     {
 
       // Check if there is a water that is a fork
-      Water *w = dynamic_cast<Water *>(t.object(i));
-      //std::cout << w << std::endl;
-      if (w != 0)
+      try
       {
-        if (w->isFork())
+        Water &w = dynamic_cast<Water &>(t.object(i));
+        if (w.isFork()) // Water is fork
         {
-          // Water is fork
-
           if (!_character.getForkSelected())
           {
 
@@ -227,16 +222,25 @@ void Game::collide()
           }
         }
       }
-      else
+      catch (const std::bad_cast &e)
       {
+        // Not a water
         //std::cout << "Position de l'objet : " << t.object(i)->pos() << std::endl;
         // Normal collision handler for something different than water
-        if (Utils::cast(t.object(i)->y()) == y)
+
+        /*
+        std::cout << "Ancienne position du character : [" << v[X] << "," << v[Y] << "," << v[Z] << "]" << std::endl;
+        std::cout << "Nouvelle position du character : [" << x << "," << y << "," << z << "]" << std::endl;
+        std::cout << "Position du character : " << _character.pos() << std::endl;
+        std::cout << "Position Y de l'obj : " << Utils::cast(t.object(i).y()) << std::endl;
+        std::cout << std::endl;
+        */
+        if (Utils::cast(t.object(i).y()) == y)
         {
-          if (t.object(i)->collisionHandler(&_character))
+          if (t.object(i).collisionHandler(&_character) || true)
           {
             shallClean = true;
-            t.object(i)->markDeleted();
+            t.object(i).markDeleted();
           }
         }
       }

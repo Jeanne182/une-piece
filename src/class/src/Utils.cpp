@@ -74,7 +74,7 @@ int rBatchSize()
 
 int cast(const float f)
 {
-  return static_cast<int>(floor(f));
+  return static_cast<int>(round(f));
 }
 
 const glm::vec3 &getDirectionnalVector(const unsigned int &direction)

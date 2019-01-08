@@ -157,7 +157,7 @@ void MapManager::generateSimpleBatch()
 
       // Put rocks on the side
       sideRocks(j, k, pos, t);
-      _map.push_back(t);
+      _map.push_back(std::move(t));
     }
     pos += Utils::getDirectionnalVector(_direction);
   }
@@ -181,19 +181,20 @@ void MapManager::generateCoinBatch()
       if (k == lane)
       {
         // Put the rubies in the air
-        float y = 0.5f;
+        float y = 0.2f;
         if (floatingCoins && i != 0 && i != length - 2)
         {
-          y = 1.5f;
+          y += 1.f;
         }
-        Coin *coin = new Coin(pos + glm::vec3(0.f, y, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, 1, COIN_MODEL_NAME);
+        glm::vec3 p = pos + glm::vec3(0.f, y, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k;
+        std::unique_ptr<Coin> coin(new Coin(p, 1, COIN_MODEL_NAME));
         coin->setRotateOffset(static_cast<float>((i + j) * 20.f));
-        t.add(coin);
+        t.add(std::move(coin));
       }
 
       // Put rocks on the side
       sideRocks(j, k, pos, t);
-      _map.push_back(t);
+      _map.push_back(std::move(t));
     }
     pos += Utils::getDirectionnalVector(_direction);
   }
@@ -225,30 +226,30 @@ void MapManager::generateObstacleBatch()
       if (shallCreate)
       {
         //std::cout << "lane : " << lane << " | k : " << k << std::endl;
-        Obstacle *o;
+        std::unique_ptr<Obstacle> o;
         switch (obstacleType)
         {
         case 0:
-          o = new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, ROCK_MODEL_NAME);
+          o = std::unique_ptr<Obstacle>(new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, ROCK_MODEL_NAME));
           o->setScale(0.4f);
           o->setMatrix();
           break;
         case 1:
-          o = new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, TENTACLE_MODEL_NAME);
+          o = std::unique_ptr<Obstacle>(new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, TENTACLE_MODEL_NAME));
           break;
         case 2:
-          o = new Obstacle(pos + glm::vec3(0.f, 0.1f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, PONTON_MODEL_NAME);
+          o = std::unique_ptr<Obstacle>(new Obstacle(pos + glm::vec3(0.f, 0.1f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, PONTON_MODEL_NAME));
           break;
         default:
-          o = new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, TENTACLE_MODEL_NAME);
+          o = std::unique_ptr<Obstacle>(new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, TENTACLE_MODEL_NAME));
           break;
         };
-        t.add(o);
+        t.add(std::move(o));
       }
 
       // Put rocks on the side
       sideRocks(j, k, pos, t);
-      _map.push_back(t);
+      _map.push_back(std::move(t));
     }
     pos += Utils::getDirectionnalVector(_direction);
   }
@@ -271,13 +272,13 @@ void MapManager::generateBonusBatch()
       // Choose the lane
       if (i == length - 2 && k == lane)
       {
-        Bonus *bonus = new Bonus(pos + glm::vec3(0.f, 0.5f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, bonusType, Utils::getBonusModelName(bonusType));
-        t.add(bonus);
+        std::unique_ptr<Bonus> bonus(new Bonus(pos + glm::vec3(0.f, 0.5f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, bonusType, Utils::getBonusModelName(bonusType)));
+        t.add(std::move(bonus));
       }
 
       // Put rocks on the side
       sideRocks(j, k, pos, t);
-      _map.push_back(t);
+      _map.push_back(std::move(t));
     }
     pos += Utils::getDirectionnalVector(_direction);
   }
@@ -302,15 +303,15 @@ void MapManager::generateFork()
     for (float j = 0; j < MapManager::ROW_SIZE; j++)
     {
       float k = j - MapManager::HALF_ROW_SIZE;
-      Tile t(new Water(pos + Utils::getDirectionnalVector(_direction) * k, true));
+      Tile t(std::move(std::unique_ptr<Water>(new Water(pos + Utils::getDirectionnalVector(_direction) * k, true))));
 
       // Rocks on the side
       if ((j == 0 && (i < noRockMin || i > noRockMax)) ||
           j == MapManager::ROW_SIZE - 1)
       {
-        t.add(new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + Utils::getDirectionnalVector(_direction) * k, "rock.obj"));
+        t.add(std::move(std::unique_ptr<Obstacle>(new Obstacle(pos + glm::vec3(0.f, -0.2f, 0.f) + Utils::getDirectionnalVector(_direction) * k, "rock.obj"))));
       }
-      _map.push_back(t);
+      _map.push_back(std::move(t));
     }
     pos += Utils::getOppositeDirectionnalVector(_direction) * -1.f;
   }
@@ -332,7 +333,7 @@ void MapManager::sideRocks(const float j, const float k, const glm::vec3 &pos, T
 
   if ((j == 0 || j == MapManager::ROW_SIZE - 1) && (int)pos[X] % 2 == 0)
   {
-    t.add(new Obstacle(pos + glm::vec3(0.f, 0.0f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, ROCK_MODEL_NAME));
+    t.add(std::move(std::unique_ptr<Obstacle>(new Obstacle(pos + glm::vec3(0.f, 0.0f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, ROCK_MODEL_NAME))));
   }
 }
 
@@ -354,20 +355,17 @@ void MapManager::deleteOldPath()
   bool forkFound = false;
   int cpt = 0;
   // Delete until a forkWater is found
-  Water *w = dynamic_cast<Water *>(_map.begin()->object(0));
-  while (!(w->isFork()) && cpt < 5000)
+  while (!(dynamic_cast<Water &>((_map.begin())->object(0)).isFork()) && cpt < 5000)
   {
     cpt++;
     _map.pop_front();
-    w = dynamic_cast<Water *>((_map.begin())->object(0));
   }
 
   // Delete until a not for Water is found
-  while (w->isFork() && cpt < 5000)
+  while (dynamic_cast<Water &>((_map.begin())->object(0)).isFork() && cpt < 5000)
   {
     cpt++;
     _map.pop_front();
-    w = dynamic_cast<Water *>((_map.begin())->object(0));
   }
   std::cout << "Deleted : " << cpt << std::endl;
 }
