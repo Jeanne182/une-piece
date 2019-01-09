@@ -131,8 +131,8 @@ const std::string &getBonusModelName(const unsigned int bonusType)
   case UP::SLOWNESS:
     return UP::BONUS_SLOWNESS_MODEL_NAME;
     break;
-  case UP::REVIVE:
-    return UP::BONUS_REVIVE_MODEL_NAME;
+  case UP::LIFEUP:
+    return UP::BONUS_LIFEUP_MODEL_NAME;
     break;
   case UP::MAGNET:
     return UP::BONUS_MAGNET_MODEL_NAME;

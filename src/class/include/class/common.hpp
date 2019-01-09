@@ -34,10 +34,11 @@ static const std::string WATER_MODEL_NAME = "water.obj";
 static const std::string COIN_MODEL_NAME = "ruby.obj";
 static const std::string BONUS_INVULNERABILITY_MODEL_NAME = "invincible.obj";
 static const std::string BONUS_SLOWNESS_MODEL_NAME = "Bonus_SpeedUp.obj";
-static const std::string BONUS_REVIVE_MODEL_NAME = "Bonus_SpeedDown.obj";
+static const std::string BONUS_LIFEUP_MODEL_NAME = "Bonus_SpeedDown.obj";
 static const std::string BONUS_MAGNET_MODEL_NAME = "Bonus_SpeedDown.obj";
 
 static const float PLAYER_ACCELERATION_AMOUNT = 0.02f;
+static const float PLAYER_DECCELERATION_AMOUNT = 0.9f;
 static const int PLAYER_ACCELERATION_INTERVAL = 600;
 
 static const glm::vec3 VEC_NORTH = glm::vec3(1.f, 0.f, 0.f);
@@ -57,13 +58,13 @@ enum DIRECTION {
 
 /**
  * @brief Data structure for a vertex
- * 
+ *
  */
 struct ShapeVertex {
     glm::vec3 position;
     glm::vec3 normal;
     glm::vec2 texCoords;
-    
+
     ShapeVertex()
     {
     };
@@ -122,7 +123,7 @@ enum COORD
 
 /**
  * @brief Data structure to identify the Point of View
- * 
+ *
  */
 enum POV
 {

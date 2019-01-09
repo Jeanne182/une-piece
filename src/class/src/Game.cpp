@@ -15,6 +15,7 @@
 #include <class/Light.hpp>
 #include <class/Utils.hpp>
 #include <class/Water.hpp>
+#include <class/Coin.hpp>
 
 using namespace glimac;
 namespace UP
@@ -65,6 +66,13 @@ void Game::event(const SDL_Event &e)
         _camera.update(_map->getLastPos());
       }
     }
+      if (e.type == SDL_KEYUP){
+        if (e.key.keysym.sym == SDLK_x)
+        {
+          time_t startingTime = time(NULL);
+          _character.useBonus(MAGNET, startingTime);
+        }
+      }
   }
 }
 void Game::update()
@@ -73,14 +81,32 @@ void Game::update()
   {
     gameOver();
   }
-  _gameTick++;
+
   // Acceleration
+  _gameTick++;
   if (_gameTick > _nextTickAcceleration)
   {
     std::cout << SDL_GetTicks() << std::endl;
     _nextTickAcceleration += PLAYER_ACCELERATION_INTERVAL;
     _character.speedUp();
   }
+
+  // Bonuses
+  _character.deleteExpiredBonuses();
+  if(_character.bonusIsActive(SLOWNESS))
+  {
+    _character.speedDown();
+    _character.deleteConsumedBonus(SLOWNESS);
+  }
+
+  if(_character.bonusIsActive(LIFEUP))
+  {
+    _character.gainHealth();
+    _character.deleteConsumedBonus(LIFEUP);
+  }
+
+
+
 
   // Update the scene
   _character.move();
@@ -149,6 +175,34 @@ void Game::gameOver()
   }
 }
 
+void Game::magnetCollide()
+{
+  glm::vec3 opDirVec = Utils::getOppositeDirectionnalVector(_character.getDirection());
+
+
+  for(int i = 0; i < 5; i++){
+    bool shallClean = false;
+    float k = static_cast<float>(i-2.f);
+    if(k == 0)
+      continue;
+
+    Tile &t = _map->getTile(  Utils::cast((_character.pos() + (opDirVec * k))[X]) ,  Utils::cast((_character.pos() + (opDirVec * k))[Z]) );
+    for(int j=0; j < t.tile().size(); j++){
+      try
+      {
+        Coin &c = dynamic_cast<Coin &>(t.object(j));
+        c.collisionHandler(&_character);
+        shallClean = true;
+        c.markDeleted();
+      }
+      catch(const std::bad_cast &e){};
+    }
+    if (shallClean){
+      t.clean();
+    }
+  }
+}
+
 void Game::collide()
 {
   const std::vector<int> &v = _character.getLastCoordinate();
@@ -164,6 +218,12 @@ void Game::collide()
     _character.cubeCountIncrease();
 
     Tile &t = _map->getTile(x, z);
+
+    if(_character.bonusIsActive(MAGNET))
+    {
+        magnetCollide();
+    }
+
     bool shallClean = false;
     for (int i = 0; i < t.tile().size(); i++)
     {

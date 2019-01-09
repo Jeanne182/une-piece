@@ -21,7 +21,7 @@ enum BONUS
 {
   INVULNERABILITY,
   SLOWNESS,
-  REVIVE,
+  LIFEUP,
   MAGNET
 };
 
@@ -33,10 +33,10 @@ public:
 
   /**
    * @brief Construct a new Bonus object
-   * 
-   * @param position 
-   * @param bonusType 
-   * @param name 
+   *
+   * @param position
+   * @param bonusType
+   * @param name
    */
   Bonus(const glm::vec3 position, const unsigned int bonusType, const std::string &name);
 
@@ -58,9 +58,9 @@ public:
    */
 
   bool collisionHandler(GameObject *gameObject);
-  
+
   /**
-   * 
+   *
    * @brief Compute the MV , MVP and Normal
    *
    * @param cameraView

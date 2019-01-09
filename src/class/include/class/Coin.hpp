@@ -47,8 +47,8 @@ public:
   // ============= SETTERS =============
   /**
    * @brief Set the Rotate Offset object
-   * 
-   * @param r 
+   *
+   * @param r
    */
   inline void setRotateOffset(const float &r)
   {
@@ -63,8 +63,8 @@ public:
 
   /**
    * @brief Rotate the coin
-   * 
-   * @param cameraView 
+   *
+   * @param cameraView
    */
   void computeMatrix(const glm::mat4 &cameraView);
 
