@@ -61,7 +61,7 @@ public:
    *
    * @return unsigned int
    */
-  inline const unsigned int health() const { return _health; }
+  inline const int health() const { return _health; }
 
   /**
    * @brief Get the Last Coordinate object
@@ -72,15 +72,15 @@ public:
 
   /**
    * @brief Get the Turn Position object
-   * 
-   * @return const std::vector<int>& 
+   *
+   * @return const std::vector<int>&
    */
   inline const std::vector<int> &getTurnPosition() const { return _turnPosition; }
 
   /**
    * @brief Get the Direction object
-   * 
-   * @return const int 
+   *
+   * @return const int
    */
   inline const int getDirection() const { return _direction; };
 
@@ -100,9 +100,9 @@ public:
 
   /**
    * @brief Get the Fork Selected object
-   * 
-   * @return true 
-   * @return false 
+   *
+   * @return true
+   * @return false
    */
   inline const bool getForkSelected() const { return _forkSelected; };
 
@@ -115,22 +115,22 @@ public:
 
   /**
    * @brief Get the Turn Chosen object
-   * 
-   * @return unsigned int 
+   *
+   * @return unsigned int
    */
   inline unsigned int getTurnChosen() { return _turnChosen; };
 
   /**
    * @brief Get the Scale object
-   * 
-   * @return const float 
+   *
+   * @return const float
    */
   inline const float getScale() { return _scale; };
 
   /**
    * @brief Get the Angles object
-   * 
-   * @return const glm::vec3 
+   *
+   * @return const glm::vec3
    */
   inline const glm::vec3 getAngles() { return _angles; };
   // ============= SETTERS =============
@@ -164,15 +164,15 @@ public:
 
   /**
    * @brief Set the Fork Selected object
-   * 
-   * @param b 
+   *
+   * @param b
    */
   void setForkSelected(const bool &b);
 
   /**
    * @brief Set the Turn Chosend object
-   * 
-   * @param t 
+   *
+   * @param t
    */
   inline void setTurnChosen(const unsigned int &t) { _turnChosen = t; };
 
@@ -227,14 +227,14 @@ public:
 
   /**
    * @brief Increases the speed of the player over time
-   * 
+   *
    */
   void speedUp();
 
   // =============  GENERIC =============
 
   /**
-   * 
+   *
    * @brief Compute the MV , MVP and Normal
    *
    * @param cameraView
@@ -272,10 +272,10 @@ public:
 
   /**
    * @brief Handle the collision for a player : i.e do nothing
-   * 
-   * @param gameObject 
-   * @return true 
-   * @return false 
+   *
+   * @param gameObject
+   * @return true
+   * @return false
    */
   bool collisionHandler(GameObject *gameObject);
   // ============= HEALTH =============
@@ -288,13 +288,13 @@ public:
 
   /**
    * @brief Set the Matrix objectComput the matrixes in a special way for the player
-   * 
+   *
    */
   void updateMatrix();
 
   /**
    * @brief Update the rotScaleMatrix
-   * 
+   *
    */
   void updateRotScaleMatrix();
 
@@ -305,7 +305,7 @@ private:
 
   glm::vec3 _acceleration;
 
-  unsigned int _health;
+  int _health;
   unsigned int _score;
   unsigned int _cubeCount;
   unsigned int _direction;
@@ -339,7 +339,7 @@ private:
 
   /**
    * @brief Is called when the character turn after a fork
-   * 
+   *
    */
   void changeMovement();
 };

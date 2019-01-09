@@ -69,7 +69,10 @@ void Game::event(const SDL_Event &e)
 }
 void Game::update()
 {
-
+  if(_character.health() <= 0)
+  {
+    gameOver();
+  }
   _gameTick++;
   // Acceleration
   if (_gameTick > _nextTickAcceleration)
