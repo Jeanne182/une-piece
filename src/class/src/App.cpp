@@ -132,7 +132,10 @@ void App::layoutGame()
   layout2D();
   try
   {
-    _staticImages.addImage("bonusInvulnerability", 1.f, -1.0f, 50.f);
+    _staticImages.addImage("bonusInvulnerability", -0.97f, 0.82f, 0.1f);
+    _staticImages.addImage("bonusMagnet", -0.87f, 0.82f, 0.1f);
+    _staticImages.addImage("bonusSpeedDown", -0.77f, 0.82f, 0.1f);
+    _staticImages.addImage("bonusLifeUp", -0.64f, 0.82f, 0.1f);
   }
   catch (std::exception &e)
   {
@@ -360,9 +363,19 @@ void App::drawGame()
 
     layout2D();
     std::string score = std::string("Score : ") + std::to_string(_game.score());
-    AssetManager::Get()->textManager().renderText(score, 20.f , 740.0f, 1.f, glm::vec3(1.f, 1.0f, 1.0f));
+    std::string health = std::string("Lifepoint : ") + std::to_string(_game.getCharacter().health());
+    AssetManager::Get()->textManager().renderText(score, 20.f, 740.0f, 1.f, glm::vec3(0.001, 0.001f, 0.001f));
+    AssetManager::Get()->textManager().renderText(health, 500.f, 740.0f, 1.f, glm::vec3(0.001, 0.001f, 0.001f));
 
-    _staticImages.displayImage("bonusInvulnerability");
+    AssetManager::Get()->staticImageProgram()._Program.use();
+    if (_game.getCharacter().bonusIsActive(INVULNERABILITY))
+      _staticImages.displayImage("bonusInvulnerability");
+    if (_game.getCharacter().bonusIsActive(MAGNET))
+    _staticImages.displayImage("bonusMagnet");
+    if (_game.getCharacter().bonusIsActive(SLOWNESS))
+    _staticImages.displayImage("bonusSpeedDown");
+    if (_game.getCharacter().bonusIsActive(LIFEUP))
+    _staticImages.displayImage("bonusLifeUp");
   }
   catch (std::exception &e)
   {

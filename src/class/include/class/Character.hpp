@@ -330,6 +330,8 @@ private:
 
   int _sideState;
   int _verticalState;
+  
+  unsigned int _hitFrame;
 
   glm::mat4 _rotScaleMatrix;
 

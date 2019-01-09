@@ -56,7 +56,7 @@ public:
    * 
    * @return const int 
    */
-  const int score() const { return _character.score();}
+  const int score() const { return _character.score(); }
 
   /**
    * @brief Reset the game and create a new one
@@ -75,9 +75,17 @@ public:
    *
    * @param trigger
    */
-  inline void setGameOverTrigger(std::function<void(const int&)> &trigger) {
+  inline void setGameOverTrigger(std::function<void(const int &)> &trigger)
+  {
     _gameOverTrigger = trigger;
   };
+
+  /**
+   * @brief Get the Character object
+   * 
+   * @return const Character& 
+   */
+  inline const Character &getCharacter() { return _character; };
 
 private:
   Character _character;

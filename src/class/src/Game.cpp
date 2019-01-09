@@ -86,7 +86,7 @@ void Game::update()
   _gameTick++;
   if (_gameTick > _nextTickAcceleration)
   {
-    std::cout << SDL_GetTicks() << std::endl;
+    std::cout << "Acceleration at : " << SDL_GetTicks() << std::endl;
     _nextTickAcceleration += PLAYER_ACCELERATION_INTERVAL;
     _character.speedUp();
   }

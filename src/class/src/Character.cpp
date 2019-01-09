@@ -30,7 +30,8 @@ Character::Character(Camera &camera)
       _direction(DIR_NORTH),
       _acceleration(0.f),
       _desiredAngle(0.f),
-      _health(1),
+      _health(2),
+      _hitFrame(0),
       _forkSelected(false),
       _smoothRotate(false),
       _score(0),
@@ -74,6 +75,9 @@ void Character::computeMatrix(const glm::mat4 &cameraView)
 
 void Character::display() const
 {
+  if ((_hitFrame / 10) % 2 == 1)
+    return;
+
   //std::cout << "NTM " << std::endl;
   useMatrix();
   bool thereisabonus = bonusIsActive(INVULNERABILITY);
@@ -96,13 +100,13 @@ void Character::display() const
 
     glStencilFunc(GL_NOTEQUAL, 1, -1);
     glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-    
+
     std::map<unsigned int, time_t>::const_iterator it;
     it = _activeBonuses.find(INVULNERABILITY);
     time_t startTime = it->second;
     time_t timeRemaining = startTime + BONUS_DURATION - time(0);
 
-    glLineWidth(3 +timeRemaining);
+    glLineWidth(3 + timeRemaining);
     glPolygonMode(GL_FRONT, GL_LINE);
 
     glUniform3fv(AssetManager::Get()->assetProgramMultiLight().uColor, 1, glm::value_ptr(CELL_SHADING_COLOR));
@@ -218,10 +222,15 @@ void Character::addCoin(const unsigned int &coinValue)
 
 void Character::loseHealth(const unsigned int &value)
 {
-  setHealth(_health - value);
+  if (_hitFrame == 0)
+  {
+    setHealth(_health - value);
+    _hitFrame = 100;
+  }
 }
 
-void Character::gainHealth(){
+void Character::gainHealth()
+{
   setHealth(_health + 1);
 }
 
@@ -245,6 +254,11 @@ void Character::move()
 
   //std::cout << "Current Speed : " << glm::length(_speed) << std::endl;
 
+  // Decrease the frame for invul
+  if (_hitFrame > 0)
+    _hitFrame--;
+
+  // Speed stuff
   speedUpdate();
   if (_position[Y] < 0.1f)
   {
@@ -440,7 +454,8 @@ bool Character::bonusIsActive(unsigned int bonusType) const
   {
     return false;
   }
-  else{
+  else
+  {
     return true;
   }
 }
