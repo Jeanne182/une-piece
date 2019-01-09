@@ -128,6 +128,19 @@ void App::layoutGame()
     layoutGameOver();
   };
   _game.setGameOverTrigger(lambda);
+
+  layout2D();
+  try
+  {
+    _staticImages.addImage("bonusInvulnerability", 1.f, -1.0f, 50.f);
+  }
+  catch (std::exception &e)
+  {
+    std::cerr << e.what() << std::endl;
+  }
+
+  // Send the VBO
+  _staticImages.sendVertexBuffer();
 };
 
 void App::layoutGameOver()
@@ -344,10 +357,12 @@ void App::drawGame()
     layout3D();
     _game.update();
     _game.display();
-    
+
     layout2D();
     std::string score = std::string("Score : ") + std::to_string(_game.score());
     AssetManager::Get()->textManager().renderText(score, 20.f , 740.0f, 1.f, glm::vec3(1.f, 1.0f, 1.0f));
+
+    _staticImages.displayImage("bonusInvulnerability");
   }
   catch (std::exception &e)
   {
