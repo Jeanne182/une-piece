@@ -278,7 +278,7 @@ void MapManager::generateBonusBatch()
       // Choose the lane
       if (i == length - 2 && k == lane)
       {
-        std::unique_ptr<Bonus> bonus(new Bonus(pos + glm::vec3(0.f, 0.5f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, bonusType, Utils::getBonusModelName(bonusType)));
+        std::unique_ptr<Bonus> bonus(new Bonus(pos + glm::vec3(0.f, 0.4f, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k, bonusType, Utils::getBonusModelName(bonusType)));
         t.add(std::move(bonus));
       }
 

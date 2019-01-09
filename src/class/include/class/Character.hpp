@@ -185,7 +185,7 @@ public:
     */
   inline void useBonus(const unsigned int &bonusType, const time_t &startingTime) { _activeBonuses.insert(std::make_pair(bonusType, startingTime)); }
 
-  bool bonusIsActive(unsigned int bonusType);
+  bool bonusIsActive(unsigned int bonusType) const;
 
   // ============= KEY HANDLER =============
 

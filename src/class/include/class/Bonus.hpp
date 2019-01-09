@@ -15,7 +15,7 @@
 
 namespace UP
 {
-static const int BONUS_DURATION = 5;
+static const int BONUS_DURATION = 20;
 
 enum BONUS
 {

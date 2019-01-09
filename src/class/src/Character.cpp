@@ -76,7 +76,8 @@ void Character::display() const
 {
   //std::cout << "NTM " << std::endl;
   useMatrix();
-  bool thereisabonus = true;
+  bool thereisabonus = bonusIsActive(INVULNERABILITY);
+
   if (thereisabonus)
   {
 
@@ -95,8 +96,13 @@ void Character::display() const
 
     glStencilFunc(GL_NOTEQUAL, 1, -1);
     glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+    
+    std::map<unsigned int, time_t>::const_iterator it;
+    it = _activeBonuses.find(INVULNERABILITY);
+    time_t startTime = it->second;
+    time_t timeRemaining = startTime + BONUS_DURATION - time(0);
 
-    glLineWidth(12);
+    glLineWidth(3 +timeRemaining);
     glPolygonMode(GL_FRONT, GL_LINE);
 
     glUniform3fv(AssetManager::Get()->assetProgramMultiLight().uColor, 1, glm::value_ptr(CELL_SHADING_COLOR));
@@ -426,9 +432,9 @@ void Character::turnLeft()
   updateRotScaleMatrix();
 }
 
-bool Character::bonusIsActive(unsigned int bonusType)
+bool Character::bonusIsActive(unsigned int bonusType) const
 {
-  std::map<unsigned int, time_t>::iterator it;
+  std::map<unsigned int, time_t>::const_iterator it;
   it = _activeBonuses.find(bonusType);
   if (it == _activeBonuses.end())
   {

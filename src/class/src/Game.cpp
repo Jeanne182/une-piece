@@ -70,7 +70,7 @@ void Game::event(const SDL_Event &e)
         if (e.key.keysym.sym == SDLK_x)
         {
           time_t startingTime = time(NULL);
-          _character.useBonus(MAGNET, startingTime);
+          _character.useBonus(INVULNERABILITY, startingTime);
         }
       }
   }
