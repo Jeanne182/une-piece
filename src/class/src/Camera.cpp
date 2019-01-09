@@ -16,11 +16,7 @@ const double HALF_PI = PI / 2;
 const float Camera::VIEW_WIDTH = 30.f;
 
 Camera::Camera()
-    : _fDistance(-15.0f),
-      _fAngleX(0.0f),
-      _fAngleY(0.0f),
-      _center(0.f, 0.f, 0.f),
-      _currentPOV(THIRD_PERSON)
+    : _currentPOV(THIRD_PERSON)
 {
   computeDirectionVectors();
 };
@@ -207,26 +203,11 @@ void Camera::setCharacterInfo(const float &scale, const glm::vec3 &angles)
   _fDistance = scale * -10.0f;
   _fAngleX = 10.f;
   _fAngleY = -angles[Y];
-  _fPhi = glm::radians(_fAngleY);
+  _fPhi = glm::radians(-_fAngleY);
   _fTheta = 0.f;
   computeDirectionVectors();
 }
 
-// ========================== THIRD PERSON ========================
-void Camera::TPMoveFront(const float &delta)
-{
-  if (delta > 0 && _fDistance >= -1.0f)
-    return;
-  _fDistance += delta;
-}
-void Camera::TPRotateLeft(const float &degrees)
-{
-  _fAngleX += degrees;
-}
-void Camera::TPRotateRight(const float &degrees)
-{
-  _fAngleY += degrees;
-}
 glm::mat4 Camera::getViewMatrix() const
 {
   if (_currentPOV == FIRST_PERSON || _currentPOV == FREE_FLY)
@@ -248,6 +229,22 @@ glm::mat4 Camera::getViewMatrix() const
   }
 }
 
+// ========================== THIRD PERSON ========================
+void Camera::TPMoveFront(const float &delta)
+{
+  if (delta > 0 && _fDistance >= -1.0f)
+    return;
+  _fDistance += delta;
+}
+void Camera::TPRotateLeft(const float &degrees)
+{
+  _fAngleX += degrees;
+}
+void Camera::TPRotateRight(const float &degrees)
+{
+  _fAngleY -= degrees;
+}
+
 // ========================== FIRST PERSON ========================
 void Camera::computeDirectionVectors()
 {
@@ -260,11 +257,15 @@ void Camera::computeDirectionVectors()
 
 void Camera::FPMoveFront(const float &t)
 {
+  assert(_currentPOV == FREE_FLY);
+
   _center += t * _frontVector;
   _upVector = glm::cross(_frontVector, _leftVector);
 }
 void Camera::FPMoveLeft(const float &t)
 {
+  assert(_currentPOV == FREE_FLY);
+
   _center += t * _leftVector;
   _upVector = glm::cross(_frontVector, _leftVector);
 }

@@ -16,7 +16,7 @@ namespace UP
 {
 float Character::MAX_SPEED = 0.1f;
 const glm::vec3 Character::GRAVITY = glm::vec3(0.f, -0.007f, 0.f);
-const glm::vec3 Character::JUMP_FORCE = glm::vec3(0.f, 0.1f, 0.f);
+const glm::vec3 Character::JUMP_FORCE = glm::vec3(0.f, 0.12f, 0.f);
 
 Character::Character(Camera &camera)
     : GameObject(glm::vec3(0.f, 0.1f, 0.f),
@@ -206,6 +206,7 @@ void Character::move()
   // Angle rotation
   if (_smoothRotate)
   {
+    
     float ratio = 0.05f;
 
     glm::vec3 rot = _angles * (1.f - ratio);
@@ -291,7 +292,7 @@ void Character::speedLimiter(glm::vec3 &speed)
   float lz = glm::length(speed[Z]);
   if (lx > MAX_SPEED)
     speed[X] = glm::normalize(speed[X]) * MAX_SPEED;
-  if (ly > MAX_SPEED)
+  if (ly > MAX_SPEED*2)
     speed[Y] = glm::normalize(speed[Y]) * MAX_SPEED;
   if (lz > MAX_SPEED)
     speed[Z] = glm::normalize(speed[Z]) * MAX_SPEED;

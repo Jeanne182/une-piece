@@ -41,6 +41,13 @@ public:
   void setCharacterInfo(const float &scale, const glm::vec3 &angles);
 
   /**
+   * @brief Set the POV object
+   * 
+   * @param pov 
+   */
+  inline void setPOV(const unsigned int &pov) { _currentPOV = pov; };
+
+  /**
    * @brief Get the View Matrix objectSend the view Matrix
    * 
    * @return glm::mat4 
