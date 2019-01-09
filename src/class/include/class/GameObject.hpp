@@ -28,11 +28,11 @@ public:
 
   /**
    * @brief Construct a new Game Object object
-   * 
-   * @param pos 
-   * @param speed 
-   * @param scale 
-   * @param name 
+   *
+   * @param pos
+   * @param speed
+   * @param scale
+   * @param name
    */
   GameObject(const glm::vec3 &pos, const glm::vec3 &speed, const float &scale, const std::string &name = "null");
 
@@ -191,15 +191,15 @@ public:
   // ============= METHODS =============
   /**
    * @brief Utils for the deletion
-   * 
+   *
    */
   inline void markDeleted() { _toDelete = true; };
 
   /**
    * @brief Utils for the deletion
-   * 
-   * @return true 
-   * @return false 
+   *
+   * @return true
+   * @return false
    */
   inline bool shallDelete() { return _toDelete; }
 
@@ -209,9 +209,9 @@ public:
    *
    */
   void setMatrix();
-  
+
   /**
-   * 
+   *
    * @brief Compute the MV , MVP and Normal
    *
    * @param cameraView

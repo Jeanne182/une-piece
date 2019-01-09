@@ -178,12 +178,12 @@ void Character::addBonus(const Bonus &bonus)
   }
 }
 
-void Character::deleteConsumedBonus(const Bonus &bonus)
+void Character::deleteConsumedBonus(const unsigned int bonusType)
 {
   std::map<unsigned int, time_t>::iterator it;
   for (it = _activeBonuses.begin(); it != _activeBonuses.end(); it++)
   {
-    if ((it->first) == bonus.getBonusType())
+    if ((it->first) == bonusType)
     {
       _activeBonuses.erase(it);
       break;
@@ -213,6 +213,10 @@ void Character::addCoin(const unsigned int &coinValue)
 void Character::loseHealth(const unsigned int &value)
 {
   setHealth(_health - value);
+}
+
+void Character::gainHealth(){
+  setHealth(_health + 1);
 }
 
 bool Character::collisionHandler(GameObject *gameObject)
@@ -267,6 +271,11 @@ void Character::speedUp()
 {
   MAX_SPEED += PLAYER_ACCELERATION_AMOUNT;
   applyForce(Utils::getDirectionnalVector(_direction) * PLAYER_ACCELERATION_AMOUNT);
+}
+
+void Character::speedDown()
+{
+  MAX_SPEED *= PLAYER_DECCELERATION_AMOUNT;
 }
 
 void Character::sideMove()
@@ -415,5 +424,18 @@ void Character::turnLeft()
   _desiredAngle = glm::vec3(_angles[X], _angles[Y] + 90.f, _angles[Z]);
   _smoothRotate = true;
   updateRotScaleMatrix();
+}
+
+bool Character::bonusIsActive(unsigned int bonusType)
+{
+  std::map<unsigned int, time_t>::iterator it;
+  it = _activeBonuses.find(bonusType);
+  if (it == _activeBonuses.end())
+  {
+    return false;
+  }
+  else{
+    return true;
+  }
 }
 } // namespace UP

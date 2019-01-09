@@ -20,7 +20,7 @@ public:
    *
    */
   Obstacle(const glm::vec3 position, const std::string &name);
-  
+
   /**
    * @brief Display the obstacle
    *
@@ -32,9 +32,9 @@ public:
    *
    */
   bool collisionHandler(GameObject *gameObject);
-  
+
   /**
-   * 
+   *
    * @brief Compute the MV , MVP and Normal
    *
    * @param cameraView

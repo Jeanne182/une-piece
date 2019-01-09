@@ -177,13 +177,15 @@ public:
    */
   inline void setTurnChosen(const unsigned int &t) { _turnChosen = t; };
 
-  // ============= MOVEMENT =============
+  // ============= Bonus =============
   /**
     * @brief Set the Active Bonuses object
     *
     * @param bonusType, startingTime
     */
   inline void useBonus(const unsigned int &bonusType, const time_t &startingTime) { _activeBonuses.insert(std::make_pair(bonusType, startingTime)); }
+
+  bool bonusIsActive(unsigned int bonusType);
 
   // ============= KEY HANDLER =============
 
@@ -232,6 +234,8 @@ public:
    */
   void speedUp();
 
+  void speedDown();
+
   // =============  GENERIC =============
 
   /**
@@ -254,7 +258,7 @@ public:
     *
     * @param bonus
     */
-  void deleteConsumedBonus(const Bonus &bonus);
+  void deleteConsumedBonus(const unsigned int bonusType);
   /**
      * @brief delete Bonuses of the player that has expired
      *
@@ -288,7 +292,7 @@ public:
    */
   void loseHealth(const unsigned int &value);
 
-  // ============= MISCELLANEOUS =============
+  void gainHealth();
 
   /**
    * @brief Set the Matrix objectComput the matrixes in a special way for the player
@@ -304,7 +308,7 @@ public:
 
   /**
    * @brief Override display
-   * 
+   *
    */
   void display() const;
 

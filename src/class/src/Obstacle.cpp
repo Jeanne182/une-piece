@@ -53,8 +53,12 @@ void Obstacle::computeMatrix(const glm::mat4 &cameraView)
 
 bool Obstacle::collisionHandler(GameObject *gameObject)
 {
-  dynamic_cast<Character *>(gameObject)->loseHealth(1);
-  return false;
+  if (dynamic_cast<Character *>(gameObject)->bonusIsActive(INVULNERABILITY) == false)
+  {
+    dynamic_cast<Character *>(gameObject)->loseHealth(1);
+    return false;
+  }
+  return true;
 }
 
 } // namespace UP

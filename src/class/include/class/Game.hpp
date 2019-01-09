@@ -66,14 +66,14 @@ public:
 
   /**
    * @brief  Handle stuff to end the game
-   * 
+   *
    */
   void gameOver();
 
   /**
    * @brief Set the Game Over Trigger object
-   * 
-   * @param trigger 
+   *
+   * @param trigger
    */
   inline void setGameOverTrigger(std::function<void(const int&)> &trigger) {
     _gameOverTrigger = trigger;
@@ -86,12 +86,13 @@ private:
   MapManager *_map;
   Skybox _skybox;
   std::function<void(const int &)> _gameOverTrigger;
-  
+
   unsigned int _nextTickAcceleration = PLAYER_ACCELERATION_INTERVAL;
   unsigned int _gameTick = 0;
 
   // ============= METHODS =============
   void sendLight() const;
+  void magnetCollide();
   void collide();
 };
 
