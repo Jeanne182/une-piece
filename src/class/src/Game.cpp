@@ -77,7 +77,7 @@ void Game::event(const SDL_Event &e)
 }
 void Game::update()
 {
-  if(_character.health() <= 0)
+  if (_character.health() <= 0)
   {
     gameOver();
   }
@@ -127,7 +127,8 @@ void Game::display() const
 
   // Display stuff
   sendLight();
-  _character.display();
+  if (_camera.getPOV() != FIRST_PERSON)
+    _character.display();
   _map->display();
   _skybox.display();
 }
@@ -298,9 +299,10 @@ void Game::collide()
         std::cout << "Position Y de l'obj : " << Utils::cast(t.object(i).y()) << std::endl;
         std::cout << std::endl;
         */
+
         if (Utils::cast(t.object(i).y()) == y)
         {
-          if (t.object(i).collisionHandler(&_character) || true)
+          if (t.object(i).collisionHandler(&_character))
           {
             shallClean = true;
             t.object(i).markDeleted();

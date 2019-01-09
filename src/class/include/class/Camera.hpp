@@ -41,6 +41,13 @@ public:
   void setCharacterInfo(const float &scale, const glm::vec3 &angles);
 
   /**
+   * @brief Set the POV object
+   * 
+   * @param pov 
+   */
+  const inline unsigned int getPOV() const { return _currentPOV; };
+
+  /**
    * @brief Get the View Matrix objectSend the view Matrix
    * 
    * @return glm::mat4 
@@ -49,6 +56,7 @@ public:
 
 private:
   glm::vec3 _center;
+  glm::vec3 _boatAngle;
 
   // THIRD PERSON MODE
   float _fDistance; // Distane par rapport au centre de la scene

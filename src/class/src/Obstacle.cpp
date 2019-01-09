@@ -29,7 +29,8 @@ Obstacle::Obstacle(const glm::vec3 position, const std::string &name)
   }
   else if (name == PONTON_MODEL_NAME)
   {
-    setAngles(glm::vec3(0.f, 0.f, 0.f));
+    float y = Utils::dicef(0.f, 360.f);
+    setAngles(glm::vec3(0.f, y, 0.f));
     setScale(0.18f);
   }
   setMatrix();

@@ -30,10 +30,16 @@ MapManager::MapManager()
   _probability.shrink_to_fit();
 
   Utils::setSeed();
+  /*
   generateSimpleBatch();
   generateSimpleBatch();
   generateSimpleBatch();
   generateSimpleBatch();
+  */
+  generateBonusBatch();
+  generateBonusBatch();
+  generateBonusBatch();
+  generateBonusBatch();
   generatePath();
   generateFork();
   _shallDelete = false;
@@ -187,7 +193,7 @@ void MapManager::generateCoinBatch()
           y += 1.f;
         }
         glm::vec3 p = pos + glm::vec3(0.f, y, 0.f) + Utils::getOppositeDirectionnalVector(_direction) * k;
-        std::unique_ptr<Coin> coin(new Coin(p, 1, COIN_MODEL_NAME));
+        std::unique_ptr<Coin> coin(new Coin(p, 5, COIN_MODEL_NAME));
         coin->setRotateOffset(static_cast<float>((i + j) * 20.f));
         t.add(std::move(coin));
       }

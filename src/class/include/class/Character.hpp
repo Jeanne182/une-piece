@@ -39,6 +39,7 @@ class Character : public GameObject
 {
 public:
   static float MAX_SPEED;
+  static const float MAX_JUMP_SPEED;
   static const glm::vec3 GRAVITY;
   static const glm::vec3 JUMP_FORCE;
   // ============= CONSTRUCTORS =============
@@ -282,6 +283,7 @@ public:
    * @return false
    */
   bool collisionHandler(GameObject *gameObject);
+
   // ============= HEALTH =============
   /**
    * @brief Lose some health
@@ -303,6 +305,12 @@ public:
    *
    */
   void updateRotScaleMatrix();
+
+  /**
+   * @brief Override display
+   *
+   */
+  void display() const;
 
 private:
 

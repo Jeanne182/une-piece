@@ -56,6 +56,7 @@ void GameObject::useMatrix() const
   glUniformMatrix4fv(AssetManager::Get()->assetProgramMultiLight().uMVPMatrix, 1, GL_FALSE, glm::value_ptr(_MVP));
   glUniformMatrix4fv(AssetManager::Get()->assetProgramMultiLight().uMVMatrix, 1, GL_FALSE, glm::value_ptr(_MV));
   glUniformMatrix4fv(AssetManager::Get()->assetProgramMultiLight().uNormalMatrix, 1, GL_FALSE, glm::value_ptr(_N));
+  glUniform3fv(AssetManager::Get()->assetProgramMultiLight().uColor, 1, glm::value_ptr(glm::vec3(0.f)));
 }
 
 } // namespace UP

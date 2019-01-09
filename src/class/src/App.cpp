@@ -223,7 +223,7 @@ void App::event(const SDL_Event &e)
       }
 
       // Return handle
-      if (key == SDLK_RETURN)
+      if (key == SDLK_RETURN && _layout == LAYOUT_GAME_OVER)
       {
         ScoresManager &scores = ScoresManager::Get();
         scores.getPending().setName(_buffer);
@@ -341,8 +341,13 @@ void App::drawGame()
 {
   try
   {
+    layout3D();
     _game.update();
     _game.display();
+    
+    layout2D();
+    std::string score = std::string("Score : ") + std::to_string(_game.score());
+    AssetManager::Get()->textManager().renderText(score, 20.f , 740.0f, 1.f, glm::vec3(1.f, 1.0f, 1.0f));
   }
   catch (std::exception &e)
   {
