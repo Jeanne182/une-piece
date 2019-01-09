@@ -39,6 +39,7 @@ class Character : public GameObject
 {
 public:
   static float MAX_SPEED;
+  static const float MAX_JUMP_SPEED;
   static const glm::vec3 GRAVITY;
   static const glm::vec3 JUMP_FORCE;
   // ============= CONSTRUCTORS =============
@@ -278,6 +279,7 @@ public:
    * @return false
    */
   bool collisionHandler(GameObject *gameObject);
+
   // ============= HEALTH =============
   /**
    * @brief Lose some health
@@ -285,6 +287,8 @@ public:
    * @param value
    */
   void loseHealth(const unsigned int &value);
+
+  // ============= MISCELLANEOUS =============
 
   /**
    * @brief Set the Matrix objectComput the matrixes in a special way for the player
@@ -297,6 +301,12 @@ public:
    *
    */
   void updateRotScaleMatrix();
+
+  /**
+   * @brief Override display
+   * 
+   */
+  void display() const;
 
 private:
 

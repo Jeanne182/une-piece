@@ -15,13 +15,14 @@ using namespace glimac;
 namespace UP
 {
 float Character::MAX_SPEED = 0.1f;
+const float Character::MAX_JUMP_SPEED = 0.13f;
 const glm::vec3 Character::GRAVITY = glm::vec3(0.f, -0.007f, 0.f);
-const glm::vec3 Character::JUMP_FORCE = glm::vec3(0.f, 0.12f, 0.f);
+const glm::vec3 Character::JUMP_FORCE = glm::vec3(0.f, MAX_JUMP_SPEED, 0.f);
 
 Character::Character(Camera &camera)
     : GameObject(glm::vec3(0.f, 0.1f, 0.f),
                  glm::vec3(MAX_SPEED, 0.f, 0.f),
-                 0.3f,
+                 0.07f,
                  PLAYER_MODEL_NAME),
       _camera(camera),
       _lastCoordinate(3, 0),
@@ -47,7 +48,7 @@ Character::Character(Camera &camera)
 void Character::updateRotScaleMatrix()
 {
   _rotScaleMatrix = glm::mat4(1.f);
-  _rotScaleMatrix = glm::translate(_rotScaleMatrix, glm::vec3(0.f, -0.2f, 0.f));
+  _rotScaleMatrix = glm::translate(_rotScaleMatrix, glm::vec3(0.f, -0.1f, 0.f));
   _rotScaleMatrix = glm::scale(_rotScaleMatrix, glm::vec3(_scale));
   _rotScaleMatrix = glm::rotate(_rotScaleMatrix, glm::radians(_angles[X]), glm::vec3(1.f, 0.f, 0.f));
   _rotScaleMatrix = glm::rotate(_rotScaleMatrix, glm::radians(_angles[Y]), glm::vec3(0.f, 1.f, 0.f));
@@ -69,6 +70,45 @@ void Character::computeMatrix(const glm::mat4 &cameraView)
   _MV = cameraView * _M;
   _MVP = MATRIX_PERSPECTIVE * _MV;
   _N = -1.f * glm::transpose(glm::inverse(_MV));
+}
+
+void Character::display() const
+{
+  //std::cout << "NTM " << std::endl;
+  useMatrix();
+  bool thereisabonus = true;
+  if (thereisabonus)
+  {
+
+    glClearStencil(0);
+    glClear(GL_STENCIL_BUFFER_BIT);
+
+    // Render the mesh into the stencil buffer.
+
+    glEnable(GL_STENCIL_TEST);
+
+    glStencilFunc(GL_ALWAYS, 1, -1);
+    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+    _model->draw();
+
+    // Render the thick wireframe version.
+
+    glStencilFunc(GL_NOTEQUAL, 1, -1);
+    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+
+    glLineWidth(12);
+    glPolygonMode(GL_FRONT, GL_LINE);
+
+    glUniform3fv(AssetManager::Get()->assetProgramMultiLight().uColor, 1, glm::value_ptr(CELL_SHADING_COLOR));
+    _model->draw();
+
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // normal mode
+    glDisable(GL_STENCIL_TEST);
+  }
+  else
+  {
+    _model->draw();
+  }
 }
 
 void Character::event(const SDL_Event &e)
@@ -206,7 +246,7 @@ void Character::move()
   // Angle rotation
   if (_smoothRotate)
   {
-    
+
     float ratio = 0.05f;
 
     glm::vec3 rot = _angles * (1.f - ratio);
@@ -292,7 +332,7 @@ void Character::speedLimiter(glm::vec3 &speed)
   float lz = glm::length(speed[Z]);
   if (lx > MAX_SPEED)
     speed[X] = glm::normalize(speed[X]) * MAX_SPEED;
-  if (ly > MAX_SPEED*2)
+  if (ly > MAX_JUMP_SPEED)
     speed[Y] = glm::normalize(speed[Y]) * MAX_SPEED;
   if (lz > MAX_SPEED)
     speed[Z] = glm::normalize(speed[Z]) * MAX_SPEED;

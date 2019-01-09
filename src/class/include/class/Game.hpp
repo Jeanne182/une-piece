@@ -52,6 +52,13 @@ public:
   void event(const SDL_Event &e);
 
   /**
+   * @brief Get the score
+   * 
+   * @return const int 
+   */
+  const int score() const { return _character.score();}
+
+  /**
    * @brief Reset the game and create a new one
    *
    */

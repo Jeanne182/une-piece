@@ -25,7 +25,9 @@ struct AssetProgramMultiLight
   GLint uMVPMatrix;
   GLint uMVMatrix;
   GLint uNormalMatrix;
+
   GLint uTextureRepeat;
+  GLint uColor;
 
   std::map<std::string, GLint> uMapTextures;
 
@@ -45,6 +47,9 @@ struct AssetProgramMultiLight
     uMVPMatrix = glGetUniformLocation(_Program.getGLId(), "uMVPMatrix");
     uMVMatrix = glGetUniformLocation(_Program.getGLId(), "uMVMatrix");
     uNormalMatrix = glGetUniformLocation(_Program.getGLId(), "uNormalMatrix");
+
+    // Cell Shading
+    uColor = glGetUniformLocation(_Program.getGLId(), "uColor");
 
     // Textures
     uTextureRepeat = glGetUniformLocation(_Program.getGLId(), "uTextureRepeat");

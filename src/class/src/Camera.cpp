@@ -190,7 +190,7 @@ void Camera::update(const glm::vec3 &center)
   }
   else if (_currentPOV == FIRST_PERSON)
   {
-    _center = center + glm::vec3(0.f, 1.f, 0.f);
+    _center = center + glm::vec3(0.f, 0.4f, 0.f);
   }
   else
   {
@@ -200,9 +200,10 @@ void Camera::update(const glm::vec3 &center)
 
 void Camera::setCharacterInfo(const float &scale, const glm::vec3 &angles)
 {
-  _fDistance = scale * -10.0f;
+  _fDistance = -5.f;
   _fAngleX = 10.f;
   _fAngleY = -angles[Y];
+  _boatAngle = angles;
   _fPhi = glm::radians(-_fAngleY);
   _fTheta = 0.f;
   computeDirectionVectors();
