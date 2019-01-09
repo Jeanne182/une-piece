@@ -223,7 +223,7 @@ void App::event(const SDL_Event &e)
       }
 
       // Return handle
-      if (key == SDLK_RETURN)
+      if (key == SDLK_RETURN && _layout == LAYOUT_GAME_OVER)
       {
         ScoresManager &scores = ScoresManager::Get();
         scores.getPending().setName(_buffer);
