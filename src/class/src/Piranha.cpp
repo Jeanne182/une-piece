@@ -9,15 +9,26 @@ namespace UP
 Piranha::Piranha(const Character &character)
     : GameObject(glm::vec3(0.f),
                  glm::vec3(0.f),
-                 0.2f,
+                 0.15f,
                  PINRANHA_MODEL_NAME),
       _character(character){};
 
-void Piranha::update()
+void Piranha::update(const unsigned int &cosOffset)
 {
+  // Basic position
   _position = _character.pos();
-  _position += Utils::getDirectionnalVector(_character.getDirection()) * -1.f;
-  _position[Y] = 0.f;
+  _position += Utils::getDirectionnalVector(_character.getDirection()) * -2.f;
+
+  float off = static_cast<float>(cosOffset);
+  // Y
+  _position[Y] = cos(glm::radians(off * 2)) * 0.1f;
+
+  // Z or X
+  float left = sin(glm::radians(off)) * 0.3f;
+  float front = cos(glm::radians(off * 2)) * 0.2f;
+  _position += Utils::getOppositeDirectionnalVector(_character.getDirection()) * left;
+  _position += Utils::getDirectionnalVector(_character.getDirection()) * front;
+
   _angles = _character.getAngles();
   setMatrix();
 }

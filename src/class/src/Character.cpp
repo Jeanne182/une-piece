@@ -30,7 +30,7 @@ Character::Character(Camera &camera)
       _direction(DIR_NORTH),
       _acceleration(0.f),
       _desiredAngle(0.f),
-      _health(2),
+      _health(1),
       _hitFrame(0),
       _forkSelected(false),
       _smoothRotate(false),

@@ -123,10 +123,8 @@ void Game::update()
   // Piranha
   if (_character.health() < 2 )
   {
-    glCheckError();
-    _piranha.update();
+    _piranha.update(_gameTick);
     _piranha.computeMatrix(_camera.getViewMatrix());
-    glCheckError();
   }
 
 
@@ -147,9 +145,7 @@ void Game::display() const
   // Piranha
   if (_character.health() < 2 )
   {
-    glCheckError();
     _piranha.display();
-    glCheckError();
   }
 
   // Skybox must be last

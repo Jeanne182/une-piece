@@ -35,9 +35,14 @@ public:
    * @brief Update the position and the rotation of the piranha
    * 
    */
-  void update();
+  void update(const unsigned int &cosOffset);
 
+  /**
+   * @brief Custom display method
+   * 
+   */
   void display() const;
+
   /**
    * @brief Must Implement a way to handle the behaviour of the collision
    *

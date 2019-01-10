@@ -23,9 +23,9 @@ MapManager::MapManager()
       _probability(10),
       _lastPos(glm::vec3(-7.f, 0.f, 0.f))
 {
-  _probability[BATCH_TYPE_SIMPLE] = 2;
-  _probability[BATCH_TYPE_COIN] = 3;
-  _probability[BATCH_TYPE_OBSTACLE] = 3;
+  _probability[BATCH_TYPE_SIMPLE] = 4;
+  _probability[BATCH_TYPE_COIN] = 5;
+  _probability[BATCH_TYPE_OBSTACLE] = 6;
   _probability[BATCH_TYPE_BONUS] = 1;
   _probability.shrink_to_fit();
 
