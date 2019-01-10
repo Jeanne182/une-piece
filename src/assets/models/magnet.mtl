@@ -1,18 +1,18 @@
 # Blender MTL File: 'piranha.obj'
 # Material Count: 2
 
-newmtl fruit.001
+newmtl Material.003
 Ns 94.117647
 Ka 1.000000 1.000000 1.000000
-Kd 0.640000 0.098312 0.117906
-Ks 0.500000 0.472654 0.077589
+Kd 0.640000 0.620861 0.620861
+Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd speedUP.png
+map_Kd jaune.png
 
-newmtl tige.001
+newmtl tige.011
 Ns 94.117647
 Ka 1.000000 1.000000 1.000000
 Kd 0.154838 0.640000 0.330545

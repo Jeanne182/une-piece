@@ -1,19 +1,19 @@
-# Blender MTL File: 'Bonus_SpeedDown.blend1'
+# Blender MTL File: 'piranha.obj'
 # Material Count: 2
 
-newmtl fruit
-Ns 96.078431
+newmtl fruit.002
+Ns 92.156863
 Ka 1.000000 1.000000 1.000000
-Kd 0.058663 0.640000 0.568638
-Ks 0.267949 0.471466 0.500000
+Kd 0.640000 0.098312 0.117906
+Ks 0.500000 0.472654 0.077589
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd 3D_elements/bonus/speedDown.png
+map_Kd speedUP.png
 
-newmtl tige
-Ns 96.078431
+newmtl tige.002
+Ns 92.156863
 Ka 1.000000 1.000000 1.000000
 Kd 0.154838 0.640000 0.330545
 Ks 0.500000 0.387291 0.125420
@@ -21,4 +21,4 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd 3D_elements/bonus/tige.png
+map_Kd tige.png
