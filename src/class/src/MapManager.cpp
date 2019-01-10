@@ -30,16 +30,10 @@ MapManager::MapManager()
   _probability.shrink_to_fit();
 
   Utils::setSeed();
-  /*
   generateSimpleBatch();
   generateSimpleBatch();
   generateSimpleBatch();
   generateSimpleBatch();
-  */
-  generateBonusBatch();
-  generateBonusBatch();
-  generateBonusBatch();
-  generateBonusBatch();
   generatePath();
   generateFork();
   _shallDelete = false;
