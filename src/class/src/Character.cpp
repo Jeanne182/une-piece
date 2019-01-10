@@ -90,7 +90,7 @@ void Character::display() const
     it = _activeBonuses.find(INVULNERABILITY);
     time_t startTime = it->second;
     time_t timeRemaining = (startTime + BONUS_DURATION - time(0))*2.f;
-    glLineWidth(3);
+    glLineWidth(timeRemaining);
     
     // Send the Color    
     glUniform3fv(AssetManager::Get()->assetProgramMultiLight().uColor, 1, glm::value_ptr(CELL_SHADING_COLOR));
