@@ -17,7 +17,7 @@ Coin::Coin(const glm::vec3 position, const unsigned int value, const std::string
                  name),
       _value(value)
 {
-  _model->setRepeat(4.f);
+  _model->setRepeat(1.f);
 };
 
 void Coin::computeMatrix(const glm::mat4 &cameraView)

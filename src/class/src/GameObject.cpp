@@ -53,9 +53,15 @@ void GameObject::setMatrix()
 
 void GameObject::useMatrix() const
 {
+  // MVP
   glUniformMatrix4fv(AssetManager::Get()->assetProgramMultiLight().uMVPMatrix, 1, GL_FALSE, glm::value_ptr(_MVP));
+  // MV
   glUniformMatrix4fv(AssetManager::Get()->assetProgramMultiLight().uMVMatrix, 1, GL_FALSE, glm::value_ptr(_MV));
+  // Normal
   glUniformMatrix4fv(AssetManager::Get()->assetProgramMultiLight().uNormalMatrix, 1, GL_FALSE, glm::value_ptr(_N));
+  // Model
+  glUniformMatrix4fv(AssetManager::Get()->assetProgramMultiLight().model, 1, GL_FALSE, glm::value_ptr(glm::mat3(_M)));
+  // Color
   glUniform3fv(AssetManager::Get()->assetProgramMultiLight().uColor, 1, glm::value_ptr(glm::vec3(0.f)));
 }
 

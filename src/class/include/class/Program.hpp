@@ -36,6 +36,11 @@ struct AssetProgramMultiLight
   GLint uShininess;
   GLint uLightDir_vs;
   GLint uLightIntensity;
+  
+  GLint model;
+  
+  GLint viewPos;
+  GLint lightPos;
 
   AssetProgramMultiLight(const FilePath &applicationPath)
       : _Program(loadProgram(
@@ -50,6 +55,7 @@ struct AssetProgramMultiLight
 
     // Cell Shading
     uColor = glGetUniformLocation(_Program.getGLId(), "uColor");
+    model = glGetUniformLocation(_Program.getGLId(), "model");       
 
     // Textures
     uTextureRepeat = glGetUniformLocation(_Program.getGLId(), "uTextureRepeat");
@@ -67,6 +73,10 @@ struct AssetProgramMultiLight
     uShininess = glGetUniformLocation(_Program.getGLId(), "uShininess");
     uLightDir_vs = glGetUniformLocation(_Program.getGLId(), "uLightDir_vs");
     uLightIntensity = glGetUniformLocation(_Program.getGLId(), "uLightIntensity");
+        
+    // Diffuse Lighting
+    viewPos = glGetUniformLocation(_Program.getGLId(), "viewPos");
+    lightPos = glGetUniformLocation(_Program.getGLId(), "lightPos");
   }
 };
 /**

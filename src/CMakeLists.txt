@@ -10,11 +10,12 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake)
 find_package(SDL REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
+find_package(SDL_mixer REQUIRED)
 
 # Pour gérer un bug a la fac, a supprimer sur machine perso:
 # set(OPENGL_LIBRARIES /usr/lib/x86_64-linux-gnu/libGL.so.1)
 
-include_directories(${SDL_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLEW_INCLUDE_DIR})
+include_directories(${SDL_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLEW_INCLUDE_DIR} ${SDL_MIXER_INCLUDE_DIRS})
 include_directories(class/include glimac/include third-party/include)
 
 # Include SOIL
@@ -39,7 +40,7 @@ find_library(freetype freetype ${FREETYPE_DIRECTORY})
 add_subdirectory(class)
 add_subdirectory(glimac)
 
-set(ALL_LIBRARIES class glimac assimp SOIL freetype ${SDL_LIBRARY} ${GLEW_LIBRARY} ${OPENGL_LIBRARIES})
+set(ALL_LIBRARIES class glimac assimp SOIL freetype ${SDL_LIBRARY} ${GLEW_LIBRARY} ${OPENGL_LIBRARIES} ${SDL_MIXER_LIBRARIES})
 
 # Copy save directory
 file(COPY save DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

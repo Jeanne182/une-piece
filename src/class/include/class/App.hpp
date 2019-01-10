@@ -14,6 +14,7 @@
 #include <class/ButtonLoader.hpp>
 #include <class/ScoresManager.hpp>
 #include <class/Game.hpp>
+#include <class/MusicPlayer.hpp>
 
 using namespace glimac;
 
@@ -159,6 +160,7 @@ private:
   ButtonLoader _buttons;
   StaticImageLoader _staticImages;
   Game _game;
+  MusicPlayer _musicPlayer;
 
   // Internal States
   int _layout = LAYOUT_DEFAULT;

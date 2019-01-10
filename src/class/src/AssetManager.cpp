@@ -20,6 +20,11 @@ std::string AssetManager::modelFile(const std::string &model) const
 {
   return _appPath.dirPath() + "../../src/assets/models/" + model;
 }
+  
+std::string AssetManager::musicFile(const std::string &music) const
+{
+  return _appPath.dirPath() + "../../src/assets/music/" + music;
+}
 
 std::string AssetManager::textureFile(const std::string &texture) const
 {

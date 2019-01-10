@@ -110,7 +110,7 @@ void Game::update()
 
 
   // Update the scene
-  _character.move();
+   _character.move();
   collide();
   _camera.update(_character.pos());
 
@@ -159,25 +159,28 @@ void Game::sendLight() const
 
   // Compute the V * Light
   glm::mat4 lightMatrix = glm::transpose(_camera.getViewMatrix());
-  glm::vec4 lightVector = glm::normalize(lightMatrix * _light.direction());
+  glm::vec4 lightVector = -glm::normalize(lightMatrix * _light.direction());
 
   // Send it
   a._Program.use();
   glUniform3fv(a.uLightDir_vs, 1, glm::value_ptr(glm::vec3(lightVector)));
   glUniform3fv(a.uLightIntensity, 1, glm::value_ptr(_light.intensity()));
+  glUniform3fv(a.viewPos, 1, glm::value_ptr(_camera.getViewMatrix()));
+  glUniform3fv(a.lightPos, 1, glm::value_ptr(_character.pos() + glm::vec3(0.f, 2.f, 0.f)));
 }
 
 void Game::reset()
 {
   // Reset the character
+  Character::MAX_SPEED = BASE_MAX_SPEED;
   (&_character)->~Character();
   new (&_character) Character(_camera);
-  Character::MAX_SPEED = 0.1f;
 
   // Reset the camera
   (&_camera)->~Camera();
   new (&_camera) Camera();
   _camera.setCharacterInfo(_character.getScale(), _character.getAngles());
+  
 
   // Reset the map
   delete _map;
@@ -349,7 +352,7 @@ void Game::collide()
       }
       else
       {
-        throw Error("Can't turn on the center", AT);
+        //throw Error("Can't turn on the center", AT);
       }
       _camera.setCharacterInfo(_character.getScale(), _character.getAngles());
     }

@@ -21,6 +21,7 @@ static const int WINDOW_WIDTH = 800;
 static const int WINDOW_HEIGHT = 800;
 static const bool DEBUG = true;
 static bool DEBUG_DISPLAY = false;
+static const float BASE_MAX_SPEED = 0.1f;
 
 static const float COIN_ROTATION_SPEED = 1.f;
 static const float TENTACLE_ANGLE_AMPLITUDE = 1.5f;

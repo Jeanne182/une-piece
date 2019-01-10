@@ -11,6 +11,7 @@
 #include <class/AssetManager.hpp>
 #include <class/Error.hpp>
 #include <class/Utils.hpp>
+#include <class/MusicPlayer.hpp>
 
 namespace UP
 {
@@ -18,7 +19,11 @@ namespace UP
 App::App()
     : _staticImages(),
       _buttons(),
-      _game(){};
+      _game(){
+        
+  _musicPlayer.playMenu();
+        
+      };
 
 // =============== SELECT THE LAYOUT ===============
 void App::layout2D()
@@ -39,6 +44,7 @@ void App::layoutMenu()
 {
   _buttons.disable();
   _layout = LAYOUT_MENU;
+  _musicPlayer.playMenu();
   layout2D();
 
   // Load the images
@@ -65,6 +71,7 @@ void App::layoutMenu()
 void App::layoutScores()
 {
   _buttons.disable();
+  _musicPlayer.playMenu();
   _layout = LAYOUT_SCORES;
   layout2D();
 
@@ -81,9 +88,9 @@ void App::layoutScores()
   }
 
   // Send the VBO
+  _staticImages.sendVertexBuffer();
   _buttons.sendVertexBuffer();
 
-  _buttons.setBehavior("Scores", [this] { layoutPause(); });
   _buttons.setBehavior("Menu", [this] { layoutMenu(); });
 };
 void App::layoutPause()
@@ -121,6 +128,7 @@ void App::layoutGame()
   _buttons.disable();
   layout3D();
   _layout = LAYOUT_GAME;
+  _musicPlayer.playGame();
   std::function<void(const int &)> lambda = [this](const int &score) {
     Score s = Score("Player", score);
     ScoresManager &scores = ScoresManager::Get();
@@ -151,6 +159,7 @@ void App::layoutGameOver()
   _buttons.disable();
   _layout = LAYOUT_GAME_OVER;
   layout2D();
+  _musicPlayer.playMenu();
 
   // Load the Images
   try

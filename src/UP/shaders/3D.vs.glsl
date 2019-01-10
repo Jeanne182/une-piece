@@ -9,6 +9,7 @@ layout(location = 2) in vec2 aVertexTexCoords; // Coordonnées de texture
 uniform mat4 uMVPMatrix;
 uniform mat4 uMVMatrix;
 uniform mat4 uNormalMatrix;
+uniform mat4 model;
 
 // Sorties du shader
 out vec4 vPosition_vs; // Position du sommet transformé dans l'espace View

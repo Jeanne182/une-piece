@@ -74,6 +74,14 @@ public:
    * @return std::string 
    */
   std::string textureFile(const std::string &texture) const;
+  
+  /**
+   * @brief Get a Texture file
+   * 
+   * @param texture 
+   * @return std::string 
+   */
+  std::string musicFile(const std::string &music) const;
 
   /**
    * @brief Get a font file
