@@ -231,7 +231,8 @@ void Character::loseHealth(const unsigned int &value)
 
 void Character::gainHealth()
 {
-  setHealth(_health + 1);
+  if (_health < 3 )
+    setHealth(_health + 1);
 }
 
 bool Character::collisionHandler(GameObject *gameObject)
