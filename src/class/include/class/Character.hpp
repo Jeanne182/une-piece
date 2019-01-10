@@ -260,7 +260,7 @@ public:
   /**
     * @brief Delete a consumed Bonus to the player
     *
-    * @param bonus
+    * @param bonusType
     */
   void deleteConsumedBonus(const unsigned int bonusType);
   /**

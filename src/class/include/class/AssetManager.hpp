@@ -78,7 +78,7 @@ public:
   /**
    * @brief Get a Texture file
    * 
-   * @param texture 
+   * @param music 
    * @return std::string 
    */
   std::string musicFile(const std::string &music) const;
@@ -86,7 +86,7 @@ public:
   /**
    * @brief Get a font file
    * 
-   * @param file 
+   * @param font
    * @return std::string 
    */
   std::string fontFile(const std::string &font) const;

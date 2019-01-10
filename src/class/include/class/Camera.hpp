@@ -35,15 +35,16 @@ public:
   void update(const glm::vec3 &center);
 
   /**
-   * @brief Get the infos from the character
+   * @brief Set the Character Info object
    * 
+   * @param scale 
+   * @param angles 
    */
   void setCharacterInfo(const float &scale, const glm::vec3 &angles);
 
   /**
-   * @brief Set the POV object
+   * @brief Get the POV object
    * 
-   * @param pov 
    */
   const inline unsigned int getPOV() const { return _currentPOV; };
 

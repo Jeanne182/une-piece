@@ -21,7 +21,7 @@ public:
    * 
    * @param name 
    * @param score 
-   * @param t 
+   * @param time
    */
   Score(const std::string &name, const int &score, const time_t time = std::time(0))
       : _name(name), _score(score), _time(time){};

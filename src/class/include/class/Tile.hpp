@@ -26,7 +26,7 @@ public:
   /**
    * @brief Construct a new Tile object
    *
-   * @param std::unique_ptr<GameObject>
+   * @param gameObject
    */
   Tile(std::unique_ptr<GameObject> gameObject);
 
