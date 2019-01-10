@@ -23,6 +23,7 @@ namespace UP
 
 Game::Game()
     : _character(_camera),
+      _piranha(_character),
       _map(new MapManager)
 {
   _camera.setCharacterInfo(_character.getScale(), _character.getAngles());
@@ -119,6 +120,16 @@ void Game::update()
   _map->computeMatrix(_camera.getViewMatrix());
   _skybox.computeMatrix(_camera.getViewMatrix());
 
+  // Piranha
+  if (_character.health() < 2 )
+  {
+    glCheckError();
+    _piranha.update();
+    _piranha.computeMatrix(_camera.getViewMatrix());
+    glCheckError();
+  }
+
+
   //gameOver();
 }
 
@@ -128,9 +139,22 @@ void Game::display() const
   // Display stuff
   sendLight();
   if (_camera.getPOV() != FIRST_PERSON)
+  {
     _character.display();
+  }
   _map->display();
+
+  // Piranha
+  if (_character.health() < 2 )
+  {
+    glCheckError();
+    _piranha.display();
+    glCheckError();
+  }
+
+  // Skybox must be last
   _skybox.display();
+
 }
 
 void Game::sendLight() const

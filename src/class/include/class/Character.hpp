@@ -133,7 +133,7 @@ public:
    *
    * @return const glm::vec3
    */
-  inline const glm::vec3 getAngles() { return _angles; };
+  inline const glm::vec3 getAngles() const { return _angles; };
   // ============= SETTERS =============
 
   /**
@@ -234,6 +234,10 @@ public:
    */
   void speedUp();
 
+  /**
+   * @brief Decrease the speed of the player
+   * 
+   */
   void speedDown();
 
   // =============  GENERIC =============
@@ -292,6 +296,11 @@ public:
    */
   void loseHealth(const unsigned int &value);
 
+
+  /**
+   * @brief Add some HP
+   * 
+   */
   void gainHealth();
 
   /**

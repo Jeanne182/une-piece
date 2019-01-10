@@ -12,6 +12,7 @@
 
 #include <class/Program.hpp>
 #include <class/Character.hpp>
+#include <class/Piranha.hpp>
 #include <class/MapManager.hpp>
 #include <class/Camera.hpp>
 #include <class/Skybox.hpp>
@@ -89,6 +90,7 @@ public:
 
 private:
   Character _character;
+  Piranha _piranha;
   Camera _camera;
   Light _light;
   MapManager *_map;

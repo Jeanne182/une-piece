@@ -27,6 +27,7 @@ static const float TENTACLE_ANGLE_AMPLITUDE = 1.5f;
 static const float TENTACLE_ANGLE_SPEED = 0.3f;
 
 static const std::string PLAYER_MODEL_NAME = "bateau.obj";
+static const std::string PINRANHA_MODEL_NAME = "piranha.obj";
 static const std::string ROCK_MODEL_NAME = "rock.obj";
 static const std::string TENTACLE_MODEL_NAME = "tentacle.obj";
 static const std::string PONTON_MODEL_NAME = "ponton.obj";
