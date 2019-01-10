@@ -85,39 +85,37 @@ void Character::display() const
   if (thereisabonus)
   {
 
-    // Compute the line width
-    std::map<unsigned int, time_t>::const_iterator it;
-    it = _activeBonuses.find(INVULNERABILITY);
-    time_t startTime = it->second;
-    time_t timeRemaining = (startTime + BONUS_DURATION - time(0))*2.f;
-    glLineWidth(timeRemaining);
-    
-    // Send the Color    
-    glUniform3fv(AssetManager::Get()->assetProgramMultiLight().uColor, 1, glm::value_ptr(CELL_SHADING_COLOR));
-    
-    // Reset stencil
     glClearStencil(0);
     glClear(GL_STENCIL_BUFFER_BIT);
 
     // Render the mesh into the stencil buffer.
+
     glEnable(GL_STENCIL_TEST);
 
-    // write a constant value into the stencil buffer. 
     glStencilFunc(GL_ALWAYS, 1, -1);
     glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
     _model->draw();
 
     // Render the thick wireframe version.
+
     glStencilFunc(GL_NOTEQUAL, 1, -1);
     glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 
+    std::map<unsigned int, time_t>::const_iterator it;
+    it = _activeBonuses.find(INVULNERABILITY);
+    time_t startTime = it->second;
+    time_t timeRemaining = startTime + BONUS_DURATION - time(0);
+
+    glLineWidth(3 + timeRemaining);
     glPolygonMode(GL_FRONT, GL_LINE);
 
+    glUniform3fv(AssetManager::Get()->assetProgramMultiLight().uColor, 1, glm::value_ptr(CELL_SHADING_COLOR));
     _model->draw();
 
-    // Reset default    
-    glPolygonMode(GL_FRONT, GL_FILL); // normal mode
-    glDisable(GL_STENCIL_TEST);    
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // normal mode
+glDisable(GL_STENCIL_TEST);
+
+    
   }
   else
   {

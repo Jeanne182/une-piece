@@ -50,7 +50,7 @@ void App::layoutMenu()
   // Load the images
   try
   {
-    _staticImages.addImage("bgMenu", -1.2f, 1.0f, 2.f);
+    _staticImages.addImage("bgMenu", -1.f, 1.0f, 2.f);
     _staticImages.addImage("Title", -0.85f, 0.8f, 0.4f);
     _buttons.addImage("Play", -0.3f, 0.0f, 0.3f);
     _buttons.addImage("Scores", -0.5f, -0.4f, 0.3f);
@@ -78,7 +78,7 @@ void App::layoutScores()
   // Load the Images
   try
   {
-    _staticImages.addImage("bgScores", -1.2f, 1.0f, 2.f);
+    _staticImages.addImage("bgScores", -1.f, 1.0f, 2.f);
     _buttons.addImage("Scores", -0.5f, 0.9f, 0.3f);
     _buttons.addImage("Menu", -0.94f, -0.86f, 0.1f);
   }
@@ -307,7 +307,7 @@ void App::drawScores()
     _staticImages.displayImage("bgScores");
     _buttons.displayImage("Scores");
     _buttons.displayImage("Menu");
-    tm.renderText("Top 10", 300.f, WINDOW_HEIGHT - 220.f, 1.4f, glm::vec3(0.98f, 0.65f, 0.24f));
+    tm.renderText("Top 10", 300.f, WINDOW_HEIGHT - 220.f, 1.6f, glm::vec3(0.88f, 0.65f, 0.14f));
 
     std::multiset<Score>::const_iterator it;
     float PADDING_TOP = 250.f;
@@ -336,7 +336,7 @@ void App::drawScores()
 
       float y = WINDOW_HEIGHT - PADDING_TOP - (cpt * STRADDING);
       float x = PADDING_LEFT;
-      tm.renderText(buffer1, x, y, SIZE, glm::vec3(0.97f, 0.93f, 0.02f));
+      tm.renderText(buffer1, x, y, SIZE, glm::vec3(0.81f, 0.42f, 0.07f));
       x = WINDOW_WIDTH - PADDING_RIGHT;
       tm.renderText(buffer2, x, y, SIZE, glm::vec3(0.1f, 0.1f, 0.1f));
     }
