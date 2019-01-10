@@ -50,8 +50,9 @@ StaticImageLoader::~StaticImageLoader()
     glDeleteTextures(1, it->second->_texture);
     delete it->second->_texture;
     delete it->second;
-    _images.erase(it);
   }
+
+  _images.clear();
 
   glDeleteBuffers(1, &_vbo);
   glDeleteBuffers(1, &_ibo);

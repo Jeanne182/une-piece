@@ -30,5 +30,15 @@ Exemple: `./UP/UP_SDLtemplate`
 <https://learnopengl.com/Model-Loading/Mesh>
 <https://learnopengl.com/Model-Loading/Model>
 
-// > valgrind --tool=callgrind ./plop 10
-// > kcachegrind callgrind.out.xxxx
+## Valgrind test the game
+
+```bash
+valgrind --leak-check=yes --log-file="valgrind-log.txt" ./UP/UP_main
+```
+
+## Profiling test the game
+
+```bash
+valgrind --tool=callgrind ./UP/UP_main
+kcachegrind callgrind.out.xxxx
+```

@@ -1,0 +1,819 @@
+==19647== Memcheck, a memory error detector
+==19647== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==19647== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==19647== Command: ./UP/UP_main
+==19647== Parent PID: 1913
+==19647== 
+==19647== Syscall param ioctl(generic) points to uninitialised byte(s)
+==19647==    at 0x63805D7: ioctl (syscall-template.S:78)
+==19647==    by 0xF53B112: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xFFFFFFE012B4F80F: ???
+==19647==  Address 0x1ffeffe1c4 is on thread 1's stack
+==19647== 
+==19647== Syscall param ioctl(generic) points to uninitialised byte(s)
+==19647==    at 0x63805D7: ioctl (syscall-template.S:78)
+==19647==    by 0xF53B5B9: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xFFFFFFE012B4F80F: ???
+==19647==  Address 0x1ffeffe1c8 is on thread 1's stack
+==19647== 
+==19647== Use of uninitialised value of size 8
+==19647==    at 0x4C32D32: __strlen_sse2 (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xF53B5D4: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xFFFFFFE012B4F80F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0x4C32D39: __strlen_sse2 (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xF53B5D4: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xFFFFFFE012B4F80F: ???
+==19647== 
+==19647== Use of uninitialised value of size 8
+==19647==    at 0x4C32D44: __strlen_sse2 (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xF53B5D4: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xFFFFFFE012B4F80F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0x4C32D48: __strlen_sse2 (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xF53B5D4: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xFFFFFFE012B4F80F: ???
+==19647== 
+==19647== Use of uninitialised value of size 8
+==19647==    at 0x6320540: __strcpy_sse2_unaligned (strcpy-sse2-unaligned.S:47)
+==19647==    by 0xF53B5EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xFFFFFFE012B4F80F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0x4C32DEC: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xF53B5EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xFFFFFFE012B4F80F: ???
+==19647== 
+==19647== Use of uninitialised value of size 8
+==19647==    at 0x4C32E03: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xF53B5EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xFFFFFFE012B4F80F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0x4C32E08: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xF53B5EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xFFFFFFE012B4F80F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0x4C37702: strstr (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xF53B600: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xFFFFFFE012B4F80F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0x4C37721: strstr (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xF53B600: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xFFFFFFE012B4F80F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0x4C3771C: strstr (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xF53B600: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xFFFFFFE012B4F80F: ???
+==19647== 
+==19647== Syscall param ioctl(generic) points to uninitialised byte(s)
+==19647==    at 0x63805D7: ioctl (syscall-template.S:78)
+==19647==    by 0xF53B112: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==  Address 0x1ffeffdbc4 is on thread 1's stack
+==19647== 
+==19647== Syscall param ioctl(generic) points to uninitialised byte(s)
+==19647==    at 0x63805D7: ioctl (syscall-template.S:78)
+==19647==    by 0xF53B5B9: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==  Address 0x1ffeffdbc8 is on thread 1's stack
+==19647== 
+==19647== Use of uninitialised value of size 8
+==19647==    at 0x4C32D32: __strlen_sse2 (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xF53B5D4: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0x4C32D39: __strlen_sse2 (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xF53B5D4: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647== 
+==19647== Use of uninitialised value of size 8
+==19647==    at 0x4C32D44: __strlen_sse2 (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xF53B5D4: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0x4C32D48: __strlen_sse2 (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xF53B5D4: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647== 
+==19647== Use of uninitialised value of size 8
+==19647==    at 0x6320540: __strcpy_sse2_unaligned (strcpy-sse2-unaligned.S:47)
+==19647==    by 0xF53B5EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0x4C32DEC: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xF53B5EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647== 
+==19647== Use of uninitialised value of size 8
+==19647==    at 0x4C32E03: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xF53B5EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0x4C32E08: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xF53B5EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0x4C37702: strstr (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xF53B600: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0x4C37721: strstr (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xF53B600: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0x4C3771C: strstr (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xF53B600: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647== 
+==19647== Syscall param write(buf) points to uninitialised byte(s)
+==19647==    at 0x7C2D281: write (write.c:27)
+==19647==    by 0x7C2C268: sem_open (sem_open.c:269)
+==19647==    by 0xF4D9D89: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1101: ???
+==19647==    by 0x1FEFFF0CF: ???
+==19647==    by 0x11002A97: ???
+==19647==  Address 0x1ffeffed2c is on thread 1's stack
+==19647==  in frame #1, created by sem_open (sem_open.c:141)
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF70939E: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x19D: ???
+==19647==    by 0x400A4C7: check_match (dl-lookup.c:93)
+==19647==    by 0x400A4C7: do_lookup_x (dl-lookup.c:431)
+==19647==    by 0xF9DEB3FF: ???
+==19647==    by 0xFFFFFFF: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x6FFFFFFF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1359FDEF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58F5: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1359FDEF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1359FDEF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E5908: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1359FDEF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x134FBDEF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58F5: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x134FBDEF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x134FBDEF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E5908: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x134FBDEF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x138DCD2F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58F5: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x138DCD2F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x138DCD2F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E5908: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x138DCD2F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xCB4121F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58F5: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xCB4121F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xCB4121F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E5908: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xCB4121F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x407: ???
+==19647==    by 0x11EF5977: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58F5: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x407: ???
+==19647==    by 0x11EF5977: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x407: ???
+==19647==    by 0x11EF5977: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E5908: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x407: ???
+==19647==    by 0x11EF5977: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x11645BBF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58F5: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x11645BBF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x11645BBF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E5908: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x11645BBF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x11E6D58F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58F5: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x11E6D58F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x11E6D58F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E5908: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x11E6D58F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x120B912F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58F5: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x120B912F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x120B912F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E5908: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x120B912F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1474292F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E5994: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1474292F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E5908: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1474292F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x3FF: ???
+==19647==    by 0x1000001FF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E5994: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x3FF: ???
+==19647==    by 0x1000001FF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E5908: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x3FF: ???
+==19647==    by 0x1000001FF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x14E0B4CF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x14E0B4CF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E5908: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x14E0B4CF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x40C: ???
+==19647==    by 0x11EF5977: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E5994: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x40C: ???
+==19647==    by 0x11EF5977: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E5908: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x40C: ???
+==19647==    by 0x11EF5977: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x151AC33F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x151AC33F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E5908: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x151AC33F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1FF: ???
+==19647==    by 0x1000001FF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1FF: ???
+==19647==    by 0x1000001FF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x137FCBBF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x137FCBBF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1446F4DF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1446F4DF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1210165F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1210165F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1348A88F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1348A88F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x11D6A83F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x11D6A83F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xCB515BF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E5994: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xCB515BF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xCEB05EF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xCEB05EF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x115E934F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x115E934F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x40C: ???
+==19647==    by 0x11EF5977: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x11F2727F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x11F2727F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x12055A2F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x12055A2F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x7F: ???
+==19647==    by 0x10000007F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x7F: ???
+==19647==    by 0x10000007F: ???
+==19647== 
+==19647== 
+==19647== More than 100 errors detected.  Subsequent errors
+==19647== will still be recorded, but in less detail than before.
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x147FF91F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x147FF91F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1211B45F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E5994: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1211B45F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1214BF9F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E5994: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1214BF9F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E5994: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x121CE28F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x121CE28F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x121B16AF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E5994: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x121B16AF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x11DD821F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x11DD821F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1365841F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1365841F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xCEB7ADF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E5994: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xCEB7ADF: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0x5128E97: ??? (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==19647==    by 0x5129596: ??? (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==19647==    by 0x5129D1A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==19647==    by 0x510017B: SDL_PumpEvents (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==19647==    by 0x51001B8: SDL_PollEvent (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==19647==    by 0x1F829F: glimac::SDLWindowManager::pollEvent(SDL_Event&) (SDLWindowManager.cpp:23)
+==19647==    by 0x1B0C52: main (main.cpp:58)
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0x5128EB8: ??? (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==19647==    by 0x5129596: ??? (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==19647==    by 0x5129D1A: ??? (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==19647==    by 0x510017B: SDL_PumpEvents (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==19647==    by 0x51001B8: SDL_PollEvent (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==19647==    by 0x1F829F: glimac::SDLWindowManager::pollEvent(SDL_Event&) (SDLWindowManager.cpp:23)
+==19647==    by 0x1B0C52: main (main.cpp:58)
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xEA47111: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xEECD163: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xEECD171: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xEECD17F: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xEECD18D: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6FD54E: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xF3D4633: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF3D43FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xEA47111: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x10961F5F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x12179D9F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x12179D9F: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58EC: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x22: ???
+==19647==    by 0x100000021: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E5994: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x22: ???
+==19647==    by 0x100000021: ???
+==19647== 
+==19647== Conditional jump or move depends on uninitialised value(s)
+==19647==    at 0xF6E58FB: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647== 
+==19647== Invalid read of size 8
+==19647==    at 0x59D4E70: std::_Rb_tree_increment(std::_Rb_tree_node_base*) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==19647==    by 0x1C0242: std::_Rb_tree_const_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >::operator++() (stl_tree.h:366)
+==19647==    by 0x1BDA43: UP::ButtonLoader::~ButtonLoader() (ButtonLoader.cpp:25)
+==19647==    by 0x1B2F31: UP::App::~App() (App.hpp:41)
+==19647==    by 0x62AD040: __run_exit_handlers (exit.c:108)
+==19647==    by 0x62AD139: exit (exit.c:139)
+==19647==    by 0x628BB9D: (below main) (libc-start.c:344)
+==19647==  Address 0x12102188 is 24 bytes inside a block of size 72 free'd
+==19647==    at 0x4C3123B: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0x1C2BC9: __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::deallocate(std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >*, unsigned long) (new_allocator.h:125)
+==19647==    by 0x1C29CE: std::allocator_traits<std::allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > > >::deallocate(std::allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >&, std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >*, unsigned long) (alloc_traits.h:462)
+==19647==    by 0x1C27EA: std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::_M_put_node(std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >*) (stl_tree.h:592)
+==19647==    by 0x1C2317: std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::_M_drop_node(std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >*) (stl_tree.h:659)
+==19647==    by 0x1C180D: std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::_M_erase_aux(std::_Rb_tree_const_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >) (stl_tree.h:2477)
+==19647==    by 0x1C0E5F: std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::erase[abi:cxx11](std::_Rb_tree_const_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >) (stl_tree.h:1113)
+==19647==    by 0x1C0294: std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::erase(std::_Rb_tree_const_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >) (stl_map.h:1026)
+==19647==    by 0x1BDA37: UP::ButtonLoader::~ButtonLoader() (ButtonLoader.cpp:33)
+==19647==    by 0x1B2F31: UP::App::~App() (App.hpp:41)
+==19647==    by 0x62AD040: __run_exit_handlers (exit.c:108)
+==19647==    by 0x62AD139: exit (exit.c:139)
+==19647==  Block was alloc'd at
+==19647==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0x1C2D99: __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::allocate(unsigned long, void const*) (new_allocator.h:111)
+==19647==    by 0x1C2C6D: std::allocator_traits<std::allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > > >::allocate(std::allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >&, unsigned long) (alloc_traits.h:436)
+==19647==    by 0x1C2AAC: std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::_M_get_node() (stl_tree.h:588)
+==19647==    by 0x1C28E5: std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >* std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::_M_create_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, UP::StaticImage*> >(std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, UP::StaticImage*>&&) (stl_tree.h:642)
+==19647==    by 0x1C26A4: std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >* std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::_Alloc_node::operator()<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, UP::StaticImage*> >(std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, UP::StaticImage*>&&) const (stl_tree.h:556)
+==19647==    by 0x1C200F: std::_Rb_tree_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::_M_insert_<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, UP::StaticImage*>, std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::_Alloc_node>(std::_Rb_tree_node_base*, std::_Rb_tree_node_base*, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, UP::StaticImage*>&&, std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::_Alloc_node&) (stl_tree.h:1753)
+==19647==    by 0x1C131A: std::pair<std::_Rb_tree_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, bool> std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::_M_insert_unique<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, UP::StaticImage*> >(std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, UP::StaticImage*>&&) (stl_tree.h:2096)
+==19647==    by 0x1C09A1: std::pair<std::_Rb_tree_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, bool> std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::insert<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, UP::StaticImage*>, void>(std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, UP::StaticImage*>&&) (stl_map.h:810)
+==19647==    by 0x1BF070: UP::ButtonLoader::setupImage(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, float const&, float const&, float const&, UP::Button*) (ButtonLoader.cpp:229)
+==19647==    by 0x1BE9BD: UP::ButtonLoader::addImage(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, float const&, float const&, float const&) (ButtonLoader.cpp:199)
+==19647==    by 0x1B5270: UP::App::layoutMenu() (App.cpp:49)
+==19647== 
+==19647== Invalid read of size 8
+==19647==    at 0x59D4E90: std::_Rb_tree_increment(std::_Rb_tree_node_base*) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25)
+==19647==    by 0x1C0242: std::_Rb_tree_const_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >::operator++() (stl_tree.h:366)
+==19647==    by 0x1BDA43: UP::ButtonLoader::~ButtonLoader() (ButtonLoader.cpp:25)
+==19647==    by 0x1B2F31: UP::App::~App() (App.hpp:41)
+==19647==    by 0x62AD040: __run_exit_handlers (exit.c:108)
+==19647==    by 0x62AD139: exit (exit.c:139)
+==19647==    by 0x628BB9D: (below main) (libc-start.c:344)
+==19647==  Address 0x1214e4a8 is 8 bytes inside a block of size 72 free'd
+==19647==    at 0x4C3123B: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0x1C2BC9: __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::deallocate(std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >*, unsigned long) (new_allocator.h:125)
+==19647==    by 0x1C29CE: std::allocator_traits<std::allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > > >::deallocate(std::allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >&, std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >*, unsigned long) (alloc_traits.h:462)
+==19647==    by 0x1C27EA: std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::_M_put_node(std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >*) (stl_tree.h:592)
+==19647==    by 0x1C2317: std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::_M_drop_node(std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >*) (stl_tree.h:659)
+==19647==    by 0x1C180D: std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::_M_erase_aux(std::_Rb_tree_const_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >) (stl_tree.h:2477)
+==19647==    by 0x1C0E5F: std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::erase[abi:cxx11](std::_Rb_tree_const_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >) (stl_tree.h:1113)
+==19647==    by 0x1C0294: std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::erase(std::_Rb_tree_const_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >) (stl_map.h:1026)
+==19647==    by 0x1BDA37: UP::ButtonLoader::~ButtonLoader() (ButtonLoader.cpp:33)
+==19647==    by 0x1B2F31: UP::App::~App() (App.hpp:41)
+==19647==    by 0x62AD040: __run_exit_handlers (exit.c:108)
+==19647==    by 0x62AD139: exit (exit.c:139)
+==19647==  Block was alloc'd at
+==19647==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0x1C2D99: __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::allocate(unsigned long, void const*) (new_allocator.h:111)
+==19647==    by 0x1C2C6D: std::allocator_traits<std::allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > > >::allocate(std::allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >&, unsigned long) (alloc_traits.h:436)
+==19647==    by 0x1C2AAC: std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::_M_get_node() (stl_tree.h:588)
+==19647==    by 0x1C28E5: std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >* std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::_M_create_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, UP::StaticImage*> >(std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, UP::StaticImage*>&&) (stl_tree.h:642)
+==19647==    by 0x1C26A4: std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >* std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::_Alloc_node::operator()<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, UP::StaticImage*> >(std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, UP::StaticImage*>&&) const (stl_tree.h:556)
+==19647==    by 0x1C200F: std::_Rb_tree_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::_M_insert_<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, UP::StaticImage*>, std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::_Alloc_node>(std::_Rb_tree_node_base*, std::_Rb_tree_node_base*, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, UP::StaticImage*>&&, std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::_Alloc_node&) (stl_tree.h:1753)
+==19647==    by 0x1C131A: std::pair<std::_Rb_tree_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, bool> std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::_M_insert_unique<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, UP::StaticImage*> >(std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, UP::StaticImage*>&&) (stl_tree.h:2096)
+==19647==    by 0x1C09A1: std::pair<std::_Rb_tree_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> >, bool> std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, UP::StaticImage*> > >::insert<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, UP::StaticImage*>, void>(std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, UP::StaticImage*>&&) (stl_map.h:810)
+==19647==    by 0x1BF070: UP::ButtonLoader::setupImage(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, float const&, float const&, float const&, UP::Button*) (ButtonLoader.cpp:229)
+==19647==    by 0x1BE9BD: UP::ButtonLoader::addImage(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, float const&, float const&, float const&) (ButtonLoader.cpp:199)
+==19647==    by 0x1B52FB: UP::App::layoutMenu() (App.cpp:50)
+==19647== 
+==19647== 
+==19647== HEAP SUMMARY:
+==19647==     in use at exit: 1,602,245 bytes in 4,437 blocks
+==19647==   total heap usage: 4,168,692 allocs, 4,164,255 frees, 780,926,238 bytes allocated
+==19647== 
+==19647== 8 bytes in 1 blocks are definitely lost in loss record 12 of 321
+==19647==    at 0x4C3089F: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xEEC2758: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647== 
+==19647== 14 bytes in 1 blocks are definitely lost in loss record 15 of 321
+==19647==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0x63079B9: strdup (strdup.c:42)
+==19647==    by 0xF136E13: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xF19289C: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xFFFFFFFE: ???
+==19647== 
+==19647== 14 bytes in 1 blocks are definitely lost in loss record 16 of 321
+==19647==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0x63079B9: strdup (strdup.c:42)
+==19647==    by 0xF136E13: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xF193245: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xFFFFFFFE: ???
+==19647==    by 0x1FFEFFF4AF: ???
+==19647==    by 0x1FFEFFF4CF: ???
+==19647==    by 0x1FFEFFF4BF: ???
+==19647==    by 0xFD6E58B: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xCE99B4F: ???
+==19647==    by 0x1FFEFFF5E7: ???
+==19647==    by 0x58E9BDF: ??? (in /opt/amdgpu-pro/lib/x86_64-linux-gnu/libGL.so.1.2)
+==19647== 
+==19647== 16 bytes in 2 blocks are definitely lost in loss record 25 of 321
+==19647==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0x63079B9: strdup (strdup.c:42)
+==19647==    by 0x74717E6: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==19647==    by 0x74723C2: _XimSetICValueData (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==19647==    by 0x746E2D1: _XimLocalCreateIC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==19647==    by 0x7454408: XCreateIC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==19647==    by 0x512F77C: ??? (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==19647==    by 0x5130706: ??? (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==19647==    by 0x5121F35: SDL_VideoInit (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==19647==    by 0x50F9E4B: SDL_InitSubSystem (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==19647==    by 0x50F9EC3: SDL_Init (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==19647==    by 0x1F81DB: glimac::SDLWindowManager::SDLWindowManager(unsigned int, unsigned int, char const*) (SDLWindowManager.cpp:7)
+==19647== 
+==19647== 16 bytes in 2 blocks are definitely lost in loss record 26 of 321
+==19647==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0x63079B9: strdup (strdup.c:42)
+==19647==    by 0x74717E6: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==19647==    by 0x74723C2: _XimSetICValueData (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==19647==    by 0x746E2D1: _XimLocalCreateIC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==19647==    by 0x7454408: XCreateIC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==19647==    by 0x512F77C: ??? (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==19647==    by 0x512FCFD: ??? (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==19647==    by 0x5130307: ??? (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==19647==    by 0x5120C92: SDL_SetVideoMode (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==19647==    by 0x1F8226: glimac::SDLWindowManager::SDLWindowManager(unsigned int, unsigned int, char const*) (SDLWindowManager.cpp:11)
+==19647==    by 0x1B0B05: main (main.cpp:26)
+==19647== 
+==19647== 48 bytes in 1 blocks are definitely lost in loss record 76 of 321
+==19647==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xF45C246: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1101: ???
+==19647==    by 0x5800BC7F: ??? (in /usr/lib/valgrind/memcheck-amd64-linux)
+==19647==    by 0x151D00BF: ???
+==19647==    by 0x11EACA5F: ???
+==19647==    by 0x11289FFF: ???
+==19647==    by 0x11253FFF: ???
+==19647==    by 0x3316C48F: ???
+==19647==    by 0xE6DF0A2: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xCAFF75F: ???
+==19647==    by 0x63806FB: writev (writev.c:26)
+==19647== 
+==19647== 48 bytes in 1 blocks are definitely lost in loss record 77 of 321
+==19647==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xF45C282: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1101: ???
+==19647==    by 0x5800BC7F: ??? (in /usr/lib/valgrind/memcheck-amd64-linux)
+==19647==    by 0x151D00BF: ???
+==19647==    by 0x11EACA5F: ???
+==19647==    by 0x11289FFF: ???
+==19647==    by 0x11253FFF: ???
+==19647==    by 0x3316C48F: ???
+==19647==    by 0xE6DF0A2: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xCAFF75F: ???
+==19647==    by 0x63806FB: writev (writev.c:26)
+==19647== 
+==19647== 48 bytes in 1 blocks are definitely lost in loss record 78 of 321
+==19647==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xE957814: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x16DCB2A7: ???
+==19647==    by 0x171E4FFF: ???
+==19647== 
+==19647== 48 bytes in 1 blocks are definitely lost in loss record 79 of 321
+==19647==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xF45C246: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1101: ???
+==19647==    by 0x5800BC7F: ??? (in /usr/lib/valgrind/memcheck-amd64-linux)
+==19647==    by 0x331C73BF: ???
+==19647==    by 0x151D00BF: ???
+==19647== 
+==19647== 48 bytes in 1 blocks are definitely lost in loss record 80 of 321
+==19647==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xF45C282: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0x1101: ???
+==19647==    by 0x5800BC7F: ??? (in /usr/lib/valgrind/memcheck-amd64-linux)
+==19647==    by 0x331C73BF: ???
+==19647==    by 0x151D00BF: ???
+==19647== 
+==19647== 168 bytes in 1 blocks are definitely lost in loss record 194 of 321
+==19647==    at 0x4C31B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0xF19266A: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xFFFFFFFE: ???
+==19647== 
+==19647== 192 (16 direct, 176 indirect) bytes in 1 blocks are definitely lost in loss record 202 of 321
+==19647==    at 0x4C31D2F: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0x745A00C: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==19647==    by 0x745A4F1: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==19647==    by 0x745BE4E: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==19647==    by 0x745C687: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==19647==    by 0x747838F: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==19647==    by 0x7463ABD: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==19647==    by 0x7463C0A: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==19647==    by 0x7463C4D: XSetLocaleModifiers (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==19647==    by 0x512F6A6: ??? (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==19647==    by 0x5130706: ??? (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==19647==    by 0x5121F35: SDL_VideoInit (in /usr/lib/x86_64-linux-gnu/libSDL-1.2.so.0.11.4)
+==19647== 
+==19647== 240 (24 direct, 216 indirect) bytes in 1 blocks are definitely lost in loss record 208 of 321
+==19647==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0x11809D98: ???
+==19647==    by 0x11807530: ???
+==19647==    by 0xF193223: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xFFFFFFFE: ???
+==19647==    by 0x1FFEFFF4AF: ???
+==19647==    by 0x1FFEFFF4CF: ???
+==19647==    by 0x1FFEFFF4BF: ???
+==19647==    by 0xFD6E58B: ??? (in /usr/lib/x86_64-linux-gnu/dri/amdgpu_dri.so)
+==19647==    by 0xCE99B4F: ???
+==19647==    by 0x1FFEFFF5E7: ???
+==19647==    by 0x58E9BDF: ??? (in /opt/amdgpu-pro/lib/x86_64-linux-gnu/libGL.so.1.2)
+==19647== 
+==19647== 640 bytes in 1 blocks are definitely lost in loss record 238 of 321
+==19647==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19647==    by 0x7444E45: XGetVisualInfo (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==19647==    by 0x56682AA: ??? (in /opt/amdgpu-pro/lib/x86_64-linux-gnu/libGL.so.1.2)
+==19647==    by 0xCE99B4F: ???
+==19647==    by 0xCE9574F: ???
+==19647== 
+==19647== LEAK SUMMARY:
+==19647==    definitely lost: 1,156 bytes in 16 blocks
+==19647==    indirectly lost: 392 bytes in 9 blocks
+==19647==      possibly lost: 0 bytes in 0 blocks
+==19647==    still reachable: 1,600,697 bytes in 4,412 blocks
+==19647==                       of which reachable via heuristic:
+==19647==                         newarray           : 144 bytes in 1 blocks
+==19647==         suppressed: 0 bytes in 0 blocks
+==19647== Reachable blocks (those to which a pointer was found) are not shown.
+==19647== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==19647== 
+==19647== For counts of detected and suppressed errors, rerun with: -v
+==19647== Use --track-origins=yes to see where uninitialised values come from
+==19647== ERROR SUMMARY: 3294 errors from 149 contexts (suppressed: 0 from 0)

@@ -30,8 +30,8 @@ ButtonLoader::~ButtonLoader()
     delete btn->_texture_clicked;
     delete btn->_texture;
     delete btn;
-    _images.erase(it);
   }
+  _images.clear();
 }
 
 Button *ButtonLoader::getButton(const std::string &buttonName, const char *file, const unsigned int line, const char *function)

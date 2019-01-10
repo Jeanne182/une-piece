@@ -205,12 +205,16 @@ void Character::deleteExpiredBonuses()
 {
   time_t currentTime = time(NULL);
   std::map<unsigned int, time_t>::iterator it;
-  for (it = _activeBonuses.begin(); it != _activeBonuses.end(); it++)
+  for (it = _activeBonuses.begin(); it != _activeBonuses.end();)
   {
     int expirationTime = (it->second) + BONUS_DURATION;
     if (currentTime == expirationTime)
     {
-      _activeBonuses.erase(it);
+      _activeBonuses.erase(it++);
+    }
+    else
+    {
+      ++it;
     }
   }
 }
