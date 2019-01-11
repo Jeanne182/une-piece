@@ -19,7 +19,7 @@ namespace UP
 static const bool USE_CHRONO = false;
 static const int WINDOW_WIDTH = 800;
 static const int WINDOW_HEIGHT = 800;
-static const bool DEBUG = true;
+static const bool DEBUG = false;
 static bool DEBUG_DISPLAY = false;
 static const float BASE_MAX_SPEED = 0.1f;
 
