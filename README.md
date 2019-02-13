@@ -5,7 +5,7 @@ A temple run based game made by IMAC
 ## Dependencies
 
 ```bash
-sudo apt-get install libsdl1.2-dev libsdl-mixer1.2-dev libglm-dev libglew-dev libassimp-dev libfreetype6-devsud freeglut3-dev
+sudo apt-get install libsdl1.2-dev libsdl-mixer1.2-dev libglm-dev libglew-dev libassimp-dev libfreetype6-dev freeglut3-dev
 
 ```
 
